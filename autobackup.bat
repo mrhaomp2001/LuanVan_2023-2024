@@ -10,3 +10,4 @@ set "datestamp=%YYYY%%MM%%DD%" & set "timestamp=%HH%%Min%%Sec%"
 set "fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%"
 git add .
 git commit -m "auto backup "%fullstamp%""
+set /p DUMMY=Hit ENTER to continue...
