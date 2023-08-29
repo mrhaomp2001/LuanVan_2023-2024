@@ -1,0 +1,163 @@
+.LOG
+
+2:30 PM 8/23/2023 =====
+
+tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn.
+
+Kế hoạch: 
+
+ Ứng dụng Android:
+ * thêm osa multi prefabs
+ * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * chuẩn bị ui cho phần bài đăng
+ * thiết kế thêm cho database like comment
+ 
+ - công việc tốn nhiều thời gian: 
+   + tìm hiểu LeanTween
+   + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
+
+ # Công việc chen ngang: 
+ - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước
+
+ # Kết quả: 
+ - chuẩn bị OSA multi prefabs cho ngày mai.
+ - tôi đã tạo dự án unity mới, code cũ quá lộn xộn.
+ - tôi đã tải ứng dụng duolingo về để làm mẫu UI cho ngày mai.
+ - có lẽ vì tôi vừa nghỉ việc nên tâm trạng chưa ổn định để làm việc.
+
+ > Công việc ngày mai:
+ 
+ Ứng dụng Android:
+ * thêm osa multi prefabs
+ * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * chuẩn bị ui cho phần bài đăng
+ * thiết kế thêm cho database like comment
+ 
+ # công việc tốn nhiều thời gian: 
+   + tìm hiểu LeanTween
+   + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
+
+8:11 AM 8/24/2023 =====
+
+Kế hoạch:
+
+ Ứng dụng Android:
+ * làm lại giao diện
+ * thêm osa multi prefabs
+ * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * chuẩn bị ui cho phần bài đăng
+ * thiết kế thêm cho database like comment
+ 
+ - công việc tốn nhiều thời gian: 
+   + tìm hiểu LeanTween
+   + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
+
+ # Công việc chen ngang: 
+ - đang phần vân: Chỉnh sửa database, phân loại độ khó của câu hỏi -> sẽ làm nhưng chưa
+ - viết api lấy tất cả các lớp học và làm giao diện chọn lớp học
+ - tôi đi ăn đám ma đó bạn, cất cả buổi chiều luôn
+
+ # Kết quả:
+ - hoàn thành script OSA Multi prefabs
+ - xây dựng giao diện giống Duolingo
+ - xây dựng và gọi api lấy danh sách lớp học
+ - xây dựng script điều hướng dựa trên stack<string>
+ - phân trang dữ liệu api
+ - gọi api lấy dữ liệu questions and answers nhưng chưa có giao diện
+
+
+ > Công việc ngày mai:
+ * thêm icons cho footer menu
+ * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
+ * thêm prefabs postItemPrefab.
+ * thêm giao diện thêm bài viết mới.
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * thiết kế thêm cho database like comment (chắc chưa làm)
+
+8:13 AM 8/25/2023 =====
+
+Kế hoạch:
+ * thêm icons cho footer menu
+ * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
+ * thêm prefabs postItemPrefab.
+ * thêm giao diện thêm bài viết mới.
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * thiết kế thêm cho database like comment (chắc chưa làm)
+
+ # Công việc chen ngang: 
+ - thiết kế giao diện cho phần chơi, không chỉ là thiết kế 2 prefabs questionItemPrefab và answerItemPrefab
+
+ # Kết quả:
+ - thêm icons cho footer menu
+ - thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
+ - thêm prefabs postItemPrefab
+ - thiết kế thêm cho database like comment
+ - thiết kế giao diện chơi
+
+ > Công việc ngày mai: (mai là thứ bảy, là ngày nghỉ, làm thì làm)
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+ * thêm giao diện thêm bài viết mới.
+ * thiết kế chức năng của bài viết (upvote, downvote)
+ * hiển thị bình luận của bài viết
+
+
+2:03 PM 8/26/2023 =====
+
+Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
+
+Kế hoạch:
+
+ * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+
+ # Công việc chen ngang: vì là thứ bảy, không ghi phần này
+
+ # Kết quả:
+ - Tìm hiểu LeanTween.
+ - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
+
+ > Công việc ngày mai: (mai là chủ nhật, là ngày nghỉ, làm thì làm)
+ * thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
+ * giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
+ * thêm giao diện thêm bài viết mới (làm phần template trước).
+ * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
+ * hiển thị bình luận của bài viết
+
+ - Mục tiêu dài hạn: 
+   + Bài viết theo template
+   + Lớp học có nhiều độ khó, 1 câu hỏi có thể nằm trong nhiều độ kho của lớp
+
+
+8:41 AM 8/28/2023 =====
+
+Kế hoạch:
+
+ * thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
+ * giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
+ * thêm giao diện thêm bài viết mới (làm phần template trước).
+ * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
+ * hiển thị bình luận của bài viết
+
+ # Kết quả:
+
+ * thêm script giao diện cho menu footer (thực hiện chuyển hướng bằng FooterMenuController.cs)
+ * giao diện chơi, làm cho giống duolingo (thêm slider progress)
+ * thêm giao diện thêm bài viết mới, chọn template và đăng bài, hiển thị quy định của template đó.
+
+ > Công việc ngày mai: 
+
+ * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
+ * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
+ * giao diện lớp học, mỗi lớp học có màu khác nhau, icon, hình ảnh trình bày khác nhau
+ * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
+ * hiển thị bình luận của bài viết
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+
+ - Mục tiêu dài hạn: 
+   + Lớp học có nhiều độ khó, 1 câu hỏi có thể nằm trong nhiều độ kho của lớp
+   + người dùng đã chơi đến độ khó nào
+
+

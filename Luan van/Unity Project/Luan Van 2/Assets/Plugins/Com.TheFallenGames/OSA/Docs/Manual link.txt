@@ -1,0 +1,4 @@
+You can access this faster via Tools->OSA->Manual
+Up-to-date online manual: https://docs.google.com/document/d/1iejN7K3iQ2AGeaja-kbL38C-JwE46SJjCHROIs8h1Vg/
+
+Q: You didn't open the README.txt under /Extra before importing the packages, did you?
