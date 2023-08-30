@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 namespace LuanVan.OSA
 {
+    [System.Serializable]
     public class PostItemViewsHolder : BaseVH
     {
         public ContentSizeFitter contentSizeFitter;
@@ -14,7 +15,9 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textContent;
         public TextMeshProUGUI textCreateDate;
+        public TextMeshProUGUI textLikeCount;
         public Image imageBackground;
+
 
         public override bool CanPresentModelType(Type modelType)
         {
@@ -31,6 +34,7 @@ namespace LuanVan.OSA
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_create_date", out textCreateDate);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_body/text_content", out textContent);
             root.GetComponentAtPath("layout_listview_item_content/img_background", out imageBackground);
+            root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_vote_count", out textLikeCount);
         }
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
         {
@@ -58,6 +62,11 @@ namespace LuanVan.OSA
 
             }
             imageBackground.color = themeColor;
+
+            textLikeCount.text = post.PostModel.LikeCount.ToString();
+
+            postListViewItem.UpdateLikeButtonColor();
+
             MarkForRebuild();
         }
 

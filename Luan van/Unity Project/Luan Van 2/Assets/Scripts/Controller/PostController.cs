@@ -17,6 +17,13 @@ public class PostController : MonoBehaviour
     [Header("UIs: ")]
     [Header("New Post: ")]
     [SerializeField] private TMP_InputField inputFieldNewPostContent;
+    [Header("Post Utilities:")]
+    [SerializeField] private bool isEdit;
+    [SerializeField] private UIPostTemplateModel templateModel;
+    [SerializeField] private RectTransform containerUtilitiesMenu;
+    [SerializeField] private RectTransform btnEditPost;
+    [SerializeField] private RectTransform btnDeletePost;
+    private UIPostModel postNeedEdit;
     [Header("Template: ")]
     [SerializeField] private string templateId;
     [SerializeField] private TextMeshProUGUI textTemplateName;
@@ -28,7 +35,8 @@ public class PostController : MonoBehaviour
 
     public IEnumerator GetPostsCoroutine()
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts?user-id=1");
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts" +
+            "?user_id=" + GlobalSetting.LoginUser.Id);
 
         yield return request.SendWebRequest();
 
@@ -67,6 +75,8 @@ public class PostController : MonoBehaviour
                     Username = resToValue["data"][i]["user"]["username"],
                     UserId = resToValue["data"][i]["user"]["id"],
                     ThemeColor = resToValue["data"][i]["post_template"]["theme_color"],
+                    LikeCount = (resToValue["data"][i]["post_likes_up"] - resToValue["data"][i]["post_likes_down"]),
+                    LikeStatus = (resToValue["data"][i]["like_status"] != null) ? resToValue["data"][i]["like_status"]["like_status"].ToString() : "0",
                 }
             });
         }
@@ -74,7 +84,7 @@ public class PostController : MonoBehaviour
         postOSA.Data.ResetItems(posts);
     }
 
-    public void UploadAPost()
+    public void UpdateOrCreatePost()
     {
         if (templateId.Equals("0"))
         {
@@ -86,7 +96,15 @@ public class PostController : MonoBehaviour
             footerNoticeController.SendAFooterMessage("Hãy nhập nội dung cho bài đăng");
             return;
         }
-        StartCoroutine(UploadAPostCoroutine());
+
+        if (isEdit)
+        {
+            StartCoroutine(UpdateAPostCoroutine());
+        }
+        else
+        {
+            StartCoroutine(UploadAPostCoroutine());
+        }
 
         redirector.Pop();
     }
@@ -96,10 +114,10 @@ public class PostController : MonoBehaviour
         WWWForm body = new WWWForm();
 
         body.AddField("content", inputFieldNewPostContent.text);
-        body.AddField("user_id", "1");
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
         body.AddField("post_template_id", templateId);
 
-        footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được xử lý");
+        footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được gửi");
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/posts", body);
 
@@ -121,14 +139,57 @@ public class PostController : MonoBehaviour
 
     }
 
-    public void ShowUIUploadNewPost()
+    public IEnumerator UpdateAPostCoroutine()
     {
+        WWWForm body = new WWWForm();
+
+        body.AddField("id", postNeedEdit.PostId);
+        body.AddField("content", inputFieldNewPostContent.text);
+        body.AddField("post_template_id", templateId);
+
+        footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được sửa");
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/edit", body);
+
+        postNeedEdit.Content = inputFieldNewPostContent.text;
+
+        postNeedEdit.ViewsHolder.textContent.text = postNeedEdit.Content;
+
+        postNeedEdit.PostTemplateId = templateModel.Id;
+        postNeedEdit.ThemeColor = templateModel.ThemeColor;
+        postNeedEdit.PosTemplateName = templateModel.Name;
+        postNeedEdit.PosTemplateContent = templateModel.Content;
+        postNeedEdit.ViewsHolder.MarkForRebuild();
+        postOSA.ScheduleForceRebuildLayout();
+
+        inputFieldNewPostContent.text = "";
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        footerNoticeController.SendAFooterMessage("Bạn đã sửa bài đăng thành công!");
+
+        string res = request.downloadHandler.text;
+
+
+        Debug.Log(res);
+    }
+
+    public void ShowUIUploadNewPostOrEditPost()
+    {
+        isEdit = false;
         templateId = "0";
         textTemplateName.text = "Hãy chọn 1 mãu bài đăng";
         textTemplateContentRules.text = "Hãy chọn 1 mẫu bài đăng để xem quy định của mẫu đó.";
         inputFieldNewPostContent.text = "";
         redirector.Push("post.upload");
     }
+
     public void ShowUISelectPostTemplate()
     {
         redirector.Push("post.upload.template");
@@ -175,6 +236,7 @@ public class PostController : MonoBehaviour
                     Content = resToValue["data"][i]["content"],
                     Id = resToValue["data"][i]["id"],
                     Name = resToValue["data"][i]["name"],
+                    ThemeColor = resToValue["data"][i]["theme_color"],
                 }
             });
         }
@@ -187,7 +249,64 @@ public class PostController : MonoBehaviour
         templateId = postTemplateModel.Id;
         textTemplateName.text = postTemplateModel.Name;
         textTemplateContentRules.text = postTemplateModel.Content;
-
+        templateModel = postTemplateModel;
         redirector.Pop();
+    }
+
+    public void UpdateOrCreateLikeStatus(UIPostModel postModel)
+    {
+        StartCoroutine(UpdateOrCreateLikeStatusCoroutine(postModel));
+    }
+
+    public IEnumerator UpdateOrCreateLikeStatusCoroutine(UIPostModel postModel)
+    {
+        WWWForm body = new WWWForm();
+
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("post_id", postModel.PostId);
+        body.AddField("like_status", postModel.LikeStatus);
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/like", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+    }
+
+    public void ShowPostUtilitiesMenu(UIPostModel postModel)
+    {
+        containerUtilitiesMenu.gameObject.SetActive(true);
+        btnDeletePost.gameObject.SetActive(false);
+        btnEditPost.gameObject.SetActive(false);
+
+        if (postModel.UserId.Equals(GlobalSetting.LoginUser.Id))
+        {
+            btnDeletePost.gameObject.SetActive(true);
+            btnEditPost.gameObject.SetActive(true);
+        }
+
+        isEdit = true;
+        postNeedEdit = postModel;
+
+        inputFieldNewPostContent.text = postModel.Content;
+
+        templateId = postModel.PostTemplateId;
+        textTemplateName.text = postModel.PosTemplateName;
+        textTemplateContentRules.text = postModel.PosTemplateContent;
+    }
+
+    public void ShowEditPostMenu()
+    {
+        containerUtilitiesMenu.gameObject.SetActive(false);
+        redirector.Push("post.upload");
     }
 }

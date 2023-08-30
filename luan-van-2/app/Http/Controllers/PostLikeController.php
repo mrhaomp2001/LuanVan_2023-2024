@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PostLike;
 use App\Http\Requests\StorePostLikeRequest;
 use App\Http\Requests\UpdatePostLikeRequest;
+use Illuminate\Support\Facades\Validator;
 
 class PostLikeController extends Controller
 {
@@ -62,5 +63,39 @@ class PostLikeController extends Controller
     public function destroy(PostLike $postLike)
     {
         //
+    }
+
+    public function createOrUpdateLikeStatus(UpdatePostLikeRequest $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required',
+                'post_id' => 'required',
+                'like_status' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+                'post_id.required' => 'Post Id không được rỗng',
+                'like_status.required' => 'Trạng thái không được rỗng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $post_like = PostLike::updateOrCreate(
+            [
+                'user_id' => $request->user_id, 
+                'post_id' => $request->post_id,
+            ],
+            [
+                'like_status' => $request->like_status,
+            ]
+        );
+
+        return response()->json(['data' => $post_like], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

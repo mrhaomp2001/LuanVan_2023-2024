@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,17 +67,17 @@ class PostController extends Controller
         //
     }
 
-    
+
     public function getPosts(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make(
             $input,
             [
-                'user-id' => 'required',
+                'user_id' => 'required',
             ],
             [
-                'user-id.required' => 'User Id không được rỗng',
+                'user_id.required' => 'User Id không được rỗng',
             ]
         );
 
@@ -85,17 +86,19 @@ class PostController extends Controller
         }
 
         $posts = Post::all();
+
         foreach ($posts as $post) {
             $post->post_template;
             $post->user;
-            $post->post_likes_up;
-            $post->post_likes_down;
-            
+            $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
+            $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
+            $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
         }
+
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function uploadAPost(Request $request)
+    public function uploadAPost(StorePostRequest $request)
     {
         $input = $request->all();
         $validator = Validator::make(
@@ -108,7 +111,7 @@ class PostController extends Controller
             [
                 'content.required' => 'Content không được rỗng',
                 'user_id.required' => 'User Id không được rỗng',
-                'post_template_id.required' => 'User Id không được rỗng',
+                'post_template_id.required' => 'Id mẫu bài viết không được rỗng',
             ]
         );
 
@@ -123,6 +126,37 @@ class PostController extends Controller
                 'content' => $request->content,
             ]
         );
+
+        return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function updatePost(UpdatePostRequest $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'id' => 'required',
+                'content' => 'required',
+                'post_template_id' => 'required',
+            ],
+            [
+                'id.required' => 'Id bài viết không được rỗng',
+                'content.required' => 'Nội dung không được rỗng',
+                'post_template_id.required' => 'Id của mẫu bài viếtkhông được rỗng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $post = Post::find($request->id);
+        $post->content = $request->content;
+        $post->post_template_id = $request->post_template_id;
+
+        $post->save();
+        $post->post_template;
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }

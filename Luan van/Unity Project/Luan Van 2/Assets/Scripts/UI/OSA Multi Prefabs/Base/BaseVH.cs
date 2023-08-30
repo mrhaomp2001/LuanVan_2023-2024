@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace LuanVan.OSA
 {
+    [System.Serializable]
     public abstract class BaseVH : BaseItemViewsHolder
     {
         public abstract bool CanPresentModelType(Type modelType);

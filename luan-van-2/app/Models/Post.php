@@ -25,16 +25,6 @@ class Post extends Model
         return $this->hasMany(PostLike::class, "post_id");
     }
 
-    public function post_likes_up()
-    {
-        return $this->hasMany(PostLike::class, "post_id")->where("like_status", "1");
-    }
-
-    public function post_likes_down()
-    {
-        return $this->hasMany(PostLike::class, "post_id")->where("like_status", "-1");
-    }
-
     public function comments()
     {
         return $this->hasMany(Comment::class, "post_id");

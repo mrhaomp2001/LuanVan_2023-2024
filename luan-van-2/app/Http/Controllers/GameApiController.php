@@ -99,8 +99,6 @@ class GameApiController extends Controller
 
         $user->classroom;
 
-        $user->posts;
-
         if (Hash::check($request->password, $user->password)) {
 
             return response()->json(

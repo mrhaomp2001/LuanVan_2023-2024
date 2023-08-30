@@ -195,7 +195,24 @@ Kế hoạch:
  * hiển thị bình luận của bài viết
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên
+
+ # Công việc chen ngang:
+ * cần phải xem lại login và đẩy dữ liệu login vào global.
 
  # Kết quả:
 
+ * thiết kế chức năng của bài viết (show, upvote, downvote, update) (không biết delete thì làm sao nhỉ?)
+ * tạo login giả tạm thời.
+
  > Công việc ngày mai: 
+
+ * hiển thị bình luận của bài viết
+ * thiết kế chức năng của bài viết (delete, report)
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên

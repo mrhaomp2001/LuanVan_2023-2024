@@ -11,6 +11,7 @@ namespace LuanVan.OSA
         [SerializeField] private string name;
         [SerializeField] private string content;
         [SerializeField] private string createAt;
+        [SerializeField] private string themeColor;
 
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private PostTemplateItemViewsHolder viewsHolder;
@@ -21,5 +22,6 @@ namespace LuanVan.OSA
         public string CreateAt { get => createAt; set => createAt = value; }
         public int ItemIndexOSA { get => itemIndexOSA; set => itemIndexOSA = value; }
         public PostTemplateItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
+        public string ThemeColor { get => themeColor; set => themeColor = value; }
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,9 @@ Route::post('/register', [GameApiController::class, 'register']);
 
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::post('/posts', [PostController::class, 'uploadAPost']);
+Route::post('/post/edit', [PostController::class, 'updatePost']);
+
+Route::post('/post/like', [PostLikeController::class, 'createOrUpdateLikeStatus']);
 
 Route::get('/post-templates', [PostTemplateController::class, 'indexApi']);
 Route::post('/post-templates', [PostTemplateController::class, 'storeApi']);

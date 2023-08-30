@@ -19,6 +19,9 @@ namespace LuanVan.OSA
         [SerializeField] private string posTemplateName;
         [SerializeField] private string posTemplateContent;
 
+        [SerializeField] private int likeCount;
+        [SerializeField] private string likeStatus;
+
         [SerializeField] private string themeColor;
 
         [SerializeField] private int itemIndexOSA;
@@ -36,5 +39,8 @@ namespace LuanVan.OSA
         public int ItemIndexOSA { get => itemIndexOSA; set => itemIndexOSA = value; }
         public PostItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
         public string ThemeColor { get => themeColor; set => themeColor = value; }
+        public int LikeCount { get => likeCount; set => likeCount = value; }
+
+        public string LikeStatus { get => likeStatus; set => likeStatus = value; }
     }
 }
