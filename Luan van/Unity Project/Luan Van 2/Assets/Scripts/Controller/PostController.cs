@@ -66,6 +66,7 @@ public class PostController : MonoBehaviour
                     UserFullname = resToValue["data"][i]["user"]["name"],
                     Username = resToValue["data"][i]["user"]["username"],
                     UserId = resToValue["data"][i]["user"]["id"],
+                    ThemeColor = resToValue["data"][i]["post_template"]["theme_color"],
                 }
             });
         }

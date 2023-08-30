@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Http\Requests\StoreClassroomRequest;
 use App\Http\Requests\UpdateClassroomRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ClassroomController extends Controller
 {
@@ -62,5 +63,38 @@ class ClassroomController extends Controller
     public function destroy(Classroom $classroom)
     {
         //
+    }
+
+    public function updateApi(UpdateClassroomRequest $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'id' => 'required',
+                'name' => 'required',
+                'description' => 'required',
+                'theme_color' => 'required',
+            ],
+            [
+                'id.required' => 'Id không được để trống',
+                'name.required' => 'Content không được rỗng',
+                'description.required' => 'User Id không được rỗng',
+                'theme_color.required' => 'User Id không được rỗng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $classroom = Classroom::find($request->id);
+        $classroom->name = $request->name;
+        $classroom->description = $request->description;
+        $classroom->theme_color = $request->theme_color;
+
+        $classroom->save();
+
+        return response()->json(['data' => $classroom], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

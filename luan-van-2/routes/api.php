@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostTemplateController;
 use Illuminate\Http\Request;
@@ -39,3 +40,5 @@ Route::post('/posts', [GameApiController::class, 'uploadAPost']);
 
 Route::get('/post-templates', [PostTemplateController::class, 'indexApi']);
 Route::post('/post-templates', [PostTemplateController::class, 'storeApi']);
+
+Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);

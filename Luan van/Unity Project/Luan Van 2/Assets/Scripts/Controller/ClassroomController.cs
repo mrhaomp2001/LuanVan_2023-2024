@@ -1,7 +1,9 @@
 using Library;
 using LuanVan.OSA;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -51,8 +53,11 @@ public class ClassroomController : MonoBehaviour
 
     [Header("Play Stats: ")]
     [SerializeField] private int currentQuestion;
+    [SerializeField] private int correctAnswersCount;
     [SerializeField] private UIAnswerModel currentAnswerSelect;
     [SerializeField] private List<QuestionWithAnswers> listOfCurrentQuestions = new List<QuestionWithAnswers>();
+    [SerializeField] private float playTime;
+    [SerializeField] private bool isStartPlayTimer;
     [Header("UIs Play: ")]
     [SerializeField] private Button buttonCheckAnswer;
     [SerializeField] private Slider sliderProgress;
@@ -60,13 +65,27 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private RectTransform uiComplete;
     [SerializeField] private Color colorSelectAnswer;
     [SerializeField] private Color colorNonSelectAnswer;
+    [SerializeField] private TextMeshProUGUI textPlayTime;
+    [SerializeField] private TextMeshProUGUI textAccuracy;
+
+
+    private void Update()
+    {
+        if (isStartPlayTimer)
+        {
+            playTime += Time.deltaTime;
+        }
+    }
 
     /// <summary>
     /// call in button get classroom
     /// </summary>
     public void GetClassrooms()
     {
-        StartCoroutine(GetClassroomCoroutine());
+        if (classroomOSA.Data.Count <= 0)
+        {
+            StartCoroutine(GetClassroomCoroutine());
+        }
     }
 
     public IEnumerator GetClassroomCoroutine()
@@ -107,6 +126,8 @@ public class ClassroomController : MonoBehaviour
                     Description = resToValue["data"]["data"][i]["description"],
                     Id = resToValue["data"]["data"][i]["id"],
                     Name = resToValue["data"]["data"][i]["name"],
+                    AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
+                    ThemeColor = resToValue["data"]["data"][i]["theme_color"],
                 }
             });
         }
@@ -121,6 +142,7 @@ public class ClassroomController : MonoBehaviour
         redirector.Push("play");
 
         currentQuestion = 0;
+        correctAnswersCount = 0;
         sliderProgress.maxValue = questionAmount;
         sliderProgress.value = currentQuestion;
 
@@ -210,6 +232,9 @@ public class ClassroomController : MonoBehaviour
             }
         });
         playOSA.ScheduleForceRebuildLayout();
+
+        playTime = 0f;
+        StartPlayTimer();
     }
 
     public void SelectAnswer(UIAnswerModel answerModel)
@@ -238,6 +263,7 @@ public class ClassroomController : MonoBehaviour
         if (currentAnswerSelect.IsCorrect)
         {
             uiCorrectNotice.gameObject.SetActive(true);
+            correctAnswersCount++;
         }
         else
         {
@@ -268,7 +294,15 @@ public class ClassroomController : MonoBehaviour
 
         if (currentQuestion == questionAmount)
         {
+            StopPlayerTimer();
+
             uiComplete.gameObject.SetActive(true);
+            textAccuracy.text = correctAnswersCount.ToString() + "/" + questionAmount;
+
+            TimeSpan timeSpanInPlay = TimeSpan.FromSeconds((double)playTime);
+
+            textPlayTime.text = timeSpanInPlay.Minutes.ToString("00") + ":" + timeSpanInPlay.Seconds.ToString("00");
+
             return;
         }
 
@@ -306,4 +340,16 @@ public class ClassroomController : MonoBehaviour
         uiComplete.gameObject.SetActive(false);
         redirector.Pop();
     }
+
+    public void StartPlayTimer()
+    {
+        isStartPlayTimer = true;
+    }
+
+    public void StopPlayerTimer()
+    {
+        isStartPlayTimer = false;
+    }
+
+
 }

@@ -19,6 +19,8 @@ namespace LuanVan.OSA
         [SerializeField] private string posTemplateName;
         [SerializeField] private string posTemplateContent;
 
+        [SerializeField] private string themeColor;
+
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private PostItemViewsHolder viewsHolder;
 
@@ -33,5 +35,6 @@ namespace LuanVan.OSA
         public string PosTemplateContent { get => posTemplateContent; set => posTemplateContent = value; }
         public int ItemIndexOSA { get => itemIndexOSA; set => itemIndexOSA = value; }
         public PostItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
+        public string ThemeColor { get => themeColor; set => themeColor = value; }
     }
 }

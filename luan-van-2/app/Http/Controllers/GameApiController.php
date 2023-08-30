@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -133,6 +134,16 @@ class GameApiController extends Controller
         }
 
         $classrooms = Classroom::simplePaginate($request->per_page);
+
+        foreach ($classrooms as $classroom) {
+
+            if (Storage::disk('public')->exists('classrooms/avatars/' . $classroom->id . ".png")) {
+                $classroom->avatar_path = Storage::url('classrooms/avatars/' . $classroom->id . ".png");
+            }
+            else {
+                $classroom->avatar_path = "";
+            }
+        }
 
         return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
     }

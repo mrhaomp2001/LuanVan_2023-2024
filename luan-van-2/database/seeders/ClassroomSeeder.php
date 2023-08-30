@@ -18,6 +18,7 @@ class ClassroomSeeder extends Seeder
             $classroom = new Classroom;
             $classroom->name = 'Lớp học ' . $i;
             $classroom->description = "Miêu tả lớp học " . $i;
+            $classroom->theme_color = "#3C5A8C";
             $classroom->save();
         }
     }

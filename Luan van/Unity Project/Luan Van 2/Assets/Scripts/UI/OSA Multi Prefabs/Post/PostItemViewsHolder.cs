@@ -14,6 +14,7 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textContent;
         public TextMeshProUGUI textCreateDate;
+        public Image imageBackground;
 
         public override bool CanPresentModelType(Type modelType)
         {
@@ -29,6 +30,7 @@ namespace LuanVan.OSA
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_name", out textName);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_create_date", out textCreateDate);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_body/text_content", out textContent);
+            root.GetComponentAtPath("layout_listview_item_content/img_background", out imageBackground);
         }
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
         {
@@ -49,6 +51,13 @@ namespace LuanVan.OSA
             textCreateDate.text = postCreateDate.ToString("yyyy-MM-dd HH:mm");
             textContent.text = post.PostModel.Content;
 
+            Color themeColor = Color.white;
+
+            if (ColorUtility.TryParseHtmlString(postListViewItem.PostModel.ThemeColor, out themeColor))
+            {
+
+            }
+            imageBackground.color = themeColor;
             MarkForRebuild();
         }
 

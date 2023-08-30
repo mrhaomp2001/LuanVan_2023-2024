@@ -12,16 +12,7 @@
         <h1>Start Debug Here!</h1>
         <br />
         <h3 class="text-white">
-           Câu hỏi: {{ $question->content }}
-           <br />
-           @foreach ($answers as $answer)
-               {{ $answer->content }}
-               <br />
-           @endforeach
-           <br />
-           Cau trả lời test: {{ $answers1->content }}
-           <br />
-           câu hỏi test: {{ $question1 }}
+           Dữ liệu: {{ $data }}
         </h3>
         <br />
         <h1>End Debug Here!</h1>

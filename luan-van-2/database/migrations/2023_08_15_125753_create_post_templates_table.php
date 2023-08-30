@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("content");
+            $table->string("theme_color");
             $table->timestamps();
         });
     }

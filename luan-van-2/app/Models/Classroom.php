@@ -16,6 +16,7 @@ class Classroom extends Model
     protected $fillable = [
         'name',
         'description',
+        'theme_color',
     ];
 
     public function questions()

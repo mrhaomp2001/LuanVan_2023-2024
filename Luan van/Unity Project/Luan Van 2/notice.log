@@ -161,3 +161,28 @@ Kế hoạch:
    + người dùng đã chơi đến độ khó nào
 
 
+
+9:25 AM 8/29/2023 =====
+
+Kế hoạch:
+
+ * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
+ * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
+ * giao diện lớp học, mỗi lớp học có màu khác nhau, icon, hình ảnh trình bày khác nhau
+ * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
+ * hiển thị bình luận của bài viết
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+
+ # Kết quả:
+
+ * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
+ * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau (có cần icon khác nhau không?)
+ * giao diện lớp học, mỗi lớp học có màu khác nhau, icon, hình ảnh trình bày khác nhau
+
+ > Công việc ngày mai: 
+
+ * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
+ * hiển thị bình luận của bài viết
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi

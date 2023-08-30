@@ -14,11 +14,15 @@ class PostTemplateSeeder extends Seeder
     public function run(): void
     {
         //
-        PostTemplate::create(
-            [
-                'name' => "Mẫu số 1",
-                'content' => "Nội dung quy định mẫu số 1",
-            ]
-        );
+        for ($i=1; $i < 4; $i++) { 
+            PostTemplate::create(
+                [
+                    'name' => "Mẫu số " . $i,
+                    'content' => "Nội dung quy định mẫu số " . $i,
+                    'theme_color' => "#141e28"
+                ]
+            );
+        }
+
     }
 }

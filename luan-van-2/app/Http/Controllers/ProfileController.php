@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Models\Answer;
 use App\Models\Question;
@@ -18,15 +19,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        $question = Question::find(2);
-        $answer = Answer::find(1);
-        $question1 = Answer::find(1)->question->content;
+        $url = "1";
+
         return view('profile.edit', [
             'user' => $request->user(),
-            'question' => $question,
-            'answers' => $question->answers,
-            'answers1'=> $answer,
-            'question1' => $question1,
+            'data' => $url,
         ]);
     }
 

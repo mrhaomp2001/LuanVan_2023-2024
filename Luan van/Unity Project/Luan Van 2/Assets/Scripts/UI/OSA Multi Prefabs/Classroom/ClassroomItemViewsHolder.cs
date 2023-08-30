@@ -1,10 +1,12 @@
-using frame8.Logic.Misc.Other.Extensions;
+﻿using frame8.Logic.Misc.Other.Extensions;
+using Library;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace LuanVan.OSA
 {
     [System.Serializable]
@@ -13,7 +15,7 @@ namespace LuanVan.OSA
         public ContentSizeFitter contentSizeFitter;
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textDescription;
-
+        public Image imageBackground;
         public UIClassroomListViewItem classroomListViewItem;
 
         public override bool CanPresentModelType(Type modelType)
@@ -29,6 +31,7 @@ namespace LuanVan.OSA
 
             root.GetComponentAtPath("layout_listview_item_content/text_classroom_name", out textName);
             root.GetComponentAtPath("layout_listview_item_content/text_classroom_description", out textDescription);
+            root.GetComponentAtPath("img_backround", out imageBackground);
         }
 
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
@@ -41,8 +44,18 @@ namespace LuanVan.OSA
             classroomListViewItem.ClassroomModel.ItemIndexOSA = model.id;
             classroomListViewItem.ClassroomModel.ViewsHolder = baseVH as ClassroomItemViewsHolder;
 
+            classroomListViewItem.CheckAndDownloadAvatar();
+
+            Color themeColor = Color.white;
+
+            if (ColorUtility.TryParseHtmlString(classroomListViewItem.ClassroomModel.ThemeColor, out themeColor))
+            {
+
+            }
+
             textName.text = classroom.ClassroomModel.Name;
             textDescription.text = classroom.ClassroomModel.Description;
+            imageBackground.color = themeColor;
 
             MarkForRebuild();
         }
