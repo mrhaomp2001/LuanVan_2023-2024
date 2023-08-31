@@ -216,3 +216,23 @@ Kế hoạch:
  * phân trang dữ liệu cho các bài viết
  * xem lại các ràng buộc dữ liệu của các api
  * nhớ xem kích thước của tệp khi tải lên
+
+8:55 AM 8/31/2023 =====
+
+Kế hoạch:
+
+ * hiển thị bình luận của bài viết
+ * thiết kế chức năng của bài viết (delete, report)
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+ * Chuyển đổi Datetime của bình luận và bài viết
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+
+
+ # Kết quả:
+
+ > Công việc ngày mai: 
