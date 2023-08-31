@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
@@ -29,6 +30,8 @@ Route::Resources(["/answers" => AnswerController::class]);
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
 Route::get('/classrooms', [GameApiController::class, 'getClassrooms']);
 
+Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
+
 Route::get('/login', [GameApiController::class, 'login']);
 Route::post('/register', [GameApiController::class, 'register']);
 
@@ -41,4 +44,5 @@ Route::post('/post/like', [PostLikeController::class, 'createOrUpdateLikeStatus'
 Route::get('/post-templates', [PostTemplateController::class, 'indexApi']);
 Route::post('/post-templates', [PostTemplateController::class, 'storeApi']);
 
-Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
+Route::get('post/comments', [CommentController::class, 'getComments']);
+Route::post('post/comments', [CommentController::class, 'storeApi']);

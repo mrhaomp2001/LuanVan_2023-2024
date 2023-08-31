@@ -224,7 +224,7 @@ Kế hoạch:
  * hiển thị bình luận của bài viết
  * thiết kế chức năng của bài viết (delete, report)
  * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
- * Chuyển đổi Datetime của bình luận và bài viết
+ * Chuyển đổi Datetime của bình luận và bài viết	
  * xem lại các ràng buộc dữ liệu của các api
  * nhớ xem kích thước của tệp khi tải lên
  * trang login
@@ -235,4 +235,18 @@ Kế hoạch:
 
  # Kết quả:
 
+ * hiển thị bình luận của bài viết
+ * hiển thị số bình luận của bài viết
+ * fix bug: khi chỉnh sửa mà không chọn template sẽ bị lỗi
+
  > Công việc ngày mai: 
+
+ * thiết kế chức năng của bài viết (delete, report)
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+ * Chuyển đổi Datetime của bình luận và bài viết	
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên (tìm hiểu)
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết

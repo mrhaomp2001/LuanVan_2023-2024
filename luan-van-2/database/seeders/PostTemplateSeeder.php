@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\PostTemplate;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 class PostTemplateSeeder extends Seeder
 {
@@ -14,12 +15,14 @@ class PostTemplateSeeder extends Seeder
     public function run(): void
     {
         //
-        for ($i=1; $i < 4; $i++) { 
+        $faker = Factory::create();
+        for ($i = 1; $i < 4; $i++) {
+            $hex = $faker->hexColor();
             PostTemplate::create(
                 [
                     'name' => "Mẫu số " . $i,
                     'content' => "Nội dung quy định mẫu số " . $i,
-                    'theme_color' => "#141e28"
+                    'theme_color' => $hex,
                 ]
             );
         }

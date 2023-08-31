@@ -19,6 +19,8 @@ namespace LuanVan.OSA
         [SerializeField] private string posTemplateName;
         [SerializeField] private string posTemplateContent;
 
+        [SerializeField] private int commentCount;
+
         [SerializeField] private int likeCount;
         [SerializeField] private string likeStatus;
 
@@ -42,5 +44,6 @@ namespace LuanVan.OSA
         public int LikeCount { get => likeCount; set => likeCount = value; }
 
         public string LikeStatus { get => likeStatus; set => likeStatus = value; }
+        public int CommentCount { get => commentCount; set => commentCount = value; }
     }
 }

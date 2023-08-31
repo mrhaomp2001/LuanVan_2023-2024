@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -85,11 +86,12 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $posts = Post::all();
+        $posts = Post::all([]);
 
         foreach ($posts as $post) {
             $post->post_template;
             $post->user;
+            $post->comment_count = Comment::where("post_id", $post->id)->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
@@ -143,7 +145,7 @@ class PostController extends Controller
             [
                 'id.required' => 'Id bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
-                'post_template_id.required' => 'Id của mẫu bài viếtkhông được rỗng',
+                'post_template_id.required' => 'Id của mẫu bài viết không được rỗng',
             ]
         );
 

@@ -16,6 +16,7 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textContent;
         public TextMeshProUGUI textCreateDate;
         public TextMeshProUGUI textLikeCount;
+        public TextMeshProUGUI textCommentCount;
         public Image imageBackground;
 
 
@@ -35,6 +36,7 @@ namespace LuanVan.OSA
             root.GetComponentAtPath("layout_listview_item_content/layout_post_body/text_content", out textContent);
             root.GetComponentAtPath("layout_listview_item_content/img_background", out imageBackground);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_vote_count", out textLikeCount);
+            root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_comment_count", out textCommentCount);
         }
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
         {
@@ -64,6 +66,8 @@ namespace LuanVan.OSA
             imageBackground.color = themeColor;
 
             textLikeCount.text = post.PostModel.LikeCount.ToString();
+
+            textCommentCount.text = post.PostModel.CommentCount.ToString();
 
             postListViewItem.UpdateLikeButtonColor();
 

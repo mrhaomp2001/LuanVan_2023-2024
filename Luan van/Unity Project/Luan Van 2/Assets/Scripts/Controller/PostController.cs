@@ -2,6 +2,7 @@
 using LuanVan.OSA;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,21 +14,25 @@ public class PostController : MonoBehaviour
     [SerializeField] private FooterNoticeController footerNoticeController;
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA postOSA;
+    [SerializeField] private UIMultiPrefabsOSA postCommentOSA;
     [SerializeField] private UIMultiPrefabsOSA postTemplateOSA;
     [Header("UIs: ")]
     [Header("New Post: ")]
     [SerializeField] private TMP_InputField inputFieldNewPostContent;
     [Header("Post Utilities:")]
     [SerializeField] private bool isEdit;
-    [SerializeField] private UIPostTemplateModel templateModel;
+    [SerializeField] private UIPostTemplateModel templateModel = new UIPostTemplateModel();
     [SerializeField] private RectTransform containerUtilitiesMenu;
     [SerializeField] private RectTransform btnEditPost;
     [SerializeField] private RectTransform btnDeletePost;
-    private UIPostModel postNeedEdit;
+    [Header("Comments: ")]
+    [SerializeField] private TMP_InputField inputFieldNewCommentContent;
     [Header("Template: ")]
     [SerializeField] private string templateId;
     [SerializeField] private TextMeshProUGUI textTemplateName;
     [SerializeField] private TextMeshProUGUI textTemplateContentRules;
+
+    private UIPostModel currentPostSelect;
     public void GetPosts()
     {
         StartCoroutine(GetPostsCoroutine());
@@ -77,6 +82,7 @@ public class PostController : MonoBehaviour
                     ThemeColor = resToValue["data"][i]["post_template"]["theme_color"],
                     LikeCount = (resToValue["data"][i]["post_likes_up"] - resToValue["data"][i]["post_likes_down"]),
                     LikeStatus = (resToValue["data"][i]["like_status"] != null) ? resToValue["data"][i]["like_status"]["like_status"].ToString() : "0",
+                    CommentCount = resToValue["data"][i]["comment_count"],
                 }
             });
         }
@@ -143,7 +149,7 @@ public class PostController : MonoBehaviour
     {
         WWWForm body = new WWWForm();
 
-        body.AddField("id", postNeedEdit.PostId);
+        body.AddField("id", currentPostSelect.PostId);
         body.AddField("content", inputFieldNewPostContent.text);
         body.AddField("post_template_id", templateId);
 
@@ -151,16 +157,17 @@ public class PostController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/edit", body);
 
-        postNeedEdit.Content = inputFieldNewPostContent.text;
+        currentPostSelect.Content = inputFieldNewPostContent.text;
 
-        postNeedEdit.ViewsHolder.textContent.text = postNeedEdit.Content;
+        currentPostSelect.ViewsHolder.textContent.text = currentPostSelect.Content;
 
-        postNeedEdit.PostTemplateId = templateModel.Id;
-        postNeedEdit.ThemeColor = templateModel.ThemeColor;
-        postNeedEdit.PosTemplateName = templateModel.Name;
-        postNeedEdit.PosTemplateContent = templateModel.Content;
-        postNeedEdit.ViewsHolder.MarkForRebuild();
-        postOSA.ScheduleForceRebuildLayout();
+        currentPostSelect.PostTemplateId = templateModel.Id;
+        currentPostSelect.ThemeColor = templateModel.ThemeColor;
+        currentPostSelect.PosTemplateName = templateModel.Name;
+        currentPostSelect.PosTemplateContent = templateModel.Content;
+        currentPostSelect.ViewsHolder.MarkForRebuild();
+
+        postOSA.ForceUpdateViewsHolderIfVisible(currentPostSelect.ItemIndexOSA);
 
         inputFieldNewPostContent.text = "";
 
@@ -295,18 +302,160 @@ public class PostController : MonoBehaviour
         }
 
         isEdit = true;
-        postNeedEdit = postModel;
+        currentPostSelect = postModel;
 
         inputFieldNewPostContent.text = postModel.Content;
 
         templateId = postModel.PostTemplateId;
         textTemplateName.text = postModel.PosTemplateName;
         textTemplateContentRules.text = postModel.PosTemplateContent;
+
+        templateModel.ThemeColor = postModel.ThemeColor;
     }
 
     public void ShowEditPostMenu()
     {
         containerUtilitiesMenu.gameObject.SetActive(false);
         redirector.Push("post.upload");
+    }
+
+    public void ShowUIPostCommentAndGetComments(UIPostModel postModel)
+    {
+        currentPostSelect = postModel;
+        postCommentOSA.Data.ResetItems(new List<BaseModel>());
+        redirector.Push("post.comment");
+
+        postCommentOSA.Data.InsertOneAtStart(new PostItemModel()
+        {
+            PostModel = postModel,
+        });
+
+        StartCoroutine(GetCommentsCoroutine(postModel));
+    }
+
+    public IEnumerator GetCommentsCoroutine(UIPostModel postModel)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/post/comments" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&post_id=" + postModel.PostId);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetCommentsResponse(res);
+    }
+
+    public void GetCommentsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var commentModels = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"].Count; i++)
+        {
+            commentModels.Add(new CommentItemModel
+            {
+                CommentModel = new UICommentModel()
+                {
+                    Content = resToValue["data"][i]["content"],
+                    CreatedAt = resToValue["data"][i]["created_at"],
+                    Id = resToValue["data"][i]["id"],
+                    PostId = resToValue["data"][i]["post_id"],
+                    UserId = resToValue["data"][i]["user_id"],
+                    UserFullName = resToValue["data"][i]["user"]["name"],
+                    Username = resToValue["data"][i]["user"]["username"],
+                }
+            });
+        }
+
+        postCommentOSA.Data.InsertItems(1, commentModels);
+    }
+
+    public void SendComment()
+    {
+        StartCoroutine(SendCommentCoroutine());
+    }
+
+    public IEnumerator SendCommentCoroutine()
+    {
+        WWWForm body = new WWWForm();
+
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("post_id", currentPostSelect.PostId);
+        body.AddField("content", inputFieldNewCommentContent.text);
+
+        inputFieldNewCommentContent.text = "";
+
+        var post = postCommentOSA.Data[0] as PostItemModel;
+
+        if (post != null)
+        {
+            post.PostModel.CommentCount++;
+            if (post.PostModel.ViewsHolder != null)
+            {
+                post.PostModel.ViewsHolder.textCommentCount.text = post.PostModel.CommentCount.ToString();
+            }
+        }
+        foreach (var postInPostOSA in postOSA.Data)
+        {
+            if (!(postInPostOSA is PostItemModel postNeedEdit))
+            {
+                continue;
+            }
+
+            if (postNeedEdit.PostModel.PostId.Equals(post.PostModel.PostId))
+            {
+                postOSA.ForceUpdateViewsHolderIfVisible(postInPostOSA.id);
+                break;
+            }
+        }
+
+        footerNoticeController.SendAFooterMessage("Đang gửi bình luận của bạn");
+
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/comments", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        footerNoticeController.SendAFooterMessage("Gửi bình luận Thành công");
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        var resToValue = JSONNode.Parse(res);
+
+        var comment = new CommentItemModel
+        {
+            CommentModel = new UICommentModel()
+            {
+                Content = resToValue["data"]["content"],
+                CreatedAt = resToValue["data"]["created_at"],
+                Id = resToValue["data"]["id"],
+                PostId = resToValue["data"]["post_id"],
+                UserId = resToValue["data"]["user_id"],
+                UserFullName = resToValue["data"]["user"]["name"],
+                Username = resToValue["data"]["user"]["username"],
+            }
+        };
+
+        postCommentOSA.Data.InsertOne(1, comment);
+
+
     }
 }

@@ -131,7 +131,7 @@ class GameApiController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $classrooms = Classroom::simplePaginate($request->per_page);
+        $classrooms = Classroom::orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
 
         foreach ($classrooms as $classroom) {
 

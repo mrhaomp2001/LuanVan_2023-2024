@@ -88,5 +88,10 @@ namespace LuanVan.OSA
         {
             postController.ShowPostUtilitiesMenu(postModel);
         }
+
+        public void ShowUIPostCommentAndGetComments()
+        {
+            postController.ShowUIPostCommentAndGetComments(postModel);
+        }
     }
 }
