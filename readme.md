@@ -250,3 +250,43 @@ Kế hoạch:
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
  * phân trang dữ liệu cho các bài viết
+
+10:03 AM 9/1/2023 =====
+
+Kế hoạch: 
+
+ * thiết kế chức năng của bài viết (delete, report)
+ * thiết kế databse cho việc thích bình luận
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+ * Chuyển đổi Datetime của bình luận và bài viết	
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên (tìm hiểu)
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * thiết kế database thêm trường đăng nhập lần cuối
+ * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+ * kết bạn và danh sách bạn bè
+
+ # Kết quả:
+
+ * thêm trạng thái của bài viết (1: public, 2 private, 3 deleted)
+ * thiết kế chức năng của bài viết (delete)
+
+
+ > Công việc ngày mai: 
+
+ * thiết kế chức năng của bài viết (public, private, report)
+ * thiết kế databse cho việc thích bình luận
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+ * Chuyển đổi Datetime của bình luận và bài viết	
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên (tìm hiểu)
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * thiết kế database thêm trường đăng nhập lần cuối
+ * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+ * kết bạn và danh sách bạn bè

@@ -19,6 +19,7 @@ class PostSeeder extends Seeder
                 'user_id' => "1",
                 'post_template_id' => "1",
                 'content' => "Đây là nội dung bài viết số 1",
+                'post_status_id' => 1
             ]
         );
     }

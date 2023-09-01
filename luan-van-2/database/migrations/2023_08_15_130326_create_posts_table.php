@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("content");
             $table->integer("user_id");
             $table->integer("post_template_id");
+            $table->integer("post_status_id");
             $table->timestamps();
         });
     }

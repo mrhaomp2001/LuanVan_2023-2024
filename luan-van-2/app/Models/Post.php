@@ -18,6 +18,7 @@ class Post extends Model
         'content',
         'user_id',
         'post_template_id',
+        'post_status_id',
     ];
 
     public function post_likes()

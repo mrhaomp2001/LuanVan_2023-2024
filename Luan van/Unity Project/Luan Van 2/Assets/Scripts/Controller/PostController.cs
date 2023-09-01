@@ -4,11 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 public class PostController : MonoBehaviour
 {
+    [Header("Post Stats: ")]
+    [SerializeField] private int page;
+    [SerializeField] private int postGetPerPage;
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private FooterNoticeController footerNoticeController;
@@ -41,7 +45,9 @@ public class PostController : MonoBehaviour
     public IEnumerator GetPostsCoroutine()
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts" +
-            "?user_id=" + GlobalSetting.LoginUser.Id);
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&page=" + page +
+            "&per_page=" + postGetPerPage);
 
         yield return request.SendWebRequest();
 
@@ -64,25 +70,25 @@ public class PostController : MonoBehaviour
 
         var posts = new List<BaseModel>();
 
-        for (int i = 0; i < resToValue["data"].Count; i++)
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
             posts.Add(new PostItemModel()
             {
                 PostModel = new UIPostModel()
                 {
-                    PostId = resToValue["data"][i]["id"],
-                    Content = resToValue["data"][i]["content"],
-                    CreateAt = resToValue["data"][i]["created_at"],
-                    PosTemplateContent = resToValue["data"][i]["post_template"]["content"],
-                    PosTemplateName = resToValue["data"][i]["post_template"]["name"],
-                    PostTemplateId = resToValue["data"][i]["post_template"]["id"],
-                    UserFullname = resToValue["data"][i]["user"]["name"],
-                    Username = resToValue["data"][i]["user"]["username"],
-                    UserId = resToValue["data"][i]["user"]["id"],
-                    ThemeColor = resToValue["data"][i]["post_template"]["theme_color"],
-                    LikeCount = (resToValue["data"][i]["post_likes_up"] - resToValue["data"][i]["post_likes_down"]),
-                    LikeStatus = (resToValue["data"][i]["like_status"] != null) ? resToValue["data"][i]["like_status"]["like_status"].ToString() : "0",
-                    CommentCount = resToValue["data"][i]["comment_count"],
+                    PostId = resToValue["data"]["data"][i]["id"],
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreateAt = resToValue["data"]["data"][i]["created_at"],
+                    PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
+                    PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
+                    PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
+                    UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    UserId = resToValue["data"]["data"][i]["user"]["id"],
+                    ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
+                    LikeCount = (resToValue["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
+                    LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
+                    CommentCount = resToValue["data"]["data"][i]["comment_count"],
                 }
             });
         }
@@ -122,6 +128,7 @@ public class PostController : MonoBehaviour
         body.AddField("content", inputFieldNewPostContent.text);
         body.AddField("user_id", GlobalSetting.LoginUser.Id);
         body.AddField("post_template_id", templateId);
+        body.AddField("post_status_id", 1);
 
         footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được gửi");
 
@@ -180,6 +187,69 @@ public class PostController : MonoBehaviour
         }
 
         footerNoticeController.SendAFooterMessage("Bạn đã sửa bài đăng thành công!");
+
+        string res = request.downloadHandler.text;
+
+
+        Debug.Log(res);
+    }
+
+    public void DeletePost()
+    {
+        StartCoroutine(DeleteAPostCoroutine());
+    }
+
+    public IEnumerator DeleteAPostCoroutine()
+    {
+        WWWForm body = new WWWForm();
+
+        body.AddField("id", currentPostSelect.PostId);
+        body.AddField("content", inputFieldNewPostContent.text);
+        body.AddField("post_template_id", templateId);
+        body.AddField("post_status_id", 3);
+
+        footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được xóa");
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/edit", body);
+
+        currentPostSelect.Content = inputFieldNewPostContent.text;
+
+        currentPostSelect.ViewsHolder.textContent.text = currentPostSelect.Content;
+
+        currentPostSelect.PostTemplateId = templateModel.Id;
+        currentPostSelect.ThemeColor = templateModel.ThemeColor;
+        currentPostSelect.PosTemplateName = templateModel.Name;
+        currentPostSelect.PosTemplateContent = templateModel.Content;
+
+        foreach (var postInPostOSA in postOSA.Data)
+        {
+            if (!(postInPostOSA is PostItemModel postNeedEdit))
+            {
+                continue;
+            }
+
+            if (postNeedEdit.PostModel.PostId.Equals(currentPostSelect.PostId))
+            {
+                postOSA.Data.RemoveOne(postInPostOSA.id);
+                break;
+            }
+        }
+
+        currentPostSelect.ViewsHolder.MarkForRebuild();
+
+        postOSA.ForceUpdateViewsHolderIfVisible(currentPostSelect.ItemIndexOSA);
+
+        inputFieldNewPostContent.text = "";
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        footerNoticeController.SendAFooterMessage("Bạn đã xóa bài đăng thành công!");
 
         string res = request.downloadHandler.text;
 

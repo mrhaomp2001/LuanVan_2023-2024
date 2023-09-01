@@ -76,9 +76,11 @@ class PostController extends Controller
             $input,
             [
                 'user_id' => 'required',
+                'per_page' => 'required'
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
+                'per_page.required' => 'Phải có số phần tử trên trang',
             ]
         );
 
@@ -86,7 +88,7 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $posts = Post::all([]);
+        $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->simplePaginate($request->per_page);
 
         foreach ($posts as $post) {
             $post->post_template;
@@ -109,11 +111,13 @@ class PostController extends Controller
                 'content' => 'required',
                 'user_id' => 'required',
                 'post_template_id' => 'required',
+                'post_status_id' => 'required'
             ],
             [
                 'content.required' => 'Content không được rỗng',
                 'user_id.required' => 'User Id không được rỗng',
                 'post_template_id.required' => 'Id mẫu bài viết không được rỗng',
+                'post_status_id.required' => 'trạng thái bài viết không được rỗng',
             ]
         );
 
@@ -126,6 +130,7 @@ class PostController extends Controller
                 'user_id' => $request->user_id,
                 'post_template_id' => $request->post_template_id,
                 'content' => $request->content,
+                'post_status_id' => $request->post_status_id,
             ]
         );
 
@@ -141,11 +146,13 @@ class PostController extends Controller
                 'id' => 'required',
                 'content' => 'required',
                 'post_template_id' => 'required',
+                'post_status_id' => '',
             ],
             [
                 'id.required' => 'Id bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
                 'post_template_id.required' => 'Id của mẫu bài viết không được rỗng',
+                'post_status_id' => '',
             ]
         );
 
@@ -156,7 +163,7 @@ class PostController extends Controller
         $post = Post::find($request->id);
         $post->content = $request->content;
         $post->post_template_id = $request->post_template_id;
-
+        $post->post_status_id = $request->post_status_id;
         $post->save();
         $post->post_template;
 

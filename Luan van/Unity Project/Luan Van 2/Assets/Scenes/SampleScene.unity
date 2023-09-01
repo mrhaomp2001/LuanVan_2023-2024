@@ -4198,6 +4198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0c14c4f3919ec449d0ba06fe580099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  page: 1
+  postGetPerPage: 5
   redirector: {fileID: 747705061}
   footerNoticeController: {fileID: 12650188}
   postOSA: {fileID: 173045812}
@@ -5746,6 +5748,7 @@ MonoBehaviour:
     userFullname: 
     posTemplateName: 
     posTemplateContent: 
+    commentCount: 0
     likeCount: 0
     likeStatus: 
     themeColor: 
@@ -5759,6 +5762,7 @@ MonoBehaviour:
       textContent: {fileID: 0}
       textCreateDate: {fileID: 0}
       textLikeCount: {fileID: 0}
+      textCommentCount: {fileID: 0}
       imageBackground: {fileID: 0}
 --- !u!114 &463839061
 MonoBehaviour:
