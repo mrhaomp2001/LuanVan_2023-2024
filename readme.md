@@ -1,6 +1,6 @@
 .LOG
 
-2:30 PM 8/23/2023 =====
+# 2:30 PM 8/23/2023 =====
 
 tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn.
 
@@ -17,10 +17,10 @@ Kế hoạch:
    + tìm hiểu LeanTween
    + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
 
- # Công việc chen ngang: 
+ ### Công việc chen ngang: 
  - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước
 
- # Kết quả: 
+ ### Kết quả: 
  - chuẩn bị OSA multi prefabs cho ngày mai.
  - tôi đã tạo dự án unity mới, code cũ quá lộn xộn.
  - tôi đã tải ứng dụng duolingo về để làm mẫu UI cho ngày mai.
@@ -55,12 +55,12 @@ Kế hoạch:
    + tìm hiểu LeanTween
    + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
 
- # Công việc chen ngang: 
+ ### Công việc chen ngang: 
  - đang phần vân: Chỉnh sửa database, phân loại độ khó của câu hỏi -> sẽ làm nhưng chưa
  - viết api lấy tất cả các lớp học và làm giao diện chọn lớp học
  - tôi đi ăn đám ma đó bạn, cất cả buổi chiều luôn
 
- # Kết quả:
+ ### Kết quả:
  - hoàn thành script OSA Multi prefabs
  - xây dựng giao diện giống Duolingo
  - xây dựng và gọi api lấy danh sách lớp học
@@ -87,10 +87,10 @@ Kế hoạch:
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
  * thiết kế thêm cho database like comment (chắc chưa làm)
 
- # Công việc chen ngang: 
+ ### Công việc chen ngang: 
  - thiết kế giao diện cho phần chơi, không chỉ là thiết kế 2 prefabs questionItemPrefab và answerItemPrefab
 
- # Kết quả:
+ ### Kết quả:
  - thêm icons cho footer menu
  - thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
  - thêm prefabs postItemPrefab
@@ -112,9 +112,9 @@ Kế hoạch:
 
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
- # Công việc chen ngang: vì là thứ bảy, không ghi phần này
+ ### Công việc chen ngang: vì là thứ bảy, không ghi phần này
 
- # Kết quả:
+ ### Kết quả:
  - Tìm hiểu LeanTween.
  - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
@@ -140,7 +140,7 @@ Kế hoạch:
  * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
  * hiển thị bình luận của bài viết
 
- # Kết quả:
+ ### Kết quả:
 
  * thêm script giao diện cho menu footer (thực hiện chuyển hướng bằng FooterMenuController.cs)
  * giao diện chơi, làm cho giống duolingo (thêm slider progress)
@@ -174,7 +174,7 @@ Kế hoạch:
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
 
- # Kết quả:
+ ### Kết quả:
 
  * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
  * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau (có cần icon khác nhau không?)
@@ -199,10 +199,10 @@ Kế hoạch:
  * xem lại các ràng buộc dữ liệu của các api
  * nhớ xem kích thước của tệp khi tải lên
 
- # Công việc chen ngang:
+ ### Công việc chen ngang:
  * cần phải xem lại login và đẩy dữ liệu login vào global.
 
- # Kết quả:
+ ### Kết quả:
 
  * thiết kế chức năng của bài viết (show, upvote, downvote, update) (không biết delete thì làm sao nhỉ?)
  * tạo login giả tạm thời.
@@ -233,7 +233,7 @@ Kế hoạch:
  * phân trang dữ liệu cho các bài viết
 
 
- # Kết quả:
+ ### Kết quả:
 
  * hiển thị bình luận của bài viết
  * hiển thị số bình luận của bài viết
@@ -269,7 +269,7 @@ Kế hoạch:
  * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
  * kết bạn và danh sách bạn bè
 
- # Kết quả:
+ ### Kết quả:
 
  * thêm trạng thái của bài viết (1: public, 2 private, 3 deleted)
  * thiết kế chức năng của bài viết (delete)
