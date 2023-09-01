@@ -4,7 +4,7 @@
 
 <!-- tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn. -->
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:**  
 
@@ -32,10 +32,11 @@
  * thiết kế thêm cho database like comment
  * tìm hiểu LeanTween
  * Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
+</details>
 
 # 8:11 AM 8/24/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -71,10 +72,11 @@
  * thêm giao diện thêm bài viết mới.
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
  * thiết kế thêm cho database like comment (chắc chưa làm)
+</details>
 
 # 8:13 AM 8/25/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -101,12 +103,13 @@
  * thiết kế chức năng của bài viết (upvote, downvote)
  * hiển thị bình luận của bài viết
 
+</details>
 
 # 2:03 PM 8/26/2023 =====
 
 Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -129,10 +132,11 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
    + Bài viết theo template
    + Lớp học có nhiều độ khó, 1 câu hỏi có thể nằm trong nhiều độ kho của lớp
 
+</details>
 
 # 8:41 AM 8/28/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -162,11 +166,11 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
    + Lớp học có nhiều độ khó, 1 câu hỏi có thể nằm trong nhiều độ kho của lớp
    + người dùng đã chơi đến độ khó nào
 
-
+</details>
 
 # 9:25 AM 8/29/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -191,9 +195,11 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
 
+</details>
+
 # 9:12 AM 8/30/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -222,10 +228,11 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
  * phân trang dữ liệu cho các bài viết
  * xem lại các ràng buộc dữ liệu của các api
  * nhớ xem kích thước của tệp khi tải lên
+</details>
 
 # 8:55 AM 8/31/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:** 
 
@@ -258,10 +265,11 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
  * phân trang dữ liệu cho các bài viết
+</details>
 
 # 10:03 AM 9/1/2023 =====
 
-### Kế hoạch:
+<details><summary>### Kế hoạch:</summary>
 
 **Ứng dụng Android:**  
 
