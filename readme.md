@@ -4,7 +4,7 @@
 
 <!-- tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn. -->
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:**  
 
@@ -14,10 +14,6 @@ Kế hoạch:
  * chuẩn bị ui cho phần bài đăng
  * thiết kế thêm cho database like comment
  
- - công việc tốn nhiều thời gian: 
-   + tìm hiểu LeanTween
-   + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
-
 <!-- ### Công việc chen ngang: 
  - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước -->
 
@@ -34,14 +30,12 @@ Kế hoạch:
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
  * chuẩn bị ui cho phần bài đăng
  * thiết kế thêm cho database like comment
- 
- # công việc tốn nhiều thời gian: 
-   + tìm hiểu LeanTween
-   + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
+ * tìm hiểu LeanTween
+ * Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
 
 # 8:11 AM 8/24/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -80,7 +74,7 @@ Kế hoạch:
 
 # 8:13 AM 8/25/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -112,7 +106,7 @@ Kế hoạch:
 
 Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -138,7 +132,7 @@ Kế hoạch:
 
 # 8:41 AM 8/28/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -172,7 +166,7 @@ Kế hoạch:
 
 # 9:25 AM 8/29/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -199,7 +193,7 @@ Kế hoạch:
 
 # 9:12 AM 8/30/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -231,7 +225,7 @@ Kế hoạch:
 
 # 8:55 AM 8/31/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:** 
 
@@ -267,7 +261,7 @@ Kế hoạch:
 
 # 10:03 AM 9/1/2023 =====
 
-Kế hoạch:
+### Kế hoạch:
 
 **Ứng dụng Android:**  
 
