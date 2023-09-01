@@ -4,7 +4,7 @@
 
 <!-- tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn. -->
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:**  
 
@@ -36,7 +36,7 @@
 
 # 8:11 AM 8/24/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -76,7 +76,7 @@
 
 # 8:13 AM 8/25/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -109,7 +109,7 @@
 
 Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -136,7 +136,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 # 8:41 AM 8/28/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -170,7 +170,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 # 9:25 AM 8/29/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -199,7 +199,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 # 9:12 AM 8/30/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -232,7 +232,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 # 8:55 AM 8/31/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:** 
 
@@ -269,7 +269,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 # 10:03 AM 9/1/2023 =====
 
-<details><summary>### Kế hoạch:</summary>
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 **Ứng dụng Android:**  
 
