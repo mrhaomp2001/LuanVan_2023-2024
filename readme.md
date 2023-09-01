@@ -2,11 +2,12 @@
 
 # 2:30 PM 8/23/2023 =====
 
-tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn.
+<!-- tôi vừa mới nghỉ việc ở công ty sensor notes, để tập chung vào luận văn. -->
 
-Kế hoạch: 
+Kế hoạch:
 
- Ứng dụng Android:
+** Ứng dụng Android: **  
+
  * thêm osa multi prefabs
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
@@ -17,8 +18,8 @@ Kế hoạch:
    + tìm hiểu LeanTween
    + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
 
- ### Công việc chen ngang: 
- - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước
+<!-- ### Công việc chen ngang: 
+ - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước -->
 
  ### Kết quả: 
  - chuẩn bị OSA multi prefabs cho ngày mai.
@@ -26,9 +27,8 @@ Kế hoạch:
  - tôi đã tải ứng dụng duolingo về để làm mẫu UI cho ngày mai.
  - có lẽ vì tôi vừa nghỉ việc nên tâm trạng chưa ổn định để làm việc.
 
- > Công việc ngày mai:
+ ### Công việc ngày mai:
  
- Ứng dụng Android:
  * thêm osa multi prefabs
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
@@ -39,11 +39,12 @@ Kế hoạch:
    + tìm hiểu LeanTween
    + Viết script điều hướng sử dụng stack<string>, sau đó so sánh và xử lý
 
-8:11 AM 8/24/2023 =====
+# 8:11 AM 8/24/2023 =====
 
 Kế hoạch:
 
- Ứng dụng Android:
+** Ứng dụng Android: ** 
+
  * làm lại giao diện
  * thêm osa multi prefabs
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
@@ -69,7 +70,7 @@ Kế hoạch:
  - gọi api lấy dữ liệu questions and answers nhưng chưa có giao diện
 
 
- > Công việc ngày mai:
+ ### Công việc ngày mai:
  * thêm icons cho footer menu
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
  * thêm prefabs postItemPrefab.
@@ -77,9 +78,12 @@ Kế hoạch:
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
  * thiết kế thêm cho database like comment (chắc chưa làm)
 
-8:13 AM 8/25/2023 =====
+# 8:13 AM 8/25/2023 =====
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
+
  * thêm icons cho footer menu
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
  * thêm prefabs postItemPrefab.
@@ -97,18 +101,20 @@ Kế hoạch:
  - thiết kế thêm cho database like comment
  - thiết kế giao diện chơi
 
- > Công việc ngày mai: (mai là thứ bảy, là ngày nghỉ, làm thì làm)
+ ### Công việc ngày mai: (mai là thứ bảy, là ngày nghỉ, làm thì làm)
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
  * thêm giao diện thêm bài viết mới.
  * thiết kế chức năng của bài viết (upvote, downvote)
  * hiển thị bình luận của bài viết
 
 
-2:03 PM 8/26/2023 =====
+# 2:03 PM 8/26/2023 =====
 
 Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
 
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
@@ -118,7 +124,7 @@ Kế hoạch:
  - Tìm hiểu LeanTween.
  - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
- > Công việc ngày mai: (mai là chủ nhật, là ngày nghỉ, làm thì làm)
+ ### Công việc ngày mai: (mai là chủ nhật, là ngày nghỉ, làm thì làm)
  * thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
  * giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
  * thêm giao diện thêm bài viết mới (làm phần template trước).
@@ -130,9 +136,11 @@ Kế hoạch:
    + Lớp học có nhiều độ khó, 1 câu hỏi có thể nằm trong nhiều độ kho của lớp
 
 
-8:41 AM 8/28/2023 =====
+# 8:41 AM 8/28/2023 =====
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
 
  * thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
  * giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
@@ -146,7 +154,7 @@ Kế hoạch:
  * giao diện chơi, làm cho giống duolingo (thêm slider progress)
  * thêm giao diện thêm bài viết mới, chọn template và đăng bài, hiển thị quy định của template đó.
 
- > Công việc ngày mai: 
+ ### Công việc ngày mai: 
 
  * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
  * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
@@ -162,9 +170,11 @@ Kế hoạch:
 
 
 
-9:25 AM 8/29/2023 =====
+# 9:25 AM 8/29/2023 =====
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
 
  * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
  * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
@@ -180,16 +190,18 @@ Kế hoạch:
  * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau (có cần icon khác nhau không?)
  * giao diện lớp học, mỗi lớp học có màu khác nhau, icon, hình ảnh trình bày khác nhau
 
- > Công việc ngày mai: 
+ ### Công việc ngày mai: 
 
  * thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
  * hiển thị bình luận của bài viết
  * thiết kế độ khó của lớp
  * thiết kế độ khó của câu hỏi
 
-9:12 AM 8/30/2023 =====
+# 9:12 AM 8/30/2023 =====
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
 
  * thiết kế chức năng của bài viết (show, upvote, downvote, report, update, delete)
  * hiển thị bình luận của bài viết
@@ -207,7 +219,7 @@ Kế hoạch:
  * thiết kế chức năng của bài viết (show, upvote, downvote, update) (không biết delete thì làm sao nhỉ?)
  * tạo login giả tạm thời.
 
- > Công việc ngày mai: 
+ ### Công việc ngày mai: 
 
  * hiển thị bình luận của bài viết
  * thiết kế chức năng của bài viết (delete, report)
@@ -217,9 +229,11 @@ Kế hoạch:
  * xem lại các ràng buộc dữ liệu của các api
  * nhớ xem kích thước của tệp khi tải lên
 
-8:55 AM 8/31/2023 =====
+# 8:55 AM 8/31/2023 =====
 
 Kế hoạch:
+
+** Ứng dụng Android: ** 
 
  * hiển thị bình luận của bài viết
  * thiết kế chức năng của bài viết (delete, report)
@@ -239,7 +253,7 @@ Kế hoạch:
  * hiển thị số bình luận của bài viết
  * fix bug: khi chỉnh sửa mà không chọn template sẽ bị lỗi
 
- > Công việc ngày mai: 
+ ### Công việc ngày mai: 
 
  * thiết kế chức năng của bài viết (delete, report)
  * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
@@ -251,9 +265,11 @@ Kế hoạch:
  * thiết kế độ khó của câu hỏi
  * phân trang dữ liệu cho các bài viết
 
-10:03 AM 9/1/2023 =====
+# 10:03 AM 9/1/2023 =====
 
-Kế hoạch: 
+Kế hoạch:
+
+** Ứng dụng Android: **  
 
  * thiết kế chức năng của bài viết (delete, report)
  * thiết kế databse cho việc thích bình luận
@@ -275,7 +291,7 @@ Kế hoạch:
  * thiết kế chức năng của bài viết (delete)
 
 
- > Công việc ngày mai: 
+ ### Công việc ngày mai: 
 
  * thiết kế chức năng của bài viết (public, private, report)
  * thiết kế databse cho việc thích bình luận
