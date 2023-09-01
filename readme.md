@@ -6,7 +6,7 @@
 
 Kế hoạch:
 
-** Ứng dụng Android: **  
+**Ứng dụng Android:**  
 
  * thêm osa multi prefabs
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
@@ -43,7 +43,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * làm lại giao diện
  * thêm osa multi prefabs
@@ -82,7 +82,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * thêm icons cho footer menu
  * thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
@@ -114,7 +114,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
@@ -140,7 +140,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
  * giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
@@ -174,7 +174,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
  * thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
@@ -201,7 +201,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * thiết kế chức năng của bài viết (show, upvote, downvote, report, update, delete)
  * hiển thị bình luận của bài viết
@@ -233,7 +233,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: ** 
+**Ứng dụng Android:** 
 
  * hiển thị bình luận của bài viết
  * thiết kế chức năng của bài viết (delete, report)
@@ -269,7 +269,7 @@ Kế hoạch:
 
 Kế hoạch:
 
-** Ứng dụng Android: **  
+**Ứng dụng Android:**  
 
  * thiết kế chức năng của bài viết (delete, report)
  * thiết kế databse cho việc thích bình luận
