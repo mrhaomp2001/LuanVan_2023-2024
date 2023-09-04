@@ -309,9 +309,12 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
  * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
  * kết bạn và danh sách bạn bè
  </details> 
- 
+
 # 07:56:10 2023/09/04 ===== 
- 
+
+**Cập nhật readme.md:**
+ - Chuyển định dạng ngày giờ từ "hh:mm AM/PM MM/dd/yyyy" sang "hh:mm:ss yyyy/MM/dd".
+
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
  
  * thiết kế chức năng của bài viết (public, private, report)
