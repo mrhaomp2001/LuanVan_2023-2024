@@ -308,3 +308,46 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
  * thiết kế database thêm trường đăng nhập lần cuối
  * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
  * kết bạn và danh sách bạn bè
+ 
+# 07:56:10 2023/09/04 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+ * thiết kế chức năng của bài viết (public, private, report)
+ * thiết kế databse cho việc thích bình luận
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+ * Chuyển đổi Datetime của bình luận và bài viết	
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên (tìm hiểu)
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * thiết kế database thêm trường đăng nhập lần cuối
+ * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+ * kết bạn và danh sách bạn bè
+
+### Kết quả: 
+
+ * thiết kế chức năng của bài viết (public, private, report)
+ * thiết kế databse cho việc thích bình luận
+ * các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
+
+bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao gồm UI rồi.
+
+### Công việc ngày mai: 
+
+ * Chuyển đổi Datetime của bình luận và bài viết
+ * Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
+ * xem lại các ràng buộc dữ liệu của các api
+ * nhớ xem kích thước của tệp khi tải lên (tìm hiểu)
+ * trang login
+ * thiết kế độ khó của lớp
+ * thiết kế độ khó của câu hỏi
+ * phân trang dữ liệu cho các bài viết
+ * thiết kế database thêm trường đăng nhập lần cuối
+ * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+ * kết bạn và danh sách bạn bè
+ * hiển thị profile với các thông tin cơ bản
+
+</details> 

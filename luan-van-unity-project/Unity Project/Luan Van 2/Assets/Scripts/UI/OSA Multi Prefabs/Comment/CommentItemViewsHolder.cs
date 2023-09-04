@@ -17,6 +17,7 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textCreateDate;
         public TextMeshProUGUI textContent;
+        public TextMeshProUGUI textLikeCount;
         public override bool CanPresentModelType(Type modelType)
         {
             return modelType == typeof(CommentItemModel);
@@ -28,9 +29,12 @@ namespace LuanVan.OSA
             contentSizeFitter = root.GetComponent<ContentSizeFitter>();
             commentListViewItem = root.GetComponent<UICommentListViewItem>();
 
-            root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_name", out textName);
-            root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_create_date", out textCreateDate);
-            root.GetComponentAtPath("layout_listview_item_content/layout_post_body/text_content", out textContent);
+            root.GetComponentAtPath("layout_listview_item_content/layout_header/text_name", out textName);
+            root.GetComponentAtPath("layout_listview_item_content/layout_header/text_create_date", out textCreateDate);
+
+            root.GetComponentAtPath("layout_listview_item_content/layout_body/text_content", out textContent);
+
+            root.GetComponentAtPath("layout_listview_item_content/layout_footer/text_vote_count", out textLikeCount);
         }
 
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
@@ -53,6 +57,9 @@ namespace LuanVan.OSA
             textName.text = commentListViewItem.CommentModel.UserFullName;
 
             textContent.text = commentListViewItem.CommentModel.Content;
+            textLikeCount.text = commentListViewItem.CommentModel.LikeCount.ToString();
+
+            commentListViewItem.UpdateLikeButtonColor();
 
             MarkForRebuild();
         }

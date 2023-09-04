@@ -93,7 +93,7 @@ class PostController extends Controller
         foreach ($posts as $post) {
             $post->post_template;
             $post->user;
-            $post->comment_count = Comment::where("post_id", $post->id)->count();
+            $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();

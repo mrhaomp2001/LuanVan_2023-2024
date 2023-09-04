@@ -12,9 +12,10 @@ namespace LuanVan.OSA
         [SerializeField] private string postId;
         [SerializeField] private string content;
         [SerializeField] private string createdAt;
-
+        [SerializeField] private int likeCount;
         [SerializeField] private string username;
         [SerializeField] private string userFullName;
+        [SerializeField] private string likeStatus; 
 
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private CommentItemViewsHolder viewsHolder;
@@ -28,5 +29,7 @@ namespace LuanVan.OSA
         public CommentItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
         public string Username { get => username; set => username = value; }
         public string UserFullName { get => userFullName; set => userFullName = value; }
+        public int LikeCount { get => likeCount; set => likeCount = value; }
+        public string LikeStatus { get => likeStatus; set => likeStatus = value; }
     }
 }

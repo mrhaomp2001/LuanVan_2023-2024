@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +24,6 @@ use App\Http\Controllers\AnswerController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::Resources(["/answers" => AnswerController::class]);
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
 Route::get('/classrooms', [GameApiController::class, 'getClassrooms']);
@@ -46,3 +44,6 @@ Route::post('/post-templates', [PostTemplateController::class, 'storeApi']);
 
 Route::get('post/comments', [CommentController::class, 'getComments']);
 Route::post('post/comments', [CommentController::class, 'storeApi']);
+Route::post('post/comment/edit', [CommentController::class, 'updateApi']);
+
+Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateLikeStatus']);

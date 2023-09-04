@@ -29,6 +29,14 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        User::create(
+            [
+                'name' => "admin2",
+                'username' => "admin2",
+                'password' => Hash::make("password"),
+                'classroom_id' => "1",
+            ]
+        );
         $this->call(PostTemplateSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(CommentSeeder::class);

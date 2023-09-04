@@ -138,7 +138,6 @@ namespace LuanVan.OSA
             {
                 Data[i].id = i;
             }
-            ScheduleComputeVisibilityTwinPass();
 
             return potentiallyRecyclable.CanPresentModelType(model.CachedType);
         }

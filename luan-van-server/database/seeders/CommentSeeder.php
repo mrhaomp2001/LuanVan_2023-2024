@@ -19,6 +19,7 @@ class CommentSeeder extends Seeder
                 'post_id' => "1",
                 'user_id' => "1",
                 'content' => "Bình luận 1, bởi user 1, ở bài đăng 1",
+                'comment_status_id' => "1",
             ]
         );
     }
