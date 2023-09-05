@@ -11,8 +11,7 @@
 - thêm osa multi prefabs
 - thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
 - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
-- chuẩn bị ui cho phần bài đăng
-- thiết kế thêm cho database like comment
+- chuẩn bị ui cho phần bài đăng- thiết kế thêm cho database like comment
 
 <!-- ### Công việc chen ngang:
  - không, nhưng từ nay tôi chỉ quan tâm đến công việc của kế hoạch, trong khi tìm công nghệ cho tương lai tôi bị mất quá nhiều thời gian, suy ra, cái nào tới thì tới, ưu tiên công việc hiện tại trước -->
@@ -24,7 +23,7 @@
 - tôi đã tải ứng dụng duolingo về để làm mẫu UI cho ngày mai.
 <!-- - có lẽ vì tôi vừa nghỉ việc nên tâm trạng chưa ổn định để làm việc. -->
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - thêm osa multi prefabs
 - thêm 2 prefabs questionItemPrefab và answerItemPrefab cho osa multi prefabs
@@ -67,7 +66,7 @@
 - phân trang dữ liệu api
 - gọi api lấy dữ liệu questions and answers nhưng chưa có giao diện
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - thêm icons cho footer menu
 - thêm 2 prefabs questionItemPrefab và answerItemPrefab cho phần chơi trắc nghiệm
@@ -102,7 +101,7 @@
 - thiết kế thêm cho database like comment
 - thiết kế giao diện chơi
 
-### Công việc ngày mai: (mai là thứ bảy, là ngày nghỉ, làm thì làm)
+### Công việc ngày mai (và sắp tới): (mai là thứ bảy, là ngày nghỉ, làm thì làm)
 
 - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 - thêm giao diện thêm bài viết mới.
@@ -128,7 +127,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - Tìm hiểu LeanTween.
 - thêm lớp hiển thị thông báo toàn cục (thông báo nhỏ màu đen thường nằm dưới màn hình)
 
-### Công việc ngày mai: (mai là chủ nhật, là ngày nghỉ, làm thì làm)
+### Công việc ngày mai (và sắp tới): (mai là chủ nhật, là ngày nghỉ, làm thì làm)
 
 - thêm script giao diện cho menu footer (làm giống duolingo, vào duoling để xem)
 - giao diện chơi, làm cho giống duolingo (vào chơi duolingo để biết)
@@ -160,7 +159,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - giao diện chơi, làm cho giống duolingo (thêm slider progress)
 - thêm giao diện thêm bài viết mới, chọn template và đăng bài, hiển thị quy định của template đó.
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - giao diện khi hoàn thành 1 bài tập (thời gian và độ chính xác)
 - thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau, icon khác nhau
@@ -196,7 +195,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - thiết kế giao diện cho bài đăng, mỗi template thì có màu khác nhau (có cần icon khác nhau không?)
 - giao diện lớp học, mỗi lớp học có màu khác nhau, icon, hình ảnh trình bày khác nhau
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - thiết kế chức năng của bài viết (upvote, downvote, report, update, delete)
 - hiển thị bình luận của bài viết
@@ -228,7 +227,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - thiết kế chức năng của bài viết (show, upvote, downvote, update) (không biết delete thì làm sao nhỉ?)
 - tạo login giả tạm thời.
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - hiển thị bình luận của bài viết
 - thiết kế chức năng của bài viết (delete, report)
@@ -262,7 +261,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - hiển thị số bình luận của bài viết
 - fix bug: khi chỉnh sửa mà không chọn template sẽ bị lỗi
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - thiết kế chức năng của bài viết (delete, report)
 - các chức năng liên quan đến bình luận (thích, chỉnh sửa, xóa)
@@ -300,7 +299,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 - thêm trạng thái của bài viết (1: public, 2 private, 3 deleted)
 - thiết kế chức năng của bài viết (delete)
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - thiết kế chức năng của bài viết (public, private, report)
 - thiết kế databse cho việc thích bình luận
@@ -347,7 +346,7 @@ Hôm nay là thứ bảy, tôi xin làm ít việc 1 chút.
 
 bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao gồm UI rồi.
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - Chuyển đổi Datetime của bình luận và bài viết
 - Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
@@ -389,7 +388,7 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
 - Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
 - phân trang dữ liệu cho các bài viết
 
-### Công việc ngày mai:
+### Công việc ngày mai (và sắp tới):
 
 - trang login
 - thiết kế độ khó của lớp
@@ -398,5 +397,6 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
 - hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
 - kết bạn và danh sách bạn bè
 - hiển thị profile với các thông tin cơ bản
+- server Node socket
 
 </details>
