@@ -102,19 +102,55 @@ class PostController extends Controller
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
+    public function getOldPosts(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required',
+                'per_page' => 'required',
+                'date' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+                'per_page.required' => 'Phải có số phần tử trên trang',
+                'date.required' => 'phải có ngày bắt đầu lấy',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->where('created_at', '<', $request->date)->simplePaginate($request->per_page);
+
+        foreach ($posts as $post) {
+            $post->post_template;
+            $post->user;
+            $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
+            $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
+            $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
+            $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
     public function uploadAPost(StorePostRequest $request)
     {
         $input = $request->all();
         $validator = Validator::make(
             $input,
             [
-                'content' => 'required',
+                'content' => 'required|min:1',
                 'user_id' => 'required',
                 'post_template_id' => 'required',
                 'post_status_id' => 'required'
             ],
             [
                 'content.required' => 'Content không được rỗng',
+                'content.min' => 'Content không được rỗng',
                 'user_id.required' => 'User Id không được rỗng',
                 'post_template_id.required' => 'Id mẫu bài viết không được rỗng',
                 'post_status_id.required' => 'trạng thái bài viết không được rỗng',
@@ -144,13 +180,14 @@ class PostController extends Controller
             $input,
             [
                 'id' => 'required',
-                'content' => 'required',
+                'content' => 'required|min:1',
                 'post_template_id' => 'required',
                 'post_status_id' => '',
             ],
             [
                 'id.required' => 'Id bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung không được rỗng',
                 'post_template_id.required' => 'Id của mẫu bài viết không được rỗng',
                 'post_status_id' => '',
             ]

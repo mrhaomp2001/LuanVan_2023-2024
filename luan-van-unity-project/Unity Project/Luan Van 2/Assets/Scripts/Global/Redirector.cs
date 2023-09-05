@@ -14,6 +14,11 @@ public class Redirector : MonoBehaviour
     [SerializeField] private List<UIScreenRoute> screenRoutes = new List<UIScreenRoute>();
     [SerializeField] private Stack<string> stackRoute = new Stack<string>();
 
+    private void Start()
+    {
+        stackRoute.Push("base");
+    }
+
     public void Push(string routeName)
     {
         if (stackRoute.Count > 0)
@@ -40,9 +45,11 @@ public class Redirector : MonoBehaviour
                     rectTransform.gameObject.SetActive(true);
                 }
 
-                stackRoute.Push(routeName);
-
-                break;
+                if (!stackRoute.Peek().Equals(routeName))
+                {
+                    stackRoute.Push(routeName);
+                    break;
+                }
             }
         }
     }

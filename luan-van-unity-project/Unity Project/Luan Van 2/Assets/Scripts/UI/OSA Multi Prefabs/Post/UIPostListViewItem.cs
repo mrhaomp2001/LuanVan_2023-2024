@@ -93,5 +93,10 @@ namespace LuanVan.OSA
         {
             postController.ShowUIPostCommentAndGetComments(postModel);
         }
+
+        public void CheckAndGetOldPosts()
+        {
+            postController.CheckAndGetOldPosts(postModel);
+        }
     }
 }

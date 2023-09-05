@@ -90,5 +90,10 @@ namespace LuanVan.OSA
         {
             postController.ShowCommentUtilitiesMenu(commentModel);
         }
+
+        public void CheckAndGetOldComment()
+        {
+            postController.CheckAndGetOldComment(commentModel);
+        }
     }
 }

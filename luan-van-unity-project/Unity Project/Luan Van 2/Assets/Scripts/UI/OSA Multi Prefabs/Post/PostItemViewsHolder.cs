@@ -1,4 +1,4 @@
-using frame8.Logic.Misc.Other.Extensions;
+﻿using frame8.Logic.Misc.Other.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,11 +55,34 @@ namespace LuanVan.OSA
 
             textName.text = post.PostModel.UserFullname;
 
-            DateTime postCreateDate = new DateTime();
+            DateTime createDate = new DateTime();
 
-            if (DateTime.TryParse(post.PostModel.CreateAt, out postCreateDate)) { }
+            if (DateTime.TryParse(post.PostModel.CreateAt, out createDate)) { }
 
-            textCreateDate.text = postCreateDate.ToString("yyyy-MM-dd HH:mm");
+            TimeSpan timeSpanCreateDate = DateTime.Now - createDate;
+
+            textCreateDate.text = "Vừa xong";
+
+            if (timeSpanCreateDate.TotalMinutes >= 1)
+            {
+                textCreateDate.text = timeSpanCreateDate.Minutes.ToString() + " phút trước";
+            }
+
+            if (timeSpanCreateDate.TotalHours >= 1)
+            {
+                textCreateDate.text = timeSpanCreateDate.Hours.ToString() + " giờ trước";
+            }
+
+            if (timeSpanCreateDate.TotalDays >= 1 && timeSpanCreateDate.TotalDays <= 3)
+            {
+                textCreateDate.text = timeSpanCreateDate.Days.ToString() + " ngày trước";
+            }
+
+            if (timeSpanCreateDate.TotalDays > 3)
+            {
+                textCreateDate.text = createDate.ToString("yyyy-MM-dd HH:mm");
+            }
+
             textContent.text = post.PostModel.Content;
 
             Color themeColor = Color.white;
@@ -84,6 +107,8 @@ namespace LuanVan.OSA
             }
 
             postListViewItem.UpdateLikeButtonColor();
+
+            postListViewItem.CheckAndGetOldPosts();
 
             MarkForRebuild();
         }

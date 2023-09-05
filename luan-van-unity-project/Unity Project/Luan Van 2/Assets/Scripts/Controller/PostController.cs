@@ -31,6 +31,7 @@ public class PostController : MonoBehaviour
     [SerializeField] private RectTransform btnEditPost;
     [SerializeField] private RectTransform btnDeletePost;
     [Header("Comments: ")]
+    [SerializeField] private int commentGetPerPage;
     [SerializeField] private TMP_InputField inputFieldNewCommentContent;
     [SerializeField] private UICommentModel currentCommentModelSelect;
     [SerializeField] private RectTransform containerUtilitiesCommentMenu;
@@ -427,7 +428,8 @@ public class PostController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/post/comments" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
-            "&post_id=" + postModel.PostId);
+            "&post_id=" + postModel.PostId + 
+            "&per_page=" + commentGetPerPage);
 
         yield return request.SendWebRequest();
 
@@ -450,21 +452,21 @@ public class PostController : MonoBehaviour
 
         var commentModels = new List<BaseModel>();
 
-        for (int i = 0; i < resToValue["data"].Count; i++)
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
             commentModels.Add(new CommentItemModel
             {
                 CommentModel = new UICommentModel()
                 {
-                    Content = resToValue["data"][i]["content"],
-                    CreatedAt = resToValue["data"][i]["created_at"],
-                    Id = resToValue["data"][i]["id"],
-                    PostId = resToValue["data"][i]["post_id"],
-                    UserId = resToValue["data"][i]["user_id"],
-                    UserFullName = resToValue["data"][i]["user"]["name"],
-                    Username = resToValue["data"][i]["user"]["username"],
-                    LikeCount = (resToValue["data"][i]["like_up"] - resToValue["data"][i]["like_down"]),
-                    LikeStatus = (resToValue["data"][i]["like_status"]["like_status"]) ?? "0",
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                    Id = resToValue["data"]["data"][i]["id"],
+                    PostId = resToValue["data"]["data"][i]["post_id"],
+                    UserId = resToValue["data"]["data"][i]["user_id"],
+                    UserFullName = resToValue["data"]["data"][i]["user"]["name"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
+                    LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
                 }
             });
         }
@@ -472,8 +474,77 @@ public class PostController : MonoBehaviour
         postCommentOSA.Data.InsertItems(1, commentModels);
     }
 
+    public void CheckAndGetOldComment(UICommentModel commentModel)
+    {
+        if (commentModel.ViewsHolder.ItemIndex == (postCommentOSA.Data.Count - 1))
+        {
+            StartCoroutine(GetOldCommentsCoroutine(commentModel));
+        }
+    }
+
+    public IEnumerator GetOldCommentsCoroutine(UICommentModel commentModel)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/post/comments/old" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&post_id=" + commentModel.PostId +
+            "&date=" + commentModel.CreatedAt +
+            "&per_page=" + commentGetPerPage);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetOldCommentsResponse(res);
+    }
+
+    public void GetOldCommentsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var commentModels = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            commentModels.Add(new CommentItemModel
+            {
+                CommentModel = new UICommentModel()
+                {
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                    Id = resToValue["data"]["data"][i]["id"],
+                    PostId = resToValue["data"]["data"][i]["post_id"],
+                    UserId = resToValue["data"]["data"][i]["user_id"],
+                    UserFullName = resToValue["data"]["data"][i]["user"]["name"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
+                    LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
+                }
+            });
+        }
+
+        postCommentOSA.Data.InsertItemsAtEnd(commentModels);
+    }
+
+    public void RefreshComment()
+    {
+        ShowUIPostCommentAndGetComments(currentPostSelect);
+    }
+
     public void SendComment()
     {
+        if (inputFieldNewCommentContent.text.Equals(""))
+        {
+            footerNoticeController.SendAFooterMessage("Bình luận không được rỗng");
+            return;
+        }
         StartCoroutine(SendCommentCoroutine());
     }
 
@@ -634,10 +705,16 @@ public class PostController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
-    }    
+    }
 
     public void EditComment()
     {
+        if (inputFieldEditComment.text.Equals(""))
+        {
+            footerNoticeController.SendAFooterMessage("Bình luận không được rỗng");
+            return;
+        }
+
         StartCoroutine(EditCommentCoroutine());
     }
 
@@ -676,5 +753,68 @@ public class PostController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+    }
+
+    public void CheckAndGetOldPosts(UIPostModel postModel)
+    {
+        if (postModel.ViewsHolder.ItemIndex == (postOSA.Data.Count - 1))
+        {
+            StartCoroutine(GetOldPostsCoroutine(postModel));
+        }
+    }
+
+    public IEnumerator GetOldPostsCoroutine(UIPostModel postModel)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts/old" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&per_page=" + postGetPerPage +
+            "&date=" + postModel.CreateAt);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetOldPostsResponse(res);
+    }
+
+    public void GetOldPostsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var posts = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            posts.Add(new PostItemModel()
+            {
+                PostModel = new UIPostModel()
+                {
+                    PostId = resToValue["data"]["data"][i]["id"],
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreateAt = resToValue["data"]["data"][i]["created_at"],
+                    PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
+                    PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
+                    PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
+                    UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    UserId = resToValue["data"]["data"][i]["user"]["id"],
+                    ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
+                    LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
+                    LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
+                    CommentCount = resToValue["data"]["data"][i]["comment_count"],
+                    PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                }
+            });
+            //Debug.Log((resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]).ToString());
+        }
+        postOSA.Data.InsertItemsAtEnd(posts);
     }
 }

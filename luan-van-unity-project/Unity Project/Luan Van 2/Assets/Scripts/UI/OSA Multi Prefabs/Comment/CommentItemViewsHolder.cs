@@ -1,11 +1,11 @@
+﻿using frame8.Logic.Misc.Other.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using frame8.Logic.Misc.Other.Extensions;
-using UnityEngine.UI;
-using System;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace LuanVan.OSA
 {
@@ -48,11 +48,33 @@ namespace LuanVan.OSA
             commentListViewItem.CommentModel.ViewsHolder = baseVH as CommentItemViewsHolder;
 
 
-            DateTime postCreateDate = new DateTime();
+            DateTime createDate = new DateTime();
 
-            if (DateTime.TryParse(commentListViewItem.CommentModel.CreatedAt, out postCreateDate)) { }
+            if (DateTime.TryParse(commentListViewItem.CommentModel.CreatedAt, out createDate)) { }
 
-            textCreateDate.text = postCreateDate.ToString("yyyy-MM-dd HH:mm");
+            TimeSpan timeSpanCreateDate = DateTime.Now - createDate;
+
+            textCreateDate.text = "Vừa xong";
+
+            if (timeSpanCreateDate.TotalMinutes >= 1)
+            {
+                textCreateDate.text = timeSpanCreateDate.Minutes.ToString() + " phút trước";
+            }
+
+            if (timeSpanCreateDate.TotalHours >= 1)
+            {
+                textCreateDate.text = timeSpanCreateDate.Hours.ToString() + " giờ trước";
+            }
+
+            if (timeSpanCreateDate.TotalDays >= 1 && timeSpanCreateDate.TotalDays <= 3)
+            {
+                textCreateDate.text = timeSpanCreateDate.Days.ToString() + " ngày trước";
+            }
+
+            if (timeSpanCreateDate.TotalDays > 3)
+            {
+                textCreateDate.text = createDate.ToString("yyyy-MM-dd HH:mm");
+            }
 
             textName.text = commentListViewItem.CommentModel.UserFullName;
 
@@ -60,6 +82,7 @@ namespace LuanVan.OSA
             textLikeCount.text = commentListViewItem.CommentModel.LikeCount.ToString();
 
             commentListViewItem.UpdateLikeButtonColor();
+            commentListViewItem.CheckAndGetOldComment();
 
             MarkForRebuild();
         }

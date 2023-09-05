@@ -18,3 +18,9 @@ echo: >> "readme.md"
 echo ^</details^> >> "readme.md"
 
 start readme.md
+
+cd "%~dp0start"
+
+for %%f in (*) do (
+    start "%%~nf" "%%f"
+)

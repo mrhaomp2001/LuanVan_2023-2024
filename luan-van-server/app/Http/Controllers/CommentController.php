@@ -75,10 +75,12 @@ class CommentController extends Controller
             [
                 'user_id' => 'required',
                 'post_id' => 'required',
+                'per_page' => 'required',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
                 'post_id.required' => 'Id Bài viết không được rỗng',
+                'per_page.required' => 'Phải có số phần tử trên trang',
             ]
         );
 
@@ -86,7 +88,42 @@ class CommentController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $comments = Comment::where('post_id', $request->post_id)->where('comment_status_id', "1")->orderBy('created_at', 'DESC')->get();
+        $comments = Comment::where('post_id', $request->post_id)->where('comment_status_id', "1")->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+
+        foreach ($comments as $comment) {
+            $comment->user;
+            $comment->like_up = CommentLike::where("comment_id", $comment->id)->where("like_status", 1)->count();
+            $comment->like_down = CommentLike::where("comment_id", $comment->id)->where("like_status", -1)->count();
+            $comment->like_status = CommentLike::where("comment_id", $comment->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $comments], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getOldComments(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required',
+                'post_id' => 'required',
+                'date' => 'required',
+                'per_page' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+                'post_id.required' => 'Id Bài viết không được rỗng',
+                'date.required' => 'phải có ngày bắt đầu lấy',
+                'per_page.required' => 'Phải có số phần tử trên trang',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $comments = Comment::where('post_id', $request->post_id)->where('comment_status_id', "1")->where('created_at', '<', $request->date)->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
 
         foreach ($comments as $comment) {
             $comment->user;
@@ -106,13 +143,14 @@ class CommentController extends Controller
             [
                 'user_id' => 'required',
                 'post_id' => 'required',
-                'content' => 'required',
+                'content' => 'required|min:1',
                 'comment_status_id' => 'required',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
                 'post_id.required' => 'Id Bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung không được rỗng',
                 'comment_status_id.required' => 'Trạng thái không được rỗng',
             ]
         );
@@ -140,12 +178,13 @@ class CommentController extends Controller
             $input,
             [
                 'comment_id' => 'required',
-                'content' => 'required',
+                'content' => 'required|min:1',
                 'comment_status_id' => 'required',
             ],
             [
                 'comment_id.required' => 'Id Bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung không được rỗng',
                 'comment_status_id.required' => 'Trạng thái không được rỗng',
             ]
         );

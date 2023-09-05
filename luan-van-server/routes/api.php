@@ -34,6 +34,7 @@ Route::get('/login', [GameApiController::class, 'login']);
 Route::post('/register', [GameApiController::class, 'register']);
 
 Route::get('/posts', [PostController::class, 'getPosts']);
+Route::get('/posts/old', [PostController::class, 'getOldPosts']);
 Route::post('/posts', [PostController::class, 'uploadAPost']);
 Route::post('/post/edit', [PostController::class, 'updatePost']);
 
@@ -43,6 +44,7 @@ Route::get('/post-templates', [PostTemplateController::class, 'indexApi']);
 Route::post('/post-templates', [PostTemplateController::class, 'storeApi']);
 
 Route::get('post/comments', [CommentController::class, 'getComments']);
+Route::get('post/comments/old', [CommentController::class, 'getOldComments']);
 Route::post('post/comments', [CommentController::class, 'storeApi']);
 Route::post('post/comment/edit', [CommentController::class, 'updateApi']);
 
