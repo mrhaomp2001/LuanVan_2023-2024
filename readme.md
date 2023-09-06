@@ -405,3 +405,13 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
 
 </details> 
  
+ 
+# 09:52:55 2023/09/06 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+### Kết quả: 
+ 
+### Công việc ngày mai: 
+ 
+</details> 
