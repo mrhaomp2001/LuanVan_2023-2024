@@ -13,9 +13,9 @@ echo ^<details^>^<summary^> ^<h2^>Kế hoạch:^</h2^> ^</summary^> >> "readme.m
 echo: >> "readme.md"
 echo ### Kết quả: >> "readme.md"
 echo: >> "readme.md"
-echo ### Công việc ngày mai: >> "readme.md"
+echo ### Công việc ngày mai: (và sắp tới)>> "readme.md"
 echo: >> "readme.md"
 echo ^</details^> >> "readme.md"
-
+echo: >> "readme.md"
 start readme.md
 

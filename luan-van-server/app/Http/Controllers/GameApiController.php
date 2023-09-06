@@ -69,7 +69,7 @@ class GameApiController extends Controller
             'classroom_id' => "1",
         ]);
 
-        return response()->json(['message' => "tạo tài khoản thành công"], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['data' => $user], 200, [], JSON_UNESCAPED_UNICODE);
     }
     public function login(Request $request)
     {

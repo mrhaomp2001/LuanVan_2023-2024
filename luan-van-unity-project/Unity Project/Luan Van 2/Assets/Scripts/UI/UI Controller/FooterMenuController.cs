@@ -66,4 +66,9 @@ public class FooterMenuController : MonoBehaviour
 
         postController.GetPosts();
     }
+
+    public void RedirectSetting()
+    {
+        redirector.Push("auth");
+    }
 }

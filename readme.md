@@ -367,22 +367,22 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
  
 # 09:53:48 2023/09/05 ===== 
  
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
- **Ứng dụng Android:**
+**Ứng dụng Android:**
 
- * Chuyển đổi Datetime của bình luận và bài viết
- * Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
- * phân trang dữ liệu cho các bài viết
- * xem lại các ràng buộc dữ liệu của các api, và dữ liệu của client
- * nhớ xem kích thước của tệp khi tải lên (tìm hiểu, tương tự bên trên)
- * trang login
- * thiết kế độ khó của lớp
- * thiết kế độ khó của câu hỏi
- * thiết kế database thêm trường đăng nhập lần cuối
- * hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
- * kết bạn và danh sách bạn bè
- * hiển thị profile với các thông tin cơ bản
+- Chuyển đổi Datetime của bình luận và bài viết
+- Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
+- phân trang dữ liệu cho các bài viết
+- xem lại các ràng buộc dữ liệu của các api, và dữ liệu của client
+- nhớ xem kích thước của tệp khi tải lên (tìm hiểu, tương tự bên trên)
+- trang login
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- thiết kế database thêm trường đăng nhập lần cuối
+- hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
 
 ### Kết quả:
 
@@ -406,12 +406,37 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
 </details> 
  
  
-# 09:52:55 2023/09/06 ===== 
- 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
- 
-### Kết quả: 
- 
-### Công việc ngày mai: 
- 
-</details> 
+# 09:52:55 2023/09/06 =====
+
+tôi cảm thấy không khỏe hôm nay (nặng).
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- trang login
+- thiết kế database thêm trường đăng nhập lần cuối
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- server Node socket
+- chat
+- đăng ảnh
+
+### Kết quả:
+
+- trang login UI liên quan
+
+### Công việc ngày mai (và sắp tới):
+
+- thiết kế database thêm trường đăng nhập lần cuối
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- server Node socket
+- chat
+- đăng ảnh
+
+</details>
