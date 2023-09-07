@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Classroom;
-use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -97,7 +95,10 @@ class GameApiController extends Controller
             return response()->json(['message' => "không có tài khoản"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
+        
         $user->classroom;
+
+        $user->touch();
 
         if (Hash::check($request->password, $user->password)) {
 
@@ -120,7 +121,7 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'per_page' => 'required'
+                'per_page' => 'required',
             ],
             [
                 'per_page.required' => 'phải có số phần tử trên một trang cụ thể',
@@ -137,8 +138,7 @@ class GameApiController extends Controller
 
             if (Storage::disk('public')->exists('classrooms/avatars/' . $classroom->id . ".png")) {
                 $classroom->avatar_path = Storage::url('classrooms/avatars/' . $classroom->id . ".png");
-            }
-            else {
+            } else {
                 $classroom->avatar_path = "";
             }
         }
@@ -146,4 +146,60 @@ class GameApiController extends Controller
         return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
+    public function getOldClassrooms(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'per_page' => 'required',
+                'date' => 'required',
+            ],
+            [
+                'per_page.required' => 'phải có số phần tử trên một trang cụ thể',
+                'date.required' => 'phải có ngày bắt đầu lấy',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $classrooms = Classroom::where('created_at', '<', $request->date)->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+
+        foreach ($classrooms as $classroom) {
+
+            if (Storage::disk('public')->exists('classrooms/avatars/' . $classroom->id . ".png")) {
+                $classroom->avatar_path = Storage::url('classrooms/avatars/' . $classroom->id . ".png");
+            } else {
+                $classroom->avatar_path = "";
+            }
+        }
+
+        return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getUserByLatestLogin(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'per_page' => 'required',
+                'user_id' => 'required',
+            ],
+            [
+                'per_page.required' => 'phải có số phần tử trên một trang cụ thể',
+                'user_id.required' => 'User Id không được rỗng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $users = User::orderBy('updated_at', 'DESC')->simplePaginate($request->per_page);
+
+        return response()->json(['data' => $users], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

@@ -57,6 +57,8 @@ namespace LuanVan.OSA
             textDescription.text = classroom.ClassroomModel.Description;
             imageBackground.color = themeColor;
 
+            classroomListViewItem.CheckAndGetOldClassrooms();
+
             MarkForRebuild();
         }
         public override void MarkForRebuild()

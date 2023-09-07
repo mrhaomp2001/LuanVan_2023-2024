@@ -9,6 +9,7 @@ public class FooterMenuController : MonoBehaviour
     [SerializeField] private List<Image> imageBtnFooterMenus = new List<Image>();
     [SerializeField] private ClassroomController classroomController;
     [SerializeField] private PostController postController;
+    [SerializeField] private OtherUserController otherUserController;
 
     private void Start()
     {
@@ -70,5 +71,23 @@ public class FooterMenuController : MonoBehaviour
     public void RedirectSetting()
     {
         redirector.Push("auth");
+    }
+
+    public void RedirectFriend()
+    {
+        redirector.Pop();
+        redirector.Push("other_users");
+
+        foreach (var item in imageBtnFooterMenus)
+        {
+            var currentColor = item.color;
+            currentColor.a = 0;
+            item.color = currentColor;
+        }
+        var afterColor = imageBtnFooterMenus[0].color;
+        afterColor.a = 1;
+        imageBtnFooterMenus[3].color = afterColor;
+
+        otherUserController.GetLatestLoginUsers();
     }
 }

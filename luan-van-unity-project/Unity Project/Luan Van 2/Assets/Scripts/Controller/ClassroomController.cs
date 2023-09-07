@@ -1,4 +1,4 @@
-using Library;
+﻿using Library;
 using LuanVan.OSA;
 using System;
 using System.Collections;
@@ -82,10 +82,7 @@ public class ClassroomController : MonoBehaviour
     /// </summary>
     public void GetClassrooms()
     {
-        if (classroomOSA.Data.Count <= 0)
-        {
-            StartCoroutine(GetClassroomCoroutine());
-        }
+        StartCoroutine(GetClassroomCoroutine());
     }
 
     public IEnumerator GetClassroomCoroutine()
@@ -133,7 +130,6 @@ public class ClassroomController : MonoBehaviour
         }
 
         classroomOSA.Data.ResetItems(listClassroom);
-        classroomOSA.ScheduleForceRebuildLayout();
     }
 
     public void GetQuestionsAndAnswers(UIClassroomModel classroomModel)
@@ -351,5 +347,58 @@ public class ClassroomController : MonoBehaviour
         isStartPlayTimer = false;
     }
 
+    public void CheckAndGetOldClassrooms(UIClassroomModel classroomModel)
+    {
+        if (classroomModel.ViewsHolder.ItemIndex == (classroomOSA.Data.Count - 1))
+        {
+            StartCoroutine(GetOldClassroomsCoroutine(classroomModel));
+        }
+    }
 
+    public IEnumerator GetOldClassroomsCoroutine(UIClassroomModel classroomModel)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/old" +
+        "?per_page=" + perPage +
+        "&date=" + classroomModel.CreatedAt);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log("time: " + classroomModel.CreatedAt + "\n" + res);
+
+        GetOldClassrommResponse(res);
+    }
+
+    public void GetOldClassrommResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var listClassroom = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+
+            listClassroom.Add(new ClassroomItemModel()
+            {
+                ClassroomModel = new UIClassroomModel()
+                {
+                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                    Description = resToValue["data"]["data"][i]["description"],
+                    Id = resToValue["data"]["data"][i]["id"],
+                    Name = resToValue["data"]["data"][i]["name"],
+                    AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
+                    ThemeColor = resToValue["data"]["data"][i]["theme_color"],
+                }
+            });
+        }
+
+        classroomOSA.Data.InsertItemsAtEnd(listClassroom);
+    }
 }

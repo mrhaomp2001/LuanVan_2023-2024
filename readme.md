@@ -389,8 +389,7 @@ bạn biết đấy, khi "thiết kế chức năng" thì trong đó đã bao g�
 - Chuyển đổi Datetime của bình luận và bài viết
 - xem lại các ràng buộc dữ liệu của các api, và dữ liệu của client
 - nhớ xem kích thước của tệp khi tải lên (xem thêm tại: laravel.com/docs/10.x/validation)
-- Phân trang dữ liệu cho lớp học, bài viết và sử dụng pull to refresh
-- phân trang dữ liệu cho các bài viết
+- Phân trang dữ liệu cho bài viết và bình luận và sử dụng pull to refresh
 
 ### Công việc ngày mai (và sắp tới):
 
@@ -430,13 +429,48 @@ tôi cảm thấy không khỏe hôm nay (nặng).
 ### Công việc ngày mai (và sắp tới):
 
 - thiết kế database thêm trường đăng nhập lần cuối
-- thiết kế độ khó của lớp
-- thiết kế độ khó của câu hỏi
 - hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
 - kết bạn và danh sách bạn bè
 - hiển thị profile với các thông tin cơ bản
+- danh sách chặn người dùng
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
 - server Node socket
 - chat
-- đăng ảnh
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
 
+</details>
+ 
+# 10:48:31 2023/09/07 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- thiết kế database thêm trường đăng nhập lần cuối
+- hiển thị danh sách người dùng dựa trên thời gian đăng nhập lần cuối
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- danh sách chặn người dùng
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+### Kết quả:
+
+- hiển thị danh sách người đăng nhập lần cuối (sắp xếp theo thời gian đăng nhập lần cuối nhất)
+- phân trang dữ liệu cho lớp học
+- bug phát hiện: xem lại cách lấy oldClassroom, oldPosts, oldCommments trong môi trường mạng lag => cách là chỉ chèn những dữ liệu chưa có, dữ liệu mới (có thể lọc theo id), đi kèm biến bool kiểm tra để gọi api một lần.
+
+### Công việc ngày mai: (và sắp tới)
+
+- **sửa bug phát hiện** 
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- danh sách chặn người dùng
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
 </details>

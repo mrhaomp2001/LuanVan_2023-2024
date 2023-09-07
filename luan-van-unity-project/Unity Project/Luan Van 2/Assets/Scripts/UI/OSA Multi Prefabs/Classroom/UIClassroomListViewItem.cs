@@ -24,6 +24,11 @@ namespace LuanVan.OSA
             classroomController.GetQuestionsAndAnswers(classroomModel);
         }
 
+        public void CheckAndGetOldClassrooms()
+        {
+            classroomController.CheckAndGetOldClassrooms(classroomModel);
+        }
+
         public void CheckAndDownloadAvatar()
         {
             if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))

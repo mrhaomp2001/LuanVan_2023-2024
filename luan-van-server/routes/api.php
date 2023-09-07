@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
 Route::get('/classrooms', [GameApiController::class, 'getClassrooms']);
+Route::get('/classrooms/old', [GameApiController::class, 'getOldClassrooms']);
 
 Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
 
@@ -49,3 +50,5 @@ Route::post('post/comments', [CommentController::class, 'storeApi']);
 Route::post('post/comment/edit', [CommentController::class, 'updateApi']);
 
 Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateLikeStatus']);
+
+Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);

@@ -72,6 +72,8 @@ public class AuthController : MonoBehaviour
         GlobalSetting.LoginUser.Username = resToValue["data"]["username"];
         GlobalSetting.LoginUser.Name = resToValue["data"]["name"];
         GlobalSetting.LoginUser.Id = resToValue["data"]["id"];
+        GlobalSetting.LoginUser.CreatedAt = resToValue["data"]["created_at"];
+        GlobalSetting.LoginUser.Id = resToValue["data"]["updated_at"];
 
         redirector.Pop();
     }

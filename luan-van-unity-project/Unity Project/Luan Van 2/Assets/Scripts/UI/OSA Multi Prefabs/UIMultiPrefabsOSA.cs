@@ -101,7 +101,12 @@ namespace LuanVan.OSA
                 vh.Init(_Params.commentPrefab, _Params.Content, itemIndex);
                 return vh;
             }
-
+            if (modelType == typeof(LatestOnlineUserItemModel))
+            {
+                var vh = new LatestOnlineUserItemViewsHolder();
+                vh.Init(_Params.latestOnlineUserPrefab, _Params.Content, itemIndex);
+                return vh;
+            }
             throw new InvalidOperationException("Unrecognized model type: " + modelType.Name);
         }
 
@@ -223,6 +228,7 @@ namespace LuanVan.OSA
         public RectTransform postPrefab;
         public RectTransform postTemplatePrefab;
         public RectTransform commentPrefab;
+        public RectTransform latestOnlineUserPrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -250,6 +256,10 @@ namespace LuanVan.OSA
             if (commentPrefab != null)
             {
                 AssertValidWidthHeight(commentPrefab);
+            }
+            if (latestOnlineUserPrefab != null)
+            {
+                AssertValidWidthHeight(latestOnlineUserPrefab);
             }
             
         }
