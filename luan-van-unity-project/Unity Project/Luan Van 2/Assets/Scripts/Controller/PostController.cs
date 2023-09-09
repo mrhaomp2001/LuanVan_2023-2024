@@ -371,6 +371,7 @@ public class PostController : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(request.error);
+            Debug.Log("ID: " + GlobalSetting.LoginUser.Id);
             yield break;
         }
 

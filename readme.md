@@ -464,7 +464,7 @@ tôi cảm thấy không khỏe hôm nay (nặng).
 
 ### Công việc ngày mai: (và sắp tới)
 
-- **sửa bug phát hiện** 
+- **sửa bug phát hiện**
 - kết bạn và danh sách bạn bè
 - hiển thị profile với các thông tin cơ bản
 - danh sách chặn người dùng
@@ -473,4 +473,30 @@ tôi cảm thấy không khỏe hôm nay (nặng).
 - server Node socket
 - chat
 - đăng ảnh (bài viết và ảnh đại diện người dùng)
+</details>
+
+# 08:30:14 2023/09/09 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- **sửa bug phát hiện**
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- danh sách chặn người dùng
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+=> Sau khi báo cáo: 
+- nên có thảo luận bên trong lớp học
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+### Kết quả:
+
+### Công việc ngày mai: (và sắp tới)
+
 </details>
