@@ -10,7 +10,7 @@ public class FooterMenuController : MonoBehaviour
     [SerializeField] private ClassroomController classroomController;
     [SerializeField] private PostController postController;
     [SerializeField] private OtherUserController otherUserController;
-
+    [SerializeField] private ProfileController profileController;
     private void Start()
     {
         RedirectHome();
@@ -47,7 +47,10 @@ public class FooterMenuController : MonoBehaviour
         afterColor.a = 1;
         imageBtnFooterMenus[1].color = afterColor;
 
-        classroomController.GetClassrooms();
+        if (classroomController.ClassroomOSA.Data.Count <= 0)
+        {
+            classroomController.GetClassrooms();
+        }
     }
 
     public void RedirectPost()
@@ -65,7 +68,10 @@ public class FooterMenuController : MonoBehaviour
         afterColor.a = 1;
         imageBtnFooterMenus[2].color = afterColor;
 
-        postController.GetPosts();
+        if (postController.PostOSA.Data.Count <= 0)
+        {
+            postController.GetPosts();
+        }
     }
 
     public void RedirectSetting()
@@ -89,5 +95,23 @@ public class FooterMenuController : MonoBehaviour
         imageBtnFooterMenus[3].color = afterColor;
 
         otherUserController.GetLatestLoginUsers();
+    }    
+
+    public void RedirectProfile()
+    {
+        redirector.Push("profile");
+
+        profileController.GetUserProfile(GlobalSetting.LoginUser.Id);
+
+        //foreach (var item in imageBtnFooterMenus)
+        //{
+        //    var currentColor = item.color;
+        //    currentColor.a = 0;
+        //    item.color = currentColor;
+        //}
+        //var afterColor = imageBtnFooterMenus[0].color;
+        //afterColor.a = 1;
+        //imageBtnFooterMenus[4].color = afterColor;
+
     }
 }

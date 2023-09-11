@@ -206,4 +206,39 @@ class PostController extends Controller
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
+    public function getUserPosts(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required',
+                'other_user_id' => 'required',
+                'per_page' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+                'other_user_id.required' => 'Other User Id không được rỗng',
+                'per_page.required' => 'Phải có số phần tử trên trang',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $posts = Post::where('user_id', $request->other_user_id)->where('post_status_id', '1')->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+
+        foreach ($posts as $post) {
+            $post->post_template;
+            $post->user;
+            $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
+            $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
+            $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
+            $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

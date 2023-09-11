@@ -489,7 +489,8 @@ tôi cảm thấy không khỏe hôm nay (nặng).
 - chat
 - đăng ảnh (bài viết và ảnh đại diện người dùng)
 
-=> Sau khi báo cáo: 
+=> Sau khi báo cáo:
+
 - nên có thảo luận bên trong lớp học
 - người dùng được đề xuất câu hỏi hay tự nghĩ ra
 - chia sẽ tài liệu hay
@@ -497,6 +498,113 @@ tôi cảm thấy không khỏe hôm nay (nặng).
 
 ### Kết quả:
 
+thứ bảy nên tôi xin nghỉ
+
 ### Công việc ngày mai: (và sắp tới)
+
+- **sửa bug phát hiện lấy oldClassroom, oldPosts, oldCommments trong môi trường mạng lag**
+- kết bạn và danh sách bạn bè
+- hiển thị profile với các thông tin cơ bản
+- danh sách chặn người dùng
+
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+</details>
+ 
+# 08:10:53 2023/09/11 =====
+
+**Cập nhật readme.md:**
+
+- Thêm mục "Mục tiêu của tuần".
+- Thêm mục "Ý tưởng"
+
+**Ý tưởng:**
+
+- nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới, ~~hoặc tự tạo ra lớp học~~
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+**Mục tiêu của tuần:**
+
+- Thiết kế viết bài viết bên trong lớp học
+- Thiết kế bộ lý thuyết bên trong lớp học
+
+- Tuần tiếp theo: Web quản lý
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- **sửa bug phát hiện lấy oldClassroom, oldPosts, oldCommments trong môi trường mạng lag**
+- hiển thị profile với các thông tin cơ bản
+
+- trang login, vào là đăng nhập ngay luôn
+- sửa UI, nên để tên của chủ đề ngay lên bài viết
+- phân trang dữ liệu cho posts bên trong profile
+
+- kết bạn và danh sách bạn bè
+- danh sách chặn người dùng
+
+- làm lại cách tham gia lớp, người dùng phải đăng ký vào lớp học để học (ghi danh)
+- có lịch sử làm bài và câu hỏi đã trả lời
+
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- **sửa bug phát hiện lấy oldClassroom, oldPosts, oldCommments trong môi trường mạng lag** (lọc, nếu id trùng thì không lấy)
+- hiển thị profile với các thông tin cơ bản (thông tin của bảng users)
+- lấy posts của profile hiện tại
+
+### Công việc ngày mai: (và sắp tới)
+
+- trang login, vào là yêu cầu đăng nhập ngay luôn
+- sửa UI, nên để tên của chủ đề ngay lên bài viết
+- phân trang dữ liệu cho posts bên trong profile
+
+- kết bạn và danh sách bạn bè (thiết kế database lại)
+- danh sách chặn người dùng
+
+- làm lại cách tham gia lớp, người dùng phải đăng ký vào lớp học để học (ghi danh)(thiết kế database lại)
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
 
 </details>

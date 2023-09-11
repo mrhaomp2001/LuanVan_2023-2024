@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class PostController : MonoBehaviour
 {
     [Header("Post Stats: ")]
-    [SerializeField] private int page;
     [SerializeField] private int postGetPerPage;
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -42,6 +41,9 @@ public class PostController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textTemplateContentRules;
 
     private UIPostModel currentPostSelect;
+
+    public UIMultiPrefabsOSA PostOSA { get => postOSA; set => postOSA = value; }
+
     public void GetPosts()
     {
         StartCoroutine(GetPostsCoroutine());
@@ -51,7 +53,6 @@ public class PostController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
-            "&page=" + page +
             "&per_page=" + postGetPerPage);
 
         yield return request.SendWebRequest();
@@ -429,7 +430,7 @@ public class PostController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/post/comments" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
-            "&post_id=" + postModel.PostId + 
+            "&post_id=" + postModel.PostId +
             "&per_page=" + commentGetPerPage);
 
         yield return request.SendWebRequest();
@@ -514,21 +515,38 @@ public class PostController : MonoBehaviour
 
         for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
-            commentModels.Add(new CommentItemModel
+            bool isConflict = false;
+
+            foreach (var item in postCommentOSA.Data)
             {
-                CommentModel = new UICommentModel()
+                if (item is CommentItemModel comment)
                 {
-                    Content = resToValue["data"]["data"][i]["content"],
-                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
-                    Id = resToValue["data"]["data"][i]["id"],
-                    PostId = resToValue["data"]["data"][i]["post_id"],
-                    UserId = resToValue["data"]["data"][i]["user_id"],
-                    UserFullName = resToValue["data"]["data"][i]["user"]["name"],
-                    Username = resToValue["data"]["data"][i]["user"]["username"],
-                    LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
-                    LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
+                    if (comment.CommentModel.Id.Equals(resToValue["data"]["data"][i]["id"]))
+                    {
+                        isConflict = true;
+                        break;
+                    }
                 }
-            });
+            }
+
+            if (!isConflict)
+            {
+                commentModels.Add(new CommentItemModel
+                {
+                    CommentModel = new UICommentModel()
+                    {
+                        Content = resToValue["data"]["data"][i]["content"],
+                        CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                        Id = resToValue["data"]["data"][i]["id"],
+                        PostId = resToValue["data"]["data"][i]["post_id"],
+                        UserId = resToValue["data"]["data"][i]["user_id"],
+                        UserFullName = resToValue["data"]["data"][i]["user"]["name"],
+                        Username = resToValue["data"]["data"][i]["user"]["username"],
+                        LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
+                        LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
+                    }
+                });
+            }
         }
 
         postCommentOSA.Data.InsertItemsAtEnd(commentModels);
@@ -794,26 +812,43 @@ public class PostController : MonoBehaviour
 
         for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
-            posts.Add(new PostItemModel()
+            bool isConflict = false;
+
+            foreach (var item in postOSA.Data)
             {
-                PostModel = new UIPostModel()
+                if (item is PostItemModel post)
                 {
-                    PostId = resToValue["data"]["data"][i]["id"],
-                    Content = resToValue["data"]["data"][i]["content"],
-                    CreateAt = resToValue["data"]["data"][i]["created_at"],
-                    PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
-                    PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
-                    PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
-                    UserFullname = resToValue["data"]["data"][i]["user"]["name"],
-                    Username = resToValue["data"]["data"][i]["user"]["username"],
-                    UserId = resToValue["data"]["data"][i]["user"]["id"],
-                    ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
-                    LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
-                    LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
-                    CommentCount = resToValue["data"]["data"][i]["comment_count"],
-                    PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    if (post.PostModel.PostId.Equals(resToValue["data"]["data"][i]["id"]))
+                    {
+                        isConflict = true;
+                        break;
+                    }
                 }
-            });
+            }
+
+            if (!isConflict)
+            {
+                posts.Add(new PostItemModel()
+                {
+                    PostModel = new UIPostModel()
+                    {
+                        PostId = resToValue["data"]["data"][i]["id"],
+                        Content = resToValue["data"]["data"][i]["content"],
+                        CreateAt = resToValue["data"]["data"][i]["created_at"],
+                        PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
+                        PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
+                        PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
+                        UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                        Username = resToValue["data"]["data"][i]["user"]["username"],
+                        UserId = resToValue["data"]["data"][i]["user"]["id"],
+                        ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
+                        LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
+                        LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
+                        CommentCount = resToValue["data"]["data"][i]["comment_count"],
+                        PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    }
+                });
+            }
             //Debug.Log((resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]).ToString());
         }
         postOSA.Data.InsertItemsAtEnd(posts);

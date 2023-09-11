@@ -68,6 +68,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textPlayTime;
     [SerializeField] private TextMeshProUGUI textAccuracy;
 
+    public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
 
     private void Update()
     {
@@ -384,19 +385,35 @@ public class ClassroomController : MonoBehaviour
 
         for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
-
-            listClassroom.Add(new ClassroomItemModel()
+            bool isConflict = false;
+            foreach (var item in classroomOSA.Data)
             {
-                ClassroomModel = new UIClassroomModel()
+                if (item is ClassroomItemModel classroom)
                 {
-                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
-                    Description = resToValue["data"]["data"][i]["description"],
-                    Id = resToValue["data"]["data"][i]["id"],
-                    Name = resToValue["data"]["data"][i]["name"],
-                    AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
-                    ThemeColor = resToValue["data"]["data"][i]["theme_color"],
+                    if (classroom.ClassroomModel.Id.Equals(resToValue["data"]["data"][i]["id"]))
+                    {
+                        isConflict = true;
+                        break;
+                    }
                 }
-            });
+            }
+
+            if (!isConflict)
+            {
+                listClassroom.Add(new ClassroomItemModel()
+                {
+                    ClassroomModel = new UIClassroomModel()
+                    {
+                        CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                        Description = resToValue["data"]["data"][i]["description"],
+                        Id = resToValue["data"]["data"][i]["id"],
+                        Name = resToValue["data"]["data"][i]["name"],
+                        AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
+                        ThemeColor = resToValue["data"]["data"][i]["theme_color"],
+                    }
+                });
+            }
+
         }
 
         classroomOSA.Data.InsertItemsAtEnd(listClassroom);

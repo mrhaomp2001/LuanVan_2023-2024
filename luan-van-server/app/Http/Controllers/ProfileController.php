@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Models\Answer;
 use App\Models\Question;
@@ -62,5 +64,32 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function getUserInfomationsApi(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $user = User::find($request->user_id);
+        
+        if (isset($user)) {
+            return response()->json(['data' => $user], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+        else { 
+            return response()->json(['data' => "Không tìm được user"], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
     }
 }

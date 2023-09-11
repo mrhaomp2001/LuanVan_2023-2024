@@ -7,6 +7,7 @@ use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
+
 Route::get('/classrooms', [GameApiController::class, 'getClassrooms']);
 Route::get('/classrooms/old', [GameApiController::class, 'getOldClassrooms']);
 
@@ -38,6 +40,7 @@ Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/posts/old', [PostController::class, 'getOldPosts']);
 Route::post('/posts', [PostController::class, 'uploadAPost']);
 Route::post('/post/edit', [PostController::class, 'updatePost']);
+
 
 Route::post('/post/like', [PostLikeController::class, 'createOrUpdateLikeStatus']);
 
@@ -52,3 +55,5 @@ Route::post('post/comment/edit', [CommentController::class, 'updateApi']);
 Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateLikeStatus']);
 
 Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);
+Route::get('user/info', [ProfileController::class, 'getUserInfomationsApi']);
+Route::get('/user/posts', [PostController::class, 'getUserPosts']);

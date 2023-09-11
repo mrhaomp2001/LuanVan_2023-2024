@@ -106,6 +106,12 @@ namespace LuanVan.OSA
                 var vh = new LatestOnlineUserItemViewsHolder();
                 vh.Init(_Params.latestOnlineUserPrefab, _Params.Content, itemIndex);
                 return vh;
+            }            
+            if (modelType == typeof(ProfileItemModel))
+            {
+                var vh = new ProfileItemViewsHolder();
+                vh.Init(_Params.profilePrefab, _Params.Content, itemIndex);
+                return vh;
             }
             throw new InvalidOperationException("Unrecognized model type: " + modelType.Name);
         }
@@ -158,6 +164,18 @@ namespace LuanVan.OSA
 			base.OnBeforeRecycleOrDisableViewsHolder(inRecycleBinOrVisible, newItemIndex);
 		}
 		*/
+
+
+        protected override void OnItemsRefreshed(int prevCount, int newCount)
+        {
+            base.OnItemsRefreshed(prevCount, newCount);
+
+            for (int i = 0; i < Data.Count; i++)
+            {
+                Data[i].id = i;
+            }
+        }
+
 
         // You only need to care about this if changing the item count by other means than ResetItems, 
         // case in which the existing items will not be re-created, but only their indices will change.
@@ -229,6 +247,7 @@ namespace LuanVan.OSA
         public RectTransform postTemplatePrefab;
         public RectTransform commentPrefab;
         public RectTransform latestOnlineUserPrefab;
+        public RectTransform profilePrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -260,6 +279,10 @@ namespace LuanVan.OSA
             if (latestOnlineUserPrefab != null)
             {
                 AssertValidWidthHeight(latestOnlineUserPrefab);
+            }
+            if (profilePrefab != null)
+            {
+                AssertValidWidthHeight(profilePrefab);
             }
             
         }
