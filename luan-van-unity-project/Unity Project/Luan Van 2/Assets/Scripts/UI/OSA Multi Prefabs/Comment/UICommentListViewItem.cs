@@ -14,6 +14,8 @@ namespace LuanVan.OSA
         [SerializeField] private Color colorLikeChoice;
         [SerializeField] private Color colorUnLikeChoice;
 
+        [SerializeField] private Redirector redirector;
+        [SerializeField] private ProfileController profileController;
         [SerializeField] private PostController postController;
         [SerializeField] private UICommentModel commentModel;
 
@@ -94,6 +96,12 @@ namespace LuanVan.OSA
         public void CheckAndGetOldComment()
         {
             postController.CheckAndGetOldComment(commentModel);
+        }
+
+        public void ShowProfile()
+        {
+            redirector.Push("profile");
+            profileController.GetUserProfile(commentModel.UserId);
         }
     }
 }

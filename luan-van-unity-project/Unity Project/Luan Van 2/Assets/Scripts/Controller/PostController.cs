@@ -96,6 +96,7 @@ public class PostController : MonoBehaviour
                     LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    ContainerOSA = "post",
                 }
             });
             //Debug.Log((resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]).ToString());
@@ -846,6 +847,7 @@ public class PostController : MonoBehaviour
                         LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                         CommentCount = resToValue["data"]["data"][i]["comment_count"],
                         PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                        ContainerOSA = "post",
                     }
                 });
             }

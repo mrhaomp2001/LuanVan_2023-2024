@@ -34,6 +34,13 @@ public class FooterMenuController : MonoBehaviour
 
     public void RedirectClassroom()
     {
+
+        if (GlobalSetting.LoginUser.Id.Equals(""))
+        {
+            redirector.Push("auth");
+            return;
+        }
+
         redirector.Pop();
         redirector.Push("classroom");
 
@@ -55,6 +62,12 @@ public class FooterMenuController : MonoBehaviour
 
     public void RedirectPost()
     {
+        if (GlobalSetting.LoginUser.Id.Equals(""))
+        {
+            redirector.Push("auth");
+            return;
+        }
+
         redirector.Pop();
         redirector.Push("post");
 
@@ -81,6 +94,12 @@ public class FooterMenuController : MonoBehaviour
 
     public void RedirectFriend()
     {
+        if (GlobalSetting.LoginUser.Id.Equals(""))
+        {
+            redirector.Push("auth");
+            return;
+        }
+
         redirector.Pop();
         redirector.Push("other_users");
 
@@ -99,19 +118,15 @@ public class FooterMenuController : MonoBehaviour
 
     public void RedirectProfile()
     {
+
+        if (GlobalSetting.LoginUser.Id.Equals(""))
+        {
+            redirector.Push("auth");
+            return;
+        }
+
         redirector.Push("profile");
 
         profileController.GetUserProfile(GlobalSetting.LoginUser.Id);
-
-        //foreach (var item in imageBtnFooterMenus)
-        //{
-        //    var currentColor = item.color;
-        //    currentColor.a = 0;
-        //    item.color = currentColor;
-        //}
-        //var afterColor = imageBtnFooterMenus[0].color;
-        //afterColor.a = 1;
-        //imageBtnFooterMenus[4].color = afterColor;
-
     }
 }

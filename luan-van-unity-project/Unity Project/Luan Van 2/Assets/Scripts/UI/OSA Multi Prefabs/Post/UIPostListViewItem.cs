@@ -14,7 +14,10 @@ namespace LuanVan.OSA
         [SerializeField] private Color colorLikeChoice;
         [SerializeField] private Color colorUnLikeChoice;
 
+        [SerializeField] private Redirector redirector;
         [SerializeField] private PostController postController;
+        [SerializeField] private ProfileController profileController;
+
         [SerializeField] private UIPostModel postModel;
         public UIPostModel PostModel { get => postModel; set => postModel = value; }
 
@@ -96,7 +99,21 @@ namespace LuanVan.OSA
 
         public void CheckAndGetOldPosts()
         {
-            postController.CheckAndGetOldPosts(postModel);
+            if (postModel.ContainerOSA.Equals("post"))
+            {
+                postController.CheckAndGetOldPosts(postModel);
+            }
+
+            if (postModel.ContainerOSA.Equals("profile"))
+            {
+                profileController.CheckAndGetOldPosts(postModel);
+            }
+        }
+
+        public void ShowProfile()
+        {
+            redirector.Push("profile");
+            profileController.GetUserProfile(postModel.UserId);
         }
     }
 }

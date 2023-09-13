@@ -18,6 +18,8 @@ public class ProfileController : MonoBehaviour
 
     public void GetUserProfile(string id)
     {
+        profileOSA.Data.ResetItems(new List<BaseModel>());
+
         StartCoroutine(GetUserProfileCoroutine(id));
     }
 
@@ -53,7 +55,6 @@ public class ProfileController : MonoBehaviour
             Username = resToValue["data"]["username"],
         };
 
-        profileOSA.Data.ResetItems(new List<BaseModel>());
 
         profileOSA.Data.InsertOneAtStart(new ProfileItemModel()
         {
@@ -65,7 +66,7 @@ public class ProfileController : MonoBehaviour
 
     private void GetUserProfilePosts()
     {
-        StartCoroutine(GetUserProfilePostsCoroutine()); 
+        StartCoroutine(GetUserProfilePostsCoroutine());
     }
 
 
@@ -116,10 +117,93 @@ public class ProfileController : MonoBehaviour
                     LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    ContainerOSA = "profile",
                 }
             });
         }
 
         profileOSA.Data.InsertItems(1, posts);
+    }
+
+    public void CheckAndGetOldPosts(UIPostModel postModel)
+    {
+        if (postModel.ViewsHolder.ItemIndex == (profileOSA.Data.Count - 1))
+        {
+            StartCoroutine(GetUserOldPostsCoroutine(postModel));
+        }
+    }
+
+    public IEnumerator GetUserOldPostsCoroutine(UIPostModel postModel)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/user/posts/old" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&other_user_id=" + currentProfileModel.Id +
+            "&per_page=" + postGetCount +
+            "&date=" + postModel.CreateAt);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        CheckAndGetOldPostsResponse(res);
+    }
+
+    public void CheckAndGetOldPostsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var posts = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            bool isConflict = false;
+
+            foreach (var item in profileOSA.Data)
+            {
+                if (item is PostItemModel post)
+                {
+                    if (post.PostModel.PostId.Equals(resToValue["data"]["data"][i]["id"]))
+                    {
+                        isConflict = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!isConflict)
+            {
+                posts.Add(new PostItemModel()
+                {
+                    PostModel = new UIPostModel()
+                    {
+                        PostId = resToValue["data"]["data"][i]["id"],
+                        Content = resToValue["data"]["data"][i]["content"],
+                        CreateAt = resToValue["data"]["data"][i]["created_at"],
+                        PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
+                        PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
+                        PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
+                        UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                        Username = resToValue["data"]["data"][i]["user"]["username"],
+                        UserId = resToValue["data"]["data"][i]["user"]["id"],
+                        ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
+                        LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
+                        LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
+                        CommentCount = resToValue["data"]["data"][i]["comment_count"],
+                        PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                        ContainerOSA = "profile",
+                    }
+                });
+            }
+        }
+
+        profileOSA.Data.InsertItemsAtEnd(posts);
     }
 }

@@ -28,6 +28,7 @@ namespace LuanVan.OSA
 
         [SerializeField] private string postStatus;
 
+        [SerializeField] private string containerOSA;
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private PostItemViewsHolder viewsHolder;
 
@@ -48,5 +49,6 @@ namespace LuanVan.OSA
         public string LikeStatus { get => likeStatus; set => likeStatus = value; }
         public int CommentCount { get => commentCount; set => commentCount = value; }
         public string PostStatus { get => postStatus; set => postStatus = value; }
+        public string ContainerOSA { get => containerOSA; set => containerOSA = value; }
     }
 }

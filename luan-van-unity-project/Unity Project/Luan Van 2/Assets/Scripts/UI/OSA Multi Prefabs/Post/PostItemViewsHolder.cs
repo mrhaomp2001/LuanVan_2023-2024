@@ -17,6 +17,7 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textCreateDate;
         public TextMeshProUGUI textLikeCount;
         public TextMeshProUGUI textCommentCount;
+        public TextMeshProUGUI textTemplate;
         public RectTransform rectTransformVisibility;
         public Image imageBackground;
 
@@ -33,7 +34,7 @@ namespace LuanVan.OSA
             postListViewItem = root.GetComponent<UIPostListViewItem>();
 
             root.GetComponentAtPath("layout_listview_item_content/img_background", out imageBackground);
-            root.GetComponentAtPath("layout_listview_item_content/img_background/layout_visibility", out rectTransformVisibility);
+            root.GetComponentAtPath("layout_listview_item_content/img_background/layout_post_menu_header/layout_visibility", out rectTransformVisibility);
 
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_name", out textName);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_create_date", out textCreateDate);
@@ -42,6 +43,8 @@ namespace LuanVan.OSA
 
             root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_vote_count", out textLikeCount);
             root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_comment_count", out textCommentCount);
+
+            root.GetComponentAtPath("layout_listview_item_content/img_background/layout_post_menu_header/layout_template/text_template", out textTemplate);
         }
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
         {
@@ -105,6 +108,8 @@ namespace LuanVan.OSA
             {
                 rectTransformVisibility.gameObject.SetActive(false);
             }
+
+            textTemplate.text = postListViewItem.PostModel.PosTemplateName;
 
             postListViewItem.UpdateLikeButtonColor();
 

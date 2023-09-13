@@ -57,3 +57,4 @@ Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateL
 Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);
 Route::get('user/info', [ProfileController::class, 'getUserInfomationsApi']);
 Route::get('/user/posts', [PostController::class, 'getUserPosts']);
+Route::get('/user/posts/old', [PostController::class, 'getUserOldPosts']);
