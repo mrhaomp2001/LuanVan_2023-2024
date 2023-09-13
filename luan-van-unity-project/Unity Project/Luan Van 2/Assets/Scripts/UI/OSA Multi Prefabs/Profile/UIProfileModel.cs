@@ -11,6 +11,8 @@ namespace LuanVan.OSA
         [SerializeField] private string username;
         [SerializeField] private string createdAt;
         [SerializeField] private string updatedAt;
+        [SerializeField] private string friendStatusToOther;
+        [SerializeField] private string friendStatusToSelf;
 
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private ProfileItemViewsHolder viewsHolder;
@@ -22,5 +24,7 @@ namespace LuanVan.OSA
         public string Username { get => username; set => username = value; }
         public string CreatedAt { get => createdAt; set => createdAt = value; }
         public string UpdatedAt { get => updatedAt; set => updatedAt = value; }
+        public string FriendStatusToOther { get => friendStatusToOther; set => friendStatusToOther = value; }
+        public string FriendStatusToSelf { get => friendStatusToSelf; set => friendStatusToSelf = value; }
     }
 }

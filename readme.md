@@ -686,3 +686,74 @@ thứ bảy nên tôi xin nghỉ
 - phân quyền ứng dụng
 
 </details>
+ 
+# 08:45:47 2023/09/13 =====
+
+**Ý tưởng:**
+
+- nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới, ~~hoặc tự tạo ra lớp học~~
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+**Mục tiêu của tuần:**
+
+- Thiết kế viết bài viết bên trong lớp học
+- Thiết kế bộ lý thuyết bên trong lớp học
+
+- Tuần tiếp theo: Web quản lý
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- kết bạn và danh sách bạn bè (thiết kế database lại)
+- danh sách chặn người dùng
+
+- làm lại cách tham gia lớp, người dùng phải đăng ký vào lớp học để học (ghi danh)(thiết kế database lại)
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- hiển danh sách bạn bè
+- chuẩn bị api cho việc kết bạn và block
+
+### Công việc ngày mai: (và sắp tới)
+
+- hoàn thành chức năng kết bạn
+
+- làm lại cách tham gia lớp, người dùng phải đăng ký vào lớp học để học (ghi danh)(thiết kế database lại)
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+</details>

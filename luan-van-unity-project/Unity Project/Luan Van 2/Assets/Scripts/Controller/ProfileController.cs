@@ -26,7 +26,8 @@ public class ProfileController : MonoBehaviour
     private IEnumerator GetUserProfileCoroutine(string id)
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/user/info" +
-            "?user_id=" + id);
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&profile_user_id=" + id);
 
         yield return request.SendWebRequest();
 
@@ -53,8 +54,9 @@ public class ProfileController : MonoBehaviour
             Name = resToValue["data"]["name"],
             UpdatedAt = resToValue["data"]["updated_at"],
             Username = resToValue["data"]["username"],
+            FriendStatusToSelf = resToValue["data"]["friend_to_user"]["friend_status_id"],
+            FriendStatusToOther = resToValue["data"]["friend_to_other"]["friend_status_id"],
         };
-
 
         profileOSA.Data.InsertOneAtStart(new ProfileItemModel()
         {

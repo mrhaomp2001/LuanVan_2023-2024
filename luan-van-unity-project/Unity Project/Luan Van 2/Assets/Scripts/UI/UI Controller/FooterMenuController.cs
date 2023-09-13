@@ -113,7 +113,7 @@ public class FooterMenuController : MonoBehaviour
         afterColor.a = 1;
         imageBtnFooterMenus[3].color = afterColor;
 
-        otherUserController.GetLatestLoginUsers();
+        otherUserController.GetFriends();
     }    
 
     public void RedirectProfile()

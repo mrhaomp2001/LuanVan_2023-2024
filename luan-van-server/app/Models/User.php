@@ -43,11 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function classroom()
-    {
-        return $this->belongsTo(Classroom::class, "classroom_id");
-    }
-
+    
     public function posts()
     {
         return $this->hasMany(Post::class, "post_id");

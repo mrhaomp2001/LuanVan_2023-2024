@@ -9,6 +9,7 @@ public class Redirector : MonoBehaviour
     {
         public string name;
         public List<RectTransform> rectTransformsUi;
+        public List<int> disableUisOnActive;
     }
 
     [SerializeField] private List<UIScreenRoute> screenRoutes = new List<UIScreenRoute>();
@@ -43,6 +44,11 @@ public class Redirector : MonoBehaviour
                 foreach (var rectTransform in route.rectTransformsUi)
                 {
                     rectTransform.gameObject.SetActive(true);
+                }
+
+                foreach (var index in route.disableUisOnActive)
+                {
+                    route.rectTransformsUi[index].gameObject.SetActive(false);
                 }
 
                 if (!stackRoute.Peek().Equals(routeName))
@@ -82,6 +88,11 @@ public class Redirector : MonoBehaviour
                     foreach (var rectTransform in route.rectTransformsUi)
                     {
                         rectTransform.gameObject.SetActive(true);
+                    }
+
+                    foreach (var index in route.disableUisOnActive)
+                    {
+                        route.rectTransformsUi[index].gameObject.SetActive(false);
                     }
 
                     break;

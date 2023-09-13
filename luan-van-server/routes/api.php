@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GameApiController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
@@ -58,3 +59,10 @@ Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);
 Route::get('user/info', [ProfileController::class, 'getUserInfomationsApi']);
 Route::get('/user/posts', [PostController::class, 'getUserPosts']);
 Route::get('/user/posts/old', [PostController::class, 'getUserOldPosts']);
+
+Route::get('/user/friends', [FriendController::class, 'getAcceptedFriends']);
+Route::get('/user/friends/waiting', [FriendController::class, 'getWaitingFriends']);
+
+Route::get('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
+Route::post('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
+

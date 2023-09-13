@@ -20,27 +20,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::create(
-            [
-                'name' => "admin",
-                'username' => "admin",
-                'password' => Hash::make("password"),
-                'classroom_id' => "1",
-            ]
-        );
+        for ($i = 1; $i < 10; $i++) {
+            User::create(
+                [
+                    'name' => "admin" . $i,
+                    'username' => "admin" . $i,
+                    'password' => Hash::make("password"),
+                ]
+            );
+        }
 
-        User::create(
-            [
-                'name' => "admin2",
-                'username' => "admin2",
-                'password' => Hash::make("password"),
-                'classroom_id' => "1",
-            ]
-        );
+
         $this->call(PostTemplateSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(CommentSeeder::class);
-        
+
         $this->call(ClassroomSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(AnswerSeeder::class);

@@ -64,7 +64,6 @@ class GameApiController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'classroom_id' => "1",
         ]);
 
         return response()->json(['data' => $user], 200, [], JSON_UNESCAPED_UNICODE);
@@ -94,9 +93,6 @@ class GameApiController extends Controller
         if (!isset($user->username)) {
             return response()->json(['message' => "không có tài khoản"], 200, [], JSON_UNESCAPED_UNICODE);
         }
-
-        
-        $user->classroom;
 
         $user->touch();
 

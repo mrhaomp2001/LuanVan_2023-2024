@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,9 +73,11 @@ class ProfileController extends Controller
             $input,
             [
                 'user_id' => 'required',
+                'profile_user_id' => 'required',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
+                'profile_user_id.required' => 'Profile User Id không được rỗng',
             ]
         );
 
@@ -82,8 +85,14 @@ class ProfileController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $user = User::find($request->user_id);
+        $user = User::find($request->profile_user_id);
         
+        $friendToOther = Friend::where("user_id", $request->user_id)->where("other_id", $request->profile_user_id)->first(); 
+        $friendToUser = Friend::where("user_id", $request->profile_user_id)->where("other_id", $request->user_id)->first();
+
+        $user->friend_to_other = $friendToOther;
+        $user->friend_to_user = $friendToUser;
+
         if (isset($user)) {
             return response()->json(['data' => $user], 200, [], JSON_UNESCAPED_UNICODE);
         }
