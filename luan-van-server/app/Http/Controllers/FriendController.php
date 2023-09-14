@@ -233,7 +233,7 @@ class FriendController extends Controller
                     'other_id' => $request->user_id,
                 ],
                 [
-                    'friend_status_id' => 1,
+                    'friend_status_id' => "1",
                 ]
             );
         }
@@ -249,9 +249,9 @@ class FriendController extends Controller
             if ($other->friend_status_id == 1) {
                 $other->friend_status_id = 3;
                 $other->save();
-            }   
+            }
         }
-        return response()->json([ 'self' => $user,'other' => $other], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['self_to_other' => $user, 'other_to_self' => $other], 200, [], JSON_UNESCAPED_UNICODE);
 
     }
 }

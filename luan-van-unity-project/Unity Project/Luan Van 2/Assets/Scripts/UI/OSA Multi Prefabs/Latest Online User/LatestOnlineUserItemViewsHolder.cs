@@ -15,6 +15,7 @@ namespace LuanVan.OSA
         public UILatestOnlineUserListViewItem latestOnlineUserListViewItem;
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textUpdatedDate;
+        public RectTransform containerAddfriend;
         public override bool CanPresentModelType(Type modelType)
         {
             return modelType == typeof(LatestOnlineUserItemModel);
@@ -29,6 +30,8 @@ namespace LuanVan.OSA
 
             root.GetComponentAtPath("layout_listview_item_content/text_name", out textName);
             root.GetComponentAtPath("layout_listview_item_content/text_latest_time_login", out textUpdatedDate);
+
+            root.GetComponentAtPath("layout_listview_add_friend", out containerAddfriend);
 
         }
 
@@ -71,6 +74,16 @@ namespace LuanVan.OSA
             }
 
             textName.text = latestOnlineUserListViewItem.LatestOnlineUserModel.Name;
+            textUpdatedDate.text = "Đăng nhập: " + textUpdatedDate.text;
+
+            if (latestOnlineUserListViewItem.LatestOnlineUserModel.ContainerOSA.Equals("waitingFriend"))
+            {
+                containerAddfriend.gameObject.SetActive(true);
+            }
+            else
+            {
+                containerAddfriend.gameObject.SetActive(false);
+            }
 
             MarkForRebuild();
         }

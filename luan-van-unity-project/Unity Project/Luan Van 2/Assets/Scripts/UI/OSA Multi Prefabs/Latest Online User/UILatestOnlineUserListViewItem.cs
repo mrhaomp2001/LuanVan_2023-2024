@@ -10,6 +10,7 @@ namespace LuanVan.OSA
     {
         [SerializeField] private Redirector redirector;
         [SerializeField] private ProfileController profileController;
+        [SerializeField] private OtherUserController otherUserController;
         [SerializeField] private UILatestOnlineUserModel latestOnlineUserModel;
 
         public UILatestOnlineUserModel LatestOnlineUserModel { get => latestOnlineUserModel; set => latestOnlineUserModel = value; }
@@ -18,6 +19,11 @@ namespace LuanVan.OSA
         {
             redirector.Push("profile");
             profileController.GetUserProfile(latestOnlineUserModel.Id);
+        }
+
+        public void UpdateFriendStatus(string status)
+        {
+            otherUserController.UpdateFriendStatus(latestOnlineUserModel.Id, status);
         }
     }
 }

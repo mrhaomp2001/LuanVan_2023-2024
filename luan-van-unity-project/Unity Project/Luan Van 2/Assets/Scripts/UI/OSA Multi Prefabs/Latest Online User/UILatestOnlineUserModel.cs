@@ -13,6 +13,7 @@ namespace LuanVan.OSA
         [SerializeField] private string createdAt;
         [SerializeField] private string updatedAt;
 
+        [SerializeField] private string containerOSA;
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private LatestOnlineUserItemViewsHolder viewsHolder;
 
@@ -23,5 +24,6 @@ namespace LuanVan.OSA
         public string UpdatedAt { get => updatedAt; set => updatedAt = value; }
         public int ItemIndexOSA { get => itemIndexOSA; set => itemIndexOSA = value; }
         public LatestOnlineUserItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
+        public string ContainerOSA { get => containerOSA; set => containerOSA = value; }
     }
 }
