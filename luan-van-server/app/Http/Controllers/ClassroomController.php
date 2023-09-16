@@ -71,7 +71,7 @@ class ClassroomController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'id' => 'required',
+                'id' => 'required|exists:questions,id',
                 'name' => 'required',
                 'description' => 'required',
                 'theme_color' => 'required',

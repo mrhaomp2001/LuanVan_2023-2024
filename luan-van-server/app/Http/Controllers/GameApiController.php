@@ -12,13 +12,40 @@ use Illuminate\Http\Request;
 
 class GameApiController extends Controller
 {
+
+    public function testApi(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+            ],
+            [
+                'user_id.required' => 'user_id.required',
+                'user_id.exists' => 'user_id.exists',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $data = User::find($request->user_id);
+
+        $data->classrooms;
+
+        $data->data = Classroom::find(2)->users;
+
+        return response()->json(['message' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
     public function getQuestions(Request $request)
     {
         $input = $request->all();
         $validator = Validator::make(
             $input,
             [
-                'class' => 'required',
+                'class' => 'required|exists:classrooms,id',
                 'amount' => 'required'
             ]
         );
@@ -182,7 +209,7 @@ class GameApiController extends Controller
             $input,
             [
                 'per_page' => 'required',
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
             ],
             [
                 'per_page.required' => 'phải có số phần tử trên một trang cụ thể',

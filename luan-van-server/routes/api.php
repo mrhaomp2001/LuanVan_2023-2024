@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ClassroomTopicController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TopicCommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/test', [GameApiController::class, 'testApi']);
+
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
 
@@ -63,6 +68,13 @@ Route::get('/user/posts/old', [PostController::class, 'getUserOldPosts']);
 Route::get('/user/friends', [FriendController::class, 'getAcceptedFriends']);
 Route::get('/user/friends/waiting', [FriendController::class, 'getWaitingFriends']);
 
-Route::get('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
 Route::post('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
+
+Route::get('/classroom/topics', [ClassroomTopicController::class, 'getTopics']);
+Route::Post('/classroom/topic', [ClassroomTopicController::class, 'uploadATopic']);
+Route::Post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
+
+Route::get('/classroom/topic/comments', [TopicCommentController::class, 'getTopicComments']);
+Route::post('/classroom/topic/comments', [TopicCommentController::class, 'uploadATopicComment']);
+Route::post('/classroom/topic/comment/edit', [TopicCommentController::class, 'updateATopicComment']);
 

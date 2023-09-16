@@ -5,27 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classroom extends Model
+class ClassroomTopic extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'description',
-        'theme_color',
+        'classroom_id',
+        'user_id',
+        'topic_status_id',
+        'content',
     ];
 
-    public function questions()
+    public function classroom()
     {
-        return $this->hasMany(Question::class, "classroom_id");
+        return $this->belongsTo(Classroom::class, "classroom_id");
     }
-
-    public function users()
+    public function user()
     {
-        return $this->hasMany(StudyClassroom::class, "classroom_id");
+        return $this->belongsTo(User::class, "user_id");
     }
 }

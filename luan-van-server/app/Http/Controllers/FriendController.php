@@ -88,7 +88,7 @@ class FriendController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
             ],
             [
                 'user_id.required' => 'phải có user_id',
@@ -147,7 +147,7 @@ class FriendController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
             ],
             [
                 'user_id.required' => 'phải có user_id',
@@ -199,8 +199,8 @@ class FriendController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
-                'other_id' => 'required',
+                'user_id' => 'required|exists:user,id',
+                'other_id' => 'required|exists:user,id',
                 'status' => 'required',
             ],
             [

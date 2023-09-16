@@ -71,8 +71,8 @@ class CommentLikeController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
-                'comment_id' => 'required',
+                'user_id' => 'required|exists:users,id',
+                'comment_id' => 'required|exists:comments,id',
                 'like_status' => 'required',
             ],
             [

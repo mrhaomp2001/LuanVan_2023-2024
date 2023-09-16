@@ -72,8 +72,8 @@ class ProfileController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
-                'profile_user_id' => 'required',
+                'user_id' => 'required|exists:user,id',
+                'profile_user_id' => 'required|exists:user,id',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',

@@ -828,3 +828,75 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+
+# 08:17:10 2023/09/15 =====
+
+**Ý tưởng:**
+
+- nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới, ~~hoặc tự tạo ra lớp học~~
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+**Mục tiêu của tuần:**
+
+- Thiết kế viết bài viết bên trong lớp học
+- Thiết kế bộ lý thuyết bên trong lớp học
+
+- Tuần tiếp theo: Web quản lý
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- làm lại cách tham gia lớp, người dùng phải đăng ký vào lớp học để học (ghi danh)(thiết kế database lại)
+- bài viết bên trong lớp học (khác với bài viết chung chung)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- viết api người dùng phải đăng ký vào lớp học để học
+- viết api bài viết bên trong lớp học (api thêm sửa xóa bài viết, bình luận)
+- xây dựng database cho việc tương tác với bài viết và bình luận bên trong lớp học
+
+### Công việc ngày mai: (và sắp tới)
+
+- viết api cho việc tương tác với bài thảo luận, bình luận liên quan của lớp học
+- thiết kế giao diện bái viết bên trong lớp học (từ nay sẽ gọi là thảo luận bên trong lớp học, hay thảo luận)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+</details>

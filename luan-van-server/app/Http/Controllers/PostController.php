@@ -75,7 +75,7 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
+                'user_id' => 'required|exists:users,id',
                 'per_page' => 'required'
             ],
             [
@@ -108,7 +108,7 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
+                'user_id' => 'required|exists:user,id',
                 'per_page' => 'required',
                 'date' => 'required',
             ],
@@ -144,8 +144,8 @@ class PostController extends Controller
             $input,
             [
                 'content' => 'required|min:1',
-                'user_id' => 'required',
-                'post_template_id' => 'required',
+                'user_id' => 'required|exists:user,id',
+                'post_template_id' => 'required|exists:post_templates,id',
                 'post_status_id' => 'required'
             ],
             [
@@ -179,7 +179,7 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'id' => 'required',
+                'id' => 'required|exists:posts,id',
                 'content' => 'required|min:1',
                 'post_template_id' => 'required',
                 'post_status_id' => '',
@@ -213,8 +213,8 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
-                'other_user_id' => 'required',
+                'user_id' => 'required|exists:user,id',
+                'other_user_id' => 'required|exists:user,id',
                 'per_page' => 'required',
             ],
             [
@@ -248,10 +248,10 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required',
+                'user_id' => 'required|exists:user,id',
                 'per_page' => 'required',
                 'date' => 'required',
-                'other_user_id' => 'required',
+                'other_user_id' => 'required|exists:user,id',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',

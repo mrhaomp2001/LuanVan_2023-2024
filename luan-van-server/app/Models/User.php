@@ -60,4 +60,10 @@ class User extends Authenticatable
     public function commentLikes() {
         return $this->hasMany(CommentLike::class, "comment_like_id");
     }
+
+    public function classrooms()
+    {
+        return $this->hasMany(StudyClassroom::class, "user_id");
+    }
+    
 }
