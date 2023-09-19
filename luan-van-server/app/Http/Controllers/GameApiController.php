@@ -138,69 +138,6 @@ class GameApiController extends Controller
         return response()->json(['message' => "Sai mật khẩu"], 200, [], JSON_UNESCAPED_UNICODE);
 
     }
-    public function getClassrooms(Request $request)
-    {
-        $input = $request->all();
-        $validator = Validator::make(
-            $input,
-            [
-                'per_page' => 'required',
-            ],
-            [
-                'per_page.required' => 'phải có số phần tử trên một trang cụ thể',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
-        }
-
-        $classrooms = Classroom::orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
-
-        foreach ($classrooms as $classroom) {
-
-            if (Storage::disk('public')->exists('classrooms/avatars/' . $classroom->id . ".png")) {
-                $classroom->avatar_path = Storage::url('classrooms/avatars/' . $classroom->id . ".png");
-            } else {
-                $classroom->avatar_path = "";
-            }
-        }
-
-        return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
-    }
-
-    public function getOldClassrooms(Request $request)
-    {
-        $input = $request->all();
-        $validator = Validator::make(
-            $input,
-            [
-                'per_page' => 'required',
-                'date' => 'required',
-            ],
-            [
-                'per_page.required' => 'phải có số phần tử trên một trang cụ thể',
-                'date.required' => 'phải có ngày bắt đầu lấy',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
-        }
-
-        $classrooms = Classroom::where('created_at', '<', $request->date)->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
-
-        foreach ($classrooms as $classroom) {
-
-            if (Storage::disk('public')->exists('classrooms/avatars/' . $classroom->id . ".png")) {
-                $classroom->avatar_path = Storage::url('classrooms/avatars/' . $classroom->id . ".png");
-            } else {
-                $classroom->avatar_path = "";
-            }
-        }
-
-        return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
-    }
 
     public function getUserByLatestLogin(Request $request)
     {

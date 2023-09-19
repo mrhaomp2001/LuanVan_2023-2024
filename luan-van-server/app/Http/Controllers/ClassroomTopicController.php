@@ -89,10 +89,11 @@ class ClassroomTopicController extends Controller
         }
 
         $topics = ClassroomTopic::where("classroom_id", $request->classroom_id)
-            ->where("topic_status_id", "2")
+            ->where("topic_status_id", "1")
             ->simplePaginate($request->per_page);
 
         foreach ($topics as $topic) {
+            $topic->user;
             $topic->like_up = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", 1)->count();
             $topic->like_down = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", -1)->count();
             $topic->like_status = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("user_id", $request->user_id)->first();
@@ -156,8 +157,7 @@ class ClassroomTopicController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $topic = ClassroomTopic::updateOrCreate
-        (
+        $topic = ClassroomTopic::updateOrCreate(
             [
                 'id' => $request->id,
             ],

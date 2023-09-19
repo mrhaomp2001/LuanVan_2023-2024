@@ -3,6 +3,7 @@ using LuanVan.OSA;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -40,6 +41,8 @@ public class ClassroomController : MonoBehaviour
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA classroomOSA;
     [SerializeField] private UIMultiPrefabsOSA playOSA;
+    [SerializeField] private UIMultiPrefabsOSA userClassroomOSA;
+    [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -47,6 +50,9 @@ public class ClassroomController : MonoBehaviour
     [Header("Classrooms: ")]
     [SerializeField] private int page;
     [SerializeField] private int perPage;
+
+    [Header("Topics: ")]
+    [SerializeField] private int topicGetCount;
 
     [Header("Questions: ")]
     [SerializeField] private int questionAmount;
@@ -83,6 +89,7 @@ public class ClassroomController : MonoBehaviour
     /// </summary>
     public void GetClassrooms()
     {
+        redirector.Push("classroom");
         StartCoroutine(GetClassroomCoroutine());
     }
 
@@ -126,6 +133,7 @@ public class ClassroomController : MonoBehaviour
                     Name = resToValue["data"]["data"][i]["name"],
                     AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
                     ThemeColor = resToValue["data"]["data"][i]["theme_color"],
+                    ContainerOSA = "classroom"
                 }
             });
         }
@@ -133,7 +141,7 @@ public class ClassroomController : MonoBehaviour
         classroomOSA.Data.ResetItems(listClassroom);
     }
 
-    public void GetQuestionsAndAnswers(UIClassroomModel classroomModel)
+    public void GetQuestionsAndAnswers(string classroomId)
     {
         playOSA.Data.ResetItems(new List<BaseModel>());
         redirector.Push("play");
@@ -143,13 +151,13 @@ public class ClassroomController : MonoBehaviour
         sliderProgress.maxValue = questionAmount;
         sliderProgress.value = currentQuestion;
 
-        StartCoroutine(GetQuestionsAndAnswersCoroutine(classroomModel));
+        StartCoroutine(GetQuestionsAndAnswersCoroutine(classroomId));
     }
 
-    public IEnumerator GetQuestionsAndAnswersCoroutine(UIClassroomModel classroomModel)
+    public IEnumerator GetQuestionsAndAnswersCoroutine(string classroomId)
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/questions" +
-            "?class=" + classroomModel.Id +
+            "?class=" + classroomId +
             "&amount=" + questionAmount);
 
         yield return request.SendWebRequest();
@@ -410,6 +418,7 @@ public class ClassroomController : MonoBehaviour
                         Name = resToValue["data"]["data"][i]["name"],
                         AvatarPath = resToValue["data"]["data"][i]["avatar_path"],
                         ThemeColor = resToValue["data"]["data"][i]["theme_color"],
+                        ContainerOSA = "classroom"
                     }
                 });
             }
@@ -417,5 +426,169 @@ public class ClassroomController : MonoBehaviour
         }
 
         classroomOSA.Data.InsertItemsAtEnd(listClassroom);
+    }
+
+    public void GetUserClassrooms()
+    {
+        StartCoroutine(GetUserClassroomsCoroutine());
+    }
+
+    private IEnumerator GetUserClassroomsCoroutine()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/user" +
+            "?user_id=" + GlobalSetting.LoginUser.Id);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetUserClassroomsResponse(res);
+    }
+    public void GetUserClassroomsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var listClassroom = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"].Count; i++)
+        {
+
+            listClassroom.Add(new ClassroomItemModel()
+            {
+                ClassroomModel = new UIClassroomModel()
+                {
+                    CreatedAt = resToValue["data"][i]["classroom"]["created_at"],
+                    Description = resToValue["data"][i]["classroom"]["description"],
+                    Id = resToValue["data"][i]["classroom"]["id"],
+                    Name = resToValue["data"][i]["classroom"]["name"],
+                    AvatarPath = resToValue["data"][i]["classroom"]["avatar_path"],
+                    ThemeColor = resToValue["data"][i]["classroom"]["theme_color"],
+                    ContainerOSA = "user_classroom"
+                }
+            });
+        }
+
+        userClassroomOSA.Data.ResetItems(listClassroom);
+    }
+
+
+    public void GetClassroomInfo(UIClassroomModel classroomModel)
+    {
+        redirector.Push("classroom.info");
+
+        classroomInfoOSA.Data.ResetItems(new List<BaseModel>());
+
+        StartCoroutine(GetClassroomInfoCoroutine(classroomModel.Id));
+    }
+
+    public IEnumerator GetClassroomInfoCoroutine(string classroomId)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/info" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&classroom_id=" + classroomId);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetClassroomInfoResponse(res);
+
+        GetClassroomTopics(classroomId);
+    }
+
+    public void GetClassroomInfoResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var classroomInfo = new ClassroomInfoItemModel()
+        {
+            ClassroomInfoModel = new UIClassroomInfoModel()
+            {
+                AvatarPath = resToValue["data"]["avatar_path"],
+                CreatedAt = resToValue["data"]["created_at"],
+                Description = resToValue["data"]["description"],
+                Id = resToValue["data"]["id"],
+                Name = resToValue["data"]["name"],
+                StudyStatus = resToValue["data"]["study_status"]["study_status_id"] ?? "",
+                ThemeColor = resToValue["data"]["theme_color"],
+            }
+        };
+
+        classroomInfoOSA.Data.InsertOneAtStart(classroomInfo);
+    }
+
+    public void GetClassroomTopics(string classroomId)
+    {
+        StartCoroutine(GetClassroomTopicsCoroutine(classroomId));
+    }
+
+    private IEnumerator GetClassroomTopicsCoroutine(string classroomId)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/topics" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&classroom_id=" + classroomId +
+            "&per_page=" + topicGetCount);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        GetClassroomTopicsResponse(res);
+    }
+
+    private void GetClassroomTopicsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+        var topics = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            topics.Add(new PostItemModel()
+            {
+                PostModel = new UIPostModel()
+                {
+                    CommentCount = 0,
+                    ContainerOSA = "topic",
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreateAt = resToValue["data"]["data"][i]["created_at"],
+                    LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
+                    LikeStatus = resToValue["data"]["data"][i]["like_status"]["like_status"] ?? "",
+                    PosTemplateContent = "",
+                    PosTemplateName = "Thảo luận",
+                    PostId = resToValue["data"]["data"][i]["id"],
+                    PostStatus = resToValue["data"]["data"][i]["topic_status_id"],
+                    PostTemplateId = "",
+                    ThemeColor = "",
+                    UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                    UserId = resToValue["data"]["data"][i]["user"]["id"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                }
+            });
+        }
+
+        classroomInfoOSA.Data.InsertItems(1, topics);
     }
 }

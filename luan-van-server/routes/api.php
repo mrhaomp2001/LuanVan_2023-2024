@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomTopicController;
+use App\Http\Controllers\ClassroomTopicLikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendController;
@@ -34,11 +35,6 @@ Route::get('/test', [GameApiController::class, 'testApi']);
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
 
-Route::get('/classrooms', [GameApiController::class, 'getClassrooms']);
-Route::get('/classrooms/old', [GameApiController::class, 'getOldClassrooms']);
-
-Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
-
 Route::get('/login', [GameApiController::class, 'login']);
 Route::post('/register', [GameApiController::class, 'register']);
 
@@ -70,11 +66,20 @@ Route::get('/user/friends/waiting', [FriendController::class, 'getWaitingFriends
 
 Route::post('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
 
+Route::get('/classrooms', [ClassroomController::class, 'getClassrooms']);
+Route::get('/classrooms/user', [ClassroomController::class, 'getUserClassrooms']);
+Route::get('/classrooms/old', [ClassroomController::class, 'getOldClassrooms']);
+Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
+
+Route::get('/classroom/info', [ClassroomController::class, 'getClassroomInfo']);
+Route::post('/classroom/user/edit', [ClassroomController::class, 'updateStudyStatus']);
+
 Route::get('/classroom/topics', [ClassroomTopicController::class, 'getTopics']);
 Route::Post('/classroom/topic', [ClassroomTopicController::class, 'uploadATopic']);
 Route::Post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
 
+Route::Post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
+
 Route::get('/classroom/topic/comments', [TopicCommentController::class, 'getTopicComments']);
 Route::post('/classroom/topic/comments', [TopicCommentController::class, 'uploadATopicComment']);
 Route::post('/classroom/topic/comment/edit', [TopicCommentController::class, 'updateATopicComment']);
-

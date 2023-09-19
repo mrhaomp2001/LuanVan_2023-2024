@@ -878,7 +878,7 @@ thứ bảy nên tôi xin nghỉ
 ### Công việc ngày mai: (và sắp tới)
 
 - viết api cho việc tương tác với bài thảo luận, bình luận liên quan của lớp học
-- thiết kế giao diện bái viết bên trong lớp học (từ nay sẽ gọi là thảo luận bên trong lớp học, hay thảo luận)
+- thiết kế giao diện bài viết bên trong lớp học (từ nay sẽ gọi là thảo luận bên trong lớp học, hay thảo luận)
 
 - có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
 - bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
@@ -899,4 +899,75 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 
+</details>
+ 
+# 08:22:48 2023/09/18 ===== 
+ **Ý tưởng:**
+
+- nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới, ~~hoặc tự tạo ra lớp học~~
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+**Mục tiêu của tuần:**
+
+- Thiết kế viết bài viết bên trong lớp học
+- Thiết kế bộ lý thuyết bên trong lớp học
+
+- Web quản lý
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- viết api cho việc tương tác với bài thảo luận, bình luận liên quan của lớp học
+- thiết kế giao diện bài viết bên trong lớp học (từ nay sẽ gọi là thảo luận bên trong lớp học, hay thảo luận)
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- hiển thị thông tin của lớp học
+- bài thảo luận bên trong lớp học (tạm thời, hiển thị đơn giản các thảo luận, đang dùng post list view item)
+- viết api cho việc tương tác với bài thảo luận, bình luận liên quan của lớp học (like và bình luận)
+
+### Công việc ngày mai: (và sắp tới)
+
+- thiết kế UI cho việc tương tác với thảo luận, bình luận của thảo luận, tương tác với bình luận của thảo luận
+
+- đăng thảo luận
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
 </details>

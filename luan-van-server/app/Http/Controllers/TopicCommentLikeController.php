@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\TopicCommentLike;
 use App\Http\Requests\StoreTopicCommentLikeRequest;
 use App\Http\Requests\UpdateTopicCommentLikeRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TopicCommentLikeController extends Controller
 {
@@ -63,4 +65,6 @@ class TopicCommentLikeController extends Controller
     {
         //
     }
+
+
 }

@@ -42,7 +42,7 @@ public class FooterMenuController : MonoBehaviour
         }
 
         redirector.Pop();
-        redirector.Push("classroom");
+        redirector.Push("classroom.user");
 
         foreach (var item in imageBtnFooterMenus)
         {
@@ -54,10 +54,8 @@ public class FooterMenuController : MonoBehaviour
         afterColor.a = 1;
         imageBtnFooterMenus[1].color = afterColor;
 
-        if (classroomController.ClassroomOSA.Data.Count <= 0)
-        {
-            classroomController.GetClassrooms();
-        }
+        classroomController.GetUserClassrooms();
+
     }
 
     public void RedirectPost()

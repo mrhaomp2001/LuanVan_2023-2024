@@ -113,6 +113,12 @@ namespace LuanVan.OSA
                 vh.Init(_Params.profilePrefab, _Params.Content, itemIndex);
                 return vh;
             }
+            if (modelType == typeof(ClassroomInfoItemModel))
+            {
+                var vh = new ClassroomInfoItemViewsHolder();
+                vh.Init(_Params.classroomInfoPrefab, _Params.Content, itemIndex);
+                return vh;
+            }
             throw new InvalidOperationException("Unrecognized model type: " + modelType.Name);
         }
 
@@ -248,6 +254,7 @@ namespace LuanVan.OSA
         public RectTransform commentPrefab;
         public RectTransform latestOnlineUserPrefab;
         public RectTransform profilePrefab;
+        public RectTransform classroomInfoPrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -284,7 +291,10 @@ namespace LuanVan.OSA
             {
                 AssertValidWidthHeight(profilePrefab);
             }
-            
+            if (classroomInfoPrefab != null)
+            {
+                AssertValidWidthHeight(classroomInfoPrefab);
+            }
         }
     }
 }

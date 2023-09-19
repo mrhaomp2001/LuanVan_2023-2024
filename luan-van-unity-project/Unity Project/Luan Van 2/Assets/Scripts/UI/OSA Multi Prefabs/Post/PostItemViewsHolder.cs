@@ -2,9 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 namespace LuanVan.OSA
 {
     [System.Serializable]
@@ -88,14 +88,11 @@ namespace LuanVan.OSA
 
             textContent.text = post.PostModel.Content;
 
-            Color themeColor = Color.white;
-
-            if (ColorUtility.TryParseHtmlString(postListViewItem.PostModel.ThemeColor, out themeColor))
+            if (!postListViewItem.PostModel.ContainerOSA.Equals("topic"))
             {
-
+                if (ColorUtility.TryParseHtmlString(postListViewItem.PostModel.ThemeColor, out Color themeColor)) { }
+                imageBackground.color = themeColor;
             }
-            imageBackground.color = themeColor;
-
             textLikeCount.text = post.PostModel.LikeCount.ToString();
 
             textCommentCount.text = post.PostModel.CommentCount.ToString();

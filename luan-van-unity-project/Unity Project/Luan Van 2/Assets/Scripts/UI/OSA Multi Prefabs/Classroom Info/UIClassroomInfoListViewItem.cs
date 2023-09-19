@@ -7,35 +7,21 @@ using UnityEngine.UI;
 
 namespace LuanVan.OSA
 {
-    public class UIClassroomListViewItem : MonoBehaviour
+
+    public class UIClassroomInfoListViewItem : MonoBehaviour
     {
-        [SerializeField] private Sprite spriteDefaultAvatar;
         [SerializeField] private Image imageAvatar;
+        [SerializeField] private Sprite spriteDefaultAvatar;
         [SerializeField] private ClassroomController classroomController;
-        [SerializeField] private UIClassroomModel classroomModel;
 
-        public UIClassroomModel ClassroomModel { get => classroomModel; set => classroomModel = value; }
+        [SerializeField] private UIClassroomInfoModel classroomInfoModel;
 
-        /// <summary>
-        /// call in button get questions and answers
-        /// </summary>
         public void GetQuestionsAndAnswers()
         {
-            classroomController.GetQuestionsAndAnswers(classroomModel.Id);
+            classroomController.GetQuestionsAndAnswers(classroomInfoModel.Id);
         }
 
-        public void CheckAndGetOldClassrooms()
-        {
-            if (classroomModel.ContainerOSA.Equals("classroom"))
-            {
-                classroomController.CheckAndGetOldClassrooms(classroomModel);
-            }
-        }
-
-        public void GetClassroomInfo()
-        {
-            classroomController.GetClassroomInfo(classroomModel);
-        }
+        public UIClassroomInfoModel ClassroomInfoModel { get => classroomInfoModel; set => classroomInfoModel = value; }
 
         public void CheckAndDownloadAvatar()
         {
@@ -44,9 +30,9 @@ namespace LuanVan.OSA
                 Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "classrooms/avatars/"));
             }
 
-            if (!ClassroomModel.AvatarPath.Equals(""))
+            if (!classroomInfoModel.AvatarPath.Equals(""))
             {
-                if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomModel.Id + ".png")))
+                if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomInfoModel.Id + ".png")))
                 {
                     StartCoroutine(DownloadAndSetImageCorotine());
                 }
@@ -63,7 +49,7 @@ namespace LuanVan.OSA
 
         private IEnumerator DownloadAndSetImageCorotine()
         {
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture(GlobalSetting.Endpoint + classroomModel.AvatarPath);
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(GlobalSetting.Endpoint + classroomInfoModel.AvatarPath);
 
             yield return request.SendWebRequest();
 
@@ -77,7 +63,7 @@ namespace LuanVan.OSA
 
             byte[] imageBytes = downloadedTexture.EncodeToPNG();
 
-            string savePath = Path.Combine(Application.persistentDataPath, "classrooms/avatars/" + classroomModel.Id + ".png");
+            string savePath = Path.Combine(Application.persistentDataPath, "classrooms/avatars/" + classroomInfoModel.Id + ".png");
             File.WriteAllBytes(savePath, imageBytes);
 
             Debug.Log("Đã được tải và lưu vào: " + savePath);
@@ -90,7 +76,7 @@ namespace LuanVan.OSA
         private IEnumerator SetImageCoroutine()
         {
             Texture2D texture;
-            UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + Path.Combine(Application.persistentDataPath, "classrooms/avatars/" + classroomModel.Id + ".png"));
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + Path.Combine(Application.persistentDataPath, "classrooms/avatars/" + classroomInfoModel.Id + ".png"));
 
             yield return request.SendWebRequest();
 
