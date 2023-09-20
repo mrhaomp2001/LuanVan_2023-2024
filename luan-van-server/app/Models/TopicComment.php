@@ -33,4 +33,9 @@ class TopicComment extends Model
     {
         return $this->belongsTo(ClassroomTopic::class, "classroom_topic_id");
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "user_id");
+    }
 }

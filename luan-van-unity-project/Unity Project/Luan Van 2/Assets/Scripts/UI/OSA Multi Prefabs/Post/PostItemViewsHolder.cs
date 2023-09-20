@@ -76,7 +76,7 @@ namespace LuanVan.OSA
                 textCreateDate.text = timeSpanCreateDate.Hours.ToString() + " giờ trước";
             }
 
-            if (timeSpanCreateDate.TotalDays >= 1 && timeSpanCreateDate.TotalDays <= 3)
+            if (timeSpanCreateDate.TotalDays >= 1)
             {
                 textCreateDate.text = timeSpanCreateDate.Days.ToString() + " ngày trước";
             }

@@ -971,3 +971,62 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+
+# 08:17:49 2023/09/19 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+- thiết kế UI cho việc tương tác với thảo luận, bình luận của thảo luận, tương tác với bình luận của thảo luận
+
+- đăng thảo luận
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- hiển thị danh sách các bài thảo luận trong lớp, hiển thị bình luận của thảo luận
+- thiết kế UI cho việc tương tác với thảo luận, bình luận của thảo luận, tương tác với bình luận của thảo luận (chỉ có hiển thị UI, chưa có chức năng thích, bình luận)
+- làm chức năng đăng ký vào lớp học
+
+### Công việc ngày mai: (và sắp tới)
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm (thiết kế database)
+
+- kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
+
+- đăng thảo luận
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+</details>

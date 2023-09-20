@@ -12,6 +12,7 @@ use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicCommentController;
+use App\Http\Controllers\TopicCommentLikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,7 +76,7 @@ Route::get('/classroom/info', [ClassroomController::class, 'getClassroomInfo']);
 Route::post('/classroom/user/edit', [ClassroomController::class, 'updateStudyStatus']);
 
 Route::get('/classroom/topics', [ClassroomTopicController::class, 'getTopics']);
-Route::Post('/classroom/topic', [ClassroomTopicController::class, 'uploadATopic']);
+Route::Post('/classroom/topics', [ClassroomTopicController::class, 'uploadATopic']);
 Route::Post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
 
 Route::Post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
@@ -83,3 +84,5 @@ Route::Post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'upda
 Route::get('/classroom/topic/comments', [TopicCommentController::class, 'getTopicComments']);
 Route::post('/classroom/topic/comments', [TopicCommentController::class, 'uploadATopicComment']);
 Route::post('/classroom/topic/comment/edit', [TopicCommentController::class, 'updateATopicComment']);
+
+Route::post('/classroom/topic/comment/like', [TopicCommentLikeController::class, 'updateLikeStatus']);

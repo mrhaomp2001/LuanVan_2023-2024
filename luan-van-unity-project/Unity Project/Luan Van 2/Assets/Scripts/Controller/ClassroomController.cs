@@ -43,6 +43,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA playOSA;
     [SerializeField] private UIMultiPrefabsOSA userClassroomOSA;
     [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
+    [SerializeField] private UIMultiPrefabsOSA topicCommentOSA;
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -53,6 +54,8 @@ public class ClassroomController : MonoBehaviour
 
     [Header("Topics: ")]
     [SerializeField] private int topicGetCount;
+    [SerializeField] private int topicCommentGetCount;
+    [SerializeField] private UITopicModel currentTopicSellect;
 
     [Header("Questions: ")]
     [SerializeField] private int questionAmount;
@@ -566,29 +569,133 @@ public class ClassroomController : MonoBehaviour
 
         for (int i = 0; i < resToValue["data"]["data"].Count; i++)
         {
-            topics.Add(new PostItemModel()
+            topics.Add(new TopicItemModel()
             {
-                PostModel = new UIPostModel()
+                TopicModel = new UITopicModel()
                 {
-                    CommentCount = 0,
-                    ContainerOSA = "topic",
+                    Id = resToValue["data"]["data"][i]["id"],
+                    CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     Content = resToValue["data"]["data"][i]["content"],
                     CreateAt = resToValue["data"]["data"][i]["created_at"],
                     LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
                     LikeStatus = resToValue["data"]["data"][i]["like_status"]["like_status"] ?? "",
-                    PosTemplateContent = "",
-                    PosTemplateName = "Thảo luận",
-                    PostId = resToValue["data"]["data"][i]["id"],
-                    PostStatus = resToValue["data"]["data"][i]["topic_status_id"],
-                    PostTemplateId = "",
-                    ThemeColor = "",
                     UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                    UserId = resToValue["data"]["data"][i]["user"]["id"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    TopicStatus = resToValue["data"]["data"][i]["topic_status_id"],
+                }
+            });
+        }
+
+        classroomInfoOSA.Data.InsertItems(1, topics);
+    }
+
+    public void ShowTopicComments(UITopicModel topicModel)
+    {
+        currentTopicSellect = topicModel;
+        redirector.Push("classroom.topic.comment");
+
+        topicCommentOSA.Data.ResetItems(new List<BaseModel>()
+        {
+            new TopicItemModel()
+            {
+                TopicModel = topicModel,
+            }
+        });
+
+        GetTopicComments(topicModel.Id);
+    }
+
+    public void GetTopicComments(string topicId)
+    {
+        StartCoroutine(GetTopicCommentsCoroutine(topicId));
+    }
+
+    private IEnumerator GetTopicCommentsCoroutine(string topicId)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/topic/comments" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&classroom_topic_id=" + topicId +
+            "&per_page=" + topicCommentGetCount);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetTopicCommentsRespose(res);
+    }
+
+    public void GetTopicCommentsRespose(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var comments = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            comments.Add(new TopicCommentItemModel()
+            {
+                TopicCommentModel = new UITopicCommentModel()
+                {
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                    Id = resToValue["data"]["data"][i]["id"],
+                    LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
+                    LikeStatus = resToValue["data"]["data"][i]["like_status"]["like_status"] ?? "",
+                    TopicId = resToValue["data"]["data"][i]["classroom_topic_id"],
+                    UserFullName = resToValue["data"]["data"][i]["user"]["name"],
                     UserId = resToValue["data"]["data"][i]["user"]["id"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
                 }
             });
         }
 
-        classroomInfoOSA.Data.InsertItems(1, topics);
+        topicCommentOSA.Data.InsertItems(1, comments);
+    }
+
+    public void UpdateStudyClassroomStatus(string status, UIClassroomInfoModel classroomInfo)
+    {
+        StartCoroutine(UpdateStudyClassroomStatusCoroutine(status, classroomInfo));
+    }
+
+    private IEnumerator UpdateStudyClassroomStatusCoroutine(string status, UIClassroomInfoModel classroomInfo)
+    {
+        WWWForm body = new WWWForm();
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("classroom_id", classroomInfo.Id);
+        body.AddField("status", status);
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/user/edit", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        UpdateStudyClassroomStatusResponse(res, classroomInfo);
+    }
+
+    private void UpdateStudyClassroomStatusResponse(string res, UIClassroomInfoModel classroomInfo)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        classroomInfo.StudyStatus = resToValue["data"]["study_status_id"];
+
+        classroomInfoOSA.ForceUpdateViewsHolderIfVisible(0);
     }
 }

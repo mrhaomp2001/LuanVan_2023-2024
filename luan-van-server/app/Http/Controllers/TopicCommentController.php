@@ -93,6 +93,7 @@ class TopicCommentController extends Controller
             ->simplePaginate($request->per_page);
 
         foreach ($comments as $comment) {
+            $comment->user;
             $comment->like_up = TopicCommentLike::where("topic_comment_id", $comment->id)->where("like_status", 1)->count();
             $comment->like_down = TopicCommentLike::where("topic_comment_id", $comment->id)->where("like_status", -1)->count();
             $comment->like_status = TopicCommentLike::where("topic_comment_id", $comment->id)->where("user_id", $request->user_id)->first();

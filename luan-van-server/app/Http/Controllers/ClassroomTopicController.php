@@ -94,6 +94,7 @@ class ClassroomTopicController extends Controller
 
         foreach ($topics as $topic) {
             $topic->user;
+            $topic->comment_count = count($topic->comments);
             $topic->like_up = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", 1)->count();
             $topic->like_down = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", -1)->count();
             $topic->like_status = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("user_id", $request->user_id)->first();

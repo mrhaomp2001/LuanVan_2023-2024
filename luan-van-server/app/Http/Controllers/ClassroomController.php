@@ -272,7 +272,7 @@ class ClassroomController extends Controller
 
         $status->classroom;
 
-        return response()->json(['message' => $status], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['data' => $status], 200, [], JSON_UNESCAPED_UNICODE);
 
     }
 }

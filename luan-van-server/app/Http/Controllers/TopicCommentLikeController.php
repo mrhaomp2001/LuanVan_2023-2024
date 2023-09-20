@@ -66,5 +66,37 @@ class TopicCommentLikeController extends Controller
         //
     }
 
+    public function updateLikeStatus(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+                'topic_comment_id' => 'required|exists:topic_comments,id',
+                'status' => 'required',
+            ],
+            [
+                'user_id.required' => 'user_id.required',
+                'topic_comment_id.required' => 'topic_comment_id.required',
+                'status.required' => 'status.required',
+            ]
+        );
 
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $status = TopicCommentLike::updateOrCreate(
+            [
+                'user_id' => $request->user_id,
+                'topic_comment_id' => $request->topic_comment_id,
+            ],
+            [
+                'like_status' => $request->status,
+            ]
+        );
+
+        return response()->json(['data' => $status], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 }

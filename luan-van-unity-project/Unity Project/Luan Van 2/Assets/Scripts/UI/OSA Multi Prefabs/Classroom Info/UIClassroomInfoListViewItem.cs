@@ -23,6 +23,11 @@ namespace LuanVan.OSA
 
         public UIClassroomInfoModel ClassroomInfoModel { get => classroomInfoModel; set => classroomInfoModel = value; }
 
+        public void UpdateStudyClassroomStatus(string status)
+        {
+            classroomController.UpdateStudyClassroomStatus(status, classroomInfoModel);
+        }
+
         public void CheckAndDownloadAvatar()
         {
             if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))
