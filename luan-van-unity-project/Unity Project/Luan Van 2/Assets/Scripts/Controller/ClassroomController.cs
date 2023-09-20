@@ -603,7 +603,7 @@ public class ClassroomController : MonoBehaviour
             }
         });
 
-        GetTopicComments(topicModel.Id);
+        GetTopicComments(currentTopicSellect.Id);
     }
 
     public void GetTopicComments(string topicId)

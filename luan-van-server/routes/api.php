@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudyDocumentController;
 use App\Http\Controllers\TopicCommentController;
 use App\Http\Controllers\TopicCommentLikeController;
 use Illuminate\Http\Request;
@@ -86,3 +87,6 @@ Route::post('/classroom/topic/comments', [TopicCommentController::class, 'upload
 Route::post('/classroom/topic/comment/edit', [TopicCommentController::class, 'updateATopicComment']);
 
 Route::post('/classroom/topic/comment/like', [TopicCommentLikeController::class, 'updateLikeStatus']);
+
+Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDocuments']);
+

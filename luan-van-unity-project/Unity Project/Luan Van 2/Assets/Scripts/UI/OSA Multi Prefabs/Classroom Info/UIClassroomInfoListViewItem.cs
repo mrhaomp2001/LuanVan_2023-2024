@@ -13,6 +13,7 @@ namespace LuanVan.OSA
         [SerializeField] private Image imageAvatar;
         [SerializeField] private Sprite spriteDefaultAvatar;
         [SerializeField] private ClassroomController classroomController;
+        [SerializeField] private StudyDocumentController studyDocumentController;
 
         [SerializeField] private UIClassroomInfoModel classroomInfoModel;
 
@@ -26,6 +27,11 @@ namespace LuanVan.OSA
         public void UpdateStudyClassroomStatus(string status)
         {
             classroomController.UpdateStudyClassroomStatus(status, classroomInfoModel);
+        }
+
+        public void ShowDocuments()
+        {
+            studyDocumentController.GetClassroomDocuments(classroomInfoModel.Id);
         }
 
         public void CheckAndDownloadAvatar()

@@ -1030,4 +1030,59 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+
+
+# 08:59:09 2023/09/20 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
  
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm (thiết kế database)
+
+- kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
+
+- đăng thảo luận
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- thêm nội dung để người dùng thật sự học được gì đó, hoặc học kiến thức để làm trắc nghiệm (thiết kế api và giao diện đơn giản)
+
+### Công việc ngày mai: (và sắp tới)
+
+- kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
+
+- đăng thảo luận
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+</details>

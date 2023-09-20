@@ -28,4 +28,8 @@ class Classroom extends Model
     {
         return $this->hasMany(StudyClassroom::class, "classroom_id");
     }
+    public function study_documents()
+    {
+        return $this->hasMany(StudyDocument::class, "classroom_id");
+    }
 }
