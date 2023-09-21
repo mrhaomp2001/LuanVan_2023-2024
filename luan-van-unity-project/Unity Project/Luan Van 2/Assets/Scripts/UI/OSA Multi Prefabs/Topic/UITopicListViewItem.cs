@@ -40,5 +40,50 @@ namespace LuanVan.OSA
                 imageLikeDown.color = colorLikeChoice;
             }
         }
+
+        public void UpdateTopicLikeStatus(string status)
+        {
+            if (status.Equals("1"))
+            {
+                if (topicModel.LikeStatus.Equals("-1"))
+                {
+                    topicModel.LikeCount++;
+                }
+
+                if (!topicModel.LikeStatus.Equals("1"))
+                {
+                    topicModel.LikeStatus = "1";
+                    topicModel.LikeCount++;
+                }
+                else
+                {
+                    topicModel.LikeStatus = "0";
+                    topicModel.LikeCount--;
+                }
+            }
+            else if (status.Equals("-1"))
+            {
+                if (topicModel.LikeStatus.Equals("1"))
+                {
+                    topicModel.LikeCount--;
+                }
+
+                if (!topicModel.LikeStatus.Equals("-1"))
+                {
+                    topicModel.LikeStatus = "-1";
+                    topicModel.LikeCount--;
+                }
+                else
+                {
+                    topicModel.LikeStatus = "0";
+                    topicModel.LikeCount++;
+                }
+            }
+
+            //topicModel.LikeStatus = status;
+            UpdateLikeButtonColor();
+            
+            classroomController.UpdateTopicLikeStatus(topicModel.Id, topicModel.LikeStatus);
+        }
     }
 }

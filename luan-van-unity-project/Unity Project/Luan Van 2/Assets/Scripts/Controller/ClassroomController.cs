@@ -8,6 +8,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+using static UnityEngine.TouchScreenKeyboard;
 
 public class ClassroomController : MonoBehaviour
 {
@@ -76,6 +78,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Color colorNonSelectAnswer;
     [SerializeField] private TextMeshProUGUI textPlayTime;
     [SerializeField] private TextMeshProUGUI textAccuracy;
+    [SerializeField] private TMP_InputField inputFieldTopicComment;
 
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
 
@@ -697,5 +700,154 @@ public class ClassroomController : MonoBehaviour
         classroomInfo.StudyStatus = resToValue["data"]["study_status_id"];
 
         classroomInfoOSA.ForceUpdateViewsHolderIfVisible(0);
+    }
+
+    public void UpdateTopicLikeStatus(string topicId, string status)
+    {
+        //Debug.Log("Here");
+
+        for (int i = 0; i < classroomInfoOSA.Data.Count; i++)
+        {
+            if (classroomInfoOSA.Data[i] is TopicItemModel topic)
+            {
+                if (topic.TopicModel.Id.Equals(topicId))
+                {
+                    classroomInfoOSA.ForceUpdateViewsHolderIfVisible(i);
+                    break;
+                }
+            }
+        }
+        topicCommentOSA.ForceUpdateViewsHolderIfVisible(0);
+        StartCoroutine(UpdateTopicLikeStatusCoroutine(topicId, status));
+    }
+
+    private IEnumerator UpdateTopicLikeStatusCoroutine(string topicId, string status)
+    {
+        WWWForm body = new WWWForm();
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("classroom_topic_id", topicId);
+        body.AddField("status", status);
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/like", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        UpdateTopicLikeStatusResponse(res);
+    }
+
+    private void UpdateTopicLikeStatusResponse(string res)
+    {
+
+    }
+
+    public void UpdateTopicCommentLikeStatus(string topicCommentId, string status, int index)
+    {
+
+        topicCommentOSA.ForceUpdateViewsHolderIfVisible(index);
+        StartCoroutine(UpdateTopicCommentLikeStatusCoroutine(topicCommentId, status));
+    }
+
+    private IEnumerator UpdateTopicCommentLikeStatusCoroutine(string topicCommentId, string status)
+    {
+        WWWForm body = new WWWForm();
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("topic_comment_id", topicCommentId);
+        body.AddField("status", status);
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/comment/like", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        UpdateTopicCommentLikeStatusRespose(res);
+
+    }
+    private void UpdateTopicCommentLikeStatusRespose(string res)
+    {
+
+    }
+
+    public void CreateTopicComment()
+    {
+        StartCoroutine(CreateTopicCommentCoroutine());
+    }
+
+    private IEnumerator CreateTopicCommentCoroutine()
+    {
+        WWWForm body = new WWWForm();
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("classroom_topic_id", currentTopicSellect.Id);
+        body.AddField("content", inputFieldTopicComment.text);
+
+        inputFieldTopicComment.text = "";
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/comments", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        currentTopicSellect.CommentCount++;
+
+        for (int i = 0; i < classroomInfoOSA.Data.Count; i++)
+        {
+            if (classroomInfoOSA.Data[i] is TopicItemModel topic)
+            {
+                if (topic.TopicModel.Id.Equals(currentTopicSellect.Id))
+                {
+                    classroomInfoOSA.ForceUpdateViewsHolderIfVisible(i);
+                    break;
+                }
+            }
+        }
+        topicCommentOSA.ForceUpdateViewsHolderIfVisible(0);
+
+        CreateTopicCommentRespose(res);
+    }
+
+    private void CreateTopicCommentRespose(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        topicCommentOSA.Data.InsertOne(1, new TopicCommentItemModel()
+        {
+            TopicCommentModel = new UITopicCommentModel()
+            {
+                Content = resToValue["data"]["content"],
+                CreatedAt = resToValue["data"]["created_at"],
+                Id = resToValue["data"]["id"],
+                LikeCount = 0,
+                LikeStatus = "0",
+                TopicId = resToValue["data"]["classroom_topic_id"],
+                UserFullName = resToValue["data"]["user"]["name"],
+                UserId = resToValue["data"]["user"]["id"],
+                Username = resToValue["data"]["user"]["username"],
+            }
+        });
     }
 }

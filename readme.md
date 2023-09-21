@@ -1086,3 +1086,69 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+ 
+# 10:23:11 2023/09/21 ===== 
+
+- nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
+- người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới
+- chia sẽ tài liệu hay
+- học để thi trắc nghiệm? => có nội dung ôn lý thuyết cho lớp học, bên trong lớp
+
+**Mục tiêu của tuần:**
+
+- Thiết kế viết bài viết bên trong lớp học
+- Thiết kế bộ lý thuyết bên trong lớp học
+
+- Web quản lý
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+- kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
+
+- đăng thảo luận (đã có api)
+- đăng bình luận của thảo luận (đã có api và giao diện) 
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+### Kết quả: 
+
+- kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
+
+- đăng bình luận bên trong thảo luận
+ 
+### Công việc ngày mai: (và sắp tới)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+</details> 
+ 

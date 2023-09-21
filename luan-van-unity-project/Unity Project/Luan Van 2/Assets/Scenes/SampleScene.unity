@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7754646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3068,9 +3068,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 331322300}
-        m_TargetAssemblyTypeName: PostController, Assembly-CSharp
-        m_MethodName: SendComment
+      - m_Target: {fileID: 1203946922}
+        m_TargetAssemblyTypeName: ClassroomController, Assembly-CSharp
+        m_MethodName: CreateTopicComment
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6686,7 +6686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -18199,7 +18199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -23911,6 +23911,7 @@ MonoBehaviour:
   imageLikeDown: {fileID: 1297005167}
   colorLikeChoice: {r: 0.11764706, g: 0.47058824, b: 0.8627451, a: 1}
   colorUnLikeChoice: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  classroomController: {fileID: 1203946922}
   topicCommentModel:
     id: 
     userId: 
@@ -25842,16 +25843,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LuanVan.OSA.UICommentListViewItem, Assembly-CSharp
-        m_MethodName: LikeComment
-        m_Mode: 1
+      - m_Target: {fileID: 798059131}
+        m_TargetAssemblyTypeName: LuanVan.OSA.UITopicCommentListViewItem, Assembly-CSharp
+        m_MethodName: UpdateTopicCommentLikeStatus
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &836982017
@@ -29499,16 +29500,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LuanVan.OSA.UICommentListViewItem, Assembly-CSharp
-        m_MethodName: DislikeComment
-        m_Mode: 1
+      - m_Target: {fileID: 798059131}
+        m_TargetAssemblyTypeName: LuanVan.OSA.UITopicCommentListViewItem, Assembly-CSharp
+        m_MethodName: UpdateTopicCommentLikeStatus
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: -1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &986121841
@@ -30452,16 +30453,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LuanVan.OSA.UIPostListViewItem, Assembly-CSharp
-        m_MethodName: DislikePost
-        m_Mode: 1
+      - m_Target: {fileID: 1488500575}
+        m_TargetAssemblyTypeName: LuanVan.OSA.UITopicListViewItem, Assembly-CSharp
+        m_MethodName: UpdateTopicLikeStatus
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: -1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1010704592
@@ -36530,6 +36531,7 @@ MonoBehaviour:
   colorNonSelectAnswer: {r: 0.21176472, g: 0.2627451, b: 0.2901961, a: 1}
   textPlayTime: {fileID: 701525287}
   textAccuracy: {fileID: 1935888733}
+  inputFieldTopicComment: {fileID: 2037769366}
 --- !u!1 &1208489559
 GameObject:
   m_ObjectHideFlags: 0
@@ -57326,16 +57328,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LuanVan.OSA.UIPostListViewItem, Assembly-CSharp
-        m_MethodName: LikePost
-        m_Mode: 1
+      - m_Target: {fileID: 1488500575}
+        m_TargetAssemblyTypeName: LuanVan.OSA.UITopicListViewItem, Assembly-CSharp
+        m_MethodName: UpdateTopicLikeStatus
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1754471559

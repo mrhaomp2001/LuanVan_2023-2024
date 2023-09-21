@@ -130,8 +130,9 @@ class TopicCommentController extends Controller
                 'content' => $request->content,
             ]
         );
-
-        return response()->json(['message' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
+        $comment->user;
+        
+        return response()->json(['data' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
     }
     public function updateATopicComment(Request $request)
     {
@@ -164,6 +165,6 @@ class TopicCommentController extends Controller
             ]
         );
 
-        return response()->json(['message' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['data' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
