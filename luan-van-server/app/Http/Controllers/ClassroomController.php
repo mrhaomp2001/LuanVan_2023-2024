@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Http\Requests\StoreClassroomRequest;
 use App\Http\Requests\UpdateClassroomRequest;
+use App\Models\Question;
 use App\Models\StudyClassroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +19,8 @@ class ClassroomController extends Controller
     public function index()
     {
         //
+        $data = Classroom::paginate(7);
+        return view("classrooms.index")->with("data", $data);
     }
 
     /**
@@ -39,9 +42,19 @@ class ClassroomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Classroom $classroom)
+    public function show($id)
     {
         //
+        $classroom = Classroom::find($id);
+        $questions = Question::where("classroom_id", $id)->paginate(9);
+
+        if (!isset($classroom)) {
+            return redirect(route('classrooms.index'));
+        }
+
+        return view("classrooms.edit")
+        ->with("classroom", $classroom)
+        ->with("questions", $questions);
     }
 
     /**
@@ -55,9 +68,35 @@ class ClassroomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClassroomRequest $request, Classroom $classroom)
+    public function update(UpdateClassroomRequest $request)
     {
-        //
+        
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'classroom_id' => 'required|exists:classrooms,id',
+                'name' => 'required',
+                'description' => 'required',
+            ],
+            [
+                'classroom_id.required' => 'classroom_id.required',
+                'classroom_id.exists' => 'classroom_id.exists',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        // return $request;
+        $classroom = Classroom::find($request->classroom_id);
+
+        $classroom->name = $request->name;
+        $classroom->description = $request->description;
+        $classroom->save();
+
+        return redirect()->route('classrooms.index');
     }
 
     /**
@@ -227,7 +266,7 @@ class ClassroomController extends Controller
         } else {
             $classroom->avatar_path = "";
         }
-        
+
         $studyStatus = StudyClassroom::where("classroom_id", $request->classroom_id)
             ->where("user_id", $request->user_id)
             ->first();

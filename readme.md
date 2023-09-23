@@ -1031,7 +1031,6 @@ thứ bảy nên tôi xin nghỉ
 - phân quyền ứng dụng
 </details>
 
-
 # 08:59:09 2023/09/20 =====
 
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
@@ -1086,8 +1085,8 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
- 
-# 10:23:11 2023/09/21 ===== 
+
+# 10:23:11 2023/09/21 =====
 
 - nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
 - người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới
@@ -1105,7 +1104,7 @@ thứ bảy nên tôi xin nghỉ
 - kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
 
 - đăng thảo luận (đã có api)
-- đăng bình luận của thảo luận (đã có api và giao diện) 
+- đăng bình luận của thảo luận (đã có api và giao diện)
 
 - có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
 - bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
@@ -1123,12 +1122,13 @@ thứ bảy nên tôi xin nghỉ
 - đăng ảnh (bài viết và ảnh đại diện người dùng)
 
 - phân quyền ứng dụng
-### Kết quả: 
+
+### Kết quả:
 
 - kết nối chức năng từ api để tương tác với thảo luận, và bình luận của thảo luận (đã có api và giao diện, cần xử lý bên trong)
 
 - đăng bình luận bên trong thảo luận
- 
+
 ### Công việc ngày mai: (và sắp tới)
 
 - đăng thảo luận (đã có api)
@@ -1152,3 +1152,58 @@ thứ bảy nên tôi xin nghỉ
 
 </details> 
  
+ 
+# 09:04:15 2023/09/22 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- trang web quản lý
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- làm dữ liệu giả.
+- tìm hiểu import CSS cho laravel.
+- bắt đầu cài đặt trang web quản lý, hiển thị danh sách lớp học, câu hỏi, câu trả lời, tài liệu học tập.
+- sửa thông tin lớp học, sửa thông tin tài liệu học tập.
+
+### Công việc ngày mai: (và sắp tới)
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+
+- phân quyền ứng dụng
+</details>

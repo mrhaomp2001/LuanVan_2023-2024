@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudyDocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/classrooms', [ClassroomController::class, 'index'])->name('classrooms.index');
+    Route::get('/classrooms/{id}', [ClassroomController::class, 'show'])->name('classrooms.show');
+    Route::get('/classrooms/documents/{id}', [StudyDocumentController::class, 'index'])->name('classrooms.documents.show');
+    Route::post('/classrooms/documents', [StudyDocumentController::class, 'update'])->name('classrooms.documents.update');
+    Route::post('/classrooms', [ClassroomController::class, 'update'])->name('classrooms.update');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,4 +39,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
