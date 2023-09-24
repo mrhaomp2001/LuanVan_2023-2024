@@ -1088,6 +1088,8 @@ thứ bảy nên tôi xin nghỉ
 
 # 10:23:11 2023/09/21 =====
 
+**Ý tưởng:**
+
 - nên có thảo luận bên trong lớp học (bài viết riêng của lớp học đó)
 - người dùng được đề xuất câu hỏi hay tự nghĩ ra, đề xuất lớp học với chủ đề mới
 - chia sẽ tài liệu hay
@@ -1186,6 +1188,7 @@ thứ bảy nên tôi xin nghỉ
 - sửa thông tin lớp học, sửa thông tin tài liệu học tập.
 
 ### Công việc ngày mai: (và sắp tới)
+
 - trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
 
 - đăng thảo luận (đã có api)
@@ -1206,4 +1209,21 @@ thứ bảy nên tôi xin nghỉ
 - đăng ảnh (bài viết và ảnh đại diện người dùng)
 
 - phân quyền ứng dụng
+</details>
+
+# 17:42:40 2023/09/24 =====
+<!-- Tôi đã quá mệt và áp lực, tôi xin nghỉ vào thứ 7 và chủ nhật, có thể tuần sau tôi sẽ làm việc vào cả thứ 7. -->
+**Mục tiêu của tuần:**
+
+### Tạo ra nét riêng của mạng xã hội:
+
+- bắt buộc người dùng đăng theo mẫu nhất định, hiện tại, ta có:
+
+  - bài đăng tâm sự: không ràng buộc
+  - bài đăng chia sẽ kiến thức: phải có tiêu đề bài viết tóm tắt nội dung kiến thức chia sẽ
+  - bài đăng cảm nhận sách: phải có tiêu đề, và hình ảnh minh họa
+
+- Tạo ra các trò chơi tương tác:
+  - trò đập chuột trắc nghiệm
+  - lái xe vượt chứa ngại vật trắc nghiệm 
 </details>
