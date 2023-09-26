@@ -1,10 +1,10 @@
 ﻿using Library;
 using LuanVan.OSA;
+using SimpleFileBrowser;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -23,6 +23,8 @@ public class PostController : MonoBehaviour
     [Header("New Post: ")]
     [SerializeField] private TMP_InputField inputFieldNewPostContent;
     [SerializeField] private Toggle toggleVisibility;
+    [SerializeField] private Image postImage;
+    [SerializeField] private TextMeshProUGUI textPostImageButtonUI;
     [Header("Post Utilities:")]
     [SerializeField] private bool isEdit;
     [SerializeField] private UIPostTemplateModel templateModel = new UIPostTemplateModel();
@@ -137,6 +139,14 @@ public class PostController : MonoBehaviour
         body.AddField("user_id", GlobalSetting.LoginUser.Id);
         body.AddField("post_template_id", templateId);
         body.AddField("post_status_id", (toggleVisibility.isOn) ? 2 : 1);
+
+        if (postImage.sprite != null)
+        {
+            Debug.Log("here");
+            byte[] textureBytes = null;
+            textureBytes = GetTextureCopy(postImage.sprite.texture).EncodeToPNG();
+            body.AddBinaryData("image", textureBytes, "image.png", "image/png");
+        }
 
         footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được gửi");
 
@@ -854,5 +864,102 @@ public class PostController : MonoBehaviour
             //Debug.Log((resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]).ToString());
         }
         postOSA.Data.InsertItemsAtEnd(posts);
+    }
+
+    public void OpenFilePanel()
+    {
+        if (postImage.sprite == null)
+        {
+            FileBrowser.SetFilters(true, new FileBrowser.Filter("Images", ".jpg", ".png"));
+            FileBrowser.SetDefaultFilter(".jpg");
+            FileBrowser.SetExcludedExtensions(".lnk", ".tmp", ".zip", ".rar", ".exe");
+
+            StartCoroutine(ShowLoadDialogCoroutine());
+        }
+        else
+        {
+            postImage.sprite = null;
+
+            postImage.color = new Color(1, 1, 1, 0);
+
+            textPostImageButtonUI.text = "Đăng ảnh";
+            textPostImageButtonUI.color = new Color(0, 0, 0);
+
+        }
+    }
+    IEnumerator ShowLoadDialogCoroutine()
+    {
+        // Show a load file dialog and wait for a response from user
+        // Load file/folder: both, Allow multiple selection: true
+        // Initial path: default (Documents), Initial filename: empty
+        // Title: "Load File", Submit button text: "Load"
+        yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files, false, null, null, "Load Files and Folders", "Load");
+
+        // Dialog is closed
+        // Print whether the user has selected some files/folders or cancelled the operation (FileBrowser.Success)
+        Debug.Log(FileBrowser.Success);
+
+        if (FileBrowser.Success)
+        {
+            // Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
+            for (int i = 0; i < FileBrowser.Result.Length; i++)
+                Debug.Log(FileBrowser.Result[i]);
+
+            StartCoroutine(SetImageCoroutine(FileBrowser.Result[0]));
+        }
+    }
+    private IEnumerator SetImageCoroutine(string path)
+    {
+        Texture2D texture;
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + path);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            texture = DownloadHandlerTexture.GetContent(request);
+
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+
+            postImage.sprite = sprite;
+
+            postImage.color = new Color(1, 1, 1, 1);
+
+            textPostImageButtonUI.text = "Hủy ảnh";
+            textPostImageButtonUI.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            Debug.LogError("Lỗi tải ảnh: " + request.error);
+        }
+    }
+    Texture2D GetTextureCopy(Texture2D source)
+    {
+        //Create a RenderTexture
+        RenderTexture rt = RenderTexture.GetTemporary(
+                               source.width,
+                               source.height,
+                               0,
+                               RenderTextureFormat.Default,
+                               RenderTextureReadWrite.Linear
+                           );
+
+        //Copy source texture to the new render (RenderTexture) 
+        Graphics.Blit(source, rt);
+
+        //Store the active RenderTexture & activate new created one (rt)
+        RenderTexture previous = RenderTexture.active;
+        RenderTexture.active = rt;
+
+        //Create new Texture2D and fill its pixels from rt and apply changes.
+        Texture2D readableTexture = new Texture2D(source.width, source.height);
+        readableTexture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+        readableTexture.Apply();
+
+        //activate the (previous) RenderTexture and release texture created with (GetTemporary( ) ..)
+        RenderTexture.active = previous;
+        RenderTexture.ReleaseTemporary(rt);
+
+        return readableTexture;
     }
 }

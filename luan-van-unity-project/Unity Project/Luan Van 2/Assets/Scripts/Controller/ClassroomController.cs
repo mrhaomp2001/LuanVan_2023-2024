@@ -8,8 +8,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEngine.TouchScreenKeyboard;
 
 public class ClassroomController : MonoBehaviour
 {

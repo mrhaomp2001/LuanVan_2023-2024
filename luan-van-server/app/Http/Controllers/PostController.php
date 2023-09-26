@@ -8,6 +8,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\PostLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -146,7 +147,8 @@ class PostController extends Controller
                 'content' => 'required|min:1',
                 'user_id' => 'required|exists:users,id',
                 'post_template_id' => 'required|exists:post_templates,id',
-                'post_status_id' => 'required'
+                'post_status_id' => 'required',
+                'image' => 'sometimes',
             ],
             [
                 'content.required' => 'Content không được rỗng',
@@ -169,6 +171,10 @@ class PostController extends Controller
                 'post_status_id' => $request->post_status_id,
             ]
         );
+        $file = $request->image;
+        if (isset($request->image)) {
+            Storage::disk('public')->putFileAs("posts", $file, $post->id . '.png');
+        }
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -266,10 +272,10 @@ class PostController extends Controller
         }
 
         $posts = Post::where('user_id', $request->other_user_id)
-        ->where('post_status_id', '1')
-        ->where('created_at', '<', $request->date)
-        ->orderBy('created_at', 'DESC')
-        ->simplePaginate($request->per_page);
+            ->where('post_status_id', '1')
+            ->where('created_at', '<', $request->date)
+            ->orderBy('created_at', 'DESC')
+            ->simplePaginate($request->per_page);
 
         foreach ($posts as $post) {
             $post->post_template;

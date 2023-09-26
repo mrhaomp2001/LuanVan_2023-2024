@@ -1227,3 +1227,39 @@ thứ bảy nên tôi xin nghỉ
   - trò đập chuột trắc nghiệm
   - lái xe vượt chứa ngại vật trắc nghiệm 
 </details>
+ 
+# 08:06:51 2023/09/25 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+
+- đăng ảnh (bài viết và ảnh đại diện người dùng)
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+### Kết quả: 
+
+- đăng ảnh bài viết
+- làm giao diện cho việc đăng ảnh bài viết
+
+### Công việc ngày mai: (và sắp tới)
+ 
+</details> 
+ 
