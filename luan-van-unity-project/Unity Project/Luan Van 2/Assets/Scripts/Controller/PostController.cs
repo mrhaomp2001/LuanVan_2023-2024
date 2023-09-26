@@ -42,7 +42,7 @@ public class PostController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textTemplateName;
     [SerializeField] private TextMeshProUGUI textTemplateContentRules;
 
-    private UIPostModel currentPostSelect;
+    [SerializeField] private UIPostModel currentPostSelect;
 
     public UIMultiPrefabsOSA PostOSA { get => postOSA; set => postOSA = value; }
 
@@ -98,6 +98,7 @@ public class PostController : MonoBehaviour
                     LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    ImagePath = resToValue["data"]["data"][i]["image_path"],
                     ContainerOSA = "post",
                 }
             });
@@ -178,6 +179,15 @@ public class PostController : MonoBehaviour
         body.AddField("content", inputFieldNewPostContent.text);
         body.AddField("post_template_id", templateId);
         body.AddField("post_status_id", (toggleVisibility.isOn) ? "2" : "1");
+
+        if (postImage.sprite != null)
+        {
+            Davinci.ClearCache(GlobalSetting.Endpoint + currentPostSelect.ImagePath);
+
+            byte[] textureBytes = null;
+            textureBytes = GetTextureCopy(postImage.sprite.texture).EncodeToPNG();
+            body.AddBinaryData("image", textureBytes, "image.png", "image/png");
+        }
 
 
         footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được sửa");
@@ -286,7 +296,11 @@ public class PostController : MonoBehaviour
         textTemplateName.text = "Hãy chọn 1 mãu bài đăng";
         textTemplateContentRules.text = "Hãy chọn 1 mẫu bài đăng để xem quy định của mẫu đó.";
         inputFieldNewPostContent.text = "";
+        postImage.sprite = null;
+        postImage.color = new Color(1, 1, 1, 0);
         redirector.Push("post.upload");
+        textPostImageButtonUI.text = "Tải ảnh";
+        textPostImageButtonUI.color = new Color(0, 0, 0);
     }
 
     public void ShowUISelectPostTemplate()
@@ -394,6 +408,10 @@ public class PostController : MonoBehaviour
 
     public void ShowPostUtilitiesMenu(UIPostModel postModel)
     {
+        postImage.sprite = null;
+        postImage.color = new Color(1, 1, 1, 0);
+
+
         containerUtilitiesMenu.gameObject.SetActive(true);
         btnDeletePost.gameObject.SetActive(false);
         btnEditPost.gameObject.SetActive(false);
@@ -415,6 +433,45 @@ public class PostController : MonoBehaviour
         toggleVisibility.isOn = (postModel.PostStatus.Equals("2")) ? true : false;
 
         templateModel.ThemeColor = postModel.ThemeColor;
+
+        if (!postModel.ImagePath.Equals(""))
+        {
+            StartCoroutine(SetImageCoroutine());
+            textPostImageButtonUI.text = "Hủy ảnh";
+            textPostImageButtonUI.color = new Color(1, 0, 0);
+        }
+        else
+        {
+            textPostImageButtonUI.text = "Tải ảnh";
+            textPostImageButtonUI.color = new Color(0, 0, 0);
+        }
+
+        Debug.Log("here 1");
+
+    }
+
+    private IEnumerator SetImageCoroutine()
+    {
+        Texture2D texture;
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + Path.Combine(Application.persistentDataPath, "posts/" + currentPostSelect.PostId + ".png"));
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            texture = DownloadHandlerTexture.GetContent(request);
+
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+
+            postImage.sprite = sprite;
+            postImage.color = new Color(1, 1, 1, 1);
+
+            Debug.Log("here 2");
+        }
+        else
+        {
+            Debug.LogError("Lỗi tải ảnh: " + request.error);
+        }
     }
 
     public void ShowEditPostMenu()
@@ -857,6 +914,7 @@ public class PostController : MonoBehaviour
                         LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                         CommentCount = resToValue["data"]["data"][i]["comment_count"],
                         PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                        ImagePath = resToValue["data"]["data"][i]["image_path"],
                         ContainerOSA = "post",
                     }
                 });

@@ -19,8 +19,12 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textCommentCount;
         public TextMeshProUGUI textTemplate;
         public RectTransform rectTransformVisibility;
-        public Image imageBackground;
+        public Image imageTagBackground;
 
+
+        public TextMeshProUGUI textTitle;
+        public RectTransform containerTitle;
+        public RectTransform containerImagePost;
 
         public override bool CanPresentModelType(Type modelType)
         {
@@ -33,7 +37,7 @@ namespace LuanVan.OSA
             contentSizeFitter = root.GetComponent<ContentSizeFitter>();
             postListViewItem = root.GetComponent<UIPostListViewItem>();
 
-            root.GetComponentAtPath("layout_listview_item_content/img_background", out imageBackground);
+            root.GetComponentAtPath("layout_listview_item_content/img_background/layout_post_menu_header/layout_template/image", out imageTagBackground);
             root.GetComponentAtPath("layout_listview_item_content/img_background/layout_post_menu_header/layout_visibility", out rectTransformVisibility);
 
             root.GetComponentAtPath("layout_listview_item_content/layout_post_header/text_name", out textName);
@@ -45,6 +49,11 @@ namespace LuanVan.OSA
             root.GetComponentAtPath("layout_listview_item_content/layout_post_footer/text_comment_count", out textCommentCount);
 
             root.GetComponentAtPath("layout_listview_item_content/img_background/layout_post_menu_header/layout_template/text_template", out textTemplate);
+
+            root.GetComponentAtPath("layout_listview_item_content/layout_post_title", out containerTitle);
+            root.GetComponentAtPath("layout_listview_item_content/layout_post_title/text_content", out textTitle);
+
+            root.GetComponentAtPath("layout_listview_item_content/layout_post_image", out containerImagePost);
         }
         public override void UpdateViews(BaseModel model, BaseVH baseVH)
         {
@@ -91,7 +100,7 @@ namespace LuanVan.OSA
             if (!postListViewItem.PostModel.ContainerOSA.Equals("topic"))
             {
                 if (ColorUtility.TryParseHtmlString(postListViewItem.PostModel.ThemeColor, out Color themeColor)) { }
-                imageBackground.color = themeColor;
+                imageTagBackground.color = themeColor;
             }
             textLikeCount.text = post.PostModel.LikeCount.ToString();
 
@@ -107,6 +116,16 @@ namespace LuanVan.OSA
             }
 
             textTemplate.text = postListViewItem.PostModel.PosTemplateName;
+
+            if (!post.PostModel.ImagePath.Equals(""))
+            {
+                containerImagePost.gameObject.SetActive(true);
+                postListViewItem.CheckAndDownloadImage();
+            }
+            else
+            {
+                containerImagePost.gameObject.SetActive(false);
+            }
 
             postListViewItem.UpdateLikeButtonColor();
 

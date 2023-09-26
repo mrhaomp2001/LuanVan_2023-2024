@@ -10,6 +10,8 @@ use App\Models\PostLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class PostController extends Controller
 {
@@ -98,6 +100,12 @@ class PostController extends Controller
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+
+            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+                $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            } else {
+                $post->image_path = "";
+            }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -133,6 +141,12 @@ class PostController extends Controller
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+
+            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+                $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            } else {
+                $post->image_path = "";
+            }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -148,7 +162,12 @@ class PostController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'post_template_id' => 'required|exists:post_templates,id',
                 'post_status_id' => 'required',
-                'image' => 'sometimes',
+                'image' => [
+                    'sometimes',
+                    File::image()
+                        ->min(1)
+                        ->max(64 * 1024)
+                ]
             ],
             [
                 'content.required' => 'Content không được rỗng',
@@ -189,6 +208,12 @@ class PostController extends Controller
                 'content' => 'required|min:1',
                 'post_template_id' => 'required',
                 'post_status_id' => '',
+                'image' => [
+                    'sometimes',
+                    File::image()
+                        ->min(1)
+                        ->max(64 * 1024)
+                ]
             ],
             [
                 'id.required' => 'Id bài viết không được rỗng',
@@ -203,12 +228,27 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
+
         $post = Post::find($request->id);
         $post->content = $request->content;
         $post->post_template_id = $request->post_template_id;
         $post->post_status_id = $request->post_status_id;
         $post->save();
         $post->post_template;
+
+        $file = $request->image;
+        if (isset($request->image)) {
+            Storage::disk('public')->delete("posts/" . $post->id . '.png');
+            Storage::disk('public')->putFileAs("posts", $file, $post->id . '.png');
+        } else {
+            Storage::disk('public')->delete("posts/" . $post->id . '.png');
+        }
+
+        if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+            $post->image_path = Storage::url('posts/' . $post->id . ".png");
+        } else {
+            $post->image_path = "";
+        }
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -243,6 +283,12 @@ class PostController extends Controller
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+
+            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+                $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            } else {
+                $post->image_path = "";
+            }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -284,6 +330,12 @@ class PostController extends Controller
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+
+            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+                $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            } else {
+                $post->image_path = "";
+            }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);

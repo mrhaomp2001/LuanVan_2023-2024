@@ -17,6 +17,7 @@ namespace LuanVan.OSA
         public TextMeshProUGUI textCreateDate;
         public TextMeshProUGUI textContent;
         public TextMeshProUGUI textLikeCount;
+
         public override bool CanPresentModelType(Type modelType)
         {
             return modelType == typeof(CommentItemModel);

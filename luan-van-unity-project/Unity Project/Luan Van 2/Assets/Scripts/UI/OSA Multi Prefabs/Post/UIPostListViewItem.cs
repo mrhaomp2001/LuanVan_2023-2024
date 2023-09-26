@@ -1,6 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace LuanVan.OSA
@@ -16,6 +18,7 @@ namespace LuanVan.OSA
         [SerializeField] private Redirector redirector;
         [SerializeField] private PostController postController;
         [SerializeField] private ProfileController profileController;
+        [SerializeField] private Image imagePost;
 
         [SerializeField] private UIPostModel postModel;
         public UIPostModel PostModel { get => postModel; set => postModel = value; }
@@ -114,6 +117,11 @@ namespace LuanVan.OSA
         {
             redirector.Push("profile");
             profileController.GetUserProfile(postModel.UserId);
+        }
+
+        public void CheckAndDownloadImage()
+        {
+            Davinci.get().load(GlobalSetting.Endpoint + postModel.ImagePath).into(imagePost).setFadeTime(0).start();
         }
     }
 }

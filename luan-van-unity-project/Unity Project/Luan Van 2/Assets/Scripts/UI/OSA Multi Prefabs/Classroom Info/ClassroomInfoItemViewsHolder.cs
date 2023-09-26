@@ -15,8 +15,10 @@ namespace LuanVan.OSA
 
         public TextMeshProUGUI textName;
         public TextMeshProUGUI textDescription;
+
         public RectTransform containerClassroomRegister;
         public RectTransform containerClassroomUtilities;
+
 
         public override bool CanPresentModelType(Type modelType)
         {

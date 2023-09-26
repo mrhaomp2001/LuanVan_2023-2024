@@ -118,6 +118,8 @@ public class ProfileController : MonoBehaviour
                     LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    ImagePath = resToValue["data"]["data"][i]["image_path"],
+
                     ContainerOSA = "profile",
                 }
             });
@@ -199,6 +201,7 @@ public class ProfileController : MonoBehaviour
                         LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                         CommentCount = resToValue["data"]["data"][i]["comment_count"],
                         PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                        ImagePath = resToValue["data"]["data"][i]["image_path"],
                         ContainerOSA = "profile",
                     }
                 });
