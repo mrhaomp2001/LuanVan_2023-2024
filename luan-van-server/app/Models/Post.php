@@ -20,6 +20,14 @@ class Post extends Model
         'post_template_id',
         'post_status_id',
     ];
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'title' => "",
+    ];
 
     public function post_likes()
     {

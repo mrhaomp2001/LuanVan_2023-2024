@@ -21,12 +21,12 @@ public class FooterNoticeController : MonoBehaviour
         var fadeoutColor = color;
         fadeoutColor.a = 0;
 
-        LeanTween.alpha(imageFooterNoticeBackground, 1, 0.5f).setOnComplete(() =>
+        LeanTween.alpha(imageFooterNoticeBackground, 1, 1f).setOnComplete(() =>
         {
             LeanTween.alpha(imageFooterNoticeBackground, 0, 1f).setDelay(2f);
         });
 
-        LeanTweenExt.LeanAlphaText(textFooterNoticeContent, 1, 0.5f).setOnComplete(() =>
+        LeanTweenExt.LeanAlphaText(textFooterNoticeContent, 1, 1f).setOnComplete(() =>
         {
             LeanTweenExt.LeanAlphaText(textFooterNoticeContent, 0, 1f).setDelay(2f);
         });

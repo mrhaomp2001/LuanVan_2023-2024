@@ -119,6 +119,7 @@ public class ProfileController : MonoBehaviour
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
                     ImagePath = resToValue["data"]["data"][i]["image_path"],
+                    PostTitle = resToValue["data"]["data"][i]["title"],
 
                     ContainerOSA = "profile",
                 }
@@ -202,6 +203,8 @@ public class ProfileController : MonoBehaviour
                         CommentCount = resToValue["data"]["data"][i]["comment_count"],
                         PostStatus = resToValue["data"]["data"][i]["post_status_id"],
                         ImagePath = resToValue["data"]["data"][i]["image_path"],
+                        PostTitle = resToValue["data"]["data"][i]["title"],
+
                         ContainerOSA = "profile",
                     }
                 });

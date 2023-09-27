@@ -30,6 +30,8 @@ namespace LuanVan.OSA
 
         [SerializeField] private string imagePath;
 
+        [SerializeField] private string postTitle;
+
         [SerializeField] private string containerOSA;
         [SerializeField] private int itemIndexOSA;
         [SerializeField] private PostItemViewsHolder viewsHolder;
@@ -53,5 +55,6 @@ namespace LuanVan.OSA
         public string PostStatus { get => postStatus; set => postStatus = value; }
         public string ContainerOSA { get => containerOSA; set => containerOSA = value; }
         public string ImagePath { get => imagePath; set => imagePath = value; }
+        public string PostTitle { get => postTitle; set => postTitle = value; }
     }
 }

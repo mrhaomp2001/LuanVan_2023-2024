@@ -190,6 +190,12 @@ class PostController extends Controller
                 'post_status_id' => $request->post_status_id,
             ]
         );
+
+        if (isset($request->title)) {
+            $post->title = $request->title;
+            $post->save();
+        }
+
         $file = $request->image;
         if (isset($request->image)) {
             Storage::disk('public')->putFileAs("posts", $file, $post->id . '.png');
@@ -235,6 +241,11 @@ class PostController extends Controller
         $post->post_status_id = $request->post_status_id;
         $post->save();
         $post->post_template;
+
+        if (isset($request->title)) {
+            $post->title = $request->title;
+            $post->save();
+        }
 
         $file = $request->image;
         if (isset($request->image)) {

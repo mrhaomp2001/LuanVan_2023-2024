@@ -17,5 +17,6 @@ public class GlobalSetting : MonoBehaviour
     {
         endpoint = endpointInit;
         loginUser = loginUserInit;
+        Davinci.ClearAllCachedFiles();
     }
 }

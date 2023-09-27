@@ -1290,10 +1290,62 @@ thứ bảy nên tôi xin nghỉ
 
 # 08:13:18 2023/09/26 =====
 
+"Ý tưởng" và "Mục tiêu của tuần" chỉ nên đặt vào thứ 2 hoặc chủ nhật hàng tuần
+
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
  
-### Kết quả: 
- 
+- đăng ảnh đại diện người dùng
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- sửa, xóa ảnh bài đăng
+- thêm trường "tiêu đề cho bài viết" (thêm sửa xóa, có giao diện)
+- chuyển đổi việc tải ảnh và cache ảnh sang dùng thư viện
+
 ### Công việc ngày mai: (và sắp tới)
- 
+
+- thêm ảnh minh họa cho tài liệu của lớp học
+- đăng ảnh đại diện người dùng
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
 </details>

@@ -27,6 +27,7 @@ namespace LuanVan.OSA
         public void UpdateStudyClassroomStatus(string status)
         {
             classroomController.UpdateStudyClassroomStatus(status, classroomInfoModel);
+
         }
 
         public void ShowDocuments()
@@ -36,26 +37,36 @@ namespace LuanVan.OSA
 
         public void CheckAndDownloadAvatar()
         {
-            if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))
-            {
-                Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "classrooms/avatars/"));
-            }
-
             if (!classroomInfoModel.AvatarPath.Equals(""))
             {
-                if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomInfoModel.Id + ".png")))
-                {
-                    StartCoroutine(DownloadAndSetImageCorotine());
-                }
-                else
-                {
-                    StartCoroutine(SetImageCoroutine());
-                }
+                Davinci.get().load(GlobalSetting.Endpoint + classroomInfoModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
             }
             else
             {
                 imageAvatar.sprite = spriteDefaultAvatar;
             }
+
+
+            //if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))
+            //{
+            //    Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "classrooms/avatars/"));
+            //}
+
+            //if (!classroomInfoModel.AvatarPath.Equals(""))
+            //{
+            //    if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomInfoModel.Id + ".png")))
+            //    {
+            //        StartCoroutine(DownloadAndSetImageCorotine());
+            //    }
+            //    else
+            //    {
+            //        StartCoroutine(SetImageCoroutine());
+            //    }
+            //}
+            //else
+            //{
+            //    imageAvatar.sprite = spriteDefaultAvatar;
+            //}
         }
 
         private IEnumerator DownloadAndSetImageCorotine()

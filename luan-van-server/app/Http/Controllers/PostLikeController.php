@@ -71,7 +71,7 @@ class PostLikeController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required|exists:user,id',
+                'user_id' => 'required|exists:users,id',
                 'post_id' => 'required|exists:posts,id',
                 'like_status' => 'required',
             ],

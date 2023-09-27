@@ -22,6 +22,7 @@ public class PostController : MonoBehaviour
     [Header("UIs: ")]
     [Header("New Post: ")]
     [SerializeField] private TMP_InputField inputFieldNewPostContent;
+    [SerializeField] private TMP_InputField inputFieldNewPostTitle;
     [SerializeField] private Toggle toggleVisibility;
     [SerializeField] private Image postImage;
     [SerializeField] private TextMeshProUGUI textPostImageButtonUI;
@@ -48,6 +49,7 @@ public class PostController : MonoBehaviour
 
     public void GetPosts()
     {
+        Davinci.ClearAllCachedFiles();
         StartCoroutine(GetPostsCoroutine());
     }
 
@@ -99,6 +101,7 @@ public class PostController : MonoBehaviour
                     CommentCount = resToValue["data"]["data"][i]["comment_count"],
                     PostStatus = resToValue["data"]["data"][i]["post_status_id"],
                     ImagePath = resToValue["data"]["data"][i]["image_path"],
+                    PostTitle = resToValue["data"]["data"][i]["title"],
                     ContainerOSA = "post",
                 }
             });
@@ -137,6 +140,7 @@ public class PostController : MonoBehaviour
         WWWForm body = new WWWForm();
 
         body.AddField("content", inputFieldNewPostContent.text);
+        body.AddField("title", inputFieldNewPostTitle.text);
         body.AddField("user_id", GlobalSetting.LoginUser.Id);
         body.AddField("post_template_id", templateId);
         body.AddField("post_status_id", (toggleVisibility.isOn) ? 2 : 1);
@@ -154,6 +158,7 @@ public class PostController : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/posts", body);
 
         inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
 
         yield return request.SendWebRequest();
 
@@ -177,24 +182,23 @@ public class PostController : MonoBehaviour
 
         body.AddField("id", currentPostSelect.PostId);
         body.AddField("content", inputFieldNewPostContent.text);
+        body.AddField("title", inputFieldNewPostTitle.text);
         body.AddField("post_template_id", templateId);
         body.AddField("post_status_id", (toggleVisibility.isOn) ? "2" : "1");
 
         if (postImage.sprite != null)
         {
-            Davinci.ClearCache(GlobalSetting.Endpoint + currentPostSelect.ImagePath);
-
             byte[] textureBytes = null;
             textureBytes = GetTextureCopy(postImage.sprite.texture).EncodeToPNG();
             body.AddBinaryData("image", textureBytes, "image.png", "image/png");
         }
-
 
         footerNoticeController.SendAFooterMessage("Bài đăng của bạn đang được sửa");
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/edit", body);
 
         currentPostSelect.Content = inputFieldNewPostContent.text;
+        currentPostSelect.PostTitle = inputFieldNewPostTitle.text;
 
         currentPostSelect.ViewsHolder.textContent.text = currentPostSelect.Content;
 
@@ -203,11 +207,13 @@ public class PostController : MonoBehaviour
         currentPostSelect.PosTemplateName = templateModel.Name;
         currentPostSelect.PosTemplateContent = templateModel.Content;
         currentPostSelect.PostStatus = (toggleVisibility.isOn) ? "2" : "1";
+        currentPostSelect.PosTemplateName = textTemplateName.text;
         currentPostSelect.ViewsHolder.MarkForRebuild();
 
         postOSA.ForceUpdateViewsHolderIfVisible(currentPostSelect.ItemIndexOSA);
 
         inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
 
         yield return request.SendWebRequest();
 
@@ -271,6 +277,7 @@ public class PostController : MonoBehaviour
         postOSA.ForceUpdateViewsHolderIfVisible(currentPostSelect.ItemIndexOSA);
 
         inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
 
         yield return request.SendWebRequest();
 
@@ -296,6 +303,7 @@ public class PostController : MonoBehaviour
         textTemplateName.text = "Hãy chọn 1 mãu bài đăng";
         textTemplateContentRules.text = "Hãy chọn 1 mẫu bài đăng để xem quy định của mẫu đó.";
         inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
         postImage.sprite = null;
         postImage.color = new Color(1, 1, 1, 0);
         redirector.Push("post.upload");
@@ -411,7 +419,6 @@ public class PostController : MonoBehaviour
         postImage.sprite = null;
         postImage.color = new Color(1, 1, 1, 0);
 
-
         containerUtilitiesMenu.gameObject.SetActive(true);
         btnDeletePost.gameObject.SetActive(false);
         btnEditPost.gameObject.SetActive(false);
@@ -426,6 +433,7 @@ public class PostController : MonoBehaviour
         currentPostSelect = postModel;
 
         inputFieldNewPostContent.text = postModel.Content;
+        inputFieldNewPostTitle.text = postModel.PostTitle;
 
         templateId = postModel.PostTemplateId;
         textTemplateName.text = postModel.PosTemplateName;
@@ -436,7 +444,7 @@ public class PostController : MonoBehaviour
 
         if (!postModel.ImagePath.Equals(""))
         {
-            StartCoroutine(SetImageCoroutine());
+            postImage.color = new Color(1, 1, 1, 1);
             textPostImageButtonUI.text = "Hủy ảnh";
             textPostImageButtonUI.color = new Color(1, 0, 0);
         }
@@ -450,33 +458,14 @@ public class PostController : MonoBehaviour
 
     }
 
-    private IEnumerator SetImageCoroutine()
-    {
-        Texture2D texture;
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + Path.Combine(Application.persistentDataPath, "posts/" + currentPostSelect.PostId + ".png"));
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            texture = DownloadHandlerTexture.GetContent(request);
-
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-
-            postImage.sprite = sprite;
-            postImage.color = new Color(1, 1, 1, 1);
-
-            Debug.Log("here 2");
-        }
-        else
-        {
-            Debug.LogError("Lỗi tải ảnh: " + request.error);
-        }
-    }
-
     public void ShowEditPostMenu()
     {
         containerUtilitiesMenu.gameObject.SetActive(false);
+        if (!currentPostSelect.ImagePath.Equals(""))
+        {
+            Davinci.get().load(GlobalSetting.Endpoint + currentPostSelect.ImagePath).into(postImage).setFadeTime(0).start();
+        }
+
         redirector.Push("post.upload");
     }
 
@@ -914,6 +903,7 @@ public class PostController : MonoBehaviour
                         LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
                         CommentCount = resToValue["data"]["data"][i]["comment_count"],
                         PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                        PostTitle = resToValue["data"]["data"][i]["title"],
                         ImagePath = resToValue["data"]["data"][i]["image_path"],
                         ContainerOSA = "post",
                     }

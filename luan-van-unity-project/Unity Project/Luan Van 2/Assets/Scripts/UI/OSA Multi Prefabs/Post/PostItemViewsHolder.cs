@@ -127,6 +127,17 @@ namespace LuanVan.OSA
                 containerImagePost.gameObject.SetActive(false);
             }
 
+            if (!post.PostModel.PostTitle.Equals(""))
+            {
+                containerTitle.gameObject.SetActive(true);
+                textTitle.text = post.PostModel.PostTitle;
+            }
+            else
+            {
+                containerTitle.gameObject.SetActive(false);
+                textTitle.text = "";
+            }
+
             postListViewItem.UpdateLikeButtonColor();
 
             postListViewItem.CheckAndGetOldPosts();

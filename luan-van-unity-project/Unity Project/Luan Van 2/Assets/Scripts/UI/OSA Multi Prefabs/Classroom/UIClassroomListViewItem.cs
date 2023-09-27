@@ -39,26 +39,36 @@ namespace LuanVan.OSA
 
         public void CheckAndDownloadAvatar()
         {
-            if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))
-            {
-                Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "classrooms/avatars/"));
-            }
-
             if (!ClassroomModel.AvatarPath.Equals(""))
             {
-                if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomModel.Id + ".png")))
-                {
-                    StartCoroutine(DownloadAndSetImageCorotine());
-                }
-                else
-                {
-                    StartCoroutine(SetImageCoroutine());
-                }
+
+                Davinci.get().load(GlobalSetting.Endpoint + classroomModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
             }
             else
             {
                 imageAvatar.sprite = spriteDefaultAvatar;
             }
+
+            //if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "classrooms/avatars/")))
+            //{
+            //    Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "classrooms/avatars/"));
+            //}
+
+            //if (!ClassroomModel.AvatarPath.Equals(""))
+            //{
+            //    if (!File.Exists(Path.Combine("file://", Application.persistentDataPath, "classrooms/avatars/" + classroomModel.Id + ".png")))
+            //    {
+            //        StartCoroutine(DownloadAndSetImageCorotine());
+            //    }
+            //    else
+            //    {
+            //        StartCoroutine(SetImageCoroutine());
+            //    }
+            //}
+            //else
+            //{
+            //    imageAvatar.sprite = spriteDefaultAvatar;
+            //}
         }
 
         private IEnumerator DownloadAndSetImageCorotine()
