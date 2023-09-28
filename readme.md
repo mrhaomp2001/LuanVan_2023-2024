@@ -1384,3 +1384,14 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+ 
+# 08:22:21 2023/09/28 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+### Kết quả: 
+ 
+### Công việc ngày mai: (và sắp tới)
+ 
+</details> 
+ 
