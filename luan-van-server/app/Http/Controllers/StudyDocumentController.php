@@ -6,6 +6,7 @@ use App\Models\StudyDocument;
 use App\Http\Requests\StoreStudyDocumentRequest;
 use App\Http\Requests\UpdateStudyDocumentRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class StudyDocumentController extends Controller
@@ -122,6 +123,14 @@ class StudyDocumentController extends Controller
         $documents = StudyDocument::where("classroom_id", $request->classroom_id)
         ->orderBy("page")
         ->get();
+
+        foreach ($documents as $document) {
+            if (Storage::disk('public')->exists('documents/' . $document->id . ".png")) {
+                $document->image_path = Storage::url('documents/' . $document->id . ".png");
+            } else {
+                $document->image_path = "";
+            }
+        }
 
         $count = count($documents);
 

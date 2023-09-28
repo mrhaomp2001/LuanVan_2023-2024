@@ -1,4 +1,5 @@
 using Library;
+using LuanVan.OSA;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ public class StudyDocumentController : MonoBehaviour
         public string classroomId;
         public string content;
         public string createdAt;
+        public string imagePath;
         public int page;
     }
     [SerializeField] private string currentClassroomSelectId;
     [SerializeField] private int currentDocumentIndex;
 
     [SerializeField] private List<StudyDocument> studyDocuments = new List<StudyDocument>();
+    [SerializeField] private Sprite spriteDefaultDocument;
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -30,6 +33,7 @@ public class StudyDocumentController : MonoBehaviour
     [SerializeField] private TMP_InputField inputFieldTurnPage;
     [SerializeField] private TextMeshProUGUI textContent;
     [SerializeField] private TextMeshProUGUI textPageNumber;
+    [SerializeField] private Image imageDocument;
 
     public void GetClassroomDocuments(string classroomId)
     {
@@ -72,7 +76,8 @@ public class StudyDocumentController : MonoBehaviour
                 content = resToValue["data"][i]["content"],
                 createdAt = resToValue["data"][i]["created_at"],
                 id = resToValue["data"][i]["id"],
-                page = resToValue["data"][i]["page"]
+                page = resToValue["data"][i]["page"],
+                imagePath = resToValue["data"][i]["image_path"],
             });
         }
 
@@ -125,6 +130,14 @@ public class StudyDocumentController : MonoBehaviour
 
             textPageNumber.text = (index + 1).ToString() + "/" + studyDocuments.Count.ToString();
             textContent.text = studyDocuments[currentDocumentIndex].content;
+            if (!studyDocuments[currentDocumentIndex].imagePath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + studyDocuments[currentDocumentIndex].imagePath).into(imageDocument).setFadeTime(0).start();
+            }
+            else
+            {
+                imageDocument.sprite = spriteDefaultDocument;
+            }
         }
     }
 }

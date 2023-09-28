@@ -1349,3 +1349,38 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
+
+# 14:23:49 2023/09/27 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+### Kết quả: 
+ 
+- thêm ảnh minh họa cho tài liệu của lớp học
+- hiểm thị ảnh đại diện người dùng
+
+### Công việc ngày mai: (và sắp tới)
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+</details>

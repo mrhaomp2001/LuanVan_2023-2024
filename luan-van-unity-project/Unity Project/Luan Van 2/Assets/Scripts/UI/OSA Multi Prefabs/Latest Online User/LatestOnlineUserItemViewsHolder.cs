@@ -85,6 +85,8 @@ namespace LuanVan.OSA
                 containerAddfriend.gameObject.SetActive(false);
             }
 
+            latestOnlineUserListViewItem.CheckAndDownloadAvatar();
+
             MarkForRebuild();
         }
 

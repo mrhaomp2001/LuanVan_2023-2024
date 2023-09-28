@@ -60,6 +60,7 @@ public class OtherUserController : MonoBehaviour
                     Name = resToValue["data"]["data"][i]["name"],
                     UpdatedAt = resToValue["data"]["data"][i]["updated_at"],
                     Username = resToValue["data"]["data"][i]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["avatar_path"] ?? "",
                     ContainerOSA = "latestUser",
                 }
             });
@@ -109,6 +110,7 @@ public class OtherUserController : MonoBehaviour
                     Name = resToValue["data"][i]["name"],
                     UpdatedAt = resToValue["data"][i]["updated_at"],
                     Username = resToValue["data"][i]["username"],
+                    AvatarPath = resToValue["data"][i]["avatar_path"] ?? "",
                     ContainerOSA = "friend",
                 }
             });
@@ -159,6 +161,7 @@ public class OtherUserController : MonoBehaviour
                     Name = resToValue["data"][i]["name"],
                     UpdatedAt = resToValue["data"][i]["updated_at"],
                     Username = resToValue["data"][i]["username"],
+                    AvatarPath = resToValue["data"][i]["avatar_path"] ?? "",
                     ContainerOSA = "waitingFriend",
                 }
             });
