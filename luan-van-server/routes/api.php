@@ -11,9 +11,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportTypeController;
 use App\Http\Controllers\StudyDocumentController;
 use App\Http\Controllers\TopicCommentController;
 use App\Http\Controllers\TopicCommentLikeController;
+use App\Models\ReportType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -90,3 +93,6 @@ Route::post('/classroom/topic/comment/like', [TopicCommentLikeController::class,
 
 Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDocuments']);
 
+Route::get('/reports', [ReportController::class, 'getReports']);
+Route::post('/reports', [ReportController::class, 'createReport']);
+Route::get('/report/types', [ReportTypeController::class, 'getReportTypes']);

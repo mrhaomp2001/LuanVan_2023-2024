@@ -199,7 +199,7 @@ public class ClassroomController : MonoBehaviour
                     content = resToValue["data"][i]["answers_in_random_order"][j]["content"],
                     createdAt = resToValue["data"][i]["answers_in_random_order"][j]["created_at"],
                     id = resToValue["data"][i]["answers_in_random_order"][j]["id"],
-                    isCorrect = resToValue["data"][i]["answers_in_random_order"][j]["is_correct"] == 1,
+                    isCorrect = resToValue["data"][i]["answers_in_random_order"][j]["is_correct"],
                     questionId = resToValue["data"][i]["answers_in_random_order"][j]["question_id"],
                 });
             }

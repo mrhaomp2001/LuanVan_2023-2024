@@ -12,11 +12,13 @@ public class PostController : MonoBehaviour
 {
     [Header("Post Stats: ")]
     [SerializeField] private int postGetPerPage;
+    [SerializeField] private string filterGetPosts;
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private FooterNoticeController footerNoticeController;
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA postOSA;
+    [SerializeField] private UIMultiPrefabsOSA postFilterOSA;
     [SerializeField] private UIMultiPrefabsOSA postCommentOSA;
     [SerializeField] private UIMultiPrefabsOSA postTemplateOSA;
     [Header("UIs: ")]
@@ -46,6 +48,7 @@ public class PostController : MonoBehaviour
     [SerializeField] private UIPostModel currentPostSelect;
 
     public UIMultiPrefabsOSA PostOSA { get => postOSA; set => postOSA = value; }
+    public UIPostModel CurrentPostSelect { get => currentPostSelect; set => currentPostSelect = value; }
 
     public void GetPosts()
     {
@@ -57,7 +60,8 @@ public class PostController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
-            "&per_page=" + postGetPerPage);
+            "&per_page=" + postGetPerPage + 
+            "&filter=" + filterGetPosts);
 
         yield return request.SendWebRequest();
 
@@ -844,7 +848,8 @@ public class PostController : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts/old" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
             "&per_page=" + postGetPerPage +
-            "&date=" + postModel.CreateAt);
+            "&date=" + postModel.CreateAt +
+            "&filter=" + filterGetPosts);
 
         yield return request.SendWebRequest();
 
@@ -1009,5 +1014,76 @@ public class PostController : MonoBehaviour
         RenderTexture.ReleaseTemporary(rt);
 
         return readableTexture;
+    }
+
+    public void GetFilterTemplate()
+    {
+        redirector.Push("post.filter");
+
+        var template = new MultiItemModel();
+        template.MultiModel.Type = "filter_template";
+
+        template.MultiModel.PassedVariable["created_at"] = "";
+        template.MultiModel.PassedVariable["content"] = "Xem tất cả";
+        template.MultiModel.PassedVariable["id"] = "0";
+        template.MultiModel.PassedVariable["name"] = "Xem tất cả";
+        template.MultiModel.PassedVariable["theme_color"] = "#ffffff";
+
+        postFilterOSA.Data.ResetItems( new List<BaseModel>()
+        {
+            template
+        });
+
+        StartCoroutine(GetFilterTemplateCoroutine());
+    }
+
+    private IEnumerator GetFilterTemplateCoroutine()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/post-templates");
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        GetFilterTemplateResponse(res);
+    }
+
+    private void GetFilterTemplateResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        List<BaseModel> templates = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"].Count; i++)
+        {
+            var template = new MultiItemModel();
+            template.MultiModel.Type = "filter_template";
+
+            template.MultiModel.PassedVariable["created_at"] = resToValue["data"][i]["created_at"];
+            template.MultiModel.PassedVariable["content"] = resToValue["data"][i]["content"];
+            template.MultiModel.PassedVariable["id"] = resToValue["data"][i]["id"];
+            template.MultiModel.PassedVariable["name"] = resToValue["data"][i]["name"];
+            template.MultiModel.PassedVariable["theme_color"] = resToValue["data"][i]["theme_color"];
+
+            templates.Add(template);
+        }
+
+        postFilterOSA.Data.InsertItems(1, templates);
+    }
+
+    public void ChangeFilter(string value)
+    {
+        filterGetPosts = value;
+
+        GetPosts();
+
+        redirector.Pop();
     }
 }

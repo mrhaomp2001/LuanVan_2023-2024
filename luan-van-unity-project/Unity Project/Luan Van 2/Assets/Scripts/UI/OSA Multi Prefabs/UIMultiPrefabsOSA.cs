@@ -106,7 +106,7 @@ namespace LuanVan.OSA
                 var vh = new LatestOnlineUserItemViewsHolder();
                 vh.Init(_Params.latestOnlineUserPrefab, _Params.Content, itemIndex);
                 return vh;
-            }            
+            }
             if (modelType == typeof(ProfileItemModel))
             {
                 var vh = new ProfileItemViewsHolder();
@@ -129,6 +129,12 @@ namespace LuanVan.OSA
             {
                 var vh = new TopicCommentItemViewsHolder();
                 vh.Init(_Params.topicCommentPrefab, _Params.Content, itemIndex);
+                return vh;
+            }
+            if (modelType == typeof(MultiItemModel))
+            {
+                var vh = new MultiItemViewsHolder();
+                vh.Init(_Params.multiPrefab, _Params.Content, itemIndex);
                 return vh;
             }
 
@@ -270,6 +276,7 @@ namespace LuanVan.OSA
         public RectTransform classroomInfoPrefab;
         public RectTransform topicPrefab;
         public RectTransform topicCommentPrefab;
+        public RectTransform multiPrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -281,7 +288,7 @@ namespace LuanVan.OSA
             if (questionPrefab != null)
             {
                 AssertValidWidthHeight(questionPrefab);
-            }            
+            }
             if (answerPrefab != null)
             {
                 AssertValidWidthHeight(answerPrefab);
@@ -293,7 +300,7 @@ namespace LuanVan.OSA
             if (postTemplatePrefab != null)
             {
                 AssertValidWidthHeight(postTemplatePrefab);
-            }            
+            }
             if (commentPrefab != null)
             {
                 AssertValidWidthHeight(commentPrefab);
@@ -317,6 +324,10 @@ namespace LuanVan.OSA
             if (topicCommentPrefab != null)
             {
                 AssertValidWidthHeight(topicCommentPrefab);
+            }
+            if (multiPrefab != null)
+            {
+                AssertValidWidthHeight(multiPrefab);
             }
 
         }

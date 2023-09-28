@@ -79,7 +79,8 @@ class PostController extends Controller
             $input,
             [
                 'user_id' => 'required|exists:users,id',
-                'per_page' => 'required'
+                'per_page' => 'required',
+                'filter' => 'required',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
@@ -91,7 +92,15 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->simplePaginate($request->per_page);
+        if ($request->filter != "0") {
+            $posts = Post::orderBy('created_at', 'DESC')->where('post_template_id', $request->filter)->where('post_status_id', '1')->simplePaginate($request->per_page);
+
+        }
+
+        if ($request->filter == "0") {
+            $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->simplePaginate($request->per_page);
+        }
+
 
         foreach ($posts as $post) {
             $post->post_template;
@@ -120,6 +129,8 @@ class PostController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'per_page' => 'required',
                 'date' => 'required',
+                'filter' => 'required'
+
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
@@ -132,7 +143,16 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->where('created_at', '<', $request->date)->simplePaginate($request->per_page);
+        if ($request->filter != "0") {
+            $posts = Post::orderBy('created_at', 'DESC')->where('post_template_id', $request->filter)->where('post_status_id', '1')->where('created_at', '<', $request->date)->simplePaginate($request->per_page);
+
+        }
+
+        if ($request->filter == "0") {
+            $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->where('created_at', '<', $request->date)->simplePaginate($request->per_page);
+        }
+
+
 
         foreach ($posts as $post) {
             $post->post_template;
@@ -167,7 +187,7 @@ class PostController extends Controller
                     File::image()
                         ->min(1)
                         ->max(64 * 1024)
-                ]
+                ],
             ],
             [
                 'content.required' => 'Content không được rỗng',
