@@ -67,16 +67,22 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private List<QuestionWithAnswers> listOfCurrentQuestions = new List<QuestionWithAnswers>();
     [SerializeField] private float playTime;
     [SerializeField] private bool isStartPlayTimer;
+    [SerializeField] private int playerHp;
+    [SerializeField] private int playerHpMax;
+
     [Header("UIs Play: ")]
+    [SerializeField] private Animator animatorPlayer;
+    [SerializeField] private Animator animatorEnemy;
     [SerializeField] private Button buttonCheckAnswer;
     [SerializeField] private Slider sliderProgress;
     [SerializeField] private RectTransform uiCorrectNotice, uiWrongNotice;
-    [SerializeField] private RectTransform uiComplete;
+    [SerializeField] private RectTransform uiComplete, uiCompleteDefeat;
     [SerializeField] private Color colorSelectAnswer;
     [SerializeField] private Color colorNonSelectAnswer;
     [SerializeField] private TextMeshProUGUI textPlayTime;
     [SerializeField] private TextMeshProUGUI textAccuracy;
     [SerializeField] private TMP_InputField inputFieldTopicComment;
+    [SerializeField] private Slider sliderPlayerHp;
 
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
 
@@ -149,6 +155,13 @@ public class ClassroomController : MonoBehaviour
     {
         playOSA.Data.ResetItems(new List<BaseModel>());
         redirector.Push("play");
+
+        //playerHpMax = 3; // <====
+        playerHp = playerHpMax;
+        sliderPlayerHp.value = playerHpMax;
+        sliderPlayerHp.maxValue = playerHpMax;
+
+        uiCompleteDefeat.gameObject.SetActive(false);
 
         currentQuestion = 0;
         correctAnswersCount = 0;
@@ -273,10 +286,29 @@ public class ClassroomController : MonoBehaviour
         {
             uiCorrectNotice.gameObject.SetActive(true);
             correctAnswersCount++;
+
+            animatorPlayer.Play("attack");
+            animatorEnemy.Play("hurt");
         }
         else
         {
             uiWrongNotice.gameObject.SetActive(true);
+
+            animatorPlayer.Play("hurt");
+            animatorEnemy.Play("attack");
+            playerHp--;
+            sliderPlayerHp.value = playerHp;
+        }
+
+        if (playerHp <= 0)
+        {
+            uiCompleteDefeat.gameObject.SetActive(true);
+
+            uiWrongNotice.gameObject.SetActive(false);
+            uiCorrectNotice.gameObject.SetActive(false);
+            buttonCheckAnswer.interactable = false;
+            StopPlayerTimer();
+
         }
 
         currentQuestion++;

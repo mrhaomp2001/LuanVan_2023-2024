@@ -1384,10 +1384,10 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 </details>
- 
-# 08:22:21 2023/09/28 ===== 
- 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+
+# 08:22:21 2023/09/28 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 - lọc bài viết
 
@@ -1414,7 +1414,8 @@ thứ bảy nên tôi xin nghỉ
 
 - phân quyền ứng dụng
 
-### Kết quả: 
+### Kết quả:
+
 - lọc bài viết
 - báo cáo bài viết
 
@@ -1446,5 +1447,70 @@ thứ bảy nên tôi xin nghỉ
 - chat
 
 - phân quyền ứng dụng
-</details> 
- 
+</details>
+
+# 17:16:06 2023/09/29 =====
+
+tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng quên bật file này lên.
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ - bắt đầu làm game tương tác
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- bắt đầu làm game tương tác (đấm nhau với quái vật)
+
+### Công việc ngày mai: (và sắp tới)
+
+- bắt đầu làm game tương tác
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+</details>
