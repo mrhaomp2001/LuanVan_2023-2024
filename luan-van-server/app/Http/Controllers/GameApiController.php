@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\QuestionCollection;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +14,8 @@ use Illuminate\Http\Request;
 class GameApiController extends Controller
 {
 
-    public function testApi(Request $request) {
+    public function testApi(Request $request)
+    {
         $input = $request->all();
         $validator = Validator::make(
             $input,
@@ -45,8 +47,10 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'class' => 'required|exists:classrooms,id',
-                'amount' => 'required'
+                'question_collection_id' => 'required|exists:question_collections,id',
+            ],
+            [
+
             ]
         );
 
@@ -54,12 +58,19 @@ class GameApiController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $questions = Question::where('classroom_id', $request->class)->inRandomOrder()->limit($request->amount)->get();
+        $questionCollection = QuestionCollection::find($request->question_collection_id);
+
+        $questions = Question::where('question_collection_id', $request->question_collection_id)
+            ->limit($questionCollection->questions_per_time)
+            ->inRandomOrder()
+            ->get();
+
         foreach ($questions as $question) {
             $question->answersInRandomOrder;
         }
         return response()->json(['data' => $questions], 200, [], JSON_UNESCAPED_UNICODE);
     }
+
     public function register(Request $request)
     {
 

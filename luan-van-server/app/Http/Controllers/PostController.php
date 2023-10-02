@@ -103,7 +103,7 @@ class PostController extends Controller
 
 
         foreach ($posts as $post) {
-            $post->post_template;
+            $post->postTemplate;
             $post->user;
             $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
@@ -155,7 +155,7 @@ class PostController extends Controller
 
 
         foreach ($posts as $post) {
-            $post->post_template;
+            $post->postTemplate;
             $post->user;
             $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
@@ -260,7 +260,7 @@ class PostController extends Controller
         $post->post_template_id = $request->post_template_id;
         $post->post_status_id = $request->post_status_id;
         $post->save();
-        $post->post_template;
+        $post->postTemplate;
 
         if (isset($request->title)) {
             $post->title = $request->title;
@@ -308,7 +308,7 @@ class PostController extends Controller
         $posts = Post::where('user_id', $request->other_user_id)->where('post_status_id', '1')->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
 
         foreach ($posts as $post) {
-            $post->post_template;
+            $post->postTemplate;
             $post->user;
             $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
@@ -355,7 +355,7 @@ class PostController extends Controller
             ->simplePaginate($request->per_page);
 
         foreach ($posts as $post) {
-            $post->post_template;
+            $post->postTemplate;
             $post->user;
             $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
             $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();

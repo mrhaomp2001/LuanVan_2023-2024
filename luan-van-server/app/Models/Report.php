@@ -33,7 +33,7 @@ class Report extends Model
         }
     }
 
-    public function report_type() {
+    public function reportType() {
         return $this->belongsTo(ReportType::class, "report_type_id");
     }
 }

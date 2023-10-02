@@ -53,8 +53,8 @@ class ClassroomController extends Controller
         }
 
         return view("classrooms.edit")
-        ->with("classroom", $classroom)
-        ->with("questions", $questions);
+            ->with("classroom", $classroom)
+            ->with("questions", $questions);
     }
 
     /**
@@ -70,7 +70,7 @@ class ClassroomController extends Controller
      */
     public function update(UpdateClassroomRequest $request)
     {
-        
+
         $input = $request->all();
         $validator = Validator::make(
             $input,
@@ -166,6 +166,7 @@ class ClassroomController extends Controller
             } else {
                 $classroom->avatar_path = "";
             }
+
         }
 
         return response()->json(['data' => $classrooms], 200, [], JSON_UNESCAPED_UNICODE);
@@ -271,6 +272,7 @@ class ClassroomController extends Controller
             ->where("user_id", $request->user_id)
             ->first();
 
+        $classroom->questionCollections;
         $classroom->study_status = $studyStatus;
 
         return response()->json(['data' => $classroom], 200, [], JSON_UNESCAPED_UNICODE);

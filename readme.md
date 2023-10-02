@@ -1514,3 +1514,67 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - phân quyền ứng dụng
 </details>
+
+# 07:45:42 2023/10/02 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- bắt đầu làm game tương tác
+
+- thiết kế độ khó của lớp
+- thiết kế độ khó của câu hỏi
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- game đua xe, vượt chứa ngại vật
+- viết api cho tập câu hỏi (nhiều câu hỏi thuộc 1 tập câu hỏi, nhiều tập câu hỏi có thể có trong 1 lớp, tập câu hỏi có độ khó riêng, số câu trong bài làm riêng)
+
+### Công việc ngày mai: (và sắp tới)
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+
+</details>

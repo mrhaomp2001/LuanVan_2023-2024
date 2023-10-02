@@ -15,6 +15,7 @@ class Post extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'title',
         'content',
         'user_id',
         'post_template_id',
@@ -29,7 +30,7 @@ class Post extends Model
         'title' => "",
     ];
 
-    public function post_likes()
+    public function postLikes()
     {
         return $this->hasMany(PostLike::class, "post_id");
     }
@@ -42,7 +43,7 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, "user_id");
     }
-    public function post_template()
+    public function postTemplate()
     {
         return $this->belongsTo(PostTemplate::class, "post_template_id");
     }

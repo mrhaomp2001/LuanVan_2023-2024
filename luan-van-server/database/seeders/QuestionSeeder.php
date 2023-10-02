@@ -18,8 +18,8 @@ class QuestionSeeder extends Seeder
             for ($i = 1; $i <= 30; $i++) {
                 $question = new Question;
                 
-                $question->classroom_id = $n;
-                $question->content = 'Câu hỏi thứ ' . $i . ' Thuộc lớp học ' . $n . '.';
+                $question->question_collection_id = $n;
+                $question->content = 'Câu hỏi thứ ' . $i . ' - Thuộc bộ đề: ' . $n . '.';
                 $question->save();
             }
         }

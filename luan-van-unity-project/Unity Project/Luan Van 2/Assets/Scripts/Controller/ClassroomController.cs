@@ -56,35 +56,49 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private int topicGetCount;
     [SerializeField] private int topicCommentGetCount;
     [SerializeField] private UITopicModel currentTopicSellect;
+    [SerializeField] private TMP_InputField inputFieldTopicComment;
 
     [Header("Questions: ")]
     [SerializeField] private int questionAmount;
 
     [Header("Play Stats: ")]
+    [SerializeField] private int playerHp;
+    [SerializeField] private int playerHpMax;
+    [SerializeField] private float playTime;
+    [SerializeField] private bool isStartPlayTimer;
+    [SerializeField] private int gameTypeId;
     [SerializeField] private int currentQuestion;
     [SerializeField] private int correctAnswersCount;
     [SerializeField] private UIAnswerModel currentAnswerSelect;
     [SerializeField] private List<QuestionWithAnswers> listOfCurrentQuestions = new List<QuestionWithAnswers>();
-    [SerializeField] private float playTime;
-    [SerializeField] private bool isStartPlayTimer;
-    [SerializeField] private int playerHp;
-    [SerializeField] private int playerHpMax;
 
     [Header("UIs Play: ")]
-    [SerializeField] private Animator animatorPlayer;
-    [SerializeField] private Animator animatorEnemy;
-    [SerializeField] private Button buttonCheckAnswer;
+    [Header("Global UIs:")]
     [SerializeField] private Slider sliderProgress;
     [SerializeField] private RectTransform uiCorrectNotice, uiWrongNotice;
-    [SerializeField] private RectTransform uiComplete, uiCompleteDefeat;
-    [SerializeField] private Color colorSelectAnswer;
     [SerializeField] private Color colorNonSelectAnswer;
+    [SerializeField] private Color colorSelectAnswer;
     [SerializeField] private TextMeshProUGUI textPlayTime;
     [SerializeField] private TextMeshProUGUI textAccuracy;
-    [SerializeField] private TMP_InputField inputFieldTopicComment;
+    [SerializeField] private RectTransform uiComplete;
+    [SerializeField] private Button buttonCheckAnswer;
+    [SerializeField] private TextMeshProUGUI textDefeatContent;
+    [SerializeField] private RectTransform uiCompleteDefeat;
+
+    [Header("Fighting Monster UIs:")]
+    [SerializeField] private RectTransform containerFightingMonster;
+    [SerializeField] private Animator animatorPlayer;
+    [SerializeField] private Animator animatorEnemy;
     [SerializeField] private Slider sliderPlayerHp;
 
+    [Header("Car Racing UIs:")]
+    [SerializeField] private GameRacingController gameRacingController;
+    [SerializeField] private RectTransform containerCarRacing;
+    [SerializeField] private Transform playerCar;
+    [SerializeField] private Transform containerObstacles;
+    [SerializeField] private List<Transform> obstaclesSprite = new List<Transform>();
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
+    public int PlayerHp { get => playerHp; set => playerHp = value; }
 
     private void Update()
     {
@@ -153,13 +167,12 @@ public class ClassroomController : MonoBehaviour
 
     public void GetQuestionsAndAnswers(string classroomId)
     {
-        playOSA.Data.ResetItems(new List<BaseModel>());
-        redirector.Push("play");
+        // disable all game container. After that, check and active.
+        containerFightingMonster.gameObject.SetActive(false);
+        containerCarRacing.gameObject.SetActive(false);
 
-        //playerHpMax = 3; // <====
-        playerHp = playerHpMax;
-        sliderPlayerHp.value = playerHpMax;
-        sliderPlayerHp.maxValue = playerHpMax;
+        redirector.Push("play");
+        playOSA.Data.ResetItems(new List<BaseModel>());
 
         uiCompleteDefeat.gameObject.SetActive(false);
 
@@ -209,7 +222,7 @@ public class ClassroomController : MonoBehaviour
             {
                 answersRes.Add(new Answer()
                 {
-                    content = resToValue["data"][i]["answers_in_random_order"][j]["content"],
+                    content = (j + 1).ToString() + ". " + resToValue["data"][i]["answers_in_random_order"][j]["content"],
                     createdAt = resToValue["data"][i]["answers_in_random_order"][j]["created_at"],
                     id = resToValue["data"][i]["answers_in_random_order"][j]["id"],
                     isCorrect = resToValue["data"][i]["answers_in_random_order"][j]["is_correct"],
@@ -255,12 +268,39 @@ public class ClassroomController : MonoBehaviour
         });
         playOSA.ScheduleForceRebuildLayout();
 
+        if (gameTypeId == 1)
+        {
+            containerFightingMonster.gameObject.SetActive(true);
+            playerHpMax = 3;
+            sliderPlayerHp.value = playerHpMax;
+            sliderPlayerHp.maxValue = playerHpMax;
+        }
+        if (gameTypeId == 2)
+        {
+            gameRacingController.StartGame();
+            containerCarRacing.gameObject.SetActive(true);
+            playerHpMax = 1;
+        }
+
+        playerHp = playerHpMax;
+
         playTime = 0f;
         StartPlayTimer();
     }
 
     public void SelectAnswer(UIAnswerModel answerModel)
     {
+
+        if (gameTypeId == 2)
+        {
+            foreach (var sprite in obstaclesSprite)
+            {
+                sprite.gameObject.SetActive(true);
+            }
+        }
+
+        int temp = 0;
+
         foreach (var baseModel in playOSA.Data)
         {
             if (!(baseModel is AnswerItemModel answer))
@@ -271,6 +311,12 @@ public class ClassroomController : MonoBehaviour
             {
                 answer.AnswerModel.ViewsHolder.imageAnswerOutline.color = colorNonSelectAnswer;
             }
+
+            if (answer.AnswerModel.IsCorrect)
+            {
+                obstaclesSprite[temp].gameObject.SetActive(false);
+            }
+            temp++;
         }
 
         answerModel.ViewsHolder.imageAnswerOutline.color = colorSelectAnswer;
@@ -278,6 +324,30 @@ public class ClassroomController : MonoBehaviour
         currentAnswerSelect = answerModel;
 
         buttonCheckAnswer.interactable = true;
+
+        if (gameTypeId == 2)
+        {
+            if (currentAnswerSelect.ViewsHolder.ItemIndex == 1)
+            {
+                LeanTween.cancel(playerCar.gameObject);
+                LeanTween.moveLocalX(playerCar.gameObject, -4.5f, 0.5f);
+            }
+            if (currentAnswerSelect.ViewsHolder.ItemIndex == 2)
+            {
+                LeanTween.cancel(playerCar.gameObject);
+                LeanTween.moveLocalX(playerCar.gameObject, -1.5f, 0.5f);
+            }
+            if (currentAnswerSelect.ViewsHolder.ItemIndex == 3)
+            {
+                LeanTween.cancel(playerCar.gameObject);
+                LeanTween.moveLocalX(playerCar.gameObject, 1.5f, 0.5f);
+            }
+            if (currentAnswerSelect.ViewsHolder.ItemIndex == 4)
+            {
+                LeanTween.cancel(playerCar.gameObject);
+                LeanTween.moveLocalX(playerCar.gameObject, 4.5f, 0.5f);
+            }
+        }
     }
 
     public void CheckAnswer()
@@ -287,21 +357,47 @@ public class ClassroomController : MonoBehaviour
             uiCorrectNotice.gameObject.SetActive(true);
             correctAnswersCount++;
 
-            animatorPlayer.Play("attack");
-            animatorEnemy.Play("hurt");
+            if (gameTypeId == 1)
+            {
+                animatorPlayer.Play("attack");
+                animatorEnemy.Play("hurt");
+            }
+
         }
         else
         {
             uiWrongNotice.gameObject.SetActive(true);
-
-            animatorPlayer.Play("hurt");
-            animatorEnemy.Play("attack");
             playerHp--;
-            sliderPlayerHp.value = playerHp;
+
+            if (gameTypeId == 1)
+            {
+                animatorPlayer.Play("hurt");
+                animatorEnemy.Play("attack");
+                sliderPlayerHp.value = playerHp;
+            }
+        }
+        if (gameTypeId == 2)
+        {
+
+
+            LeanTween.cancel(containerObstacles.gameObject);
+            containerObstacles.LeanSetLocalPosY(10);
+            LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 1f).setEase(LeanTweenType.linear);
         }
 
         if (playerHp <= 0)
         {
+            if (gameTypeId == 1)
+            {
+                textDefeatContent.text = "Bạn đã kiệt sức!";
+            }
+
+            if (gameTypeId == 2)
+            {
+                textDefeatContent.text = "Bạn đã gây ra va chạm!";
+            }
+
+
             uiCompleteDefeat.gameObject.SetActive(true);
 
             uiWrongNotice.gameObject.SetActive(false);
@@ -379,6 +475,7 @@ public class ClassroomController : MonoBehaviour
     public void CompletePlay()
     {
         uiComplete.gameObject.SetActive(false);
+        gameRacingController.StopGame();
         redirector.Pop();
     }
 

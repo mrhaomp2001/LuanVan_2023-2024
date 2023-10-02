@@ -26,8 +26,8 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class, "question_id");
     }
-    public function classroom()
+    public function questionCollection()
     {
-        return $this->belongsTo(Classroom::class, "classroom_id");
+        return $this->belongsTo(QuestionCollection::class, "question_collection_id");
     }
 }

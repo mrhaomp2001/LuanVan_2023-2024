@@ -19,16 +19,16 @@ class Classroom extends Model
         'theme_color',
     ];
 
-    public function questions()
+    public function questionCollections()
     {
-        return $this->hasMany(Question::class, "classroom_id");
+        return $this->hasMany(QuestionCollection::class, "classroom_id");
     }
 
     public function users()
     {
         return $this->hasMany(StudyClassroom::class, "classroom_id");
     }
-    public function study_documents()
+    public function studyDocuments()
     {
         return $this->hasMany(StudyDocument::class, "classroom_id");
     }

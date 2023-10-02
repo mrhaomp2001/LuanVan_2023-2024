@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GameRacingPlayerCar
+  - GameRacingObstacles
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 4052090359
+    locked: 0
+  - name: player
+    uniqueID: 929152089
+    locked: 0
+  - name: obstacles
+    uniqueID: 681380943
     locked: 0
