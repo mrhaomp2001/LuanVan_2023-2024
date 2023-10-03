@@ -47,6 +47,7 @@ public class ClassroomController : MonoBehaviour
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
+    [SerializeField] private MainGameplayController mainGameplayController;
 
     [Header("Classrooms: ")]
     [SerializeField] private int page;
@@ -165,11 +166,28 @@ public class ClassroomController : MonoBehaviour
         classroomOSA.Data.ResetItems(listClassroom);
     }
 
-    public void GetQuestionsAndAnswers(string classroomId)
+    public void GetQuestionsAndAnswers(string collectionId, int gameType)
     {
+        gameTypeId = gameType;
+
         // disable all game container. After that, check and active.
         containerFightingMonster.gameObject.SetActive(false);
         containerCarRacing.gameObject.SetActive(false);
+
+
+        if (gameTypeId == 1)
+        {
+            containerFightingMonster.gameObject.SetActive(true);
+            playerHpMax = 3;
+            sliderPlayerHp.value = playerHpMax;
+            sliderPlayerHp.maxValue = playerHpMax;
+        }
+        if (gameTypeId == 2)
+        {
+            gameRacingController.StartGame();
+            containerCarRacing.gameObject.SetActive(true);
+            playerHpMax = 1;
+        }
 
         redirector.Push("play");
         playOSA.Data.ResetItems(new List<BaseModel>());
@@ -181,14 +199,13 @@ public class ClassroomController : MonoBehaviour
         sliderProgress.maxValue = questionAmount;
         sliderProgress.value = currentQuestion;
 
-        StartCoroutine(GetQuestionsAndAnswersCoroutine(classroomId));
+        StartCoroutine(GetQuestionsAndAnswersCoroutine(collectionId));
     }
 
-    public IEnumerator GetQuestionsAndAnswersCoroutine(string classroomId)
+    public IEnumerator GetQuestionsAndAnswersCoroutine(string collectionId)
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/questions" +
-            "?class=" + classroomId +
-            "&amount=" + questionAmount);
+            "?question_collection_id=" + collectionId);
 
         yield return request.SendWebRequest();
 
@@ -267,20 +284,6 @@ public class ClassroomController : MonoBehaviour
             }
         });
         playOSA.ScheduleForceRebuildLayout();
-
-        if (gameTypeId == 1)
-        {
-            containerFightingMonster.gameObject.SetActive(true);
-            playerHpMax = 3;
-            sliderPlayerHp.value = playerHpMax;
-            sliderPlayerHp.maxValue = playerHpMax;
-        }
-        if (gameTypeId == 2)
-        {
-            gameRacingController.StartGame();
-            containerCarRacing.gameObject.SetActive(true);
-            playerHpMax = 1;
-        }
 
         playerHp = playerHpMax;
 
@@ -662,6 +665,8 @@ public class ClassroomController : MonoBehaviour
                 ThemeColor = resToValue["data"]["theme_color"],
             }
         };
+
+        mainGameplayController.GetQuestionCollectionsResponse(res);
 
         classroomInfoOSA.Data.InsertOneAtStart(classroomInfo);
     }

@@ -20,11 +20,10 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'user_id' => 'required|exists:users,id',
+                'data' => "required",
             ],
             [
-                'user_id.required' => 'user_id.required',
-                'user_id.exists' => 'user_id.exists',
+
             ]
         );
 
@@ -32,13 +31,7 @@ class GameApiController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $data = User::find($request->user_id);
-
-        $data->classrooms;
-
-        $data->data = Classroom::find(2)->users;
-
-        return response()->json(['message' => $data], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['data' => $request->input('data.1')], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getQuestions(Request $request)

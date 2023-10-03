@@ -137,6 +137,12 @@ namespace LuanVan.OSA
                 vh.Init(_Params.multiPrefab, _Params.Content, itemIndex);
                 return vh;
             }
+            if (modelType == typeof(QuestionCollectionItemModel))
+            {
+                var vh = new QuestionCollectionItemViewsHolder();
+                vh.Init(_Params.questionCollectionPrefab, _Params.Content, itemIndex);
+                return vh;
+            }
 
             throw new InvalidOperationException("Unrecognized model type: " + modelType.Name);
         }
@@ -277,6 +283,7 @@ namespace LuanVan.OSA
         public RectTransform topicPrefab;
         public RectTransform topicCommentPrefab;
         public RectTransform multiPrefab;
+        public RectTransform questionCollectionPrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -329,7 +336,10 @@ namespace LuanVan.OSA
             {
                 AssertValidWidthHeight(multiPrefab);
             }
-
+            if (questionCollectionPrefab != null)
+            {
+                AssertValidWidthHeight(questionCollectionPrefab);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnsweredQuestionController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ClassroomTopicController;
 use App\Http\Controllers\ClassroomTopicLikeController;
@@ -36,6 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', [GameApiController::class, 'testApi']);
+Route::post('/test', [GameApiController::class, 'testApi']);
 
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
@@ -96,3 +98,13 @@ Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDoc
 Route::get('/reports', [ReportController::class, 'getReports']);
 Route::post('/reports', [ReportController::class, 'createReport']);
 Route::get('/report/types', [ReportTypeController::class, 'getReportTypes']);
+
+
+Route::prefix('rank')->group(function () {
+    Route::get('/day', [AnsweredQuestionController::class, 'getRanksDay']);
+    Route::get('/week', [AnsweredQuestionController::class, 'getRanksWeek']);
+    Route::get('/month', [AnsweredQuestionController::class, 'getRanksMonth']);
+    Route::get('/question_collections/day', [AnsweredQuestionController::class, 'getRanksDayQuestionCollection']);
+    Route::get('/classrooms/day', [AnsweredQuestionController::class, 'getRanksDayClassroom']);
+
+});

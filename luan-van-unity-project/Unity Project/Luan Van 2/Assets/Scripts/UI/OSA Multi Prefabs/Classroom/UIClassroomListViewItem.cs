@@ -16,14 +16,6 @@ namespace LuanVan.OSA
 
         public UIClassroomModel ClassroomModel { get => classroomModel; set => classroomModel = value; }
 
-        /// <summary>
-        /// call in button get questions and answers
-        /// </summary>
-        public void GetQuestionsAndAnswers()
-        {
-            classroomController.GetQuestionsAndAnswers(classroomModel.Id);
-        }
-
         public void CheckAndGetOldClassrooms()
         {
             if (classroomModel.ContainerOSA.Equals("classroom"))
