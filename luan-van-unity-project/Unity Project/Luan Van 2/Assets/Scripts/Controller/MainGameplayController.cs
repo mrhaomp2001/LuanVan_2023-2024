@@ -17,12 +17,13 @@ public class MainGameplayController : MonoBehaviour
         public string gameType;
         public int questionsPerTime;
     }
-
+    private WWWForm answeredQuestionBody;
     [SerializeField] private Redirector redirector;
     [SerializeField] private UIMultiPrefabsOSA questionCollectionOSA;
     [SerializeField] private List<QuestionCollection> questionCollections = new List<QuestionCollection>();
 
     public List<QuestionCollection> QuestionCollections { get => questionCollections; set => questionCollections = value; }
+    public WWWForm AnsweredQuestionBody { get => answeredQuestionBody; set => answeredQuestionBody = value; }
 
     public void GetQuestionCollectionsResponse(string res)
     {
@@ -67,22 +68,15 @@ public class MainGameplayController : MonoBehaviour
         questionCollectionOSA.Data.ResetItems(collections);
     }
 
-    public void TestApi()
+    public void SendAnsweredQuestions()
     {
-        StartCoroutine(TestApiCoroutine());
+        StartCoroutine(SendAnsweredQuestionsCoroutine());
     }
 
-    public IEnumerator TestApiCoroutine()
+    private IEnumerator SendAnsweredQuestionsCoroutine()
     {
-        WWWForm body = new WWWForm();
-
-        string data1 = "1";
-        string data2 = "2";
-
-        body.AddField("data[]", data1);
-        body.AddField("data[]", data2);
-
-        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/test", body);
+        answeredQuestionBody.AddField("user_id", GlobalSetting.LoginUser.Id);
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/answered_question", answeredQuestionBody);
 
         yield return request.SendWebRequest();
 

@@ -1,0 +1,12 @@
+Posts:
+1: công khai
+2: riêng tư
+3: Đã xóa
+
+Comments:
+1: Công khai
+2: Đã xóa
+
+Topics:
+1: Công khai
+2: Đã xóa

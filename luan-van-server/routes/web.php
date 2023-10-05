@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,13 +21,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::middleware('auth')->group(function () {
-    Route::get('/classrooms', [ClassroomController::class, 'index'])->name('classrooms.index');
-    Route::get('/classrooms/{id}', [ClassroomController::class, 'show'])->name('classrooms.show');
-    Route::get('/classrooms/documents/{id}', [StudyDocumentController::class, 'index'])->name('classrooms.documents.show');
-    Route::post('/classrooms/documents', [StudyDocumentController::class, 'update'])->name('classrooms.documents.update');
-    Route::post('/classrooms', [ClassroomController::class, 'update'])->name('classrooms.update');
+    Route::prefix('classrooms')->group(function () {
+
+        Route::get('/', [ClassroomController::class, 'index'])->name('classrooms.index');
+        Route::get('/{id}', [ClassroomController::class, 'show'])->name('classrooms.show');
+        Route::post('/edit', [ClassroomController::class, 'update'])->name('classrooms.update');
+
+        Route::get('/documents/{id}', [StudyDocumentController::class, 'index'])->name('classrooms.documents.show');
+        Route::post('/documents', [StudyDocumentController::class, 'update'])->name('classrooms.documents.update');
+    });
+
+    Route::prefix('reports')->group(function () {
+        Route::get('/posts', [ReportController::class, 'index'])->name('reports.posts.index');
+    });
 });
 
 Route::get('/dashboard', function () {

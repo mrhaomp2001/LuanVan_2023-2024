@@ -16,6 +16,8 @@ class ReportController extends Controller
     public function index()
     {
         //
+        $reports = Report::where("model_type", "post")->paginate(7);
+        return view("reports.posts.index")->with("reports", $reports);
     }
 
     /**

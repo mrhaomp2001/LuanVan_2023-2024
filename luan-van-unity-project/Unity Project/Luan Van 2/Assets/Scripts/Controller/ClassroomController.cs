@@ -44,6 +44,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA userClassroomOSA;
     [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
     [SerializeField] private UIMultiPrefabsOSA topicCommentOSA;
+    [SerializeField] private UIMultiPrefabsOSA classroomRanksOSA;
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -52,6 +53,7 @@ public class ClassroomController : MonoBehaviour
     [Header("Classrooms: ")]
     [SerializeField] private int page;
     [SerializeField] private int perPage;
+    [SerializeField] UIClassroomModel currentClassroomModel;
 
     [Header("Topics: ")]
     [SerializeField] private int topicGetCount;
@@ -73,7 +75,11 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private UIAnswerModel currentAnswerSelect;
     [SerializeField] private List<QuestionWithAnswers> listOfCurrentQuestions = new List<QuestionWithAnswers>();
 
-    [Header("UIs Play: ")]
+    [Header("UIs: ")]
+
+    [Header("Ranks: ")]
+    [SerializeField] private List<Image> imageButtonRanks;
+
     [Header("Global UIs:")]
     [SerializeField] private Slider sliderProgress;
     [SerializeField] private RectTransform uiCorrectNotice, uiWrongNotice;
@@ -196,8 +202,6 @@ public class ClassroomController : MonoBehaviour
 
         currentQuestion = 0;
         correctAnswersCount = 0;
-        sliderProgress.maxValue = questionAmount;
-        sliderProgress.value = currentQuestion;
 
         StartCoroutine(GetQuestionsAndAnswersCoroutine(collectionId));
     }
@@ -285,7 +289,14 @@ public class ClassroomController : MonoBehaviour
         });
         playOSA.ScheduleForceRebuildLayout();
 
+        questionAmount = resToValue["data"].Count;
+
+        sliderProgress.maxValue = questionAmount;
+        sliderProgress.value = currentQuestion;
+
         playerHp = playerHpMax;
+
+        mainGameplayController.AnsweredQuestionBody = new WWWForm();
 
         playTime = 0f;
         StartPlayTimer();
@@ -381,8 +392,6 @@ public class ClassroomController : MonoBehaviour
         }
         if (gameTypeId == 2)
         {
-
-
             LeanTween.cancel(containerObstacles.gameObject);
             containerObstacles.LeanSetLocalPosY(10);
             LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 1f).setEase(LeanTweenType.linear);
@@ -409,6 +418,8 @@ public class ClassroomController : MonoBehaviour
             StopPlayerTimer();
 
         }
+
+        mainGameplayController.AnsweredQuestionBody.AddField("data[]", currentAnswerSelect.Id);
 
         currentQuestion++;
         sliderProgress.value = currentQuestion;
@@ -477,6 +488,8 @@ public class ClassroomController : MonoBehaviour
 
     public void CompletePlay()
     {
+        mainGameplayController.SendAnsweredQuestions();
+        uiCompleteDefeat.gameObject.SetActive(false);
         uiComplete.gameObject.SetActive(false);
         gameRacingController.StopGame();
         redirector.Pop();
@@ -619,6 +632,8 @@ public class ClassroomController : MonoBehaviour
     public void GetClassroomInfo(UIClassroomModel classroomModel)
     {
         redirector.Push("classroom.info");
+
+        currentClassroomModel = classroomModel;
 
         classroomInfoOSA.Data.ResetItems(new List<BaseModel>());
 
@@ -981,5 +996,93 @@ public class ClassroomController : MonoBehaviour
                 Username = resToValue["data"]["user"]["username"],
             }
         });
+    }
+
+    public void GetClassroomRanks(string type)
+    {
+        redirector.Push("classroom.rank");
+
+        var showText = new UIMultiModel()
+        {
+            Type = "center_text",
+        };
+
+        foreach (var image in imageButtonRanks)
+        {
+            image.color = Color.white;
+        }
+
+        if (type.Equals("day"))
+        {
+            imageButtonRanks[0].color = Color.cyan;
+            showText.PassedVariable["content"] = "Bảng xếp hạng hằng ngày";
+        }
+
+        if (type.Equals("week"))
+        {
+            imageButtonRanks[1].color = Color.cyan;
+            showText.PassedVariable["content"] = "Bảng xếp hạng hằng tuần";
+        }
+
+        if (type.Equals("month"))
+        {
+            imageButtonRanks[2].color = Color.cyan;
+            showText.PassedVariable["content"] = "Bảng xếp hạng hằng tháng";
+        }
+
+        classroomRanksOSA.Data.ResetItems(new List<BaseModel>()
+        {
+            new MultiItemModel()
+            {
+                MultiModel = showText,
+            }
+        });
+
+        StartCoroutine(GetClassroomRanksCoroutine(type));
+    }
+
+    public IEnumerator GetClassroomRanksCoroutine(string type)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/rank/classrooms/" + type +
+            "?classroom_id=" + currentClassroomModel.Id);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        GetClassroomRanksResponse(res);
+    }
+
+    private void GetClassroomRanksResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var listOfRanks = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"].Count; i++)
+        {
+            listOfRanks.Add(new LatestOnlineUserItemModel()
+            {
+                LatestOnlineUserModel = new UILatestOnlineUserModel()
+                {
+                    AvatarPath = resToValue["data"][i]["user"]["avatar_path"],
+                    ContainerOSA = "ranks",
+                    CreatedAt = resToValue["data"][i]["user"]["created_at"],
+                    Id = resToValue["data"][i]["user"]["id"],
+                    Name = "<size=-5><color=#fff700>Hạng #" + (i+1).ToString() + "</color></size>\n" + resToValue["data"][i]["user"]["name"] + "\n" + "<size=-10>Tổng câu hỏi đã trả lời đúng: " + resToValue["data"][i]["total_answers"] + "</size>",
+                    UpdatedAt = resToValue["data"][i]["user"]["updated_at"],
+                    Username = resToValue["data"][i]["user"]["username"],
+                }
+            });
+        }
+
+        classroomRanksOSA.Data.InsertItemsAtEnd(listOfRanks);
     }
 }

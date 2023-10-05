@@ -45,5 +45,10 @@ namespace LuanVan.OSA
         {
             mainGameplayController.ShowQuestionCollections();
         }
+
+        public void GetClassroomRanks(string type)
+        {
+            classroomController.GetClassroomRanks(type);
+        }
     }
 }

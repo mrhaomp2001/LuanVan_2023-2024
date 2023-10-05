@@ -32,7 +32,7 @@ public class ReportController : MonoBehaviour
 
     private IEnumerator GetReportTypesCoroutine()
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/report/types");
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/reports/types");
 
         yield return request.SendWebRequest();
 

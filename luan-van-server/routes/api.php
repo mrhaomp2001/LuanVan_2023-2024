@@ -82,10 +82,10 @@ Route::get('/classroom/info', [ClassroomController::class, 'getClassroomInfo']);
 Route::post('/classroom/user/edit', [ClassroomController::class, 'updateStudyStatus']);
 
 Route::get('/classroom/topics', [ClassroomTopicController::class, 'getTopics']);
-Route::Post('/classroom/topics', [ClassroomTopicController::class, 'uploadATopic']);
-Route::Post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
+Route::post('/classroom/topics', [ClassroomTopicController::class, 'uploadATopic']);
+Route::post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
 
-Route::Post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
+Route::post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
 
 Route::get('/classroom/topic/comments', [TopicCommentController::class, 'getTopicComments']);
 Route::post('/classroom/topic/comments', [TopicCommentController::class, 'uploadATopicComment']);
@@ -95,10 +95,12 @@ Route::post('/classroom/topic/comment/like', [TopicCommentLikeController::class,
 
 Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDocuments']);
 
-Route::get('/reports', [ReportController::class, 'getReports']);
-Route::post('/reports', [ReportController::class, 'createReport']);
-Route::get('/report/types', [ReportTypeController::class, 'getReportTypes']);
-
+Route::prefix('reports')->group(function () {
+    Route::get('/', [ReportController::class, 'getReports']);
+    Route::post('/', [ReportController::class, 'createReport']);
+    Route::get('/types', [ReportTypeController::class, 'getReportTypes']);
+});
+Route::post('/answered_question', [AnsweredQuestionController::class, 'answeredQuestion']);
 
 Route::prefix('rank')->group(function () {
     Route::get('/day', [AnsweredQuestionController::class, 'getRanksDay']);
@@ -106,5 +108,7 @@ Route::prefix('rank')->group(function () {
     Route::get('/month', [AnsweredQuestionController::class, 'getRanksMonth']);
     Route::get('/question_collections/day', [AnsweredQuestionController::class, 'getRanksDayQuestionCollection']);
     Route::get('/classrooms/day', [AnsweredQuestionController::class, 'getRanksDayClassroom']);
+    Route::get('/classrooms/week', [AnsweredQuestionController::class, 'getRanksWeekClassroom']);
+    Route::get('/classrooms/month', [AnsweredQuestionController::class, 'getRanksMonthClassroom']);
 
 });

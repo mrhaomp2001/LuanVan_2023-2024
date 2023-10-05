@@ -31,7 +31,7 @@ class GameApiController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        return response()->json(['data' => $request->input('data.1')], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['data' => count($request->input('data'))], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getQuestions(Request $request)

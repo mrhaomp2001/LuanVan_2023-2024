@@ -110,11 +110,11 @@ class PostController extends Controller
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
 
-            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-                $post->image_path = Storage::url('posts/' . $post->id . ".png");
-            } else {
-                $post->image_path = "";
-            }
+            // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+            //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            // } else {
+            //     $post->image_path = "";
+            // }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -162,11 +162,11 @@ class PostController extends Controller
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
 
-            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-                $post->image_path = Storage::url('posts/' . $post->id . ".png");
-            } else {
-                $post->image_path = "";
-            }
+            // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+            //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            // } else {
+            //     $post->image_path = "";
+            // }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -275,11 +275,11 @@ class PostController extends Controller
             Storage::disk('public')->delete("posts/" . $post->id . '.png');
         }
 
-        if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-            $post->image_path = Storage::url('posts/' . $post->id . ".png");
-        } else {
-            $post->image_path = "";
-        }
+        // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+        //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
+        // } else {
+        //     $post->image_path = "";
+        // }
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -315,11 +315,11 @@ class PostController extends Controller
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
 
-            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-                $post->image_path = Storage::url('posts/' . $post->id . ".png");
-            } else {
-                $post->image_path = "";
-            }
+            // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+            //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            // } else {
+            //     $post->image_path = "";
+            // }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
@@ -362,11 +362,11 @@ class PostController extends Controller
             $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
 
-            if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-                $post->image_path = Storage::url('posts/' . $post->id . ".png");
-            } else {
-                $post->image_path = "";
-            }
+            // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
+            //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
+            // } else {
+            //     $post->image_path = "";
+            // }
         }
 
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);

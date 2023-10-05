@@ -1640,3 +1640,66 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - phân quyền ứng dụng
 </details>
+
+# 07:50:08 2023/10/04 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- giao diện bảng xếp hạng
+- gửi lên máy chủ lịch sử làm bài
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+- giao diện xử lý báo cáo trên web
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+- phân quyền ứng dụng
+
+### Kết quả:
+
+- giao diện bảng xếp hạng
+- gửi lên máy chủ lịch sử làm bài
+- hiển thị báo cáo cùng bài viết được báo cáo (bao gồm hình ảnh) (đối với bài đăng78ikkkkkk)
+
+### Công việc ngày mai: (và sắp tới)
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+- xử lý báo cáo trên web, xóa, không khó
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+</details>

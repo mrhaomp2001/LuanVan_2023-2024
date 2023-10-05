@@ -6,6 +6,7 @@ use App\Models\Classroom;
 use App\Http\Requests\StoreClassroomRequest;
 use App\Http\Requests\UpdateClassroomRequest;
 use App\Models\Question;
+use App\Models\QuestionCollection;
 use App\Models\StudyClassroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +47,7 @@ class ClassroomController extends Controller
     {
         //
         $classroom = Classroom::find($id);
-        $questions = Question::where("classroom_id", $id)->paginate(9);
+        $questionCollections = QuestionCollection::where("classroom_id", $id)->paginate(9);
 
         if (!isset($classroom)) {
             return redirect(route('classrooms.index'));
@@ -54,7 +55,7 @@ class ClassroomController extends Controller
 
         return view("classrooms.edit")
             ->with("classroom", $classroom)
-            ->with("questions", $questions);
+            ->with("questionCollections", $questionCollections);
     }
 
     /**

@@ -36,36 +36,25 @@
                             trang tài liệu học tập của lớp {{ $classroom->name }}</a>
                         <hr />
 
-                        <h2>Các câu hỏi của lớp học</h2>
+                        <h2>Các bộ câu hỏi của lớp học</h2>
                         <div class="accordion" id="accordion">
-                            @foreach ($questions as $question)
+                            @foreach ($questionCollections as $questionCollection)
                                 <div class="accordion-item bg-transparent">
-                                    <h2 class="accordion-header" id="heading{{ $question->id }}">
+                                    <h2 class="accordion-header" id="heading{{ $questionCollection->id }}">
                                         <button class="accordion-button collapsed bg-transparent text-light" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapse{{ $question->id }}"
-                                            aria-expanded="false" aria-controls="collapse{{ $question->id }}">
-                                            ID {{ $question->id }}: {{ $question->content }}
+                                            data-bs-toggle="collapse" data-bs-target="#collapse{{ $questionCollection->id }}"
+                                            aria-expanded="false" aria-controls="collapse{{ $questionCollection->id }}">
+                                            ID {{ $questionCollection->id }}: {{ $questionCollection->name }}
                                         </button>
                                     </h2>
-                                    <div id="collapse{{ $question->id }}" class="accordion-collapse collapse"
-                                        aria-labelledby="heading{{ $question->id }}" data-bs-parent="#accordion">
-                                        <div class="accordion-body row">
-                                            Các câu trả lời của câu hỏi:
-                                            <ul class="list-group list-group-flush">
-                                                @foreach ($question->answers as $answer)
-                                                    <li class="list-group-item bg-transparent d-flex justify-content-start">
-                                                        - {{ $answer->content }}</li>
-                                                @endforeach
-                                            </ul>
-                                            <button class="form-floating btn btn-success mt-3" type="submit">Sửa câu hỏi
-                                                này</button>
-                                        </div>
+                                    <div id="collapse{{ $questionCollection->id }}" class="accordion-collapse collapse"
+                                        aria-labelledby="heading{{ $questionCollection->id }}" data-bs-parent="#accordion">
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                         <div class="mt-4">
-                            {{ $questions->onEachSide(1)->links() }}
+                            {{ $questionCollections->onEachSide(1)->links() }}
                         </div>
 
 

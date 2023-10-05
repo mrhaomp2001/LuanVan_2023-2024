@@ -27,6 +27,12 @@ namespace LuanVan.OSA
                 textContent.text = multiModel.PassedVariable["name"];
             }
 
+            if (multiModel.Type.Equals("center_text"))
+            {
+                textContent.text = multiModel.PassedVariable["content"];
+                textContent.alignment = TextAlignmentOptions.Center;
+            }
+
         }
 
         public void OnButtonClicked()

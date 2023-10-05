@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -29,6 +30,24 @@ class Post extends Model
     protected $attributes = [
         'title' => "",
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_path'
+    ];
+
+    protected function getImagePathAttribute()
+    {
+        if (Storage::disk('public')->exists('posts/' . $this->id . ".png")) {
+            return Storage::url('posts/' . $this->id . ".png");
+        } else {
+            return "";
+        }
+    }
 
     public function postLikes()
     {

@@ -64,8 +64,10 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-home me-2 "></i>Các
+                    <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Các
                         lớp học</a>
+                    <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo
+                        cáo</a>
                 </div>
             </nav>
         </div>
@@ -82,8 +84,8 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Tìm kiếm">
+                <form class="mx-4 d-flex">
+                    <input class="form-control bg-dark border-0 " type="search" placeholder="Tìm kiếm">
                     <button class="btn btn-primary mx-1">Tìm</button>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
@@ -160,8 +162,7 @@
                                 alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div
-                            class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
