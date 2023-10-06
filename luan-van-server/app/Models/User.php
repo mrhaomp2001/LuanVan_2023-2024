@@ -66,24 +66,28 @@ class User extends Authenticatable
     
     public function posts()
     {
-        return $this->hasMany(Post::class, "post_id");
+        return $this->hasMany(Post::class, "user_id");
     }
 
     public function comments() {
-        return $this->hasMany(Comment::class, "comment_id");
+        return $this->hasMany(Comment::class, "user_id");
     }
 
     public function postLikes() {
-        return $this->hasMany(PostLike::class, "post_like_id");
+        return $this->hasMany(PostLike::class, "user_id");
     }
 
     public function commentLikes() {
-        return $this->hasMany(CommentLike::class, "comment_like_id");
+        return $this->hasMany(CommentLike::class, "user_id");
     }
 
     public function classrooms()
     {
         return $this->hasMany(StudyClassroom::class, "user_id");
     }
-    
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, "user_id")->orderByDesc("created_at");
+    }
 }

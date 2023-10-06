@@ -11,6 +11,8 @@ public class FooterMenuController : MonoBehaviour
     [SerializeField] private PostController postController;
     [SerializeField] private OtherUserController otherUserController;
     [SerializeField] private ProfileController profileController;
+    [SerializeField] private NotificationController notificationController;
+    [SerializeField] private SettingMenuController settingMenuController;
     private void Start()
     {
         RedirectHome();
@@ -87,7 +89,25 @@ public class FooterMenuController : MonoBehaviour
 
     public void RedirectSetting()
     {
-        redirector.Push("auth");
+        if (GlobalSetting.LoginUser.Id.Equals(""))
+        {
+            redirector.Push("auth");
+            return;
+        }
+        redirector.Pop();
+        redirector.Push("setting");
+
+        foreach (var item in imageBtnFooterMenus)
+        {
+            var currentColor = item.color;
+            currentColor.a = 0;
+            item.color = currentColor;
+        }
+        var afterColor = imageBtnFooterMenus[0].color;
+        afterColor.a = 1;
+        imageBtnFooterMenus[5].color = afterColor;
+
+        settingMenuController.SetLoginInfo();
     }
 
     public void RedirectFriend()
@@ -114,7 +134,7 @@ public class FooterMenuController : MonoBehaviour
         otherUserController.GetFriends();
     }    
 
-    public void RedirectProfile()
+    public void RedirectNotifications()
     {
 
         if (GlobalSetting.LoginUser.Id.Equals(""))
@@ -123,8 +143,17 @@ public class FooterMenuController : MonoBehaviour
             return;
         }
 
-        redirector.Push("profile");
+        foreach (var item in imageBtnFooterMenus)
+        {
+            var currentColor = item.color;
+            currentColor.a = 0;
+            item.color = currentColor;
+        }
+        var afterColor = imageBtnFooterMenus[4].color;
+        afterColor.a = 1;
+        imageBtnFooterMenus[5].color = afterColor;
 
-        profileController.GetUserProfile(GlobalSetting.LoginUser.Id);
+        redirector.Push("notification");
+        notificationController.GetNotifications();
     }
 }

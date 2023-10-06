@@ -121,10 +121,34 @@ public class PostController : MonoBehaviour
             footerNoticeController.SendAFooterMessage("Hãy chọn 1 mẫu bài đăng");
             return;
         }
+
         if (inputFieldNewPostContent.text.Equals(""))
         {
             footerNoticeController.SendAFooterMessage("Hãy nhập nội dung cho bài đăng");
             return;
+        }
+
+        if (templateId.Equals("2"))
+        {
+            if (inputFieldNewPostTitle.text.Equals(""))
+            {
+                footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
+                return;
+            }
+        }
+
+        if (templateId.Equals("3"))
+        {
+            if (inputFieldNewPostTitle.text.Equals(""))
+            {
+                footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
+                return;
+            }
+            if (postImage.sprite == null)
+            {
+                footerNoticeController.SendAFooterMessage("Hãy đăng một bức ảnh minh họa\nĐọc lại quy định viết bài để rõ hơn");
+                return;
+            }
         }
 
         if (isEdit)

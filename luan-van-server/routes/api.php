@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GameApiController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostTemplateController;
@@ -111,4 +112,8 @@ Route::prefix('rank')->group(function () {
     Route::get('/classrooms/week', [AnsweredQuestionController::class, 'getRanksWeekClassroom']);
     Route::get('/classrooms/month', [AnsweredQuestionController::class, 'getRanksMonthClassroom']);
 
+});
+
+Route::prefix('notifications')->group(function () {
+    Route::get('/users', [NotificationController::class, 'getNotifications']);
 });

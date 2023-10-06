@@ -1675,9 +1675,10 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - giao diện bảng xếp hạng
 - gửi lên máy chủ lịch sử làm bài
-- hiển thị báo cáo cùng bài viết được báo cáo (bao gồm hình ảnh) (đối với bài đăng78ikkkkkk)
+- hiển thị báo cáo cùng bài viết được báo cáo (bao gồm hình ảnh) (đối với bài đăng)
 
 ### Công việc ngày mai: (và sắp tới)
+
 - xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
 - xử lý báo cáo trên web, xóa, không khó
 
@@ -1702,4 +1703,74 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - server Node socket
 - chat
 
+</details>
+ 
+# 08:25:24 2023/10/05 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- làm phần thông báo (database, api, ui)
+- làm trang setting
+- làm phần ràng buộc dữ liệu lúc đăng bài
+
+- làm bộ dữ liệu giả
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+- xử lý báo cáo trên web, xóa, không khó
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+### Kết quả:
+
+- làm phần thông báo (database, api, ui) (ui chỉ hiển thị tạm thời, dùng list view item đơn giản)
+- làm trang setting
+- làm phần ràng buộc dữ liệu lúc đăng bài (client)
+
+### Công việc ngày mai: (và sắp tới)
+
+- xem qua các icons cần down và gắn hình
+- làm bộ dữ liệu giả
+
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+- xử lý báo cáo trên web, xóa, không khó
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
 </details>

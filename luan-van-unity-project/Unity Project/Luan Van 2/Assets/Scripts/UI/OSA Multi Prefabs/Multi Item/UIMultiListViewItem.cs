@@ -33,6 +33,13 @@ namespace LuanVan.OSA
                 textContent.alignment = TextAlignmentOptions.Center;
             }
 
+            if (multiModel.Type.Equals("left_text"))
+            {
+                textContent.text = multiModel.PassedVariable["content"];
+                textContent.alignment = TextAlignmentOptions.MidlineLeft;
+                textContent.fontStyle = FontStyles.Normal;
+            }
+
         }
 
         public void OnButtonClicked()

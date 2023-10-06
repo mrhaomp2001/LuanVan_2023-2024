@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class StudyDocument extends Model
 {
@@ -19,6 +20,24 @@ class StudyDocument extends Model
         'content',
         'page',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_path'
+    ];
+
+    protected function getImagePathAttribute()
+    {
+        if (Storage::disk('public')->exists('documents/' . $this->id . ".png")) {
+            return Storage::url('documents/' . $this->id . ".png");
+        } else {
+            return "";
+        }
+    }
 
     public function classroom()
     {
