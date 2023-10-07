@@ -14,22 +14,24 @@ class QuestionCollectionSeeder extends Seeder
     public function run(): void
     {
         //
-        for ($i = 1; $i <= 10; $i++) {
-            $questionCollection = new QuestionCollection();
+        $questionCollection = new QuestionCollection();
 
-            if ($i <= 5) {
-                $questionCollection->classroom_id = 1;
-            } else {
+        $questionCollection->classroom_id = 1;
+        $questionCollection->name = "Sinh học nhập môn";
+        $questionCollection->difficulty = "Tương đối dễ";
+        $questionCollection->game_type = 1;
+        $questionCollection->questions_per_time = 5;
 
-                $questionCollection->classroom_id = 2;
-            }
+        $questionCollection->save();
 
-            $questionCollection->name = "Bộ đề thứ " . $i . ".";
-            $questionCollection->difficulty = "Độ khó thử nghiệm";
-            $questionCollection->game_type = (string)rand(1, 2);
-            $questionCollection->questions_per_time = rand(5, 9);
-            
-            $questionCollection->save();
-        }
+        $questionCollection = new QuestionCollection();
+
+        $questionCollection->classroom_id = 1;
+        $questionCollection->name = "Sinh học cho kỳ thi";
+        $questionCollection->difficulty = "trung bình";
+        $questionCollection->game_type = 2;
+        $questionCollection->questions_per_time = 6;
+
+        $questionCollection->save();
     }
 }

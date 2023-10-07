@@ -9,6 +9,8 @@ namespace LuanVan.OSA
 {
     public class UIPostListViewItem : MonoBehaviour
     {
+
+        [SerializeField] private Image imageAvatar;
         [SerializeField] private Image imageLikeUp;
         [SerializeField] private Image imageLikeDown;
 
@@ -22,6 +24,14 @@ namespace LuanVan.OSA
 
         [SerializeField] private UIPostModel postModel;
         public UIPostModel PostModel { get => postModel; set => postModel = value; }
+
+        public void UpdateViews()
+        {
+            if (!postModel.AvatarPath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + postModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
+            }
+        }
 
         public void UpdateLikeButtonColor()
         {

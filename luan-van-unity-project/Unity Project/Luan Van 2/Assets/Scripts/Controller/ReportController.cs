@@ -34,6 +34,7 @@ public class ReportController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/reports/types");
 
+
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -107,6 +108,7 @@ public class ReportController : MonoBehaviour
         }
 
         string res = request.downloadHandler.text;
+        redirector.Pop();
 
         Debug.Log(res);
     }

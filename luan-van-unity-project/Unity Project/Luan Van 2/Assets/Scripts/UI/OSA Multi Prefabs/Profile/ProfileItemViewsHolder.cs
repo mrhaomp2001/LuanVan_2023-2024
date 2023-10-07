@@ -67,7 +67,7 @@ namespace LuanVan.OSA
             {
                 textFriendStatus.text = "Chờ bạn chấp nhận";
             }
-
+            profileListViewItem.UpdateViews();
             MarkForRebuild();
         }
 

@@ -87,6 +87,8 @@ namespace LuanVan.OSA
 
             topicListViewItem.UpdateLikeButtonColor();
 
+            topicListViewItem.UpdateViews();
+
             MarkForRebuild();
         }
 

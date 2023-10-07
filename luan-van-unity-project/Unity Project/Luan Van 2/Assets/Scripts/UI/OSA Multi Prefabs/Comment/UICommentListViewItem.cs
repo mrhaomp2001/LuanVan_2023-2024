@@ -8,6 +8,7 @@ namespace LuanVan.OSA
 {
     public class UICommentListViewItem : MonoBehaviour
     {
+        [SerializeField] private Image imageAvatar;
         [SerializeField] private Image imageLikeUp;
         [SerializeField] private Image imageLikeDown;
 
@@ -20,6 +21,14 @@ namespace LuanVan.OSA
         [SerializeField] private UICommentModel commentModel;
 
         public UICommentModel CommentModel { get => commentModel; set => commentModel = value; }
+
+        public void UpdateViews()
+        {
+            if (!commentModel.AvatarPath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + commentModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
+            }
+        }
 
         public void UpdateLikeButtonColor()
         {

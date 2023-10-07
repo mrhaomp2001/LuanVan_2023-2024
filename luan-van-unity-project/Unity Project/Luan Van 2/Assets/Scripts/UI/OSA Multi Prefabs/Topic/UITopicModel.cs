@@ -14,6 +14,7 @@ namespace LuanVan.OSA
 
         [SerializeField] private string username;
         [SerializeField] private string userFullname;
+        [SerializeField] private string avatarPath;
 
         [SerializeField] private int commentCount;
 
@@ -35,5 +36,6 @@ namespace LuanVan.OSA
         public string LikeStatus { get => likeStatus; set => likeStatus = value; }
         public string TopicStatus { get => topicStatus; set => topicStatus = value; }
         public TopicItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
+        public string AvatarPath { get => avatarPath; set => avatarPath = value; }
     }
 }

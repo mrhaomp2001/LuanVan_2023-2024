@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 namespace LuanVan.OSA
 {
     [System.Serializable]
     public class UIProfileListViewItem : MonoBehaviour
     {
+        [SerializeField] private Image imageAvatar;
         [SerializeField] private OtherUserController otherUserController;
         [SerializeField] private ProfileController profileController;
         [SerializeField] private UIProfileModel profileModel;
@@ -65,8 +68,14 @@ namespace LuanVan.OSA
                 otherUserController.UpdateFriendStatus(profileModel.Id, status);
                 return;
             }
+        }
 
-            
+        public void UpdateViews()
+        {
+            if (!profileModel.AvatarPath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + profileModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
+            }
         }
     }
 }

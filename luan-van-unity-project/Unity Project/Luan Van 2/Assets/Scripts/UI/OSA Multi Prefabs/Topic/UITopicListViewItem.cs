@@ -8,6 +8,7 @@ namespace LuanVan.OSA
 {
     public class UITopicListViewItem : MonoBehaviour
     {
+        [SerializeField] private Image imageAvatar;
         [SerializeField] private Image imageLikeUp;
         [SerializeField] private Image imageLikeDown;
 
@@ -82,8 +83,16 @@ namespace LuanVan.OSA
 
             //topicModel.LikeStatus = status;
             UpdateLikeButtonColor();
-            
+
             classroomController.UpdateTopicLikeStatus(topicModel.Id, topicModel.LikeStatus);
+        }
+
+        public void UpdateViews()
+        {
+            if (!topicModel.AvatarPath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + topicModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
+            }
         }
     }
 }

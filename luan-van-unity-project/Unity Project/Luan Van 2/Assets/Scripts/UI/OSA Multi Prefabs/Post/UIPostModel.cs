@@ -15,6 +15,7 @@ namespace LuanVan.OSA
 
         [SerializeField] private string username;
         [SerializeField] private string userFullname;
+        [SerializeField] private string avatarPath;
 
         [SerializeField] private string posTemplateName;
         [SerializeField] private string posTemplateContent;
@@ -56,5 +57,6 @@ namespace LuanVan.OSA
         public string ContainerOSA { get => containerOSA; set => containerOSA = value; }
         public string ImagePath { get => imagePath; set => imagePath = value; }
         public string PostTitle { get => postTitle; set => postTitle = value; }
+        public string AvatarPath { get => avatarPath; set => avatarPath = value; }
     }
 }

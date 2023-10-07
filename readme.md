@@ -1747,9 +1747,6 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 ### Công việc ngày mai: (và sắp tới)
 
-- xem qua các icons cần down và gắn hình
-- làm bộ dữ liệu giả
-
 - xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
 - xử lý báo cáo trên web, xóa, không khó
 
@@ -1773,4 +1770,47 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node socket
 - chat
+</details>
+
+# 08:58:52 2023/10/06 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+**Mục tiêu của tuần:**
+
+- Có thể thêm moderators
+- hiển thị danh sách người đang học ở lớp đó
+- làm thể loại game mới, không chỉ chọn, mà nhập vào đáp án
+- mở khóa lớp học?
+- nghĩ sao về việc viết truyện cười, viết sách kỹ thuật sau đó bán, người dùng sẽ dùng tiền trong trò chơi để mua
+- nghĩ sao về việc người dùng đăng ảnh lên, ảnh đó là người dùng tự thiết kế, dạng nft, vật phẩm thuộc về 1 người cụ thể
+
+### Kết quả:
+
+- xem qua các icons cần down và gắn hình
+- làm bộ dữ liệu giả
+
+### Công việc ngày mai: (và sắp tới)
+
+- giao diện cập nhật ảnh đại diện
+- bắt buộc người dùng đăng theo quy tắc nhất định, có ràng buộc dữ liệu.
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- đăng thảo luận (đã có api)
+
+- có lịch sử làm bài và câu hỏi đã trả lời (thiết kế database)
+- bộ lọc bài viết (cho tất cả loại bài viết (bên trong và ngoài lớp học))
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
 </details>

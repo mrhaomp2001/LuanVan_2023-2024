@@ -60,7 +60,7 @@ public class PostController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
-            "&per_page=" + postGetPerPage + 
+            "&per_page=" + postGetPerPage +
             "&filter=" + filterGetPosts);
 
         yield return request.SendWebRequest();
@@ -98,6 +98,7 @@ public class PostController : MonoBehaviour
                     PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
                     UserFullname = resToValue["data"]["data"][i]["user"]["name"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                     UserId = resToValue["data"]["data"][i]["user"]["id"],
                     ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
                     LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
@@ -552,6 +553,7 @@ public class PostController : MonoBehaviour
                     UserId = resToValue["data"]["data"][i]["user_id"],
                     UserFullName = resToValue["data"]["data"][i]["user"]["name"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                     LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
                     LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
                 }
@@ -627,6 +629,8 @@ public class PostController : MonoBehaviour
                         UserId = resToValue["data"]["data"][i]["user_id"],
                         UserFullName = resToValue["data"]["data"][i]["user"]["name"],
                         Username = resToValue["data"]["data"][i]["user"]["username"],
+                        AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
+
                         LikeCount = (resToValue["data"]["data"][i]["like_up"] - resToValue["data"]["data"][i]["like_down"]),
                         LikeStatus = (resToValue["data"]["data"][i]["like_status"]["like_status"]) ?? "0",
                     }
@@ -712,6 +716,7 @@ public class PostController : MonoBehaviour
                 UserId = resToValue["data"]["user_id"],
                 UserFullName = resToValue["data"]["user"]["name"],
                 Username = resToValue["data"]["user"]["username"],
+                AvatarPath = resToValue["data"]["user"]["avatar_path"],
                 LikeCount = 0,
                 LikeStatus = "0",
             }
@@ -925,6 +930,7 @@ public class PostController : MonoBehaviour
                         PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
                         PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
                         UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                        AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                         Username = resToValue["data"]["data"][i]["user"]["username"],
                         UserId = resToValue["data"]["data"][i]["user"]["id"],
                         ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
@@ -1053,7 +1059,7 @@ public class PostController : MonoBehaviour
         template.MultiModel.PassedVariable["name"] = "Xem tất cả";
         template.MultiModel.PassedVariable["theme_color"] = "#ffffff";
 
-        postFilterOSA.Data.ResetItems( new List<BaseModel>()
+        postFilterOSA.Data.ResetItems(new List<BaseModel>()
         {
             template
         });

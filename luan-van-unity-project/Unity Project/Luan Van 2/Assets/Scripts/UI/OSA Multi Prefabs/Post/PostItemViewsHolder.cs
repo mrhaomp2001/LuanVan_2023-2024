@@ -142,6 +142,8 @@ namespace LuanVan.OSA
 
             postListViewItem.CheckAndGetOldPosts();
 
+            postListViewItem.UpdateViews();
+
             MarkForRebuild();
         }
 

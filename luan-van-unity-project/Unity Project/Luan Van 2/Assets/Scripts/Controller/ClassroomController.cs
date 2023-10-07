@@ -394,7 +394,7 @@ public class ClassroomController : MonoBehaviour
         {
             LeanTween.cancel(containerObstacles.gameObject);
             containerObstacles.LeanSetLocalPosY(10);
-            LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 1f).setEase(LeanTweenType.linear);
+            LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
         }
 
         if (playerHp <= 0)
@@ -732,6 +732,7 @@ public class ClassroomController : MonoBehaviour
                     UserFullname = resToValue["data"]["data"][i]["user"]["name"],
                     UserId = resToValue["data"]["data"][i]["user"]["id"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                     TopicStatus = resToValue["data"]["data"][i]["topic_status_id"],
                 }
             });

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('study_documents', function (Blueprint $table) {
             $table->id();
             $table->integer("classroom_id");
-            $table->string("content");
+            $table->longText("content");
             $table->integer("page");
             $table->timestamps();
         });

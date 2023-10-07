@@ -151,7 +151,7 @@ public class FooterMenuController : MonoBehaviour
         }
         var afterColor = imageBtnFooterMenus[4].color;
         afterColor.a = 1;
-        imageBtnFooterMenus[5].color = afterColor;
+        imageBtnFooterMenus[4].color = afterColor;
 
         redirector.Push("notification");
         notificationController.GetNotifications();

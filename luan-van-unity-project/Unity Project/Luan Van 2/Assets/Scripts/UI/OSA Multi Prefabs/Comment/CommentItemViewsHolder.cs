@@ -83,6 +83,7 @@ namespace LuanVan.OSA
 
             commentListViewItem.UpdateLikeButtonColor();
             commentListViewItem.CheckAndGetOldComment();
+            commentListViewItem.UpdateViews();
 
             MarkForRebuild();
         }

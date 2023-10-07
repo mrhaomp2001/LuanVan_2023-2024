@@ -36,11 +36,17 @@ class DatabaseSeeder extends Seeder
         $this->call(CommentSeeder::class);
 
         $this->call(ClassroomSeeder::class);
+        $this->call(StudyClassroomSeeder::class);
+
         $this->call(QuestionCollectionSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(AnswerSeeder::class);
 
         $this->call(NotificationTypeSeeder::class);
         $this->call(NotificationSeeder::class);
+
+        $this->call(StudyDocumentSeeder::class);
+        
+        $this->call(ReportTypeSeeder::class);
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 public class ProfileController : MonoBehaviour
 {
     [SerializeField] private int postGetCount;
+    [SerializeField] private Redirector redirector;
     [SerializeField] private UIMultiPrefabsOSA profileOSA;
     [SerializeField] private UIProfileModel currentProfileModel;
 
@@ -54,6 +55,7 @@ public class ProfileController : MonoBehaviour
             Name = resToValue["data"]["name"],
             UpdatedAt = resToValue["data"]["updated_at"],
             Username = resToValue["data"]["username"],
+            AvatarPath = resToValue["data"]["avatar_path"],
             FriendStatusToSelf = resToValue["data"]["friend_to_user"]["friend_status_id"] ?? "",
             FriendStatusToOther = resToValue["data"]["friend_to_other"]["friend_status_id"] ?? "",
         };
@@ -112,6 +114,8 @@ public class ProfileController : MonoBehaviour
                     PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
                     UserFullname = resToValue["data"]["data"][i]["user"]["name"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
+
                     UserId = resToValue["data"]["data"][i]["user"]["id"],
                     ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
                     LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
@@ -196,6 +200,7 @@ public class ProfileController : MonoBehaviour
                         PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
                         UserFullname = resToValue["data"]["data"][i]["user"]["name"],
                         Username = resToValue["data"]["data"][i]["user"]["username"],
+                        AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                         UserId = resToValue["data"]["data"][i]["user"]["id"],
                         ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
                         LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
@@ -217,5 +222,11 @@ public class ProfileController : MonoBehaviour
     public void UpdateViewHolder()
     {
         profileOSA.ForceUpdateViewsHolderIfVisible(0);
+    }
+
+    public void GetLoginProfile()
+    {
+        redirector.Push("profile");
+        GetUserProfile(GlobalSetting.LoginUser.Id);
     }
 }

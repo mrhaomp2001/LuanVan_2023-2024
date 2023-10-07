@@ -15,6 +15,13 @@ class ClassroomSeeder extends Seeder
     public function run(): void
     {
         //
+
+        $classroom = new Classroom;
+        $classroom->name = 'Sinh học 6';
+        $classroom->description = "Lớp học được dựa trên sách giáo khoa Sinh học 6, mà chủ yếu học về thực vật";
+        $classroom->theme_color = "#006400";
+        $classroom->save();
+
         $faker = Factory::create();
         for ($i = 1; $i <= 10; $i++) {
             $classroom = new Classroom;
