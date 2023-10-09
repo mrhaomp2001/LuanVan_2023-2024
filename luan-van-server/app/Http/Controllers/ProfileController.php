@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\File;
 use Illuminate\View\View;
 use App\Models\Answer;
 use App\Models\Question;
@@ -100,5 +101,32 @@ class ProfileController extends Controller
             return response()->json(['data' => "Không tìm được user"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
+    }
+
+    public function updateAvatar(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+                'image' => [
+                    'required',
+                    File::image()
+                        ->min(64)
+                        ->max(64 * 1024)
+                ]
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        if (isset($request->image)) {
+            Storage::disk('public')->putFileAs("users/avatars/", $request->image, $request->user_id . '.png');
+        } 
     }
 }

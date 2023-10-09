@@ -40,6 +40,8 @@ public class PostController : MonoBehaviour
     [SerializeField] private UICommentModel currentCommentModelSelect;
     [SerializeField] private RectTransform containerUtilitiesCommentMenu;
     [SerializeField] private TMP_InputField inputFieldEditComment;
+    [SerializeField] private RectTransform btnEditComment;
+    [SerializeField] private RectTransform btnDeleteComment;
     [Header("Template: ")]
     [SerializeField] private string templateId;
     [SerializeField] private TextMeshProUGUI textTemplateName;
@@ -49,6 +51,7 @@ public class PostController : MonoBehaviour
 
     public UIMultiPrefabsOSA PostOSA { get => postOSA; set => postOSA = value; }
     public UIPostModel CurrentPostSelect { get => currentPostSelect; set => currentPostSelect = value; }
+    public UICommentModel CurrentCommentModelSelect { get => currentCommentModelSelect; set => currentCommentModelSelect = value; }
 
     public void GetPosts()
     {
@@ -758,6 +761,15 @@ public class PostController : MonoBehaviour
     public void ShowCommentUtilitiesMenu(UICommentModel commentModel)
     {
         currentCommentModelSelect = commentModel;
+
+        btnDeleteComment.gameObject.SetActive(false);
+        btnEditComment.gameObject.SetActive(false);
+
+        if (commentModel.UserId.Equals(GlobalSetting.LoginUser.Id))
+        {
+            btnDeleteComment.gameObject.SetActive(true);
+            btnEditComment.gameObject.SetActive(true);
+        }
 
         containerUtilitiesCommentMenu.gameObject.SetActive(true);
 

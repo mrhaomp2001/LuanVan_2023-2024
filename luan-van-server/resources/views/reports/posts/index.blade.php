@@ -45,7 +45,7 @@
 
                         @foreach ($reports as $report)
                             <div class="modal fade" id="modal{{ $report->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable" >
+                                <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5 text-light" id="staticBackdropLabel">
@@ -75,6 +75,11 @@
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
+
+                        @foreach ($commentReports as $commentReport)
+                            <br />
+                            Báo cáo Comment: {{ $commentReport->model->content }}
                         @endforeach
                     </div>
                 </div>

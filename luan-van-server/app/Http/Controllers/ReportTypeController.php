@@ -65,7 +65,7 @@ class ReportTypeController extends Controller
     {
         //
     }
-    public function getReportTypes(Request $request) {
+    public function getReportPostsTypes(Request $request) {
         $input = $request->all();
         $validator = Validator::make(
             $input,
@@ -81,9 +81,29 @@ class ReportTypeController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $reports = ReportType::paginate(5);
+        $reports = ReportType::where("model_type", "post")->paginate(5);
 
         return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
+    }
 
+    public function getReportCommentsTypes(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $reports = ReportType::where("model_type", "comment")->paginate(5);
+
+        return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

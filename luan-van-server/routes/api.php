@@ -66,6 +66,9 @@ Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateL
 
 Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);
 Route::get('user/info', [ProfileController::class, 'getUserInfomationsApi']);
+
+Route::post('user/avatar/edit', [ProfileController::class, 'updateAvatar']);
+
 Route::get('/user/posts', [PostController::class, 'getUserPosts']);
 Route::get('/user/posts/old', [PostController::class, 'getUserOldPosts']);
 
@@ -99,7 +102,8 @@ Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDoc
 Route::prefix('reports')->group(function () {
     Route::get('/', [ReportController::class, 'getReports']);
     Route::post('/', [ReportController::class, 'createReport']);
-    Route::get('/types', [ReportTypeController::class, 'getReportTypes']);
+    Route::get('posts/types', [ReportTypeController::class, 'getReportPostsTypes']);
+    Route::get('comments/types', [ReportTypeController::class, 'getReportCommentsTypes']);
 });
 Route::post('/answered_question', [AnsweredQuestionController::class, 'answeredQuestion']);
 

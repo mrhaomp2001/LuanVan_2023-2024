@@ -9,6 +9,8 @@ using UnityEngine.Networking;
 public class ReportController : MonoBehaviour
 {
     [SerializeField] private int reportTypeId;
+    [SerializeField] private string currentReportType;
+    [SerializeField] private string currentModelType;
     [SerializeField] private Redirector redirector;
     [SerializeField] private PostController postController;
     [Header("UIs:")]
@@ -18,21 +20,31 @@ public class ReportController : MonoBehaviour
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA reportTypesOSA;
 
-    public void ShowUIReport()
+    public void ShowUIReportPost()
     {
+        currentReportType = "posts";
+        currentModelType = "post";
         postUtilitiesPopupMenu.gameObject.SetActive(false);
         redirector.Push("report");
     }
 
-    public void GetReportTypes()
+    public void ShowUIReportComment()
     {
-        redirector.Push("report.type");
-        StartCoroutine(GetReportTypesCoroutine());
+        currentReportType = "comments";
+        currentModelType = "comment";
+        postUtilitiesPopupMenu.gameObject.SetActive(false);
+        redirector.Push("report");
     }
 
-    private IEnumerator GetReportTypesCoroutine()
+    public void GetReportPostTypes()
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/reports/types");
+        redirector.Push("report.type");
+        StartCoroutine(GetReportPostTypesCoroutine());
+    }
+
+    private IEnumerator GetReportPostTypesCoroutine()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/reports/" + currentReportType + "/types");
 
 
         yield return request.SendWebRequest();
@@ -46,10 +58,10 @@ public class ReportController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
-        GetReportTypesResponse(res);
+        GetReportPostTypesResponse(res);
     }
 
-    private void GetReportTypesResponse(string res)
+    private void GetReportPostTypesResponse(string res)
     {
         var resToValue = JSONNode.Parse(res);
 
@@ -91,8 +103,20 @@ public class ReportController : MonoBehaviour
         WWWForm body = new WWWForm();
         body.AddField("user_id", GlobalSetting.LoginUser.Id);
         body.AddField("report_type_id", reportTypeId);
-        body.AddField("model_id", postController.CurrentPostSelect.PostId);
-        body.AddField("model_type", "post");
+
+        if (currentModelType.Equals("post"))
+        {
+            body.AddField("model_id", postController.CurrentPostSelect.PostId);
+            body.AddField("model_type", currentModelType);
+        }
+
+        if (currentModelType.Equals("comment"))
+        {
+            body.AddField("model_id", postController.CurrentCommentModelSelect.Id);
+            body.AddField("model_type", currentModelType);
+        }
+
+
         body.AddField("content", inputFieldContentReport.text);
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/reports", body);

@@ -182,10 +182,11 @@ class PostController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'post_template_id' => 'required|exists:post_templates,id',
                 'post_status_id' => 'required',
+                'title' => 'sometimes',
                 'image' => [
                     'sometimes',
                     File::image()
-                        ->min(1)
+                        ->min(64)
                         ->max(64 * 1024)
                 ],
             ],
@@ -233,6 +234,7 @@ class PostController extends Controller
                 'id' => 'required|exists:posts,id',
                 'content' => 'required|min:1',
                 'post_template_id' => 'required',
+                'title' => 'sometimes',
                 'post_status_id' => '',
                 'image' => [
                     'sometimes',
@@ -266,20 +268,17 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->save();
         }
+        else {
+            $post->title = "";
+            $post->save();
+        }
 
         $file = $request->image;
         if (isset($request->image)) {
-            Storage::disk('public')->delete("posts/" . $post->id . '.png');
             Storage::disk('public')->putFileAs("posts", $file, $post->id . '.png');
         } else {
             Storage::disk('public')->delete("posts/" . $post->id . '.png');
         }
-
-        // if (Storage::disk('public')->exists('posts/' . $post->id . ".png")) {
-        //     $post->image_path = Storage::url('posts/' . $post->id . ".png");
-        // } else {
-        //     $post->image_path = "";
-        // }
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);
     }

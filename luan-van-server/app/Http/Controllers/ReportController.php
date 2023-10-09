@@ -17,7 +17,8 @@ class ReportController extends Controller
     {
         //
         $reports = Report::where("model_type", "post")->paginate(7);
-        return view("reports.posts.index")->with("reports", $reports);
+        $commentReports = Report::where("model_type", "comment")->paginate(7);
+        return view("reports.posts.index")->with("reports", $reports)->with("commentReports", $commentReports);
     }
 
     /**
