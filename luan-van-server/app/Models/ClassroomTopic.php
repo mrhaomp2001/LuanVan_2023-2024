@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ClassroomTopic extends Model
 {
@@ -18,7 +19,25 @@ class ClassroomTopic extends Model
         'classroom_id',
         'user_id',
         'topic_status_id',
+        'title',
         'content',
+    ];
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'title' => "",
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_path'
     ];
 
     public function classroom()
@@ -31,6 +50,15 @@ class ClassroomTopic extends Model
     }
     public function comments()
     {
-        return $this->hasMany(TopicComment::class, "classroom_topic_id");
+        return $this->hasMany(TopicComment::class, "classroom_topic_id")->where("topic_comment_status_id", 1);
+    }
+
+    protected function getImagePathAttribute()
+    {
+        if (Storage::disk('public')->exists('topics/' . $this->id . ".png")) {
+            return Storage::url('topics/' . $this->id . ".png");
+        } else {
+            return "";
+        }
     }
 }

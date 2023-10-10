@@ -186,7 +186,7 @@ class PostController extends Controller
                 'image' => [
                     'sometimes',
                     File::image()
-                        ->min(64)
+                        ->min(1)
                         ->max(64 * 1024)
                 ],
             ],
@@ -217,9 +217,8 @@ class PostController extends Controller
             $post->save();
         }
 
-        $file = $request->image;
         if (isset($request->image)) {
-            Storage::disk('public')->putFileAs("posts", $file, $post->id . '.png');
+            Storage::disk('public')->putFileAs("posts", $request->image, $post->id . '.png');
         }
 
         return response()->json(['data' => $post], 200, [], JSON_UNESCAPED_UNICODE);

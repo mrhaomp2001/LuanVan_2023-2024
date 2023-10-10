@@ -1,6 +1,7 @@
 using Com.TheFallenGames.OSA.Demos.DifferentPrefabPerOrientation.Models;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,16 @@ namespace LuanVan.OSA
         [SerializeField] private Image imageLikeUp;
         [SerializeField] private Image imageLikeDown;
 
+        [SerializeField] private RectTransform containerTitle;
+        [SerializeField] private RectTransform containerImage;
+        [SerializeField] private TextMeshProUGUI textTitile;
+        [SerializeField] private Image imageTopic;
+
         [SerializeField] private Color colorLikeChoice;
         [SerializeField] private Color colorUnLikeChoice;
 
         [SerializeField] private ClassroomController classroomController;
+        [SerializeField] private ClassroomTopicController classroomTopicController;
         [SerializeField] private UITopicModel topicModel;
 
         public UITopicModel TopicModel { get => topicModel; set => topicModel = value; }
@@ -93,6 +100,33 @@ namespace LuanVan.OSA
             {
                 Davinci.get().load(GlobalSetting.Endpoint + topicModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
             }
+
+            if (!topicModel.Title.Equals(""))
+            {
+                textTitile.text = topicModel.Title;
+                containerTitle.gameObject.SetActive(true);
+            }
+            else
+            {
+                containerTitle.gameObject.SetActive(false);
+            }
+
+            if (!topicModel.ImagePath.Equals(""))
+            {
+                Davinci.get().load(GlobalSetting.Endpoint + topicModel.ImagePath).into(imageTopic).setFadeTime(0).start();
+                containerImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                containerImage.gameObject.SetActive(false);
+            }
+
+            classroomTopicController.CheckAndGetOldTopic(topicModel);
+        }
+
+        public void ShowTopicUtilitiesMenu()
+        {
+            classroomTopicController.ShowTopicUtilitiesMenu(topicModel);
         }
     }
 }

@@ -89,7 +89,44 @@ class TopicCommentController extends Controller
         }
 
         $comments = TopicComment::where("classroom_topic_id", $request->classroom_topic_id)
-            ->where("topic_comment_status_id", "2")
+            ->where("topic_comment_status_id", "1")
+            ->orderBy('created_at', 'DESC')
+            ->simplePaginate($request->per_page);
+
+        foreach ($comments as $comment) {
+            $comment->user;
+            $comment->like_up = TopicCommentLike::where("topic_comment_id", $comment->id)->where("like_status", 1)->count();
+            $comment->like_down = TopicCommentLike::where("topic_comment_id", $comment->id)->where("like_status", -1)->count();
+            $comment->like_status = TopicCommentLike::where("topic_comment_id", $comment->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $comments], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getOldTopicComments(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+                'classroom_topic_id' => 'required|exists:classrooms,id',
+                'per_page' => 'required',
+                'date' => 'required'
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $comments = TopicComment::where("classroom_topic_id", $request->classroom_topic_id)
+            ->where("topic_comment_status_id", "1")
+            ->where('created_at', '<', $request->date)
+            ->orderBy('created_at', 'DESC')
             ->simplePaginate($request->per_page);
 
         foreach ($comments as $comment) {

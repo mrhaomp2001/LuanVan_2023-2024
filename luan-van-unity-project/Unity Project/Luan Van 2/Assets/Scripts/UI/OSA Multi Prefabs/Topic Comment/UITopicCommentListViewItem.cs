@@ -15,6 +15,7 @@ namespace LuanVan.OSA
         [SerializeField] private Color colorUnLikeChoice;
 
         [SerializeField] private ClassroomController classroomController;
+        [SerializeField] private ClassroomTopicController classroomTopicController;
         [SerializeField] private UITopicCommentModel topicCommentModel;
 
         public UITopicCommentModel TopicCommentModel { get => topicCommentModel; set => topicCommentModel = value; }
@@ -76,6 +77,16 @@ namespace LuanVan.OSA
 
             UpdateLikeButtonColor();
             classroomController.UpdateTopicCommentLikeStatus(topicCommentModel.Id, topicCommentModel.LikeStatus, topicCommentModel.ViewsHolder.ItemIndex);
+        }
+
+        public void UpdateViews()
+        {
+            classroomTopicController.CheckAndGetOldTopicComments(topicCommentModel);
+        }
+
+        public void ShowUICommentUtilitiesMenu()
+        {
+            classroomTopicController.ShowUICommentUtilitiesMenu(topicCommentModel);
         }
     }
 }

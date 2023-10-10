@@ -1875,3 +1875,14 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 </details> 
  
+ 
+# 08:19:48 2023/10/10 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+### Kết quả: 
+ 
+### Công việc ngày mai: (và sắp tới)
+ 
+</details> 
+ 

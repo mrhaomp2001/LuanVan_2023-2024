@@ -106,6 +106,10 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private List<Transform> obstaclesSprite = new List<Transform>();
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
     public int PlayerHp { get => playerHp; set => playerHp = value; }
+    public UIClassroomModel CurrentClassroomModel { get => currentClassroomModel; set => currentClassroomModel = value; }
+    public UITopicModel CurrentTopicSellect { get => currentTopicSellect; set => currentTopicSellect = value; }
+    public UIMultiPrefabsOSA TopicCommentOSA { get => topicCommentOSA; set => topicCommentOSA = value; }
+    public UITopicModel CurrentTopicSellect1 { get => currentTopicSellect; set => currentTopicSellect = value; }
 
     private void Update()
     {
@@ -693,7 +697,7 @@ public class ClassroomController : MonoBehaviour
 
     private IEnumerator GetClassroomTopicsCoroutine(string classroomId)
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/topics" +
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/topics" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
             "&classroom_id=" + classroomId +
             "&per_page=" + topicGetCount);
@@ -734,6 +738,8 @@ public class ClassroomController : MonoBehaviour
                     Username = resToValue["data"]["data"][i]["user"]["username"],
                     AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                     TopicStatus = resToValue["data"]["data"][i]["topic_status_id"],
+                    ImagePath = resToValue["data"]["data"][i]["image_path"],
+                    Title = resToValue["data"]["data"][i]["title"],
                 }
             });
         }
@@ -764,7 +770,7 @@ public class ClassroomController : MonoBehaviour
 
     private IEnumerator GetTopicCommentsCoroutine(string topicId)
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/topic/comments" +
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/topics/comments" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
             "&classroom_topic_id=" + topicId +
             "&per_page=" + topicCommentGetCount);
@@ -876,7 +882,7 @@ public class ClassroomController : MonoBehaviour
         body.AddField("classroom_topic_id", topicId);
         body.AddField("status", status);
 
-        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/like", body);
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/like", body);
 
         yield return request.SendWebRequest();
 
@@ -911,7 +917,7 @@ public class ClassroomController : MonoBehaviour
         body.AddField("topic_comment_id", topicCommentId);
         body.AddField("status", status);
 
-        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/comment/like", body);
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/comments/like", body);
 
         yield return request.SendWebRequest();
 
@@ -946,7 +952,7 @@ public class ClassroomController : MonoBehaviour
 
         inputFieldTopicComment.text = "";
 
-        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/topic/comments", body);
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/comments", body);
 
         yield return request.SendWebRequest();
 

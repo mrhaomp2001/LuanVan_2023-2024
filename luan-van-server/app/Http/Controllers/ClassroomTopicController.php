@@ -7,7 +7,9 @@ use App\Http\Requests\StoreClassroomTopicRequest;
 use App\Http\Requests\UpdateClassroomTopicRequest;
 use App\Models\ClassroomTopicLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\File;
 
 class ClassroomTopicController extends Controller
 {
@@ -90,6 +92,44 @@ class ClassroomTopicController extends Controller
 
         $topics = ClassroomTopic::where("classroom_id", $request->classroom_id)
             ->where("topic_status_id", "1")
+            ->orderBy('created_at', 'DESC')
+            ->simplePaginate($request->per_page);
+
+        foreach ($topics as $topic) {
+            $topic->user;
+            $topic->comment_count = count($topic->comments);
+            $topic->like_up = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", 1)->count();
+            $topic->like_down = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("like_status", -1)->count();
+            $topic->like_status = ClassroomTopicLike::where("classroom_topic_id", $topic->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $topics], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getOldTopics(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+                'classroom_id' => 'required|exists:classrooms,id',
+                'per_page' => 'required',
+                'date' => 'required',
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $topics = ClassroomTopic::where("classroom_id", $request->classroom_id)
+            ->where("topic_status_id", "1")
+            ->where('created_at', '<', $request->date)
+            ->orderBy('created_at', 'DESC')
             ->simplePaginate($request->per_page);
 
         foreach ($topics as $topic) {
@@ -112,13 +152,17 @@ class ClassroomTopicController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'classroom_id' => 'required|exists:classrooms,id',
                 'topic_status_id' => 'required',
+                'title' => 'sometimes',
                 'content' => 'required',
+                'image' => [
+                    'sometimes',
+                    File::image()
+                        ->min(1)
+                        ->max(64 * 1024)
+                ],
             ],
             [
-                'user_id.required' => 'User Id không được rỗng',
-                'per_page.required' => 'Phải có số phần tử trên trang',
-                'classroom_id.required' => 'classroom_id.required',
-                'content.required' => 'classroom_id.required',
+
             ]
         );
 
@@ -135,6 +179,18 @@ class ClassroomTopicController extends Controller
             ]
         );
 
+        if (isset($request->title)) {
+            $topic->title = $request->title;
+            $topic->save();
+        } else {
+            $topic->title = "";
+            $topic->save();
+        }
+
+        if (isset($request->image)) {
+            Storage::disk('public')->putFileAs("topics", $request->image, $topic->id . '.png');
+        }
+
         return response()->json(['data' => $topic], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
@@ -146,11 +202,17 @@ class ClassroomTopicController extends Controller
             [
                 'id' => 'required|exists:classroom_topics,id',
                 'topic_status_id' => 'required',
+                'title' => 'sometimes',
                 'content' => 'required',
+                'image' => [
+                    'sometimes',
+                    File::image()
+                        ->min(64)
+                        ->max(64 * 1024)
+                ],
             ],
             [
-                'per_page.required' => 'Phải có số phần tử trên trang',
-                'content.required' => 'classroom_id.required',
+
             ]
         );
 
@@ -167,6 +229,20 @@ class ClassroomTopicController extends Controller
                 'content' => $request->content,
             ]
         );
+
+        if (isset($request->title)) {
+            $topic->title = $request->title;
+            $topic->save();
+        } else {
+            $topic->title = "";
+            $topic->save();
+        }
+
+        if (isset($request->image)) {
+            Storage::disk('public')->putFileAs("topics", $request->image, $topic->id . '.png');
+        } else {
+            Storage::disk('public')->delete("topics/" . $topic->id . '.png');
+        }
 
         return response()->json(['data' => $topic], 200, [], JSON_UNESCAPED_UNICODE);
     }

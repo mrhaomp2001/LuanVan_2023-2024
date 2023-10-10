@@ -57,6 +57,8 @@ namespace LuanVan.OSA
 
             textCreateDate.text = "Vừa xong";
 
+            //Debug.Log(timeSpanCreateDate.TotalMinutes.ToString());
+
             if (timeSpanCreateDate.TotalMinutes >= 1)
             {
                 textCreateDate.text = timeSpanCreateDate.Minutes.ToString() + " phút trước";

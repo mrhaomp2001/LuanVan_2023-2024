@@ -50,5 +50,6 @@ namespace LuanVan.OSA
         {
             classroomController.GetClassroomRanks(type);
         }
+
     }
 }

@@ -85,17 +85,27 @@ Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
 Route::get('/classroom/info', [ClassroomController::class, 'getClassroomInfo']);
 Route::post('/classroom/user/edit', [ClassroomController::class, 'updateStudyStatus']);
 
-Route::get('/classroom/topics', [ClassroomTopicController::class, 'getTopics']);
-Route::post('/classroom/topics', [ClassroomTopicController::class, 'uploadATopic']);
-Route::post('/classroom/topic/edit', [ClassroomTopicController::class, 'updateATopic']);
+Route::prefix('classrooms')->group(function () {
+    Route::prefix('topics')->group(function () {
+        Route::get('/', [ClassroomTopicController::class, 'getTopics']);
+        Route::get('old', [ClassroomTopicController::class, 'getOldTopics']);
+        Route::post('/', [ClassroomTopicController::class, 'uploadATopic']);
+        Route::post('edit', [ClassroomTopicController::class, 'updateATopic']);
+        Route::post('like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
 
-Route::post('/classroom/topic/like', [ClassroomTopicLikeController::class, 'updateTopicLike']);
+        Route::prefix('comments')->group(function () {
+            Route::get('/', [TopicCommentController::class, 'getTopicComments']);
+            Route::get('old', [TopicCommentController::class, 'getOldTopicComments']);
+            Route::post('/', [TopicCommentController::class, 'uploadATopicComment']);
 
-Route::get('/classroom/topic/comments', [TopicCommentController::class, 'getTopicComments']);
-Route::post('/classroom/topic/comments', [TopicCommentController::class, 'uploadATopicComment']);
-Route::post('/classroom/topic/comment/edit', [TopicCommentController::class, 'updateATopicComment']);
+            Route::post('edit', [TopicCommentController::class, 'updateATopicComment']);
+            Route::post('like', [TopicCommentLikeController::class, 'updateLikeStatus']);
+        });
+    });
+});
 
-Route::post('/classroom/topic/comment/like', [TopicCommentLikeController::class, 'updateLikeStatus']);
+
+
 
 Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDocuments']);
 

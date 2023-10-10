@@ -26,7 +26,7 @@ class TopicComment extends Model
      * @var array
      */
     protected $attributes = [
-        'topic_comment_status_id' => 2,
+        'topic_comment_status_id' => 1,
     ];
 
     public function topic()

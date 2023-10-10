@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer("classroom_id");
             $table->integer("user_id");
             $table->integer("topic_status_id");
+            $table->string("title");
             $table->string("content");
             $table->timestamps();
         });

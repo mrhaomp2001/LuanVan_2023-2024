@@ -8,9 +8,11 @@ namespace LuanVan.OSA
     public class UITopicModel
     {
         [SerializeField] private string id;
+        [SerializeField] private string title;
         [SerializeField] private string content;
         [SerializeField] private string userId;
         [SerializeField] private string createAt;
+        [SerializeField] private string imagePath;
 
         [SerializeField] private string username;
         [SerializeField] private string userFullname;
@@ -37,5 +39,7 @@ namespace LuanVan.OSA
         public string TopicStatus { get => topicStatus; set => topicStatus = value; }
         public TopicItemViewsHolder ViewsHolder { get => viewsHolder; set => viewsHolder = value; }
         public string AvatarPath { get => avatarPath; set => avatarPath = value; }
+        public string Title { get => title; set => title = value; }
+        public string ImagePath { get => imagePath; set => imagePath = value; }
     }
 }

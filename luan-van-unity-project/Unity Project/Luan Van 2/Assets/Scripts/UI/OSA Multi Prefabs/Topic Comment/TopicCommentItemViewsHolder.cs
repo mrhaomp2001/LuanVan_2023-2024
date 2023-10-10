@@ -78,6 +78,7 @@ namespace LuanVan.OSA
                 textCreateDate.text = createDate.ToString("yyyy-MM-dd HH:mm");
             }
             topicCommentListViewItem.UpdateLikeButtonColor();
+            topicCommentListViewItem.UpdateViews();
             MarkForRebuild();
         }
 
