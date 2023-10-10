@@ -1824,6 +1824,7 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
  
 - hoàn thiện phần bình luận (sửa, xóa đã làm rồi mà, bây giờ làm báo cáo)
 - xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 
 - giao diện cập nhật ảnh đại diện
@@ -1848,8 +1849,29 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - chat
 
 ### Kết quả: 
- 
+
+- giao diện cập nhật ảnh đại diện
+- báo cáo bình luận (client)
+- xem lại phần báo cáo, cần phân rõ là báo cáo thứ gì, xem lại các tên hàm.
+
 ### Công việc ngày mai: (và sắp tới)
- 
+
+- hoàn thiện phần đăng bài bên trong lớp học
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
 </details> 
  

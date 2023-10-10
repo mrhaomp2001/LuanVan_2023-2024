@@ -998,9 +998,13 @@ public class PostController : MonoBehaviour
         {
             // Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
             for (int i = 0; i < FileBrowser.Result.Length; i++)
+            {
                 Debug.Log(FileBrowser.Result[i]);
 
-            StartCoroutine(SetImageCoroutine(FileBrowser.Result[0]));
+                Davinci.get().load("file://" + FileBrowser.Result[i]).into(postImage).setFadeTime(0).start();
+            }
+
+            //StartCoroutine(SetImageCoroutine(FileBrowser.Result[0]));
         }
     }
     private IEnumerator SetImageCoroutine(string path)

@@ -128,5 +128,8 @@ class ProfileController extends Controller
         if (isset($request->image)) {
             Storage::disk('public')->putFileAs("users/avatars/", $request->image, $request->user_id . '.png');
         } 
+
+        return response()->json(['data' => 'Cập nhật thành công'], 200, [], JSON_UNESCAPED_UNICODE);
+
     }
 }

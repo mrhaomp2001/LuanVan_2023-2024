@@ -1,13 +1,17 @@
-using Library;
+﻿using Library;
 using LuanVan.OSA;
+using SimpleFileBrowser;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ProfileController : MonoBehaviour
 {
     [SerializeField] private int postGetCount;
+    [SerializeField] private Image imageAvatar;
+    [SerializeField] private FooterNoticeController footerNoticeController;
     [SerializeField] private Redirector redirector;
     [SerializeField] private UIMultiPrefabsOSA profileOSA;
     [SerializeField] private UIProfileModel currentProfileModel;
@@ -228,5 +232,116 @@ public class ProfileController : MonoBehaviour
     {
         redirector.Push("profile");
         GetUserProfile(GlobalSetting.LoginUser.Id);
+    }
+
+    public void ShowUIUpdateAvatar()
+    {
+        imageAvatar.sprite = null;
+        imageAvatar.color = new Color(1f, 1f, 1f, 0f);
+        redirector.Push("profile.avatar");
+    }
+
+    public void OpenFilePanel()
+    {
+        FileBrowser.SetFilters(true, new FileBrowser.Filter("Images", ".jpg", ".png"));
+        FileBrowser.SetDefaultFilter(".jpg");
+        FileBrowser.SetExcludedExtensions(".lnk", ".tmp", ".zip", ".rar", ".exe");
+
+        StartCoroutine(ShowLoadDialogCoroutine());
+    }
+
+    IEnumerator ShowLoadDialogCoroutine()
+    {
+        // Show a load file dialog and wait for a response from user
+        // Load file/folder: both, Allow multiple selection: true
+        // Initial path: default (Documents), Initial filename: empty
+        // Title: "Load File", Submit button text: "Load"
+        yield return FileBrowser.WaitForLoadDialog(FileBrowser.PickMode.Files, false, null, null, "Load File", "Load");
+
+        // Dialog is closed
+        // Print whether the user has selected some files/folders or cancelled the operation (FileBrowser.Success)
+        Debug.Log(FileBrowser.Success);
+
+        if (FileBrowser.Success)
+        {
+            // Print paths of the selected files (FileBrowser.Result) (null, if FileBrowser.Success is false)
+            for (int i = 0; i < FileBrowser.Result.Length; i++)
+            {
+                Debug.Log(FileBrowser.Result[i]);
+                Davinci.get().load("file://" + FileBrowser.Result[i]).into(imageAvatar).setFadeTime(0).start();
+                imageAvatar.color = new Color(1f, 1f, 1f, 1f);
+            }
+
+        }
+    }
+
+    public void UpdateAvatar()
+    {
+        // check input here
+        if (imageAvatar.sprite == null)
+        {
+            footerNoticeController.SendAFooterMessage("hãy tải lên hình ảnh");
+            return;
+        }
+
+        StartCoroutine(UpdateAvatarCoroutine());
+    }
+
+    public IEnumerator UpdateAvatarCoroutine()
+    {
+        WWWForm body = new WWWForm();
+
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+
+        if (imageAvatar.sprite != null)
+        {
+            byte[] textureBytes = null;
+            textureBytes = GetTextureCopy(imageAvatar.sprite.texture).EncodeToPNG();
+            body.AddBinaryData("image", textureBytes, "image.png", "image/png");
+        }
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/user/avatar/edit", body);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+    }
+
+    Texture2D GetTextureCopy(Texture2D source)
+    {
+        //Create a RenderTexture
+        RenderTexture rt = RenderTexture.GetTemporary(
+                               source.width,
+                               source.height,
+                               0,
+                               RenderTextureFormat.Default,
+                               RenderTextureReadWrite.Linear
+                           );
+
+        //Copy source texture to the new render (RenderTexture) 
+        Graphics.Blit(source, rt);
+
+        //Store the active RenderTexture & activate new created one (rt)
+        RenderTexture previous = RenderTexture.active;
+        RenderTexture.active = rt;
+
+        //Create new Texture2D and fill its pixels from rt and apply changes.
+        Texture2D readableTexture = new Texture2D(source.width, source.height);
+        readableTexture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+        readableTexture.Apply();
+
+        //activate the (previous) RenderTexture and release texture created with (GetTemporary( ) ..)
+        RenderTexture.active = previous;
+        RenderTexture.ReleaseTemporary(rt);
+
+        return readableTexture;
     }
 }
