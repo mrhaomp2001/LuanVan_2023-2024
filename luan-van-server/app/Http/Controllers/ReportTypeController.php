@@ -81,7 +81,7 @@ class ReportTypeController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $reports = ReportType::where("model_type", "post")->paginate(5);
+        $reports = ReportType::where("model_type", "post")->paginate(20);
 
         return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -102,7 +102,49 @@ class ReportTypeController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $reports = ReportType::where("model_type", "comment")->paginate(5);
+        $reports = ReportType::where("model_type", "comment")->paginate(20);
+
+        return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getReportTopicsTypes(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $reports = ReportType::where("model_type", "topic")->paginate(20);
+
+        return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getReportTopicCommentsTypes(Request $request) {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $reports = ReportType::where("model_type", "topic_comment")->paginate(20);
 
         return response()->json(['data' => $reports], 200, [], JSON_UNESCAPED_UNICODE);
     }

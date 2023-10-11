@@ -35,6 +35,14 @@ class Report extends Model
         if ($this->model_type == "comment") {
             return $this->belongsTo(Comment::class, "model_id");
         }
+
+        if ($this->model_type == "topic") {
+            return $this->belongsTo(ClassroomTopic::class, "model_id");
+        }
+
+        if ($this->model_type == "topic_comment") {
+            return $this->belongsTo(TopicComment::class, "model_id");
+        }
     }
 
     public function reportType() {

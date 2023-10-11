@@ -114,6 +114,8 @@ Route::prefix('reports')->group(function () {
     Route::post('/', [ReportController::class, 'createReport']);
     Route::get('posts/types', [ReportTypeController::class, 'getReportPostsTypes']);
     Route::get('comments/types', [ReportTypeController::class, 'getReportCommentsTypes']);
+    Route::get('topics/types', [ReportTypeController::class, 'getReportTopicsTypes']);
+    Route::get('topic_comments/types', [ReportTypeController::class, 'getReportTopicCommentsTypes']);
 });
 Route::post('/answered_question', [AnsweredQuestionController::class, 'answeredQuestion']);
 

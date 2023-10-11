@@ -351,39 +351,6 @@ MonoBehaviour:
   topicGetCount: 5
   topicCommentGetCount: 5
   isEdit: 0
-  redirector: {fileID: 747705061}
-  classroomController: {fileID: 1203946922}
-  currentCommentModel:
-    id: 
-    userId: 
-    topicId: 
-    content: 
-    createdAt: 
-    likeCount: 0
-    username: 
-    userFullName: 
-    likeStatus: 
-    viewsHolder:
-      root: {fileID: 0}
-      itemIndexInView: 0
-      contentSizeFitter: {fileID: 0}
-      topicCommentListViewItem: {fileID: 0}
-      textName: {fileID: 0}
-      textCreateDate: {fileID: 0}
-      textContent: {fileID: 0}
-      textLikeCount: {fileID: 0}
-  classroomInfoOSA: {fileID: 1688262583}
-  topicCommentOSA: {fileID: 1465492878}
-  topicUtilitiesMenuContainer: {fileID: 409675303}
-  topicCommentUtilitiesMenuContainer: {fileID: 585842690}
-  topicCommentEditContainer: {fileID: 396692345}
-  inputFieldCommentEditContent: {fileID: 1098193468}
-  btnEditTopic: {fileID: 839819930}
-  btnDeleteTopic: {fileID: 1205154051}
-  imageTopic: {fileID: 535730335}
-  textButtonUploadImage: {fileID: 1390933090}
-  inputFieldTitle: {fileID: 123165779}
-  inputFieldContent: {fileID: 699266366}
   currentTopicModel:
     id: 
     title: 
@@ -408,6 +375,41 @@ MonoBehaviour:
       textCreateDate: {fileID: 0}
       textLikeCount: {fileID: 0}
       textCommentCount: {fileID: 0}
+  currentCommentModel:
+    id: 
+    userId: 
+    topicId: 
+    content: 
+    createdAt: 
+    likeCount: 0
+    username: 
+    userFullName: 
+    likeStatus: 
+    viewsHolder:
+      root: {fileID: 0}
+      itemIndexInView: 0
+      contentSizeFitter: {fileID: 0}
+      topicCommentListViewItem: {fileID: 0}
+      textName: {fileID: 0}
+      textCreateDate: {fileID: 0}
+      textContent: {fileID: 0}
+      textLikeCount: {fileID: 0}
+  redirector: {fileID: 747705061}
+  classroomController: {fileID: 1203946922}
+  classroomInfoOSA: {fileID: 1688262583}
+  topicCommentOSA: {fileID: 1465492878}
+  topicUtilitiesMenuContainer: {fileID: 409675303}
+  topicCommentUtilitiesMenuContainer: {fileID: 585842690}
+  topicCommentEditContainer: {fileID: 396692345}
+  inputFieldCommentEditContent: {fileID: 1098193468}
+  btnEditTopic: {fileID: 839819930}
+  btnDeleteTopic: {fileID: 1205154051}
+  imageTopic: {fileID: 535730335}
+  textButtonUploadImage: {fileID: 1390933090}
+  inputFieldTitle: {fileID: 123165779}
+  inputFieldContent: {fileID: 699266366}
+  btnEditComment: {fileID: 2030071812}
+  btnDeleteComment: {fileID: 39281581}
 --- !u!1 &6282714
 GameObject:
   m_ObjectHideFlags: 0
@@ -5367,6 +5369,7 @@ MonoBehaviour:
     createdAt: 
     updatedAt: 
     avatarPath: /storage/users/avatars/1.png
+  authController: {fileID: 1103283270}
 --- !u!1 &92130373
 GameObject:
   m_ObjectHideFlags: 0
@@ -15620,7 +15623,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 327486856}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 338453121}
+        m_TargetAssemblyTypeName: ReportController, Assembly-CSharp
+        m_MethodName: ShowUIReportTopic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 409675302}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &327486856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16230,6 +16257,7 @@ MonoBehaviour:
   currentModelType: 
   redirector: {fileID: 747705061}
   postController: {fileID: 331322300}
+  classroomTopicController: {fileID: 4702560}
   postUtilitiesPopupMenu: {fileID: 414238124}
   textReportTypeName: {fileID: 2096836963}
   inputFieldContentReport: {fileID: 2037986705}
@@ -67956,7 +67984,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1426739464
 RectTransform:
@@ -71987,8 +72015,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 360, y: 0}
+  m_SizeDelta: {x: 704, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482755092
 MonoBehaviour:
@@ -76673,7 +76701,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1590219067}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 338453121}
+        m_TargetAssemblyTypeName: ReportController, Assembly-CSharp
+        m_MethodName: ShowUIReportTopicComment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 585842689}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1590219067
 MonoBehaviour:
   m_ObjectHideFlags: 0

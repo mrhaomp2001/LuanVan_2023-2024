@@ -14,10 +14,11 @@ public class ClassroomTopicController : MonoBehaviour
     [SerializeField] private int topicGetCount;
     [SerializeField] private int topicCommentGetCount;
     [SerializeField] private bool isEdit;
+    [SerializeField] private UITopicModel currentTopicModel;
+    [SerializeField] private UITopicCommentModel currentCommentModel;
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private ClassroomController classroomController;
-    [SerializeField] private UITopicCommentModel currentCommentModel;
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
     [SerializeField] private UIMultiPrefabsOSA topicCommentOSA;
@@ -32,7 +33,12 @@ public class ClassroomTopicController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textButtonUploadImage;
     [SerializeField] private TMP_InputField inputFieldTitle;
     [SerializeField] private TMP_InputField inputFieldContent;
-    [SerializeField] private UITopicModel currentTopicModel;
+    [SerializeField] private RectTransform btnEditComment;
+    [SerializeField] private RectTransform btnDeleteComment;
+
+    public UITopicCommentModel CurrentCommentModel { get => currentCommentModel; set => currentCommentModel = value; }
+    public UITopicModel CurrentTopicModel { get => currentTopicModel; set => currentTopicModel = value; }
+
     public void CheckAndGetOldTopic(UITopicModel topicModel)
     {
         if (topicModel.ViewsHolder.ItemIndex == (classroomInfoOSA.Data.Count - 1))
@@ -379,6 +385,15 @@ public class ClassroomTopicController : MonoBehaviour
     {
         currentCommentModel = topicCommentModel;
         topicCommentUtilitiesMenuContainer.gameObject.SetActive(true);
+
+        btnEditComment.gameObject.SetActive(false);
+        btnDeleteComment.gameObject.SetActive(false);
+
+        if (topicCommentModel.Id.Equals(GlobalSetting.LoginUser.Id))
+        {
+            btnEditComment.gameObject.SetActive(true);
+            btnDeleteComment.gameObject.SetActive(true);
+        }
     }
 
     public void ShowUIEditComment()

@@ -1848,7 +1848,7 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - server Node socket
 - chat
 
-### Kết quả: 
+### Kết quả:
 
 - giao diện cập nhật ảnh đại diện
 - báo cáo bình luận (client)
@@ -1879,10 +1879,52 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 # 08:19:48 2023/10/10 ===== 
  
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
+
+- hoàn thiện phần đăng bài bên trong lớp học
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+### Kết quả:
+
+- hoàn thiện phần đăng bài bên trong lớp học (thêm sửa, xóa)
+### Công việc ngày mai: (và sắp tới)
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+</details> 
+ 
+ 
+# 12:16:03 2023/10/11 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
  
 ### Kết quả: 
  
 ### Công việc ngày mai: (và sắp tới)
  
-</details> 
- 
+</details>

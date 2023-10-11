@@ -50,5 +50,29 @@ class ReportTypeSeeder extends Seeder
             'name' => 'loại báo cáo 2 (bình luận)',
             'description' => 'loại báo cáo 2 (bình luận)'
         ]);
+
+        ReportType::create([
+            'model_type' => "topic",
+            'name' => 'loại báo cáo 1 (bài thảo luận)',
+            'description' => 'loại báo cáo 1 (bài thảo luận)'
+        ]);
+
+        ReportType::create([
+            'model_type' => "topic",
+            'name' => 'loại báo cáo 2 (bài thảo luận)',
+            'description' => 'loại báo cáo 2 (bài thảo luận)'
+        ]);
+
+        ReportType::create([
+            'model_type' => "topic_comment",
+            'name' => 'loại báo cáo 1 (bình luận thảo luận)',
+            'description' => 'loại báo cáo 1 (bình luận thảo luận)'
+        ]);
+
+        ReportType::create([
+            'model_type' => "topic_comment",
+            'name' => 'loại báo cáo 2 (bình luận thảo luận)',
+            'description' => 'loại báo cáo 2 (bình luận thảo luận)'
+        ]);
     }
 }

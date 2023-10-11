@@ -62,6 +62,37 @@ public class AuthController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+        
+        redirector.Pop();
+
+        LoginResponse(res);
+    }
+
+    public void AutoLogin(string username, string password)
+    {
+        StartCoroutine(AutoLoginCoroutine(username, password));
+    }
+
+    private IEnumerator AutoLoginCoroutine(string username, string password)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/login" +
+            "?username=" + username +
+            "&password=" + password);
+
+        inputFieldPasswordLogin.text = "";
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
 
         LoginResponse(res);
     }
@@ -76,7 +107,6 @@ public class AuthController : MonoBehaviour
         GlobalSetting.LoginUser.UpdatedAt = resToValue["data"]["updated_at"];
         GlobalSetting.LoginUser.AvatarPath = resToValue["data"]["avatar_path"];
 
-        redirector.Pop();
     }
 
 
@@ -143,6 +173,6 @@ public class AuthController : MonoBehaviour
         Debug.Log(res);
 
         LoginResponse(res);
-        
+
     }
 }

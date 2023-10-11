@@ -13,6 +13,7 @@ public class ReportController : MonoBehaviour
     [SerializeField] private string currentModelType;
     [SerializeField] private Redirector redirector;
     [SerializeField] private PostController postController;
+    [SerializeField] private ClassroomTopicController classroomTopicController;
     [Header("UIs:")]
     [SerializeField] private RectTransform postUtilitiesPopupMenu;
     [SerializeField] private TextMeshProUGUI textReportTypeName;
@@ -32,7 +33,20 @@ public class ReportController : MonoBehaviour
     {
         currentReportType = "comments";
         currentModelType = "comment";
-        postUtilitiesPopupMenu.gameObject.SetActive(false);
+        redirector.Push("report");
+    }
+
+    public void ShowUIReportTopic()
+    {
+        currentReportType = "topics";
+        currentModelType = "topic";
+        redirector.Push("report");
+    }
+
+    public void ShowUIReportTopicComment()
+    {
+        currentReportType = "topic_comments";
+        currentModelType = "topic_comment";
         redirector.Push("report");
     }
 
@@ -116,6 +130,17 @@ public class ReportController : MonoBehaviour
             body.AddField("model_type", currentModelType);
         }
 
+        if (currentModelType.Equals("topic"))
+        {
+            body.AddField("model_id", classroomTopicController.CurrentTopicModel.Id);
+            body.AddField("model_type", currentModelType);
+        }
+
+        if (currentModelType.Equals("topic_comment"))
+        {
+            body.AddField("model_id", classroomTopicController.CurrentCommentModel.Id);
+            body.AddField("model_type", currentModelType);
+        }
 
         body.AddField("content", inputFieldContentReport.text);
 
