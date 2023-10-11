@@ -45,7 +45,7 @@ public class StudyDocumentController : MonoBehaviour
 
     private IEnumerator GetClassroomDocumentsCoroutine(string classroomId)
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/documents" +
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/documents" +
             "?classroom_id=" + classroomId +
             "&user_id=" + GlobalSetting.LoginUser.Id);
 

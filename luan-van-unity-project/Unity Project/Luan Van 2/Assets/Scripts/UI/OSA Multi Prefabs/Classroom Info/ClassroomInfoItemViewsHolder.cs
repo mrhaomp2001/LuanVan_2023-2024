@@ -50,7 +50,7 @@ namespace LuanVan.OSA
             textName.text = classroomInfoListViewItem.ClassroomInfoModel.Name;
             textDescription.text = classroomInfoListViewItem.ClassroomInfoModel.Description;
 
-            if (!classroomInfoListViewItem.ClassroomInfoModel.StudyStatus.Equals("2"))
+            if (!classroomInfoListViewItem.ClassroomInfoModel.StudyStatus.Equals("1"))
             {
                 containerClassroomRegister.gameObject.SetActive(true);
                 containerClassroomUtilities.gameObject.SetActive(false);

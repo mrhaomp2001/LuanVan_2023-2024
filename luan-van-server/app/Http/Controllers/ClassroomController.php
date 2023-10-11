@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateClassroomRequest;
 use App\Models\Question;
 use App\Models\QuestionCollection;
 use App\Models\StudyClassroom;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -225,7 +226,7 @@ class ClassroomController extends Controller
         }
 
         $classrooms = StudyClassroom::where('user_id', $request->user_id)
-            ->where('study_status_id', 2)
+            ->where('study_status_id', 1)
             ->get();
 
         foreach ($classrooms as $classroom) {
@@ -316,5 +317,32 @@ class ClassroomController extends Controller
 
         return response()->json(['data' => $status], 200, [], JSON_UNESCAPED_UNICODE);
 
+    }
+
+    public function getUsersInClassroom(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'classroom_id' => 'required|exists:classrooms,id'
+            ],
+            [
+                'classroom_id.required' => 'classroom_id.required',
+                'classroom_id.exists' => 'classroom_id.exists',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $users = User::select('users.*')
+        ->join('study_classrooms', 'users.id', '=', 'study_classrooms.user_id')
+        ->where('study_classrooms.classroom_id', $request->classroom_id)
+        ->orderBy('users.updated_at', 'desc')
+        ->paginate(50);
+
+        return response()->json(['data' => $users], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

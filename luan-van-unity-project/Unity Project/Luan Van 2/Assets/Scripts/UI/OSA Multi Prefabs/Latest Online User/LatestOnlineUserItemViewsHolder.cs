@@ -85,6 +85,15 @@ namespace LuanVan.OSA
                 containerAddfriend.gameObject.SetActive(false);
             }
 
+            if (latestOnlineUserListViewItem.LatestOnlineUserModel.ContainerOSA.Equals("rank"))
+            {
+                textUpdatedDate.gameObject.SetActive(false);
+            }
+            else
+            {
+                textUpdatedDate.gameObject.SetActive(true);
+            }
+
             latestOnlineUserListViewItem.CheckAndDownloadAvatar();
 
             MarkForRebuild();

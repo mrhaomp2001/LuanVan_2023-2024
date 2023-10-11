@@ -1922,9 +1922,38 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 # 12:16:03 2023/10/11 ===== 
  
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
- 
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
 ### Kết quả: 
- 
+- thêm phần báo cáo cho thảo luận và bình luận của thảo luận.
+- hiển thị danh sách người là học viên của lớp
 ### Công việc ngày mai: (và sắp tới)
- 
+- làm web quản lý
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
 </details>

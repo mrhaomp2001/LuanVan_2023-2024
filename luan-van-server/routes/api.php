@@ -77,15 +77,17 @@ Route::get('/user/friends/waiting', [FriendController::class, 'getWaitingFriends
 
 Route::post('/user/friend/edit', [FriendController::class, 'updateFriendStatus']);
 
-Route::get('/classrooms', [ClassroomController::class, 'getClassrooms']);
-Route::get('/classrooms/user', [ClassroomController::class, 'getUserClassrooms']);
-Route::get('/classrooms/old', [ClassroomController::class, 'getOldClassrooms']);
-Route::post('/classrooms/edit', [ClassroomController::class, "updateApi"]);
-
-Route::get('/classroom/info', [ClassroomController::class, 'getClassroomInfo']);
-Route::post('/classroom/user/edit', [ClassroomController::class, 'updateStudyStatus']);
+Route::get('/users/classrooms', [ClassroomController::class, 'getUserClassrooms']);
+Route::post('/users/classrooms/edit', [ClassroomController::class, 'updateStudyStatus']);
 
 Route::prefix('classrooms')->group(function () {
+    Route::get('/', [ClassroomController::class, 'getClassrooms']);
+    Route::post('edit', [ClassroomController::class, "updateApi"]);
+    Route::get('info', [ClassroomController::class, 'getClassroomInfo']);
+    Route::get('old', [ClassroomController::class, 'getOldClassrooms']);
+    Route::get('users', [ClassroomController::class, 'getUsersInClassroom']);
+    Route::get('documents', [StudyDocumentController::class, 'getStudyDocuments']);
+
     Route::prefix('topics')->group(function () {
         Route::get('/', [ClassroomTopicController::class, 'getTopics']);
         Route::get('old', [ClassroomTopicController::class, 'getOldTopics']);
@@ -107,7 +109,6 @@ Route::prefix('classrooms')->group(function () {
 
 
 
-Route::get('/classroom/documents', [StudyDocumentController::class, 'getStudyDocuments']);
 
 Route::prefix('reports')->group(function () {
     Route::get('/', [ReportController::class, 'getReports']);
@@ -131,5 +132,5 @@ Route::prefix('rank')->group(function () {
 });
 
 Route::prefix('notifications')->group(function () {
-    Route::get('/users', [NotificationController::class, 'getNotifications']);
+    Route::get('users', [NotificationController::class, 'getNotifications']);
 });

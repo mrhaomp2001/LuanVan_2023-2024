@@ -26,7 +26,7 @@ class Classroom extends Model
 
     public function users()
     {
-        return $this->hasMany(StudyClassroom::class, "classroom_id");
+        return $this->hasMany(StudyClassroom::class, "classroom_id")->orderBy("updated_at")->where("study_status_id", 1);
     }
     public function studyDocuments()
     {

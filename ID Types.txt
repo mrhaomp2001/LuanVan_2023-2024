@@ -10,3 +10,7 @@ Comments:
 Topics:
 1: Công khai
 2: Đã xóa
+
+Study Classroom Status:
+1: Đang học
+2?: không học 

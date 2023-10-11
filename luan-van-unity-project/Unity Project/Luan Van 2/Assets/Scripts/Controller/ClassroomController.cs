@@ -45,6 +45,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
     [SerializeField] private UIMultiPrefabsOSA topicCommentOSA;
     [SerializeField] private UIMultiPrefabsOSA classroomRanksOSA;
+    [SerializeField] private UIMultiPrefabsOSA usersInClassroomOSA;
 
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
@@ -588,7 +589,7 @@ public class ClassroomController : MonoBehaviour
 
     private IEnumerator GetUserClassroomsCoroutine()
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/user" +
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/users/classrooms" +
             "?user_id=" + GlobalSetting.LoginUser.Id);
 
         yield return request.SendWebRequest();
@@ -646,7 +647,7 @@ public class ClassroomController : MonoBehaviour
 
     public IEnumerator GetClassroomInfoCoroutine(string classroomId)
     {
-        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classroom/info" +
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/info" +
             "?user_id=" + GlobalSetting.LoginUser.Id +
             "&classroom_id=" + classroomId);
 
@@ -830,7 +831,7 @@ public class ClassroomController : MonoBehaviour
         body.AddField("classroom_id", classroomInfo.Id);
         body.AddField("status", status);
 
-        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classroom/user/edit", body);
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/users/classrooms/edit", body);
 
         yield return request.SendWebRequest();
 
@@ -1080,7 +1081,7 @@ public class ClassroomController : MonoBehaviour
                 LatestOnlineUserModel = new UILatestOnlineUserModel()
                 {
                     AvatarPath = resToValue["data"][i]["user"]["avatar_path"],
-                    ContainerOSA = "ranks",
+                    ContainerOSA = "rank",
                     CreatedAt = resToValue["data"][i]["user"]["created_at"],
                     Id = resToValue["data"][i]["user"]["id"],
                     Name = "<size=-5><color=#fff700>Hạng #" + (i+1).ToString() + "</color></size>\n" + resToValue["data"][i]["user"]["name"] + "\n" + "<size=-10>Tổng câu hỏi đã trả lời đúng: " + resToValue["data"][i]["total_answers"] + "</size>",
@@ -1091,5 +1092,57 @@ public class ClassroomController : MonoBehaviour
         }
 
         classroomRanksOSA.Data.InsertItemsAtEnd(listOfRanks);
+    }
+
+    public void GetUsersInClassroom()
+    {
+        redirector.Push("classroom.study.user");
+        usersInClassroomOSA.Data.ResetItems(new List<BaseModel>());
+        StartCoroutine(GetUsersInClassroomCoroutine());
+    }
+
+    private IEnumerator GetUsersInClassroomCoroutine()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/classrooms/users" +
+            "?classroom_id=" + currentClassroomModel.Id);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+        GetUsersInClassroomResponse(res);
+    }
+
+    private void GetUsersInClassroomResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var users = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            users.Add(new LatestOnlineUserItemModel()
+            {
+                LatestOnlineUserModel = new UILatestOnlineUserModel()
+                {
+                    CreatedAt = resToValue["data"]["data"][i]["created_at"],
+                    Id = resToValue["data"]["data"][i]["id"],
+                    Name = resToValue["data"]["data"][i]["name"],
+                    UpdatedAt = resToValue["data"]["data"][i]["updated_at"],
+                    Username = resToValue["data"]["data"][i]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["avatar_path"] ?? "",
+                    ContainerOSA = "friend",
+                }
+            });
+        }
+
+        usersInClassroomOSA.Data.InsertItemsAtStart(users);
     }
 }
