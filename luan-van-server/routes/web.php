@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Moderator\ModeratorClassroom;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
@@ -21,7 +22,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware('auth')->group(function () {
+
+Route::get('404', function () {
+    return view('errors.404');
+})->name("404");
+
+
+Route::get('error', function () {
+    return view('errors.error');
+})->name("error");
+
+Route::middleware(['auth', 'role:3'])->group(function () {
     Route::prefix('classrooms')->group(function () {
 
         Route::get('/', [ClassroomController::class, 'index'])->name('classrooms.index');
@@ -35,7 +46,21 @@ Route::middleware('auth')->group(function () {
     Route::prefix('reports')->group(function () {
         Route::get('/posts', [ReportController::class, 'index'])->name('reports.posts.index');
     });
+
 });
+
+Route::middleware(['auth', 'role:2'])->group(function () {
+    Route::prefix('moderators')->group(function () {
+        Route::prefix('classrooms')->group(function () {
+            Route::get('/', [ModeratorClassroom::class, 'index'])->name('moderator.classrooms.index');
+            Route::get('create', [ModeratorClassroom::class, 'create'])->name('moderator.classrooms.create');
+            Route::post('store', [ModeratorClassroom::class, 'store'])->name('moderator.classrooms.store');
+
+        });
+    });
+});
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

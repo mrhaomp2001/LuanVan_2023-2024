@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
                 [
                     'name' => "admin" . $i,
                     'username' => "admin" . $i,
+                    'role_id' => 1,
                     'password' => Hash::make("password"),
                 ]
             );
@@ -48,5 +49,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StudyDocumentSeeder::class);
         
         $this->call(ReportTypeSeeder::class);
+        $this->call(RoleSeeder::class);
     }
 }

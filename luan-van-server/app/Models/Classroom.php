@@ -17,6 +17,28 @@ class Classroom extends Model
         'name',
         'description',
         'theme_color',
+        'user_id',
+    ];
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'user'
+    ];
+
+    protected $casts = [
+        'is_open' => 'boolean',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_open' => false,
     ];
 
     public function questionCollections()
@@ -31,5 +53,10 @@ class Classroom extends Model
     public function studyDocuments()
     {
         return $this->hasMany(StudyDocument::class, "classroom_id");
+    }
+
+    protected function getUserAttribute()
+    {
+        return User::find($this->user_id);
     }
 }

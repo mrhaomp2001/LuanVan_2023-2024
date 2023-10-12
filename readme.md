@@ -1878,7 +1878,7 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
  
 # 08:19:48 2023/10/10 ===== 
  
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 - hoàn thiện phần đăng bài bên trong lớp học
 
@@ -1900,6 +1900,7 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 ### Kết quả:
 
 - hoàn thiện phần đăng bài bên trong lớp học (thêm sửa, xóa)
+
 ### Công việc ngày mai: (và sắp tới)
 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
@@ -1916,12 +1917,11 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node socket
 - chat
-</details> 
- 
- 
-# 12:16:03 2023/10/11 ===== 
- 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+</details>
+
+# 12:16:03 2023/10/11 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 
@@ -1937,10 +1937,59 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node socket
 - chat
-### Kết quả: 
+
+### Kết quả:
+
 - thêm phần báo cáo cho thảo luận và bình luận của thảo luận.
 - hiển thị danh sách người là học viên của lớp
+
 ### Công việc ngày mai: (và sắp tới)
+
+- làm web quản lý
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+</details>
+
+# 08:57:09 2023/10/12 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- làm web quản lý
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+### Kết quả:
+
+- tạo nền tảng cho trang web quản lý của Mods
+- Thiết kế database
+- cài đặt các thư viện cần thiết (Livewire...)
+
+### Công việc ngày mai: (và sắp tới)
+
 - làm web quản lý
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 

@@ -23,7 +23,9 @@ class User extends Authenticatable
         'name',
         'username',
         'password',
-        'classroom_id'
+        'classroom_id',
+        'role_id',
+        'max_classroom_count'
     ];
 
     /**
@@ -47,12 +49,23 @@ class User extends Authenticatable
     ];
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'role_id' => "1",
+        'max_classroom_count' => "0",
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
     protected $appends = [
-        'avatar_path'
+        'avatar_path',
+        'role'
     ];
 
     protected function getAvatarPathAttribute()
@@ -62,6 +75,10 @@ class User extends Authenticatable
         } else {
             return "";
         }
+    }
+    protected function getRoleAttribute()
+    {
+        return Role::find($this->role_id);
     }
     
     public function posts()

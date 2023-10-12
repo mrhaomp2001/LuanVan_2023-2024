@@ -14,8 +14,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -35,8 +34,7 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Đang tải...</span>
             </div>
@@ -45,30 +43,49 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-1 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="{{ route('dashboard') }}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Hội học thuật</h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="{{ Storage::url('classrooms/avatars/1.png') }}" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                @if (Auth::check())
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            @if (auth()->user()->avatar_path != '')
+                                <img class="rounded-circle" src="{{ auth()->user()->avatar_path }}" alt="" style="width: 40px; height: 40px;">
+                            @else
+                                <img class="rounded-circle" src="{{ Storage::url('users/avatars/0.png') }}" alt="" style="width: 40px; height: 40px;">
+                            @endif
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">{{ auth()->user()->name }}</h6>
+                            <span>{{ auth()->user()->role->description }}</span>
                         </div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
-                    </div>
-                </div>
+                @endif
+
                 <div class="navbar-nav w-100">
-                    <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Các
-                        lớp học</a>
-                    <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo
-                        cáo</a>
+                    @if (Auth::check())
+                        @if (auth()->user()->role->id == 3)
+                            <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
+                            <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
+                        @endif
+                        @if (auth()->user()->role->id == 2)
+                            <a href="{{ route('moderator.classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Lớp học của bạn</a>
+                            <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng nhập</a>
+
+                        <a href="{{ route('register') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng ký</a>
+
+                    @endif
+
                 </div>
+
+
             </nav>
         </div>
         <!-- Sidebar End -->
@@ -89,84 +106,29 @@
                     <button class="btn btn-primary mx-1">Tìm</button>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
-                    {{-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div
-                            class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
+                        @if (Auth::check())
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+                                {{-- <img class="rounded-circle me-lg-2" src="{{ auth()->user()->avatar_path }}" alt="" style="width: 40px; height: 40px;"> --}}
+                                @if (auth()->user()->avatar_path != '')
+                                    <img class="rounded-circle" src="{{ auth()->user()->avatar_path }}" alt="" style="width: 40px; height: 40px;">
+                                @else
+                                    <img class="rounded-circle" src="{{ Storage::url('users/avatars/0.png') }}" alt="" style="width: 40px; height: 40px;">
+                                @endif
+                                <span class="d-none d-lg-inline-flex">{{ auth()->user()->name }}</span>
                             </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div> --}}
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{ Storage::url('classrooms/avatars/1.png') }}"
-                                alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
+                            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">My Profile</a>
+                                <a href="#" class="dropdown-item">Settings</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn text-danger">Đăng xuất</button>
+                                </form>
+                            </div>
+                        @else
+                            <a href="{{ route('login') }}">Đăng nhập</a>
+                        @endif
                     </div>
                 </div>
             </nav>
