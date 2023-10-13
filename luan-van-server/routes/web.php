@@ -6,6 +6,11 @@ use App\Http\Controllers\Moderator\ModeratorClassroom;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
+
+use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
+use App\Livewire\Moderators\Classrooms\ModeratorClassroomDetailsLivewire;
+use App\Livewire\Moderators\Classrooms\ModeratorClassroomEditLivewire;
+use App\Livewire\Moderators\Classrooms\ModeratorClassroomLivewire;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,9 +57,14 @@ Route::middleware(['auth', 'role:3'])->group(function () {
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::prefix('moderators')->group(function () {
         Route::prefix('classrooms')->group(function () {
-            Route::get('/', [ModeratorClassroom::class, 'index'])->name('moderator.classrooms.index');
-            Route::get('create', [ModeratorClassroom::class, 'create'])->name('moderator.classrooms.create');
-            Route::post('store', [ModeratorClassroom::class, 'store'])->name('moderator.classrooms.store');
+            // Route::get('/', [ModeratorClassroom::class, 'index'])->name('moderator.classrooms.index');
+            // Route::get('create', [ModeratorClassroom::class, 'create'])->name('moderator.classrooms.create');
+            // Route::post('store', [ModeratorClassroom::class, 'store'])->name('moderator.classrooms.store');
+
+            Route::get('/', ModeratorClassroomLivewire::class)->name('moderator.classrooms.index');
+            Route::get('create', ModeratorClassroomCreateLivewire::class)->name('moderator.classrooms.create');
+            Route::get('show/{id}', ModeratorClassroomDetailsLivewire::class)->name('moderator.classrooms.show');
+            Route::get('edit/{id}', ModeratorClassroomEditLivewire::class)->name('moderator.classrooms.edit');
 
         });
     });

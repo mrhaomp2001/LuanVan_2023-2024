@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Classroom extends Model
 {
@@ -25,7 +26,8 @@ class Classroom extends Model
      * @var array
      */
     protected $appends = [
-        'user'
+        'user',
+        'image_path'
     ];
 
     protected $casts = [
@@ -58,5 +60,14 @@ class Classroom extends Model
     protected function getUserAttribute()
     {
         return User::find($this->user_id);
+    }
+
+    protected function getImagePathAttribute()
+    {
+        if (Storage::disk('public')->exists('classrooms/avatars/' . $this->id . ".png")) {
+            return Storage::url('classrooms/avatars/' . $this->id . ".png");
+        } else {
+            return "";
+        }
     }
 }

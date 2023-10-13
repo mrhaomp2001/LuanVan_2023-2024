@@ -2006,3 +2006,45 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - server Node socket
 - chat
 </details>
+
+# 08:30:27 2023/10/13 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ - làm web quản lý
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node socket
+- chat
+
+### Kết quả:
+
+- thêm, sửa, đóng của lớp học của Moderators
+
+### Công việc ngày mai: (và sắp tới)
+
+- làm web quản lý bộ câu hỏi, câu hỏi, câu trả lời mods.
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Nod
+</details>
