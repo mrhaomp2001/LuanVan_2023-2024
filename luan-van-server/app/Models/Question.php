@@ -16,6 +16,17 @@ class Question extends Model
      */
     protected $fillable = [
         'content',
+        'question_collection_id',
+        'question_status_id'
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'question_status_id' => "1",
     ];
     
     public function answersInRandomOrder()
@@ -25,6 +36,10 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class, "question_id");
+    }
+    public function answersTrue()
+    {
+        return $this->hasMany(Answer::class, "question_id")->orderByDesc("is_correct");
     }
     public function questionCollection()
     {

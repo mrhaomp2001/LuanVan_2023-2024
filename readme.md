@@ -2048,16 +2048,17 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Nod
 </details>
- 
-# 07:53:00 2023/10/16 ===== 
- 
+
+# 07:53:00 2023/10/16 =====
+
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
  
 ### Kết quả: 
 - thêm, sửa, đóng bộ câu hỏi
 - hiển thị danh sách câu hỏi và xem trước câu trả lời của câu hỏi
 ### Công việc ngày mai: (và sắp tới)
- - làm web quản lý bộ câu hỏi, câu hỏi, câu trả lời mods.
+
+- làm web quản lý bộ câu hỏi, câu hỏi, câu trả lời mods.
 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 
@@ -2072,5 +2073,45 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - lớp học có thể đóng mở để có thể bảo trì
 
 - server Node
-</details> 
- 
+</details>
+
+# 08:03:55 2023/10/17 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- làm web quản lý câu hỏi, câu trả lời mods.
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node
+
+### Kết quả:
+
+- làm web quản lý câu hỏi, câu trả lời mods.
+
+### Công việc ngày mai: (và sắp tới)
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node
+</details>

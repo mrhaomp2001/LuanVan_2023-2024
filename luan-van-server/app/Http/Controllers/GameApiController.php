@@ -54,6 +54,7 @@ class GameApiController extends Controller
         $questionCollection = QuestionCollection::find($request->question_collection_id);
 
         $questions = Question::where('question_collection_id', $request->question_collection_id)
+            ->where("question_status_id", 1)
             ->limit($questionCollection->questions_per_time)
             ->inRandomOrder()
             ->get();

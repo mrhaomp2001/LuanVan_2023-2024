@@ -58,6 +58,11 @@ class QuestionCollection extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, "question_collection_id");
+        return $this->hasMany(Question::class, "question_collection_id")->where("question_status_id", 1);
+    }
+
+    public function questionsDeleted()
+    {
+        return $this->hasMany(Question::class, "question_collection_id")->where("question_status_id", 2);
     }
 }

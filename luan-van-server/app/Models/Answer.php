@@ -16,6 +16,8 @@ class Answer extends Model
      */
     protected $fillable = [
         'content',
+        'is_correct',
+        'question_id',
     ];
 
     // /**

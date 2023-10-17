@@ -14,3 +14,11 @@ Topics:
 Study Classroom Status:
 1: Đang học
 2?: không học 
+
+Classroom:
+1: mở
+2: đóng
+
+Question Collection:
+1: mở
+2: đóng
