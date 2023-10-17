@@ -274,7 +274,7 @@ class ClassroomController extends Controller
             ->where("user_id", $request->user_id)
             ->first();
 
-        $classroom->questionCollections;
+        $classroom->questionCollectionsOpen;
         $classroom->study_status = $studyStatus;
 
         return response()->json(['data' => $classroom], 200, [], JSON_UNESCAPED_UNICODE);

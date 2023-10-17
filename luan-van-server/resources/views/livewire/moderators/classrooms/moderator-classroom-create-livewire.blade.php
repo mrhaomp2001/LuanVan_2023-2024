@@ -13,10 +13,20 @@
                                 <div class="form-floating mb-3">
                                     <input wire:model.blur="name" type="text" class="form-control" id="name" name="name" placeholder="Tên lớp" value="">
                                     <label for="name">Tên lớp học</label>
+                                    @error('name')
+                                        <p class="text-start text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                                 <div class="form-floating mb-3">
                                     <textarea wire:model="description" class="form-control" placeholder="Miêu tả lớp học" name="description" id="description" style="height: 150px;"></textarea>
                                     <label for="description">Miêu tả lớp học</label>
+                                    @error('description')
+                                    <p class="text-start text-danger">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input wire:model="theme_color" type="color" class="form-control bg-dark" id="theme_color" name="theme_color" placeholder="Màu chủ đề" value="#ffffff">

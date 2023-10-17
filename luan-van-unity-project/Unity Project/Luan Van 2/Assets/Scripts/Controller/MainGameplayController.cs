@@ -31,16 +31,16 @@ public class MainGameplayController : MonoBehaviour
 
         questionCollections.Clear();
 
-        for (int i = 0; i < resToValue["data"]["question_collections"].Count; i++)
+        for (int i = 0; i < resToValue["data"]["question_collections_open"].Count; i++)
         {
             questionCollections.Add(new QuestionCollection()
             {
-                classroomId = resToValue["data"]["question_collections"][i]["classroom_id"],
-                difficulty = resToValue["data"]["question_collections"][i]["difficulty"],
-                gameType = resToValue["data"]["question_collections"][i]["game_type"],
-                id = resToValue["data"]["question_collections"][i]["id"],
-                name = resToValue["data"]["question_collections"][i]["name"],
-                questionsPerTime = resToValue["data"]["question_collections"][i]["questions_per_time"],
+                classroomId = resToValue["data"]["question_collections_open"][i]["classroom_id"],
+                difficulty = resToValue["data"]["question_collections_open"][i]["difficulty"],
+                gameType = resToValue["data"]["question_collections_open"][i]["game_id"],
+                id = resToValue["data"]["question_collections_open"][i]["id"],
+                name = resToValue["data"]["question_collections_open"][i]["name"],
+                questionsPerTime = resToValue["data"]["question_collections_open"][i]["questions_per_time"],
             });
         }
     }

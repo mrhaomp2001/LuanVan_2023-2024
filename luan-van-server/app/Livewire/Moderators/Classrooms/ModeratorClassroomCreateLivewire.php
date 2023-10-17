@@ -23,10 +23,15 @@ class ModeratorClassroomCreateLivewire extends Component
 
     public function save()
     {
-        $validated = $this->validate([ 
-            'name' => 'required|min:3',
-            'description' => 'required|min:3',
-        ]);
+        $validated = $this->validate(
+            [
+                'name' => 'required|min:3',
+                'description' => 'required|min:3',
+            ],
+            [
+
+            ]
+        );
 
         $classroom = Classroom::create([
             'name' => $this->name,

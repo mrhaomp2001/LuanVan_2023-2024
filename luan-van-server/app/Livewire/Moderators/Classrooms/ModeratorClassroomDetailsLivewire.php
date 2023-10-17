@@ -13,21 +13,26 @@ class ModeratorClassroomDetailsLivewire extends Component
     public $theme_color;
     public $is_open;
     public $image_path;
+    public $questionCollections;
+
+    public $classroom;
 
     public function mount($id)
     {
-        $classroom = Classroom::findOrFail($id);
+        $this->classroom = Classroom::findOrFail($id);
 
-        if ($classroom->user_id != auth()->user()->id) {
+        if ($this->classroom->user_id != auth()->user()->id) {
             return redirect(route("404"));
         }
 
         $this->id = $id;
-        $this->name = $classroom->name;
-        $this->description = $classroom->description;
-        $this->theme_color = $classroom->theme_color;
-        $this->is_open = $classroom->is_open;
-        $this->image_path = $classroom->image_path;
+        $this->name = $this->classroom->name;
+        $this->description = $this->classroom->description;
+        $this->theme_color = $this->classroom->theme_color;
+        $this->is_open = $this->classroom->is_open;
+        $this->image_path = $this->classroom->image_path;
+
+        $this->questionCollections = $this->classroom->questionCollections;
     }
 
     public function render()

@@ -191,7 +191,7 @@ class AnswerSeeder extends Seeder
 
         $answer = new Answer;
         $answer->question_id = $id;
-        $answer->content = "Sự phân chia tế bào ở tầng sinh trụ và tầng sinh vỏ";
+        $answer->content = "Rễ Giác mút";
         $answer->is_correct = true;
         $answer->save();
 

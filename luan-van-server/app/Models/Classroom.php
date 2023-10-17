@@ -48,6 +48,11 @@ class Classroom extends Model
         return $this->hasMany(QuestionCollection::class, "classroom_id");
     }
 
+    public function questionCollectionsOpen()
+    {
+        return $this->hasMany(QuestionCollection::class, "classroom_id")->where("is_open", true);
+    }
+
     public function users()
     {
         return $this->hasMany(StudyClassroom::class, "classroom_id")->orderBy("updated_at")->where("study_status_id", 1);

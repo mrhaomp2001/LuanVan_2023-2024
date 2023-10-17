@@ -19,7 +19,7 @@ class QuestionCollectionSeeder extends Seeder
         $questionCollection->classroom_id = 1;
         $questionCollection->name = "Sinh học nhập môn";
         $questionCollection->difficulty = "Tương đối dễ";
-        $questionCollection->game_type = 1;
+        $questionCollection->game_id = 1;
         $questionCollection->questions_per_time = 5;
 
         $questionCollection->save();
@@ -29,7 +29,7 @@ class QuestionCollectionSeeder extends Seeder
         $questionCollection->classroom_id = 1;
         $questionCollection->name = "Sinh học cho kỳ thi";
         $questionCollection->difficulty = "trung bình";
-        $questionCollection->game_type = 2;
+        $questionCollection->game_id = 2;
         $questionCollection->questions_per_time = 6;
 
         $questionCollection->save();

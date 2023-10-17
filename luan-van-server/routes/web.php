@@ -11,6 +11,9 @@ use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomDetailsLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomEditLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomLivewire;
+use App\Livewire\Moderators\Classrooms\QuestionCollections\ModeratorQuestionCollectionCreateLivewire;
+use App\Livewire\Moderators\Classrooms\QuestionCollections\ModeratorQuestionCollectionDetailsLivewire;
+use App\Livewire\Moderators\Classrooms\QuestionCollections\ModeratorQuestionCollectionEditLivewire;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +69,11 @@ Route::middleware(['auth', 'role:2'])->group(function () {
             Route::get('show/{id}', ModeratorClassroomDetailsLivewire::class)->name('moderator.classrooms.show');
             Route::get('edit/{id}', ModeratorClassroomEditLivewire::class)->name('moderator.classrooms.edit');
 
+            Route::prefix('{classroom_id}/question-collections')->group(function () {
+                Route::get('create', ModeratorQuestionCollectionCreateLivewire::class)->name('moderator.question-collections.create');
+                Route::get('show/{question_collection_id}', ModeratorQuestionCollectionDetailsLivewire::class)->name('moderator.question-collections.show');
+                Route::get('edit/{question_collection_id}', ModeratorQuestionCollectionEditLivewire::class)->name('moderator.question-collections.edit');
+            });
         });
     });
 });

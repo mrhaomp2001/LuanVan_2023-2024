@@ -50,5 +50,8 @@ class DatabaseSeeder extends Seeder
         
         $this->call(ReportTypeSeeder::class);
         $this->call(RoleSeeder::class);
+
+        $this->call(GameSeeder::class);
+
     }
 }
