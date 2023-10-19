@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
 
+use App\Livewire\Admins\Moderators\AdminModeratorShow;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentCreateLivewire;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentEditLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
@@ -60,7 +61,13 @@ Route::middleware(['auth', 'role:3'])->group(function () {
     });
 
 });
-
+Route::middleware(['auth', 'role:3'])->group(function () {
+    Route::prefix('admins')->group(function () {
+        Route::prefix('moderators')->group(function () {
+            Route::get('/', AdminModeratorShow::class)->name('admin.moderators.show');
+        });
+    });
+});
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::prefix('moderators')->group(function () {
         Route::prefix('classrooms')->group(function () {
