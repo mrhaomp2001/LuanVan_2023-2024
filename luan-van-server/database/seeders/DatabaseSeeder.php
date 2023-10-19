@@ -19,8 +19,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        for ($i = 1; $i < 10; $i++) {
+        User::create(
+            [
+                'name' => "admin1",
+                'username' => "admin1" ,
+                'role_id' => 3,
+                'password' => Hash::make("password"),
+            ]
+        );
+        for ($i = 2; $i < 10; $i++) {
             User::create(
                 [
                     'name' => "admin" . $i,

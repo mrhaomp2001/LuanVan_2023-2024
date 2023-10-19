@@ -33,7 +33,7 @@ class StudyDocument extends Model
     protected function getImagePathAttribute()
     {
         if (Storage::disk('public')->exists('documents/' . $this->id . ".png")) {
-            return Storage::url('documents/' . $this->id . ".png");
+            return Storage::disk('public')->url('documents/' . $this->id . ".png");
         } else {
             return "";
         }

@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
 
+use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentCreateLivewire;
+use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentEditLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomDetailsLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomEditLivewire;
@@ -75,12 +77,18 @@ Route::middleware(['auth', 'role:2'])->group(function () {
                 Route::get('create', ModeratorQuestionCollectionCreateLivewire::class)->name('moderator.question-collections.create');
                 Route::get('show/{question_collection_id}', ModeratorQuestionCollectionDetailsLivewire::class)->name('moderator.question-collections.show');
                 Route::get('edit/{question_collection_id}', ModeratorQuestionCollectionEditLivewire::class)->name('moderator.question-collections.edit');
-                
+
                 Route::prefix('{question_collection_id}/questions')->group(function () {
                     Route::get('create', ModeratorQuestionCreateLivewire::class)->name('moderator.questions.create');
                     Route::get('edit/{question_id}', ModeratorQuestionEditLivewire::class)->name('moderator.questions.edit');
 
                 });
+            });
+
+            Route::prefix('{classroom_id}/documents')->group(function () {
+                Route::get('create', ModeratorDocumentCreateLivewire::class)->name('moderator.documents.create');
+                Route::get('edit/{study_document_id}', ModeratorDocumentEditLivewire::class)->name('moderator.documents.edit');
+
             });
         });
     });

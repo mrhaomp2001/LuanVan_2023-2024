@@ -2115,3 +2115,30 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node
 </details>
+ 
+# 08:55:55 2023/10/18 ===== 
+
+- thêm, sửa, xóa tài liệu học tập mods
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
+
+- danh sách chặn người dùng
+
+- các chức năng về lọc và tìm kiếm
+
+- lớp học có thể đóng mở để có thể bảo trì
+
+- server Node
+
+### Kết quả: 
+ 
+### Công việc ngày mai: (và sắp tới)
+ 
+</details> 
+ 
