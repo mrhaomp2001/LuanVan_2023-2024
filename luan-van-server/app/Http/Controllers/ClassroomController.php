@@ -159,7 +159,7 @@ class ClassroomController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $classrooms = Classroom::orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+        $classrooms = Classroom::orderBy('created_at', 'DESC')->where("is_open", 1)->simplePaginate($request->per_page);
 
         foreach ($classrooms as $classroom) {
 
@@ -193,7 +193,7 @@ class ClassroomController extends Controller
             return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $classrooms = Classroom::where('created_at', '<', $request->date)->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+        $classrooms = Classroom::where('created_at', '<', $request->date)->where("is_open", 1)->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
 
         foreach ($classrooms as $classroom) {
 

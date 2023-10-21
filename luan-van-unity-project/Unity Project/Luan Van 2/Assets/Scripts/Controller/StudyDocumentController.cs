@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class StudyDocumentController : MonoBehaviour
 {
+    [System.Serializable]
     public struct StudyDocument
     {
         public string id;
@@ -132,7 +133,7 @@ public class StudyDocumentController : MonoBehaviour
             textContent.text = studyDocuments[currentDocumentIndex].content;
             if (!studyDocuments[currentDocumentIndex].imagePath.Equals(""))
             {
-                Davinci.get().load(GlobalSetting.Endpoint + studyDocuments[currentDocumentIndex].imagePath).into(imageDocument).setFadeTime(0).start();
+                Davinci.get().load(studyDocuments[currentDocumentIndex].imagePath).into(imageDocument).setFadeTime(0).start();
             }
             else
             {

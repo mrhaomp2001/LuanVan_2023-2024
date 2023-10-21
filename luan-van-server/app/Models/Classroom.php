@@ -19,6 +19,7 @@ class Classroom extends Model
         'description',
         'theme_color',
         'user_id',
+        
     ];
     /**
      * The accessors to append to the model's array form.

@@ -111,7 +111,7 @@
                             <th scope="col">Trang</th>
                             <th scope="col">Nội dung</th>
                             <th scope="col">Xem trước</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Sửa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,7 +122,7 @@
                                 <td class="text-center" style="max-width: 50px;"><button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modal{{ $document->id }}">
                                         Xem trước
                                     </button></td>
-                                <td><a class="btn btn-sm btn-primary" href="{{ route("moderator.documents.edit", ["classroom_id"=>$classroom->id, "study_document_id" => $document->id]) }}">Detail</a></td>
+                                <td><a class="btn btn-sm btn-primary" href="{{ route("moderator.documents.edit", ["classroom_id"=>$classroom->id, "study_document_id" => $document->id]) }}">Sửa</a></td>
                             </tr>
 
                             <div class="modal fade" id="modal{{ $document->id }}" tabindex="-1" aria-labelledby="modal{{ $document->id }}" aria-hidden="true">
