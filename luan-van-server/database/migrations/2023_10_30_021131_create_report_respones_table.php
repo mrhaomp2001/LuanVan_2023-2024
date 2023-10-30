@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('report_respones', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->integer("report_type_id");
-            $table->integer("model_id");
-            $table->integer("report_response_id");
-            $table->string("model_type");
-            $table->string("content");
+            $table->string('content');
+            $table->integer('responder')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('report_respones');
     }
 };

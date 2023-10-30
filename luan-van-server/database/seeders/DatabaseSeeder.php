@@ -56,6 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StudyDocumentSeeder::class);
         
         $this->call(ReportTypeSeeder::class);
+        $this->call(ReportResponeSeeder::class);
         $this->call(RoleSeeder::class);
 
         $this->call(GameSeeder::class);

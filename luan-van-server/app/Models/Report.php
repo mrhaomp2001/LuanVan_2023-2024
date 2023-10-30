@@ -19,8 +19,33 @@ class Report extends Model
         'report_type_id',
         'model_id',
         'model_type',
+        'report_response_id',
         'content',
     ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'report_response_id' => "1",
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'report_response'
+    ];
+
+    protected function getReportResponseAttribute()
+    {
+        return ReportRespone::find($this->report_response_id);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, "user_id");
