@@ -18,10 +18,10 @@ class AdminReportIndex extends Component
     public function render()
     {
         return view('livewire.admins.reports.admin-report-index', [
-            'posts' => Report::where("model_type", "post")->paginate(7, pageName: 'posts-page'),
-            'comments' =>  Report::where("model_type", "comment")->paginate(7, pageName: 'comments-page'),
-            'topics' =>  Report::where("model_type", "topic")->paginate(7, pageName: 'topics-page'),
-            'topic_comments' =>  Report::where("model_type", "topic_comment")->paginate(7, pageName: 'topic-comments-page'),
+            'posts' => Report::where("model_type", "post")->where("report_response_id", 1)->paginate(7, pageName: 'posts-page'),
+            'comments' =>  Report::where("model_type", "comment")->where("report_response_id", 1)->paginate(7, pageName: 'comments-page'),
+            'topics' =>  Report::where("model_type", "topic")->where("report_response_id", 1)->paginate(7, pageName: 'topics-page'),
+            'topic_comments' =>  Report::where("model_type", "topic_comment")->where("report_response_id", 1)->paginate(7, pageName: 'topic-comments-page'),
         ]);
     }
 }

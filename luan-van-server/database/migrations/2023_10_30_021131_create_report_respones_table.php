@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('report_respones', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->integer('responder')->nullable();
             $table->timestamps();
         });
     }

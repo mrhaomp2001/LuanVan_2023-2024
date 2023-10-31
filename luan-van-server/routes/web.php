@@ -9,6 +9,7 @@ use App\Http\Controllers\StudyDocumentController;
 
 use App\Livewire\Admins\Moderators\AdminModeratorShow;
 use App\Livewire\Admins\Reports\AdminReportIndex;
+use App\Livewire\Admins\Reports\AdminReportShow;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentCreateLivewire;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentEditLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'role:3'])->group(function () {
         
         Route::prefix('reports')->group(function () {
             Route::get('/', AdminReportIndex::class)->name('admin.report.index');
+            Route::get('show/{report_id}', AdminReportShow::class)->name('admin.report.show');
         });
     });
 });

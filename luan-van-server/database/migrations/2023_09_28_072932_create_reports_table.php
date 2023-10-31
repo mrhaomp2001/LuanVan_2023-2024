@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("model_id");
             $table->integer("report_response_id");
             $table->string("model_type");
+            $table->integer('responder')->nullable();
             $table->string("content");
             $table->timestamps();
         });

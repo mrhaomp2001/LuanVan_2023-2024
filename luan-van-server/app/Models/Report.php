@@ -21,6 +21,7 @@ class Report extends Model
         'model_type',
         'report_response_id',
         'content',
+        'responder'
     ];
 
     /**
