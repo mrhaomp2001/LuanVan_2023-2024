@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GameApiController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
@@ -106,7 +107,11 @@ Route::prefix('classrooms')->group(function () {
     });
 });
 
-
+Route::prefix('messages')->group(function () {
+    Route::get('/', [MessageController::class, 'getMessages']);
+    Route::post('/', [MessageController::class, 'sendMessage']);
+    Route::get('latest', [MessageController::class, 'getMessagesFirstLogin']);
+});
 
 
 
