@@ -16,20 +16,19 @@ socketIO.on("connection", function (socket) {
   socket.on("connected", function (data) {
     users[data.userId] = socket.id;
 
-    console.log("---");
+    console.log("-----");
     users.forEach((element) => {
-      console.log(" - " + element + "\n");
+      console.log(" - " + element);
     });
-    console.log("---");
+    console.log("\n");
   });
 
   socket.on("sendEvent", async function (data) {
-    socketIO.to(users[data.receiver_id]).emit("messageReceived", data);
-
     axios
       .post(process.env.ENDPOINT + "messages", data)
       .then((response) => {
         console.log("Response:", response.data);
+        socketIO.to(users[data.receiver_id]).emit("messageReceived", response.data);
       })
       .catch((error) => {
         console.error("Error:", error);

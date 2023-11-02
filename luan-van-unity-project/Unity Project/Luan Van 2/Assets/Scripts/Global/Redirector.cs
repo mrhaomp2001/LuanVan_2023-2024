@@ -1,3 +1,4 @@
+using LuanVan.OSA;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,13 @@ public class Redirector : MonoBehaviour
     }
 
     [SerializeField] private List<UIScreenRoute> screenRoutes = new List<UIScreenRoute>();
+    [SerializeField] private UIMultiPrefabsOSA[] multiPrefabsOSAs;
     [SerializeField] private Stack<string> stackRoute = new Stack<string>();
 
     private void Start()
     {
         stackRoute.Push("base");
+        multiPrefabsOSAs = FindObjectsByType<UIMultiPrefabsOSA>(FindObjectsSortMode.None);
     }
 
     public void Push(string routeName)
@@ -57,6 +60,11 @@ public class Redirector : MonoBehaviour
                     break;
                 }
             }
+        }
+
+        foreach (var osa in multiPrefabsOSAs)
+        {
+            osa.ScheduleForceRebuildLayout();
         }
     }
 
@@ -98,6 +106,11 @@ public class Redirector : MonoBehaviour
                     break;
                 }
             }
+        }
+
+        foreach (var osa in multiPrefabsOSAs)
+        {
+            osa.ScheduleForceRebuildLayout();
         }
     }
 }

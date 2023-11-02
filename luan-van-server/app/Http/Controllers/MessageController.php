@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -103,6 +104,10 @@ class MessageController extends Controller
             ->orderByDesc("created_at")
             ->get();
 
+        foreach ($latestMessages as $latestMessage) {
+            $latestMessage->other_user = User::find(($latestMessage->sender_id == $request->user_id) ? $latestMessage->receiver_id : $latestMessage->sender_id);
+        }
+
         return response()->json(['data' => $latestMessages], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
@@ -124,12 +129,16 @@ class MessageController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $messages = Message::where("sender_id", $request->sender_id)
-            ->orWhere("receiver_id", $request->sender_id)
-            ->where("sender_id", $request->receiver_id)
-            ->where("receiver_id", $request->receiver_id)
-            ->orderByDesc("created_at")
-            ->paginate(10);
+        $senderId = $request->sender_id;
+        $receiverId = $request->receiver_id;
+
+        $messages = Message::where(function ($query) use ($senderId, $receiverId) {
+            $query->where('sender_id', $senderId)
+                ->where('receiver_id', $receiverId);
+        })->orWhere(function ($query) use ($senderId, $receiverId) {
+            $query->where('sender_id', $receiverId)
+                ->where('receiver_id', $senderId);
+        })->orderBy('created_at', 'desc')->get();
 
         return response()->json(['data' => $messages], 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -158,6 +167,9 @@ class MessageController extends Controller
             'receiver_id' => $request->receiver_id,
             'content' => $request->content,
         ]);
+
+        $message->sender;
+        $message->receiver;
 
         return response()->json(['data' => $message], 200, [], JSON_UNESCAPED_UNICODE);
     }

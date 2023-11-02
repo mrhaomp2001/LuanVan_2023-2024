@@ -13,6 +13,7 @@ public class FooterMenuController : MonoBehaviour
     [SerializeField] private ProfileController profileController;
     [SerializeField] private NotificationController notificationController;
     [SerializeField] private SettingMenuController settingMenuController;
+    [SerializeField] private MessageController messageController;
     private void Start()
     {
         RedirectHome();
@@ -118,20 +119,22 @@ public class FooterMenuController : MonoBehaviour
             return;
         }
 
-        redirector.Pop();
-        redirector.Push("other_users");
+        //redirector.Pop();
+        redirector.Push("chat_user");
 
-        foreach (var item in imageBtnFooterMenus)
-        {
-            var currentColor = item.color;
-            currentColor.a = 0;
-            item.color = currentColor;
-        }
-        var afterColor = imageBtnFooterMenus[0].color;
-        afterColor.a = 1;
-        imageBtnFooterMenus[3].color = afterColor;
+        messageController.GetChatUsers();
 
-        otherUserController.GetFriends();
+        //foreach (var item in imageBtnFooterMenus)
+        //{
+        //    var currentColor = item.color;
+        //    currentColor.a = 0;
+        //    item.color = currentColor;
+        //}
+        //var afterColor = imageBtnFooterMenus[0].color;
+        //afterColor.a = 1;
+        //imageBtnFooterMenus[3].color = afterColor;
+
+        //otherUserController.GetFriends();
     }    
 
     public void RedirectNotifications()

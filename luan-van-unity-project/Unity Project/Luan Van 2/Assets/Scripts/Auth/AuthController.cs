@@ -10,6 +10,7 @@ public class AuthController : MonoBehaviour
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private FooterNoticeController footerNoticeController;
+    [SerializeField] private SocketManager socketManager;
     [Header("UIs: ")]
     [SerializeField] private TMP_InputField inputFieldUsernameLogin;
     [SerializeField] private TMP_InputField inputFieldPasswordLogin;
@@ -107,6 +108,7 @@ public class AuthController : MonoBehaviour
         GlobalSetting.LoginUser.UpdatedAt = resToValue["data"]["updated_at"];
         GlobalSetting.LoginUser.AvatarPath = resToValue["data"]["avatar_path"];
 
+        socketManager.Connect();
     }
 
 

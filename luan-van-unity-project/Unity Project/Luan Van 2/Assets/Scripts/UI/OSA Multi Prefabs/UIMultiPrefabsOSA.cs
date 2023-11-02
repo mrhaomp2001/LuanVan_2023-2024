@@ -143,6 +143,18 @@ namespace LuanVan.OSA
                 vh.Init(_Params.questionCollectionPrefab, _Params.Content, itemIndex);
                 return vh;
             }
+            if (modelType == typeof(ChatUserItemModel))
+            {
+                var vh = new ChatUserItemViewsHolder();
+                vh.Init(_Params.chatUserPrefab, _Params.Content, itemIndex);
+                return vh;
+            }
+            if (modelType == typeof(MessageItemModel))
+            {
+                var vh = new MessageItemViewsHolder();
+                vh.Init(_Params.messagePrefab, _Params.Content, itemIndex);
+                return vh;
+            }
 
             throw new InvalidOperationException("Unrecognized model type: " + modelType.Name);
         }
@@ -284,6 +296,8 @@ namespace LuanVan.OSA
         public RectTransform topicCommentPrefab;
         public RectTransform multiPrefab;
         public RectTransform questionCollectionPrefab;
+        public RectTransform chatUserPrefab;
+        public RectTransform messagePrefab;
         public override void InitIfNeeded(IOSA iAdapter)
         {
             base.InitIfNeeded(iAdapter);
@@ -339,6 +353,14 @@ namespace LuanVan.OSA
             if (questionCollectionPrefab != null)
             {
                 AssertValidWidthHeight(questionCollectionPrefab);
+            }
+            if (chatUserPrefab != null)
+            {
+                AssertValidWidthHeight(chatUserPrefab);
+            }
+            if (messagePrefab != null)
+            {
+                AssertValidWidthHeight(messagePrefab);
             }
         }
     }

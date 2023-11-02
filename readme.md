@@ -2115,12 +2115,12 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node
 </details>
- 
-# 08:55:55 2023/10/18 ===== 
+
+# 08:55:55 2023/10/18 =====
 
 - thêm, sửa, xóa tài liệu học tập mods
 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 
@@ -2136,10 +2136,9 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 
 - server Node
 
-### Kết quả: 
+### Kết quả:
 
 - thêm, sửa, xóa tài liệu học tập mods
-
 
 ### Công việc ngày mai: (và sắp tới)
 
@@ -2156,12 +2155,11 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - lớp học có thể đóng mở để có thể bảo trì
 
 - server Node
-</details> 
- 
- 
-# 18:00:30 2023/10/19 ===== 
- 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+</details>
+
+# 18:00:30 2023/10/19 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 - giao diện cấp quyền mods cho admins
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
@@ -2177,8 +2175,11 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - lớp học có thể đóng mở để có thể bảo trì
 
 - server Node
-### Kết quả: 
+
+### Kết quả:
+
 - Giao diện cấp quyền mods cho admins
+
 ### Công việc ngày mai: (và sắp tới)
 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
@@ -2194,18 +2195,15 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - lớp học có thể đóng mở để có thể bảo trì
 
 - server Node
-</details> 
- 
- 
-# 08:39:31 2023/10/30 ===== 
- 
+</details>
+
+# 08:39:31 2023/10/30 =====
+
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
 - xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
 
 - chức năng thông báo
 
-- trang web quản lý (tiếp tục thực hiện các chức năng cơ bản như tạo lớp học, đóng, bảo trì lớp học, các câu hỏi và câu trả lời)
-
 - danh sách chặn người dùng
 
 - các chức năng về lọc và tìm kiếm
@@ -2213,9 +2211,55 @@ tôi đã làm việc từ 8h30 (không được siêng năng cho lắm) nhưng 
 - lớp học có thể đóng mở để có thể bảo trì
 
 - server Node
-### Kết quả: 
- 
+
+### Kết quả:
+
 ### Công việc ngày mai: (và sắp tới)
- 
+
+xử lý báo cáo bởi Admin
+
 </details> 
  
+# 10:22:54 2023/11/01 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- server Node chat
+
+- xử lý báo cáo trên web (cần có mã phản hồi và cách xử lý (phản hồi về phần thông báo))
+
+- chức năng thông báo
+
+- danh sách chặn người dùng
+
+### Kết quả:
+
+- server Node chat và api liên quan
+
+### Công việc ngày mai: (và sắp tới)
+
+- giao diện cho chat
+
+- chức năng thông báo
+
+- danh sách chặn người dùng
+</details>
+
+# 10:22:54 2023/11/01 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+- giao diện cho chat
+
+- chức năng thông báo
+
+### Kết quả:
+
+- giao diện người dùng đã nhắn tin
+- chuẩn bị cho phần nhắn tin
+
+### Công việc ngày mai: (và sắp tới)
+
+- giao diện cho chat
+
+- chức năng thông báo
+</details>

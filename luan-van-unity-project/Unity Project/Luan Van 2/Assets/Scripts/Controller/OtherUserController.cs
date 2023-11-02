@@ -19,6 +19,7 @@ public class OtherUserController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA waitingFriensOSA;
     public void GetLatestLoginUsers()
     {
+        redirector.Push("latest_users");
         StartCoroutine(GetLatestLoginUsersCoroutine());
     }
 
@@ -71,6 +72,7 @@ public class OtherUserController : MonoBehaviour
 
     public void GetFriends()
     {
+        redirector.Push("other_users");
         StartCoroutine(GetFriendsCoroutine());
     }
 
