@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,9 @@ namespace LuanVan.OSA
     public class UIProfileListViewItem : MonoBehaviour
     {
         [SerializeField] private Image imageAvatar;
-        [SerializeField] private RectTransform messageAndFriendLayout; 
+        [SerializeField] private RectTransform messageAndFriendLayout;
         [SerializeField] private OtherUserController otherUserController;
+        [SerializeField] private MessageController messageController;
         [SerializeField] private ProfileController profileController;
         [SerializeField] private UIProfileModel profileModel;
 
@@ -86,6 +88,24 @@ namespace LuanVan.OSA
             {
                 messageAndFriendLayout.gameObject.SetActive(true);
             }
+        }
+
+        public void StartChat()
+        {
+            UIChatUserModel uIChatUser = new UIChatUserModel()
+            {
+                AvatarPath = profileModel.AvatarPath,
+                Content = "",
+                CreatedAt = DateTime.Now.ToString(),
+                Id = 0,
+                OtherId = int.Parse(profileModel.Id),
+                ReceiverId = 0,
+                SenderId = 0,
+                UserFullname = profileModel.Name,
+                Username = profileModel.Username,
+            };
+
+            messageController.GetMessages(uIChatUser);
         }
     }
 }

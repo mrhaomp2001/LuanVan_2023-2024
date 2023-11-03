@@ -92,9 +92,11 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Button buttonCheckAnswer;
     [SerializeField] private TextMeshProUGUI textDefeatContent;
     [SerializeField] private RectTransform uiCompleteDefeat;
+    [SerializeField] private RectTransform uiTutorial;
 
     [Header("Fighting Monster UIs:")]
     [SerializeField] private RectTransform containerFightingMonster;
+    [SerializeField] private RectTransform containerToturialsFightingMonster;
     [SerializeField] private Animator animatorPlayer;
     [SerializeField] private Animator animatorEnemy;
     [SerializeField] private Slider sliderPlayerHp;
@@ -102,6 +104,7 @@ public class ClassroomController : MonoBehaviour
     [Header("Car Racing UIs:")]
     [SerializeField] private GameRacingController gameRacingController;
     [SerializeField] private RectTransform containerCarRacing;
+    [SerializeField] private RectTransform containerTutorialsCarRacing;
     [SerializeField] private Transform playerCar;
     [SerializeField] private Transform containerObstacles;
     [SerializeField] private List<Transform> obstaclesSprite = new List<Transform>();
@@ -185,10 +188,16 @@ public class ClassroomController : MonoBehaviour
         containerFightingMonster.gameObject.SetActive(false);
         containerCarRacing.gameObject.SetActive(false);
 
+        containerToturialsFightingMonster.gameObject.SetActive(false);
+        containerTutorialsCarRacing.gameObject.SetActive(false);
+
+        uiTutorial.gameObject.SetActive(true);
 
         if (gameTypeId == 1)
         {
             containerFightingMonster.gameObject.SetActive(true);
+            containerToturialsFightingMonster.gameObject.SetActive(true);
+
             playerHpMax = 3;
             sliderPlayerHp.value = playerHpMax;
             sliderPlayerHp.maxValue = playerHpMax;
@@ -197,6 +206,7 @@ public class ClassroomController : MonoBehaviour
         {
             gameRacingController.StartGame();
             containerCarRacing.gameObject.SetActive(true);
+            containerTutorialsCarRacing.gameObject.SetActive(true);
             playerHpMax = 1;
         }
 
@@ -304,7 +314,6 @@ public class ClassroomController : MonoBehaviour
         mainGameplayController.AnsweredQuestionBody = new WWWForm();
 
         playTime = 0f;
-        StartPlayTimer();
     }
 
     public void SelectAnswer(UIAnswerModel answerModel)

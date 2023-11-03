@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\Post;
 use App\Models\PostLike;
 use App\Models\QuestionCollection;
+use App\Models\SystemNotification;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -68,11 +69,14 @@ class GameApiController extends Controller
         }
 
         $notifications = Notification::where("user_id", $request->user_id)->orderBy("created_at")->limit(3)->get();
+        
+        $system_notifications = SystemNotification::orderBy("created_at")->limit(3)->get();
 
         return response()->json(
             [
                 'posts' => $posts,
-                'notifications' => $notifications
+                'notifications' => $notifications,
+                'system_notifications'=> $system_notifications,
             ]
             , 200, [], JSON_UNESCAPED_UNICODE);
     }

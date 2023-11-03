@@ -74,7 +74,7 @@
                                 Quản trị hệ thống
                             </div>
                             <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
-                            <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
+                            <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
                         @endif
                         @if (auth()->user()->role->id >= 2)
                             <hr class="my-1" />
@@ -82,7 +82,6 @@
                                 Quản trị nội dung
                             </div>
                             <a href="{{ route('moderator.classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Lớp học của bạn</a>
-                            <a href="{{ route('reports.posts.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng nhập</a>

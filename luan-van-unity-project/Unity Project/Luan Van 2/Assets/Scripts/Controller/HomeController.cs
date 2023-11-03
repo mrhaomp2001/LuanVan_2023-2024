@@ -13,6 +13,7 @@ public class HomeController : MonoBehaviour
 
     public void GetInfomations()
     {
+        homeOSA.Data.ResetItems(new List<BaseModel>());
         StartCoroutine(GetInfomationsCoroutine());
     }
 
@@ -53,6 +54,26 @@ public class HomeController : MonoBehaviour
         };
 
         homeOSA.Data.InsertOneAtStart(item);
+
+        List<BaseModel> system_notifications = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["system_notifications"].Count; i++)
+        {
+
+            var notification = new UIMultiModel()
+            {
+                Type = "left_text"
+            };
+
+            notification.PassedVariable["content"] = resToValue["system_notifications"][i]["content"];
+
+            system_notifications.Add(new MultiItemModel()
+            {
+                MultiModel = notification,
+            });
+        }
+
+        homeOSA.Data.InsertItemsAtEnd(system_notifications);
 
         // new label
 
