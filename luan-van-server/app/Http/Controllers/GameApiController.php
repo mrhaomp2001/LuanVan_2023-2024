@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Comment;
+use App\Models\Notification;
+use App\Models\Post;
+use App\Models\PostLike;
 use App\Models\QuestionCollection;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +36,45 @@ class GameApiController extends Controller
         }
 
         return response()->json(['data' => count($request->input('data'))], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function getHome(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+            ],
+            [
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+
+        $posts = Post::orderBy('created_at', 'DESC')->where('post_status_id', '1')->limit(3)->get();
+
+        foreach ($posts as $post) {
+            $post->postTemplate;
+            $post->user;
+            $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
+            $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
+            $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
+            $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+        }
+
+        $notifications = Notification::where("user_id", $request->user_id)->orderBy("created_at")->limit(3)->get();
+
+        return response()->json(
+            [
+                'posts' => $posts,
+                'notifications' => $notifications
+            ]
+            , 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getQuestions(Request $request)

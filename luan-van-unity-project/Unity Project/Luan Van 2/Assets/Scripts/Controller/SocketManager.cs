@@ -13,6 +13,7 @@ using static SocketIOUnity;
 public class SocketManager : MonoBehaviour
 {
     [SerializeField] private string endpoint;
+    [SerializeField]private MessageController messageController;
 
     private SocketIOUnity socket;
     public SocketIOUnity Socket { get => socket; set => socket = value; }
@@ -75,10 +76,9 @@ public class SocketManager : MonoBehaviour
 
         socket.OnUnityThread("messageReceived", (res) =>
         {
-            var resToValues = JSONNode.Parse(res.GetValue().GetRawText());
             Debug.Log(res.GetValue().GetRawText());
-            Debug.Log(resToValues["data"]["content"]);
-            Debug.Log(resToValues["data"]["sender"]["name"]);
+
+            messageController.ReceiveMessage(res.GetValue().GetRawText());
         });
     }
 

@@ -2263,3 +2263,20 @@ xử lý báo cáo bởi Admin
 
 - chức năng thông báo
 </details>
+
+# 08:20:03 2023/11/02 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+- giao diện cho chat
+- màn hình home
+- chức năng thông báo
+
+### Kết quả:
+
+- giao diện cho chat
+- màn hình home
+
+### Công việc ngày mai: (và sắp tới)
+
+- chức năng thông báo
+</details>

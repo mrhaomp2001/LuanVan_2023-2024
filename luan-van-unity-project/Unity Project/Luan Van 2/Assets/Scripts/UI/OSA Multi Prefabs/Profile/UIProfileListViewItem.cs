@@ -9,6 +9,7 @@ namespace LuanVan.OSA
     public class UIProfileListViewItem : MonoBehaviour
     {
         [SerializeField] private Image imageAvatar;
+        [SerializeField] private RectTransform messageAndFriendLayout; 
         [SerializeField] private OtherUserController otherUserController;
         [SerializeField] private ProfileController profileController;
         [SerializeField] private UIProfileModel profileModel;
@@ -75,6 +76,15 @@ namespace LuanVan.OSA
             if (!profileModel.AvatarPath.Equals(""))
             {
                 Davinci.get().load(GlobalSetting.Endpoint + profileModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
+            }
+
+            if (profileModel.Id == GlobalSetting.LoginUser.Id)
+            {
+                messageAndFriendLayout.gameObject.SetActive(false);
+            }
+            else
+            {
+                messageAndFriendLayout.gameObject.SetActive(true);
             }
         }
     }

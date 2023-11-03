@@ -43,6 +43,7 @@ Route::post('/test', [GameApiController::class, 'testApi']);
 
 
 Route::get('/questions', [GameApiController::class, 'getQuestions']);
+Route::get('/home', [GameApiController::class, 'getHome']);
 
 Route::get('/login', [GameApiController::class, 'login']);
 Route::post('/register', [GameApiController::class, 'register']);

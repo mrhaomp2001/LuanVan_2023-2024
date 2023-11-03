@@ -11,6 +11,7 @@ public class AuthController : MonoBehaviour
     [SerializeField] private Redirector redirector;
     [SerializeField] private FooterNoticeController footerNoticeController;
     [SerializeField] private SocketManager socketManager;
+    [SerializeField] private HomeController homeController;
     [Header("UIs: ")]
     [SerializeField] private TMP_InputField inputFieldUsernameLogin;
     [SerializeField] private TMP_InputField inputFieldPasswordLogin;
@@ -107,6 +108,8 @@ public class AuthController : MonoBehaviour
         GlobalSetting.LoginUser.CreatedAt = resToValue["data"]["created_at"];
         GlobalSetting.LoginUser.UpdatedAt = resToValue["data"]["updated_at"];
         GlobalSetting.LoginUser.AvatarPath = resToValue["data"]["avatar_path"];
+
+        homeController.GetInfomations();
 
         socketManager.Connect();
     }

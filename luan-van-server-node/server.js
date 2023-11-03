@@ -23,12 +23,15 @@ socketIO.on("connection", function (socket) {
     console.log("\n");
   });
 
-  socket.on("sendEvent", async function (data) {
+  socket.on("sendEvent", async function (data, ack) {
+    ack(data);
     axios
       .post(process.env.ENDPOINT + "messages", data)
       .then((response) => {
         console.log("Response:", response.data);
-        socketIO.to(users[data.receiver_id]).emit("messageReceived", response.data);
+        socketIO
+          .to(users[data.receiver_id])
+          .emit("messageReceived", response.data);
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -138,7 +138,7 @@ class MessageController extends Controller
         })->orWhere(function ($query) use ($senderId, $receiverId) {
             $query->where('sender_id', $receiverId)
                 ->where('receiver_id', $senderId);
-        })->orderBy('created_at', 'desc')->get();
+        })->orderBy('created_at')->get();
 
         return response()->json(['data' => $messages], 200, [], JSON_UNESCAPED_UNICODE);
     }

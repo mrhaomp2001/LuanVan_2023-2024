@@ -51,25 +51,7 @@ public class NotificationController : MonoBehaviour
 
             notification.PassedVariable["content"] = "Place Holder";
 
-            if (resToValue["data"][i]["notification_type"]["id"] == 1)
-            {
-                notification.PassedVariable["content"] = "<b>" + resToValue["data"][i]["sender"]["name"] + "</b>" + " đã thích bài viết của bạn";
-            }
-
-            if (resToValue["data"][i]["notification_type"]["id"] == 2)
-            {
-                notification.PassedVariable["content"] = "<b>" + resToValue["data"][i]["sender"]["name"] + "</b>" + " đã bình luận vào bài viết của bạn";
-            }
-
-            if (resToValue["data"][i]["notification_type"]["id"] == 3)
-            {
-                notification.PassedVariable["content"] = "<b>" + resToValue["data"][i]["sender"]["name"] + "</b>" + " đã đánh giá cao bình luận của bạn";
-            }
-
-            if (resToValue["data"][i]["notification_type"]["id"] == 4)
-            {
-                notification.PassedVariable["content"] = "<b>" + resToValue["data"][i]["sender"]["name"] + "</b>" + " đánh giá thấp bình luận của bạn";
-            }
+            notification.PassedVariable["content"] = "<b>" + resToValue["data"][i]["sender"]["name"] + "</b>" + NotificateProcess(resToValue["data"][i]["notification_type"]["id"]) + "<b>" + TruncateLongString(resToValue["data"][i]["model"]["content"], 20) + "</b>";
 
             notifications.Add(new MultiItemModel()
             {
@@ -83,5 +65,29 @@ public class NotificationController : MonoBehaviour
         }
 
         notificationsOSA.Data.InsertItemsAtEnd(notifications);
+    }
+
+    public string NotificateProcess(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                return " đã thích bài viết ";
+            case 2:
+                return " đã bình luận vào bài viết ";
+            case 3:
+                return " đã đánh giá cao bình luận ";
+            case 4:
+                return " đánh giá thấp bình luận ";
+            default:
+                return "default";
+        }
+    }
+
+    public string TruncateLongString(string str, int maxLength)
+    {
+        if (string.IsNullOrEmpty(str)) return str;
+
+        return str.Substring(0, Mathf.Min(str.Length, maxLength)) + "...";
     }
 }

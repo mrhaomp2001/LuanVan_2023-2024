@@ -1,16 +1,26 @@
 using Library;
 using LuanVan.OSA;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class MessageController : MonoBehaviour
 {
     [SerializeField] private Redirector redirector;
-    [SerializeField] private UIChatUserModel currentChatUserModel;
+    [SerializeField] private TextMeshProUGUI userFullnameHeader;
+    [SerializeField] private TMP_InputField inputFieldChatMessage;
+
     [SerializeField] private UIMultiPrefabsOSA chatUserOSA;
     [SerializeField] private UIMultiPrefabsOSA chatOSA;
+    [SerializeField] private bool isEndOfMessages;
+    [SerializeField] private SocketManager socketManager;
+    [SerializeField] private UIChatUserModel currentChatUserModel;
+
+    public bool IsEndOfMessages { get => isEndOfMessages; set => isEndOfMessages = value; }
+
     public void GetChatUsers()
     {
         StartCoroutine(GetChatUsersCoroutine());
@@ -68,9 +78,10 @@ public class MessageController : MonoBehaviour
     public void GetMessages(UIChatUserModel chatUserModel)
     {
         currentChatUserModel = chatUserModel;
+        userFullnameHeader.text = chatUserModel.UserFullname;
 
         redirector.Push("chat");
-
+        chatOSA.Data.ResetItems(new List<BaseModel>());
         StartCoroutine(GetMessagesCoroutine());
     }
 
@@ -119,6 +130,23 @@ public class MessageController : MonoBehaviour
                 }
             };
 
+            if (message.MessageModel.ReceiverId.ToString() == GlobalSetting.LoginUser.Id)
+            {
+                message.MessageModel.ReceiverFullName = GlobalSetting.LoginUser.Name;
+                message.MessageModel.ReceiverUsername = GlobalSetting.LoginUser.Username;
+
+                message.MessageModel.SenderFullName = currentChatUserModel.UserFullname;
+                message.MessageModel.SenderUsername = currentChatUserModel.Username;
+            }
+            else
+            {
+                message.MessageModel.ReceiverFullName = currentChatUserModel.UserFullname;
+                message.MessageModel.ReceiverUsername = currentChatUserModel.Username;
+
+                message.MessageModel.SenderFullName = GlobalSetting.LoginUser.Name;
+                message.MessageModel.SenderUsername = GlobalSetting.LoginUser.Username;
+            }
+
             listMessage.Add(message);
         }
 
@@ -127,5 +155,93 @@ public class MessageController : MonoBehaviour
         {
             chatOSA.ScrollTo(chatOSA.Data.Count - 1);
         }
+        isEndOfMessages = true;
+    }
+
+    public void ReceiveMessage(string res)
+    {
+        var resToValues = JSONNode.Parse(res);
+
+        bool isScrollToEnd = isEndOfMessages;
+
+        var message = new MessageItemModel()
+        {
+            MessageModel = new UIMessageModel()
+            {
+                Content = resToValues["data"]["content"],
+                CreatedAt = resToValues["data"]["created_at"],
+                Id = resToValues["data"]["id"],
+                ReceiverFullName = resToValues["data"]["receiver"]["name"],
+                ReceiverId = resToValues["data"]["receiver_id"],
+                ReceiverUsername = resToValues["data"]["receiver"]["username"],
+                SenderFullName = resToValues["data"]["sender"]["name"],
+                SenderId = resToValues["data"]["sender_id"],
+                SenderUsername = resToValues["data"]["sender"]["username"],
+            }
+        };
+
+        if (message.MessageModel.SenderId == currentChatUserModel.OtherId)
+        {
+            chatOSA.Data.InsertOneAtEnd(message);
+
+            if (isScrollToEnd)
+            {
+                if (chatOSA.Data.Count > 1)
+                {
+                    chatOSA.ScrollTo(chatOSA.Data.Count - 1);
+                }
+            }
+        }
+
+        GetChatUsers();
+
+    }
+
+    public void SendChatMessage()
+    {
+        var chatReq = new
+        {
+            sender_id = GlobalSetting.LoginUser.Id,
+            receiver_id = currentChatUserModel.OtherId,
+            content = inputFieldChatMessage.text,
+        };
+
+        bool isScrollToEnd = isEndOfMessages;
+
+        var message = new MessageItemModel()
+        {
+            MessageModel = new UIMessageModel()
+            {
+                Content = inputFieldChatMessage.text,
+                CreatedAt = DateTime.Now.ToString(),
+                Id = 0,
+                ReceiverFullName = currentChatUserModel.Username,
+                ReceiverId = currentChatUserModel.OtherId,
+                ReceiverUsername = currentChatUserModel.UserFullname,
+                SenderFullName = GlobalSetting.LoginUser.Name,
+                SenderId = int.Parse(GlobalSetting.LoginUser.Id),
+                SenderUsername = GlobalSetting.LoginUser.Username,
+            }
+        };
+
+        chatOSA.Data.InsertOneAtEnd(message);
+
+        if (isScrollToEnd)
+        {
+            if (chatOSA.Data.Count > 1)
+            {
+                chatOSA.ScrollTo(chatOSA.Data.Count - 1);
+            }
+        }
+
+        inputFieldChatMessage.text = "";
+
+        socketManager.Socket.Emit("sendEvent", (res) =>
+        {
+            socketManager.Socket.ExecuteInUnityUpdateThread(() =>
+            {
+                GetChatUsers();
+            });
+        }, chatReq);
     }
 }
