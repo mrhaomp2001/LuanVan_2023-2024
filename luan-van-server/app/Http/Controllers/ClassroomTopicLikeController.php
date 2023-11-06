@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassroomTopicLike;
 use App\Http\Requests\StoreClassroomTopicLikeRequest;
 use App\Http\Requests\UpdateClassroomTopicLikeRequest;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -98,6 +99,19 @@ class ClassroomTopicLikeController extends Controller
                 'like_status' => $request->status,
             ]
         );
+
+        if ($like->classroom_topic->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $like->classroom_topic->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => ($like->like_status == 1) ? 6 : 10,
+                ],
+                [
+                    'model_id' => $request->classroom_topic_id,
+                ]
+            );
+        }
 
         return response()->json(['data' => $like], 200, [], JSON_UNESCAPED_UNICODE);
     }

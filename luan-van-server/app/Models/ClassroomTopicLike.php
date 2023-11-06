@@ -19,4 +19,14 @@ class ClassroomTopicLike extends Model
         'user_id',
         'like_status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function classroom_topic()
+    {
+        return $this->belongsTo(ClassroomTopic::class, 'classroom_topic_id');
+    }
 }

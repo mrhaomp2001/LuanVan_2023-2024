@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CommentLike;
 use App\Http\Requests\StoreCommentLikeRequest;
 use App\Http\Requests\UpdateCommentLikeRequest;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class CommentLikeController extends Controller
@@ -95,6 +96,19 @@ class CommentLikeController extends Controller
                 'like_status' => $request->like_status,
             ]
         );
+
+        if ($comment_like->comment->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $comment_like->comment->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => ($comment_like->like_status == 1) ? 3 : 4,
+                ],
+                [
+                    'model_id' => $request->comment_id,
+                ]
+            );
+        }
 
         return response()->json(['data' => $comment_like], 200, [], JSON_UNESCAPED_UNICODE);
     }

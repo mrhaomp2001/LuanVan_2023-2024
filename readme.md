@@ -2280,16 +2280,32 @@ xử lý báo cáo bởi Admin
 
 - chức năng thông báo
 </details>
- 
-# 11:23:06 2023/11/03 ===== 
- 
+
+# 11:23:06 2023/11/03 =====
+
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
 - cập nhật thêm cho màn hình home
 - chức năng thông báo
 
-### Kết quả: 
+### Kết quả:
+
 - cập nhật thêm cho màn hình home
+
 ### Công việc ngày mai: (và sắp tới)
+
 - chức năng thông báo
-</details> 
- 
+</details>
+
+# 13:59:05 2023/11/06 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+- chức năng thông báo
+
+### Kết quả:
+
+- chức năng thông báo
+
+### Công việc ngày mai: (và sắp tới)
+
+- xử lý phần nhập của người dùng
+</details>

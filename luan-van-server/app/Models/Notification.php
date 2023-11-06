@@ -58,7 +58,7 @@ class Notification extends Model
 
     protected function getModelAttribute()
     {
-        if ($this->notification_type_id == 1 || $this->notification_type_id == 2) {
+        if ($this->notification_type_id == 1 || $this->notification_type_id == 2 || $this->notification_type_id == 5) {
             $post = Post::find($this->model_id);
 
             if ($post->post_status_id == 1) {
@@ -69,10 +69,32 @@ class Notification extends Model
             return $post;
         }
 
-        if ($this->notification_type_id == 3) {
+        if ($this->notification_type_id == 3 || $this->notification_type_id == 4) {
             $comment = Comment::find($this->model_id);
 
             if ($comment->comment_status_id == 1) {
+                return $comment;
+            }
+
+            $comment->error = "Đây là bình luận đã xóa! Không được hiển thị";
+            return $comment;
+        }
+
+        if ($this->notification_type_id == 6 || $this->notification_type_id == 7 || $this->notification_type_id == 10) {
+            $topic = ClassroomTopic::find($this->model_id);
+
+            if ($topic->topic_status_id == 1) {
+                return $topic;
+            }
+
+            $topic->error = "Đây là bài thảo luận đã xóa hoặc riêng tư! Không được hiển thị";
+            return $topic;
+        }
+
+        if ($this->notification_type_id == 8 || $this->notification_type_id == 9) {
+            $comment = TopicComment::find($this->model_id);
+
+            if ($comment->topic_comment_status_id == 1) {
                 return $comment;
             }
 

@@ -68,7 +68,21 @@ class GameApiController extends Controller
             $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
         }
 
-        $notifications = Notification::where("user_id", $request->user_id)->orderBy("created_at")->limit(3)->get();
+        $notifications_not_filtered = Notification::where("user_id", $request->user_id)->orderByDesc("created_at")->get();
+
+        $notifications = collect();
+        $notification_count = 0;
+
+        foreach ($notifications_not_filtered as $notification) {
+            if (!isset($notification->model->error)) {
+                $notifications->add($notification);
+                $notification_count++;
+
+                if ($notification_count >= 3) {
+                    break;
+                }
+            }
+        }
         
         $system_notifications = SystemNotification::orderBy("created_at")->limit(3)->get();
 

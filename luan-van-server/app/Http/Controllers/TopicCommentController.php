@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\TopicComment;
 use App\Http\Requests\StoreTopicCommentRequest;
 use App\Http\Requests\UpdateTopicCommentRequest;
@@ -168,6 +169,19 @@ class TopicCommentController extends Controller
             ]
         );
         $comment->user;
+
+        if ($comment->topic->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $comment->topic->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => 7,
+                ],
+                [
+                    'model_id' => $request->classroom_topic_id,
+                ]
+            );
+        }
         
         return response()->json(['data' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
     }

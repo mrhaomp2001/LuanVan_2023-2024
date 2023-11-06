@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\PostLike;
 use App\Http\Requests\StorePostLikeRequest;
 use App\Http\Requests\UpdatePostLikeRequest;
@@ -88,13 +89,26 @@ class PostLikeController extends Controller
 
         $post_like = PostLike::updateOrCreate(
             [
-                'user_id' => $request->user_id, 
+                'user_id' => $request->user_id,
                 'post_id' => $request->post_id,
             ],
             [
                 'like_status' => $request->like_status,
             ]
         );
+
+        if ($post_like->post->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $post_like->post->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => ($post_like->like_status == 1) ? 1 : 5,
+                ],
+                [
+                    'model_id' => $request->post_id,
+                ]
+            );
+        }
 
         return response()->json(['data' => $post_like], 200, [], JSON_UNESCAPED_UNICODE);
     }

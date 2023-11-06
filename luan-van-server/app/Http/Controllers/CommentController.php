@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\CommentLike;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -167,6 +168,19 @@ class CommentController extends Controller
         ]);
 
         $comment->user;
+
+        if ($comment->post->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $comment->post->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => 2,
+                ],
+                [
+                    'model_id' => $request->post_id,
+                ]
+            );
+        }
 
         return response()->json(['data' => $comment], 200, [], JSON_UNESCAPED_UNICODE);
     }

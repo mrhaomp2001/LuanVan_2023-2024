@@ -18,4 +18,13 @@ class TopicCommentLike extends Model
         'user_id',
         'like_status',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, "user_id");
+    }
+
+    public function topic_comment()
+    {
+        return $this->belongsTo(TopicComment::class, "topic_comment_id");
+    }
 }

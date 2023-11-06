@@ -29,5 +29,31 @@ class NotificationTypeSeeder extends Seeder
         NotificationType::create([
             'description' => 'Ai đó đã không thích bình luận của bạn', 
         ]);
+
+        NotificationType::create([
+            'description' => 'Ai đó đã không thích bài viết của bạn', 
+        ]);
+
+        //
+
+        NotificationType::create([
+            'description' => 'Ai đó đã thích bài thảo luận của bạn', 
+        ]);
+
+        NotificationType::create([
+            'description' => 'Ai đó đã bình luận vào bài thảo luận của bạn', 
+        ]);
+
+        NotificationType::create([
+            'description' => 'Ai đó đã thích câu trả lời của bạn', 
+        ]);
+
+        NotificationType::create([
+            'description' => 'Ai đó đã không thích câu trả lời của bạn', 
+        ]);
+
+        NotificationType::create([
+            'description' => 'Ai đó đã không thích bài thảo luận của bạn', 
+        ]);
     }
 }

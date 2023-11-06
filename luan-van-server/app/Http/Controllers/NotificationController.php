@@ -67,7 +67,8 @@ class NotificationController extends Controller
         //
     }
 
-    public function getNotifications(Request $request) {
+    public function getNotifications(Request $request)
+    {
         $input = $request->all();
         $validator = Validator::make(
             $input,
@@ -83,7 +84,15 @@ class NotificationController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $notifications = User::find($request->user_id)->notifications;
+        $notifications_not_filtered = User::find($request->user_id)->notifications;
+
+        $notifications = collect();
+
+        foreach ($notifications_not_filtered as $notification) {
+            if (!isset($notification->model->error)) {
+                $notifications->add($notification);
+            }
+        }
 
         return response()->json(['data' => $notifications], 200, [], JSON_UNESCAPED_UNICODE);
 

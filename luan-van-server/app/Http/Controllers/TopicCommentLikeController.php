@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\TopicCommentLike;
 use App\Http\Requests\StoreTopicCommentLikeRequest;
 use App\Http\Requests\UpdateTopicCommentLikeRequest;
@@ -96,6 +97,19 @@ class TopicCommentLikeController extends Controller
                 'like_status' => $request->status,
             ]
         );
+
+        if ($status->topic_comment->user->id != $request->user_id) {
+            Notification::updateOrCreate(
+                [
+                    'user_id' => $status->topic_comment->user->id,
+                    'sender_id' => $request->user_id,
+                    'notification_type_id' => ($status->like_status == 1) ? 8 : 9,
+                ],
+                [
+                    'model_id' => $request->topic_comment_id,
+                ]
+            );
+        }
 
         return response()->json(['data' => $status], 200, [], JSON_UNESCAPED_UNICODE);
     }
