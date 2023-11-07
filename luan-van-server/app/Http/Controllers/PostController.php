@@ -200,7 +200,7 @@ class PostController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => $validator->messages()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         $post = Post::create(

@@ -2309,3 +2309,14 @@ xử lý báo cáo bởi Admin
 
 - xử lý phần nhập của người dùng
 </details>
+ 
+# 08:11:34 2023/11/07 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+ 
+### Kết quả: 
+ 
+### Công việc ngày mai: (và sắp tới)
+ 
+</details> 
+ 

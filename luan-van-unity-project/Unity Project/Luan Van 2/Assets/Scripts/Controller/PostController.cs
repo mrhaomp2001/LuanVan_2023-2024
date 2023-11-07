@@ -16,6 +16,7 @@ public class PostController : MonoBehaviour
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private FooterNoticeController footerNoticeController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA postOSA;
     [SerializeField] private UIMultiPrefabsOSA postFilterOSA;
@@ -155,6 +156,8 @@ public class PostController : MonoBehaviour
             }
         }
 
+        responseErrorChecker.SendRequest();
+
         if (isEdit)
         {
             StartCoroutine(UpdateAPostCoroutine());
@@ -164,7 +167,6 @@ public class PostController : MonoBehaviour
             StartCoroutine(UploadAPostCoroutine());
         }
 
-        redirector.Pop();
     }
 
     public IEnumerator UploadAPostCoroutine()
@@ -200,12 +202,22 @@ public class PostController : MonoBehaviour
             yield break;
         }
 
-        footerNoticeController.SendAFooterMessage("Bạn đã đăng bài thành công!");
 
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
 
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+
+        responseErrorChecker.GetResponse("");
+        redirector.Pop();
+        footerNoticeController.SendAFooterMessage("Bạn đã đăng bài thành công!");
     }
 
     public IEnumerator UpdateAPostCoroutine()
@@ -255,12 +267,21 @@ public class PostController : MonoBehaviour
             yield break;
         }
 
-        footerNoticeController.SendAFooterMessage("Bạn đã sửa bài đăng thành công!");
-
         string res = request.downloadHandler.text;
 
-
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        redirector.Pop();
+        footerNoticeController.SendAFooterMessage("Bạn đã sửa bài đăng thành công!");
     }
 
     public void DeletePost()

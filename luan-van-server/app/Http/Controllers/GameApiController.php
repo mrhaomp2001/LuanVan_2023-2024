@@ -168,7 +168,7 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'username' => 'required|',
+                'username' => 'required',
                 'password' => 'required'
             ],
             [

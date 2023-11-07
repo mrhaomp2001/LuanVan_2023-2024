@@ -107,7 +107,7 @@ class ReportController extends Controller
                 'report_type_id' => "required|exists:report_types,id",
                 'model_id' => "required",
                 'model_type' => "required",
-                'content' => "required",
+                'content' => "",
             ],
             [
 

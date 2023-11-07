@@ -1,4 +1,4 @@
-using Library;
+﻿using Library;
 using LuanVan.OSA;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +27,13 @@ public class ReportController : MonoBehaviour
         currentModelType = "post";
         postUtilitiesPopupMenu.gameObject.SetActive(false);
         redirector.Push("report");
+        ShowReportTypesDefault();
+    }
+
+    private void ShowReportTypesDefault()
+    {
+        reportTypeId = 0;
+        textReportTypeName.text = "Chọn lý do";
     }
 
     public void ShowUIReportComment()
@@ -34,6 +41,7 @@ public class ReportController : MonoBehaviour
         currentReportType = "comments";
         currentModelType = "comment";
         redirector.Push("report");
+        ShowReportTypesDefault();
     }
 
     public void ShowUIReportTopic()
@@ -41,6 +49,7 @@ public class ReportController : MonoBehaviour
         currentReportType = "topics";
         currentModelType = "topic";
         redirector.Push("report");
+        ShowReportTypesDefault();
     }
 
     public void ShowUIReportTopicComment()
@@ -48,11 +57,15 @@ public class ReportController : MonoBehaviour
         currentReportType = "topic_comments";
         currentModelType = "topic_comment";
         redirector.Push("report");
+        ShowReportTypesDefault();
     }
 
     public void GetReportPostTypes()
     {
         redirector.Push("report.type");
+        
+        reportTypesOSA.Data.ResetItems(new List<BaseModel>());
+
         StartCoroutine(GetReportPostTypesCoroutine());
     }
 

@@ -12,10 +12,12 @@ public class AuthController : MonoBehaviour
     [SerializeField] private FooterNoticeController footerNoticeController;
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private HomeController homeController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [Header("UIs: ")]
     [SerializeField] private TMP_InputField inputFieldUsernameLogin;
     [SerializeField] private TMP_InputField inputFieldPasswordLogin;
     [SerializeField] private Button btnQuitLogin, btnQuitRegister;
+    [SerializeField] private RectTransform notLoginContainer;
     [Header(" --- ")]
     [SerializeField] private TMP_InputField inputFieldNameRegister;
     [SerializeField] private TMP_InputField inputFieldUsernameRegister;
@@ -44,6 +46,8 @@ public class AuthController : MonoBehaviour
         btnQuitLogin.interactable = false;
         btnQuitRegister.interactable = false;
 
+        responseErrorChecker.SendRequest();
+
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/login" +
             "?username=" + inputFieldUsernameLogin.text +
             "&password=" + inputFieldPasswordLogin.text);
@@ -64,8 +68,14 @@ public class AuthController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
-        
-        redirector.Pop();
+
+        var resToValue = JSONNode.Parse(res);
+
+
+        if (resToValue["message"] == null)
+        {
+            redirector.Pop();
+        }
 
         LoginResponse(res);
     }
@@ -82,6 +92,8 @@ public class AuthController : MonoBehaviour
             "&password=" + password);
 
         inputFieldPasswordLogin.text = "";
+
+        responseErrorChecker.SendRequest();
 
         yield return request.SendWebRequest();
 
@@ -102,6 +114,16 @@ public class AuthController : MonoBehaviour
     private void LoginResponse(string res)
     {
         var resToValue = JSONNode.Parse(res);
+
+        if (resToValue["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValue["message"]);
+            return;
+        }
+
+        responseErrorChecker.GetResponse("");
+        notLoginContainer.gameObject.SetActive(false);
+
         GlobalSetting.LoginUser.Username = resToValue["data"]["username"];
         GlobalSetting.LoginUser.Name = resToValue["data"]["name"];
         GlobalSetting.LoginUser.Id = resToValue["data"]["id"];
