@@ -148,12 +148,15 @@ class TopicCommentController extends Controller
             [
                 'user_id' => 'required|exists:users,id',
                 'classroom_topic_id' => 'required|exists:classrooms,id',
-                'content' => 'required',
+                'content' => 'required|min:1|max:256',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
                 'classroom_topic_id.required' => 'classroom_id.required',
-                'content.required' => 'content.required',
+                'classroom_topic_id.exists' => 'Bài đăng không tồn tại',
+                'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
             ]
         );
 
@@ -192,13 +195,15 @@ class TopicCommentController extends Controller
             $input,
             [
                 'id' => 'required|exists:topic_comments,id',
-                'content' => 'required',
+                'content' => 'required|min:1|max:256',
                 'topic_comment_status_id' => 'required',
             ],
             [
                 'id.required' => 'id.required',
-                'content.required' => 'content.required',
                 'topic_comment_status_id.required' => 'topic_comment_status_id.required',
+                'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
             ]
         );
 

@@ -152,8 +152,8 @@ class ClassroomTopicController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'classroom_id' => 'required|exists:classrooms,id',
                 'topic_status_id' => 'required',
-                'title' => 'sometimes',
-                'content' => 'required',
+                'title' => 'sometimes|max:128',
+                'content' => 'required|min:1|max:256',
                 'image' => [
                     'sometimes',
                     File::image()
@@ -162,7 +162,10 @@ class ClassroomTopicController extends Controller
                 ],
             ],
             [
-
+                'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
+                'title.max' => 'Tiêu đề tối đa 128 ký tự',
             ]
         );
 
@@ -202,8 +205,8 @@ class ClassroomTopicController extends Controller
             [
                 'id' => 'required|exists:classroom_topics,id',
                 'topic_status_id' => 'required',
-                'title' => 'sometimes',
-                'content' => 'required',
+                'title' => 'sometimes|max:128',
+                'content' => 'required|min:1|max:256',
                 'image' => [
                     'sometimes',
                     File::image()
@@ -212,7 +215,10 @@ class ClassroomTopicController extends Controller
                 ],
             ],
             [
-
+                'content.required' => 'Content không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
+                'title.max' => 'Tiêu đề tối đa 128 ký tự',
             ]
         );
 

@@ -19,6 +19,7 @@ public class ClassroomTopicController : MonoBehaviour
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private ClassroomController classroomController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [Header("OSAs: ")]
     [SerializeField] private UIMultiPrefabsOSA classroomInfoOSA;
     [SerializeField] private UIMultiPrefabsOSA topicCommentOSA;
@@ -188,6 +189,7 @@ public class ClassroomTopicController : MonoBehaviour
                         UserFullName = resToValue["data"]["data"][i]["user"]["name"],
                         UserId = resToValue["data"]["data"][i]["user"]["id"],
                         Username = resToValue["data"]["data"][i]["user"]["username"],
+                        AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                     }
                 });
 
@@ -290,6 +292,7 @@ public class ClassroomTopicController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -302,6 +305,15 @@ public class ClassroomTopicController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
 
         CreateTopicReponse(res);
     }
@@ -325,6 +337,7 @@ public class ClassroomTopicController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/edit", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -337,6 +350,15 @@ public class ClassroomTopicController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
 
         CreateTopicReponse(res);
     }
@@ -389,7 +411,7 @@ public class ClassroomTopicController : MonoBehaviour
         btnEditComment.gameObject.SetActive(false);
         btnDeleteComment.gameObject.SetActive(false);
 
-        if (topicCommentModel.Id.Equals(GlobalSetting.LoginUser.Id))
+        if (topicCommentModel.UserId.Equals(GlobalSetting.LoginUser.Id))
         {
             btnEditComment.gameObject.SetActive(true);
             btnDeleteComment.gameObject.SetActive(true);
@@ -419,6 +441,7 @@ public class ClassroomTopicController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/comments/edit", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -428,13 +451,22 @@ public class ClassroomTopicController : MonoBehaviour
             yield break;
         }
 
-        topicCommentEditContainer.gameObject.SetActive(false);
-
-        classroomController.ShowTopicComments(classroomController.CurrentTopicSellect);
-
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        topicCommentEditContainer.gameObject.SetActive(false);
+
+        classroomController.ShowTopicComments(classroomController.CurrentTopicSellect);
     }
 
     public void DeleteComment()

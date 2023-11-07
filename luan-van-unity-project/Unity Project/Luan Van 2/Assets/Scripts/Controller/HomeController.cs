@@ -17,6 +17,11 @@ public class HomeController : MonoBehaviour
         StartCoroutine(GetInfomationsCoroutine());
     }
 
+    public void Logout()
+    {
+        homeOSA.Data.ResetItems(new List<BaseModel>());
+    }
+
     public IEnumerator GetInfomationsCoroutine()
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/home" +

@@ -214,8 +214,8 @@ public class PostController : MonoBehaviour
             Debug.Log(resToValues["message"][0][0]);
             yield break;
         }
-
         responseErrorChecker.GetResponse("");
+
         redirector.Pop();
         footerNoticeController.SendAFooterMessage("Bạn đã đăng bài thành công!");
     }
@@ -543,6 +543,8 @@ public class PostController : MonoBehaviour
             "&post_id=" + postModel.PostId +
             "&per_page=" + commentGetPerPage);
 
+
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -554,6 +556,15 @@ public class PostController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
 
         GetCommentsResponse(res);
     }
@@ -693,9 +704,6 @@ public class PostController : MonoBehaviour
 
         var post = postCommentOSA.Data[0] as PostItemModel;
 
-        post.PostModel.CommentCount++;
-        postCommentOSA.ForceUpdateViewsHolderIfVisible(0);
-
         foreach (var postInPostOSA in postOSA.Data)
         {
             if (postInPostOSA is PostItemModel postNeedEdit)
@@ -713,6 +721,7 @@ public class PostController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/comments", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -721,11 +730,24 @@ public class PostController : MonoBehaviour
             yield break;
         }
 
-        footerNoticeController.SendAFooterMessage("Gửi bình luận Thành công");
 
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        footerNoticeController.SendAFooterMessage("Gửi bình luận Thành công");
+
+        post.PostModel.CommentCount++;
+        postCommentOSA.ForceUpdateViewsHolderIfVisible(0);
 
         var resToValue = JSONNode.Parse(res);
 
@@ -868,9 +890,6 @@ public class PostController : MonoBehaviour
         body.AddField("content", inputFieldEditComment.text);
         body.AddField("comment_status_id", 1);
 
-        currentCommentModelSelect.Content = inputFieldEditComment.text;
-
-        postCommentOSA.ForceUpdateViewsHolderIfVisible(currentCommentModelSelect.ViewsHolder.ItemIndex);
 
         inputFieldEditComment.text = "";
 
@@ -882,6 +901,7 @@ public class PostController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/post/comment/edit", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -890,11 +910,25 @@ public class PostController : MonoBehaviour
             yield break;
         }
 
-        footerNoticeController.SendAFooterMessage("Bạn đã sửa bình luận thành công!");
 
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        footerNoticeController.SendAFooterMessage("Bạn đã sửa bình luận thành công!");
+
+        currentCommentModelSelect.Content = inputFieldEditComment.text;
+
+        postCommentOSA.ForceUpdateViewsHolderIfVisible(currentCommentModelSelect.ViewsHolder.ItemIndex);
+
+        responseErrorChecker.GetResponse("");
     }
 
     public void CheckAndGetOldPosts(UIPostModel postModel)

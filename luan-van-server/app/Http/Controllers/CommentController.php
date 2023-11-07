@@ -144,14 +144,15 @@ class CommentController extends Controller
             [
                 'user_id' => 'required',
                 'post_id' => 'required',
-                'content' => 'required|min:1',
+                'content' => 'required|min:1|max:256',
                 'comment_status_id' => 'required',
             ],
             [
                 'user_id.required' => 'User Id không được rỗng',
                 'post_id.required' => 'Id Bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
-                'content.min' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
                 'comment_status_id.required' => 'Trạng thái không được rỗng',
             ]
         );
@@ -192,13 +193,14 @@ class CommentController extends Controller
             $input,
             [
                 'comment_id' => 'required',
-                'content' => 'required|min:1',
+                'content' => 'required|min:1|max:256',
                 'comment_status_id' => 'required',
             ],
             [
                 'comment_id.required' => 'Id Bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
-                'content.min' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
                 'comment_status_id.required' => 'Trạng thái không được rỗng',
             ]
         );

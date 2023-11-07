@@ -178,11 +178,11 @@ class PostController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'content' => 'required|min:1',
+                'content' => 'required|min:1|max:256',
                 'user_id' => 'required|exists:users,id',
                 'post_template_id' => 'required|exists:post_templates,id',
                 'post_status_id' => 'required',
-                'title' => 'sometimes',
+                'title' => 'sometimes|min:1|max:128',
                 'image' => [
                     'sometimes',
                     File::image()
@@ -191,8 +191,11 @@ class PostController extends Controller
                 ],
             ],
             [
-                'content.required' => 'Content không được rỗng',
-                'content.min' => 'Content không được rỗng',
+                'content.required' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
+                'title.min' => 'Tiêu đề tối thiểu 1 ký tự',
+                'title.max' => 'Tiêu đề tối đa 128 ký tự',
                 'user_id.required' => 'User Id không được rỗng',
                 'post_template_id.required' => 'Id mẫu bài viết không được rỗng',
                 'post_status_id.required' => 'trạng thái bài viết không được rỗng',
@@ -231,9 +234,9 @@ class PostController extends Controller
             $input,
             [
                 'id' => 'required|exists:posts,id',
-                'content' => 'required|min:1',
+                'content' => 'required|min:1|max:256',
                 'post_template_id' => 'required',
-                'title' => 'sometimes',
+                'title' => 'sometimes|min:1|max:128',
                 'post_status_id' => '',
                 'image' => [
                     'sometimes',
@@ -245,7 +248,10 @@ class PostController extends Controller
             [
                 'id.required' => 'Id bài viết không được rỗng',
                 'content.required' => 'Nội dung không được rỗng',
-                'content.min' => 'Nội dung không được rỗng',
+                'content.min' => 'Nội dung tối thiểu 1 ký tự',
+                'content.max' => 'Nội dung tối đa 256 ký tự',
+                'title.min' => 'Tiêu đề tối thiểu 1 ký tự',
+                'title.max' => 'Tiêu đề tối đa 128 ký tự',
                 'post_template_id.required' => 'Id của mẫu bài viết không được rỗng',
                 'post_status_id' => '',
             ]

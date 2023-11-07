@@ -136,6 +136,19 @@ public class AuthController : MonoBehaviour
         socketManager.Connect();
     }
 
+    public void Logout()
+    {
+        GlobalSetting.LoginUser.Username = "";
+        GlobalSetting.LoginUser.Name = "";
+        GlobalSetting.LoginUser.Id = "";
+        GlobalSetting.LoginUser.CreatedAt = "";
+        GlobalSetting.LoginUser.UpdatedAt = "";
+        GlobalSetting.LoginUser.AvatarPath = "";
+        redirector.Pop();
+        redirector.Push("home");
+        homeController.Logout();
+    }
+
 
     public void Register()
     {

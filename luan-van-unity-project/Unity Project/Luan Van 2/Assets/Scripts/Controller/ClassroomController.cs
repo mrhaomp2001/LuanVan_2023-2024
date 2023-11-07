@@ -50,6 +50,7 @@ public class ClassroomController : MonoBehaviour
     [Header("Scripts: ")]
     [SerializeField] private Redirector redirector;
     [SerializeField] private MainGameplayController mainGameplayController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
 
     [Header("Classrooms: ")]
     [SerializeField] private int page;
@@ -821,6 +822,7 @@ public class ClassroomController : MonoBehaviour
                     UserFullName = resToValue["data"]["data"][i]["user"]["name"],
                     UserId = resToValue["data"]["data"][i]["user"]["id"],
                     Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
                 }
             });
         }
@@ -964,6 +966,7 @@ public class ClassroomController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/classrooms/topics/comments", body);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -975,6 +978,15 @@ public class ClassroomController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
 
         currentTopicSellect.CommentCount++;
 
@@ -1011,6 +1023,8 @@ public class ClassroomController : MonoBehaviour
                 UserFullName = resToValue["data"]["user"]["name"],
                 UserId = resToValue["data"]["user"]["id"],
                 Username = resToValue["data"]["user"]["username"],
+                AvatarPath = resToValue["data"]["user"]["avatar_path"],
+
             }
         });
     }

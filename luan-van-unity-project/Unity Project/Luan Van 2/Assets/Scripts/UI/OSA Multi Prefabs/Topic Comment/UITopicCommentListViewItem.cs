@@ -10,6 +10,7 @@ namespace LuanVan.OSA
     {
         [SerializeField] private Image imageLikeUp;
         [SerializeField] private Image imageLikeDown;
+        [SerializeField] private Image imageAvatar;
 
         [SerializeField] private Color colorLikeChoice;
         [SerializeField] private Color colorUnLikeChoice;
@@ -82,6 +83,7 @@ namespace LuanVan.OSA
         public void UpdateViews()
         {
             classroomTopicController.CheckAndGetOldTopicComments(topicCommentModel);
+            Davinci.get().load(GlobalSetting.Endpoint + topicCommentModel.AvatarPath).into(imageAvatar).setFadeTime(0).start();
         }
 
         public void ShowUICommentUtilitiesMenu()

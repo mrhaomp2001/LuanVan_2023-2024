@@ -107,10 +107,10 @@ class ReportController extends Controller
                 'report_type_id' => "required|exists:report_types,id",
                 'model_id' => "required",
                 'model_type' => "required",
-                'content' => "",
+                'content' => "sometimes|max:256",
             ],
             [
-
+                'content.max' => 'Nội dung tối đa 256 ký tự',
             ]
         );
 
@@ -124,9 +124,13 @@ class ReportController extends Controller
                 'report_type_id' => $request->report_type_id,
                 'model_id' => $request->model_id,
                 'model_type' => $request->model_type,
-                'content' => $request->content,
             ]
         );
+
+        if (isset($request->content)) {
+            $report->content = $request->content;
+        }
+        $report->save();
 
         return response()->json(['data' => $report], 200, [], JSON_UNESCAPED_UNICODE);
         

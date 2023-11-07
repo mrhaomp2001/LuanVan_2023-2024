@@ -10,6 +10,7 @@ public class GlobalSetting : MonoBehaviour
     [SerializeField] private string endpointInit;
     [SerializeField] private UserModel loginUserInit;
     [SerializeField] private AuthController authController;
+    [SerializeField] private RectTransform notLoginContainer;
 
     public static string Endpoint { get => endpoint; set => endpoint = value; }
     public static UserModel LoginUser { get => loginUser; set => loginUser = value; }
@@ -22,6 +23,10 @@ public class GlobalSetting : MonoBehaviour
         if (!GlobalSetting.loginUser.Username.Equals(""))
         {
             authController.AutoLogin(GlobalSetting.loginUser.Username, "password");
+        }
+        else
+        {
+            notLoginContainer.gameObject.SetActive(true);
         }
 
 

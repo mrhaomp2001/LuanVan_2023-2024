@@ -31,6 +31,7 @@ class Report extends Model
      */
     protected $attributes = [
         'report_response_id' => "1",
+        'content' => "",
     ];
 
     /**
