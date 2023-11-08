@@ -3,7 +3,6 @@ using LuanVan.OSA;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -109,6 +108,17 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Transform playerCar;
     [SerializeField] private Transform containerObstacles;
     [SerializeField] private List<Transform> obstaclesSprite = new List<Transform>();
+
+    [Header("Ninja Fruit UIs: ")]
+    [SerializeField] private RectTransform containerNinjaFruit;
+    [SerializeField] private Transform playerNinja;
+    [SerializeField] private Animator animatorNinja;
+    [SerializeField] private Transform containerFruits;
+    [SerializeField] private RectTransform containerTutorialsFruitNinja;
+    [SerializeField] private TextMeshProUGUI textHp;
+    [SerializeField] private RectTransform timerBar;
+    [SerializeField] private List<Transform> fruitSprites = new List<Transform>();
+
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
     public int PlayerHp { get => playerHp; set => playerHp = value; }
     public UIClassroomModel CurrentClassroomModel { get => currentClassroomModel; set => currentClassroomModel = value; }
@@ -188,11 +198,17 @@ public class ClassroomController : MonoBehaviour
         // disable all game container. After that, check and active.
         containerFightingMonster.gameObject.SetActive(false);
         containerCarRacing.gameObject.SetActive(false);
+        containerNinjaFruit.gameObject.SetActive(false);
 
         containerToturialsFightingMonster.gameObject.SetActive(false);
         containerTutorialsCarRacing.gameObject.SetActive(false);
+        containerTutorialsFruitNinja.gameObject.SetActive(false);
 
         uiTutorial.gameObject.SetActive(true);
+
+        uiWrongNotice.gameObject.SetActive(false);
+        uiCorrectNotice.gameObject.SetActive(false);
+        buttonCheckAnswer.interactable = false;
 
         if (gameTypeId == 1)
         {
@@ -209,6 +225,21 @@ public class ClassroomController : MonoBehaviour
             containerCarRacing.gameObject.SetActive(true);
             containerTutorialsCarRacing.gameObject.SetActive(true);
             playerHpMax = 1;
+        }
+
+        if (gameTypeId == 3)
+        {
+            containerNinjaFruit.gameObject.SetActive(true);
+            containerTutorialsFruitNinja.gameObject.SetActive(true);
+
+
+            LeanTween.moveLocalX(playerNinja.gameObject, -4.5f, 0.5f).setOnComplete(() =>
+            {
+                animatorNinja.Play("idle");
+            });
+
+            playerHpMax = 3;
+            textHp.text = "Sức khỏe: <color=red>" + playerHpMax.ToString() + "</color>";
         }
 
         redirector.Push("play");
@@ -317,6 +348,16 @@ public class ClassroomController : MonoBehaviour
         playTime = 0f;
     }
 
+    public void SelectRandomAnswer()
+    {
+        var model = playOSA.Data[UnityEngine.Random.Range(1, playOSA.Data.Count)];
+        var answer = model as AnswerItemModel;
+        SelectAnswer(answer.AnswerModel);
+
+        CheckAnswer();
+    }
+
+
     public void SelectAnswer(UIAnswerModel answerModel)
     {
 
@@ -325,6 +366,15 @@ public class ClassroomController : MonoBehaviour
             foreach (var sprite in obstaclesSprite)
             {
                 sprite.gameObject.SetActive(true);
+            }
+        }
+
+        if (gameTypeId == 3)
+        {
+            foreach (var sprite in fruitSprites)
+            {
+                sprite.gameObject.SetActive(true);
+                sprite.GetComponent<Animator>().Play("base");
             }
         }
 
@@ -345,45 +395,120 @@ public class ClassroomController : MonoBehaviour
             {
                 obstaclesSprite[temp].gameObject.SetActive(false);
             }
+
+            if (!answer.AnswerModel.IsCorrect)
+            {
+                fruitSprites[temp].gameObject.SetActive(false);
+            }
+
             temp++;
         }
 
         answerModel.ViewsHolder.imageAnswerOutline.color = colorSelectAnswer;
 
-        currentAnswerSelect = answerModel;
-
-        buttonCheckAnswer.interactable = true;
-
         if (gameTypeId == 2)
         {
-            if (currentAnswerSelect.ViewsHolder.ItemIndex == 1)
+            if (answerModel.ViewsHolder.ItemIndex == 1)
             {
                 LeanTween.cancel(playerCar.gameObject);
                 LeanTween.moveLocalX(playerCar.gameObject, -4.5f, 0.5f);
             }
-            if (currentAnswerSelect.ViewsHolder.ItemIndex == 2)
+            if (answerModel.ViewsHolder.ItemIndex == 2)
             {
                 LeanTween.cancel(playerCar.gameObject);
                 LeanTween.moveLocalX(playerCar.gameObject, -1.5f, 0.5f);
             }
-            if (currentAnswerSelect.ViewsHolder.ItemIndex == 3)
+            if (answerModel.ViewsHolder.ItemIndex == 3)
             {
                 LeanTween.cancel(playerCar.gameObject);
                 LeanTween.moveLocalX(playerCar.gameObject, 1.5f, 0.5f);
             }
-            if (currentAnswerSelect.ViewsHolder.ItemIndex == 4)
+            if (answerModel.ViewsHolder.ItemIndex == 4)
             {
                 LeanTween.cancel(playerCar.gameObject);
                 LeanTween.moveLocalX(playerCar.gameObject, 4.5f, 0.5f);
             }
         }
+
+        if (gameTypeId == 3)
+        {
+            if (currentAnswerSelect.ViewsHolder != null)
+            {
+                if (answerModel.ViewsHolder.ItemIndex > currentAnswerSelect.ViewsHolder.ItemIndex)
+                {
+                    playerNinja.transform.localScale = new Vector3(1f, 1f, 1f);
+                }
+                else
+                {
+                    playerNinja.transform.localScale = new Vector3(-1f, 1f, 1f);
+                }
+            }
+
+            if (answerModel.ViewsHolder.ItemIndex == 1)
+            {
+                LeanTween.cancel(playerNinja.gameObject);
+                animatorNinja.Play("move");
+                LeanTween.moveLocalX(playerNinja.gameObject, -4.5f, 0.5f).setOnComplete(() =>
+                {
+                    animatorNinja.Play("idle");
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 2)
+            {
+                LeanTween.cancel(playerNinja.gameObject);
+                animatorNinja.Play("move");
+
+                LeanTween.moveLocalX(playerNinja.gameObject, -1.5f, 0.5f).setOnComplete(() =>
+                {
+                    animatorNinja.Play("idle");
+
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 3)
+            {
+                animatorNinja.Play("move");
+                LeanTween.cancel(playerNinja.gameObject);
+                LeanTween.moveLocalX(playerNinja.gameObject, 1.5f, 0.5f).setOnComplete(() =>
+                {
+
+                    animatorNinja.Play("idle");
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 4)
+            {
+                animatorNinja.Play("move");
+                LeanTween.cancel(playerNinja.gameObject);
+                LeanTween.moveLocalX(playerNinja.gameObject, 4.5f, 0.5f).setOnComplete(() =>
+                {
+                    animatorNinja.Play("idle");
+
+                });
+            }
+        }
+
+        currentAnswerSelect = answerModel;
+
+        buttonCheckAnswer.interactable = true;
     }
 
     public void CheckAnswer()
     {
+        buttonCheckAnswer.interactable = false;
+
+        double delayTimeShowAnswer = 2000;
+
+        if (gameTypeId == 1)
+        {
+            delayTimeShowAnswer = 1000;
+        }
+
         if (currentAnswerSelect.IsCorrect)
         {
-            uiCorrectNotice.gameObject.SetActive(true);
+            Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
+            {
+                uiCorrectNotice.gameObject.SetActive(true);
+            });
+
             correctAnswersCount++;
 
             if (gameTypeId == 1)
@@ -395,7 +520,11 @@ public class ClassroomController : MonoBehaviour
         }
         else
         {
-            uiWrongNotice.gameObject.SetActive(true);
+            Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
+            {
+                uiWrongNotice.gameObject.SetActive(true);
+            });
+
             playerHp--;
 
             if (gameTypeId == 1)
@@ -405,11 +534,19 @@ public class ClassroomController : MonoBehaviour
                 sliderPlayerHp.value = playerHp;
             }
         }
+
         if (gameTypeId == 2)
         {
             LeanTween.cancel(containerObstacles.gameObject);
             containerObstacles.LeanSetLocalPosY(10);
-            LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
+            LeanTween.moveLocalY(containerObstacles.gameObject, -10f, 1.5f).setEase(LeanTweenType.linear);
+        }
+
+        if (gameTypeId == 3)
+        {
+            LeanTween.cancel(containerFruits.gameObject);
+            containerFruits.LeanSetLocalPosY(10);
+            LeanTween.moveLocalY(containerFruits.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
         }
 
         if (playerHp <= 0)
@@ -437,14 +574,19 @@ public class ClassroomController : MonoBehaviour
         mainGameplayController.AnsweredQuestionBody.AddField("data[]", currentAnswerSelect.Id);
 
         currentQuestion++;
+
+        textHp.text = "Sức khỏe: <color=red>" + playerHp.ToString() + "</color>";
+
         sliderProgress.value = currentQuestion;
+
+        LeanTween.cancel(timerBar.gameObject);
+        LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f);
     }
 
     public void LoadNextQuestion()
     {
         uiWrongNotice.gameObject.SetActive(false);
         uiCorrectNotice.gameObject.SetActive(false);
-        buttonCheckAnswer.interactable = false;
 
         foreach (var baseModel in playOSA.Data)
         {
@@ -456,6 +598,18 @@ public class ClassroomController : MonoBehaviour
             {
                 answer.AnswerModel.ViewsHolder.imageAnswerOutline.color = colorNonSelectAnswer;
             }
+        }
+
+        if (gameTypeId == 3)
+        {
+            LeanTween.cancel(timerBar.gameObject);
+            LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f).setOnComplete(() =>
+            {
+                LeanTween.scaleX(timerBar.gameObject, 0.05f, 20f).setOnComplete(() =>
+                {
+                    SelectRandomAnswer();
+                });
+            });
         }
 
         if (currentQuestion == questionAmount)
@@ -513,6 +667,18 @@ public class ClassroomController : MonoBehaviour
     public void StartPlayTimer()
     {
         isStartPlayTimer = true;
+
+        if (gameTypeId == 3)
+        {
+            LeanTween.cancel(timerBar.gameObject);
+            LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f).setOnComplete(() =>
+            {
+                LeanTween.scaleX(timerBar.gameObject, 0.05f, 20f).setOnComplete(() =>
+                {
+                    SelectRandomAnswer();
+                });
+            });
+        }
     }
 
     public void StopPlayerTimer()
@@ -642,7 +808,6 @@ public class ClassroomController : MonoBehaviour
 
         userClassroomOSA.Data.ResetItems(listClassroom);
     }
-
 
     public void GetClassroomInfo(UIClassroomModel classroomModel)
     {
@@ -1107,7 +1272,7 @@ public class ClassroomController : MonoBehaviour
                     ContainerOSA = "rank",
                     CreatedAt = resToValue["data"][i]["user"]["created_at"],
                     Id = resToValue["data"][i]["user"]["id"],
-                    Name = "<size=-5><color=#fff700>Hạng #" + (i+1).ToString() + "</color></size>\n" + resToValue["data"][i]["user"]["name"] + "\n" + "<size=-10>Tổng câu hỏi đã trả lời đúng: " + resToValue["data"][i]["total_answers"] + "</size>",
+                    Name = "<size=-5><color=#fff700>Hạng #" + (i + 1).ToString() + "</color></size>\n" + resToValue["data"][i]["user"]["name"] + "\n" + "<size=-10>Tổng câu hỏi đã trả lời đúng: " + resToValue["data"][i]["total_answers"] + "</size>",
                     UpdatedAt = resToValue["data"][i]["user"]["updated_at"],
                     Username = resToValue["data"][i]["user"]["username"],
                 }

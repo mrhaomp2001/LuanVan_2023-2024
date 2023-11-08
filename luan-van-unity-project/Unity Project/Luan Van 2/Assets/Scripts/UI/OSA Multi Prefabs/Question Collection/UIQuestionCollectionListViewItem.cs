@@ -25,13 +25,11 @@ namespace LuanVan.OSA
             textInfo.text = "Độ khó: " + questionCollectionModel.Difficulty + "\n";
             textInfo.text += "Số câu hỏi mỗi lần: " + questionCollectionModel.QuestionsPerTime.ToString();
 
-            if (questionCollectionModel.GameType.Equals("1"))
+            imageGameIcon.sprite = spriteGameIcons[0];
+
+            if (int.TryParse(questionCollectionModel.GameType, out int type))
             {
-                imageGameIcon.sprite = spriteGameIcons[0];
-            }
-            if (questionCollectionModel.GameType.Equals("2"))
-            {
-                imageGameIcon.sprite = spriteGameIcons[1];
+                imageGameIcon.sprite = spriteGameIcons[type - 1];
             }
         }
 

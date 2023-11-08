@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 public class HomeController : MonoBehaviour
 {
     [SerializeField] private NotificationController notificationController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [SerializeField] private UIMultiPrefabsOSA homeOSA;
 
     public void GetInfomations()
@@ -27,6 +28,7 @@ public class HomeController : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/home" +
             "?user_id=" + GlobalSetting.LoginUser.Id);
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -39,6 +41,15 @@ public class HomeController : MonoBehaviour
 
         Debug.Log(res);
 
+        var resToValue = JSONNode.Parse(res);
+
+        if (resToValue["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValue["message"]);
+            yield break;
+        }
+
+        responseErrorChecker.GetResponse("");
         GetInfomationsResponse(res);
     }
 
