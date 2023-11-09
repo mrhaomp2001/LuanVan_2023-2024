@@ -115,9 +115,18 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Animator animatorNinja;
     [SerializeField] private Transform containerFruits;
     [SerializeField] private RectTransform containerTutorialsFruitNinja;
-    [SerializeField] private TextMeshProUGUI textHp;
+    [SerializeField] private TextMeshProUGUI textHpFruits;
     [SerializeField] private RectTransform timerBar;
     [SerializeField] private List<Transform> fruitSprites = new List<Transform>();
+
+    [Header("Ninja Fruit UIs: ")]
+    [SerializeField] private RectTransform containerDropFood;
+    [SerializeField] private Transform playerBasket;
+    [SerializeField] private TextMeshProUGUI textHpFoods;
+    [SerializeField] private Transform containerFoods;
+    [SerializeField] private List<Transform> foodSprites = new List<Transform>();
+    [SerializeField] private RectTransform containerTutorialsDropFoods;
+
 
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
     public int PlayerHp { get => playerHp; set => playerHp = value; }
@@ -199,10 +208,12 @@ public class ClassroomController : MonoBehaviour
         containerFightingMonster.gameObject.SetActive(false);
         containerCarRacing.gameObject.SetActive(false);
         containerNinjaFruit.gameObject.SetActive(false);
+        containerDropFood.gameObject.SetActive(false);
 
         containerToturialsFightingMonster.gameObject.SetActive(false);
         containerTutorialsCarRacing.gameObject.SetActive(false);
         containerTutorialsFruitNinja.gameObject.SetActive(false);
+        containerTutorialsDropFoods.gameObject.SetActive(false);
 
         uiTutorial.gameObject.SetActive(true);
 
@@ -239,7 +250,15 @@ public class ClassroomController : MonoBehaviour
             });
 
             playerHpMax = 3;
-            textHp.text = "Sức khỏe: <color=red>" + playerHpMax.ToString() + "</color>";
+            textHpFruits.text = "Sức khỏe: <color=red>" + playerHpMax.ToString() + "</color>";
+        }
+
+        if (gameTypeId == 4)
+        {
+            containerDropFood.gameObject.SetActive(true);
+            containerTutorialsDropFoods.gameObject.SetActive(true);
+            playerHpMax = 3;
+            textHpFoods.text = "<color=#ffaaaa>x " + playerHpMax.ToString() + "</color>";
         }
 
         redirector.Push("play");
@@ -377,6 +396,14 @@ public class ClassroomController : MonoBehaviour
                 sprite.GetComponent<Animator>().Play("base");
             }
         }
+        if (gameTypeId == 4)
+        {
+            foreach (var sprite in foodSprites)
+            {
+                sprite.gameObject.SetActive(true);
+                sprite.GetComponent<Animator>().Play("base");
+            }
+        }
 
         int temp = 0;
 
@@ -399,6 +426,7 @@ public class ClassroomController : MonoBehaviour
             if (!answer.AnswerModel.IsCorrect)
             {
                 fruitSprites[temp].gameObject.SetActive(false);
+                foodSprites[temp].gameObject.SetActive(false);
             }
 
             temp++;
@@ -486,6 +514,42 @@ public class ClassroomController : MonoBehaviour
             }
         }
 
+        if (gameTypeId == 4)
+        {
+            if (answerModel.ViewsHolder.ItemIndex == 1)
+            {
+                LeanTween.cancel(playerBasket.gameObject);
+                LeanTween.moveLocalX(playerBasket.gameObject, -4.5f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 2)
+            {
+                LeanTween.cancel(playerBasket.gameObject);
+                LeanTween.moveLocalX(playerBasket.gameObject, -1.5f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 3)
+            {
+                LeanTween.cancel(playerBasket.gameObject);
+                LeanTween.moveLocalX(playerBasket.gameObject, 1.5f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 4)
+            {
+                LeanTween.cancel(playerBasket.gameObject);
+                LeanTween.moveLocalX(playerBasket.gameObject, 4.5f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+        }
+
         currentAnswerSelect = answerModel;
 
         buttonCheckAnswer.interactable = true;
@@ -548,6 +612,12 @@ public class ClassroomController : MonoBehaviour
             containerFruits.LeanSetLocalPosY(10);
             LeanTween.moveLocalY(containerFruits.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
         }
+        if (gameTypeId == 4)
+        {
+            LeanTween.cancel(containerFoods.gameObject);
+            containerFoods.LeanSetLocalPosY(10);
+            LeanTween.moveLocalY(containerFoods.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
+        }
 
         if (playerHp <= 0)
         {
@@ -575,7 +645,9 @@ public class ClassroomController : MonoBehaviour
 
         currentQuestion++;
 
-        textHp.text = "Sức khỏe: <color=red>" + playerHp.ToString() + "</color>";
+        textHpFruits.text = "Sức khỏe: <color=red>" + playerHp.ToString() + "</color>";
+
+        textHpFoods.text = "<color=#ffaaaa>x " + playerHp.ToString() + "</color>";
 
         sliderProgress.value = currentQuestion;
 

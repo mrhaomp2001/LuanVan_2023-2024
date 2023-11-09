@@ -2313,10 +2313,15 @@ xử lý báo cáo bởi Admin
 # 08:11:34 2023/11/07 ===== 
  
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
- 
+
+Game hứng đồ ăn
+
 ### Kết quả: 
+
+Game hứng đồ ăn
  
 ### Công việc ngày mai: (và sắp tới)
- 
+Game Flappy bird
+Game "Platform" trắc nghiệm
 </details> 
  
