@@ -126,6 +126,15 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Transform containerFoods;
     [SerializeField] private List<Transform> foodSprites = new List<Transform>();
     [SerializeField] private RectTransform containerTutorialsDropFoods;
+    [Header("Flappy Bird UIs: ")]
+    [SerializeField] private RectTransform containerBird;
+    [SerializeField] private Transform playerBird;
+    [SerializeField] private Transform containerWalls;
+    [SerializeField] private TextMeshProUGUI textBirdScores;
+    [SerializeField] private RectTransform containerTutorialsFlappyBird;
+    [SerializeField] private List<Transform> wallSprites = new List<Transform>();
+
+
 
 
     public UIMultiPrefabsOSA ClassroomOSA { get => classroomOSA; set => classroomOSA = value; }
@@ -209,11 +218,13 @@ public class ClassroomController : MonoBehaviour
         containerCarRacing.gameObject.SetActive(false);
         containerNinjaFruit.gameObject.SetActive(false);
         containerDropFood.gameObject.SetActive(false);
+        containerBird.gameObject.SetActive(false);
 
         containerToturialsFightingMonster.gameObject.SetActive(false);
         containerTutorialsCarRacing.gameObject.SetActive(false);
         containerTutorialsFruitNinja.gameObject.SetActive(false);
         containerTutorialsDropFoods.gameObject.SetActive(false);
+        containerTutorialsFlappyBird.gameObject.SetActive(false);
 
         uiTutorial.gameObject.SetActive(true);
 
@@ -260,6 +271,16 @@ public class ClassroomController : MonoBehaviour
             playerHpMax = 3;
             textHpFoods.text = "<color=#ffaaaa>x " + playerHpMax.ToString() + "</color>";
         }
+        if (gameTypeId == 5)
+        {
+            playerHpMax = 1;
+            containerBird.gameObject.SetActive(true);
+            containerTutorialsFlappyBird.gameObject.SetActive(true);
+
+            LeanTween.cancel(containerWalls.gameObject);
+            containerWalls.LeanSetLocalPosX(10);
+        }
+
 
         redirector.Push("play");
         playOSA.Data.ResetItems(new List<BaseModel>());
@@ -268,6 +289,8 @@ public class ClassroomController : MonoBehaviour
 
         currentQuestion = 0;
         correctAnswersCount = 0;
+
+        textBirdScores.text = correctAnswersCount.ToString();
 
         StartCoroutine(GetQuestionsAndAnswersCoroutine(collectionId));
     }
@@ -405,6 +428,14 @@ public class ClassroomController : MonoBehaviour
             }
         }
 
+        if (gameTypeId == 5)
+        {
+            foreach (var sprite in wallSprites)
+            {
+                sprite.gameObject.SetActive(false);
+            }
+        }
+
         int temp = 0;
 
         foreach (var baseModel in playOSA.Data)
@@ -421,6 +452,7 @@ public class ClassroomController : MonoBehaviour
             if (answer.AnswerModel.IsCorrect)
             {
                 obstaclesSprite[temp].gameObject.SetActive(false);
+                wallSprites[temp].gameObject.SetActive(true);
             }
 
             if (!answer.AnswerModel.IsCorrect)
@@ -550,6 +582,44 @@ public class ClassroomController : MonoBehaviour
             }
         }
 
+        if (gameTypeId == 5)
+        {
+            if (answerModel.ViewsHolder.ItemIndex == 1)
+            {
+                LeanTween.cancel(playerBird.gameObject);
+                LeanTween.moveLocalY(playerBird.gameObject, 3f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+
+            if (answerModel.ViewsHolder.ItemIndex == 2)
+            {
+                LeanTween.cancel(playerBird.gameObject);
+                LeanTween.moveLocalY(playerBird.gameObject, 1f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+            if (answerModel.ViewsHolder.ItemIndex == 3)
+            {
+                LeanTween.cancel(playerBird.gameObject);
+                LeanTween.moveLocalY(playerBird.gameObject, -1f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+
+            if (answerModel.ViewsHolder.ItemIndex == 4)
+            {
+                LeanTween.cancel(playerBird.gameObject);
+                LeanTween.moveLocalY(playerBird.gameObject, -3f, 0.5f).setOnComplete(() =>
+                {
+
+                });
+            }
+        }
+
         currentAnswerSelect = answerModel;
 
         buttonCheckAnswer.interactable = true;
@@ -618,6 +688,12 @@ public class ClassroomController : MonoBehaviour
             containerFoods.LeanSetLocalPosY(10);
             LeanTween.moveLocalY(containerFoods.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
         }
+        if (gameTypeId == 5)
+        {
+            LeanTween.cancel(containerWalls.gameObject);
+            containerWalls.LeanSetLocalPosX(10);
+            LeanTween.moveLocalX(containerWalls.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
+        }
 
         if (playerHp <= 0)
         {
@@ -683,6 +759,12 @@ public class ClassroomController : MonoBehaviour
                 });
             });
         }
+
+        if (gameTypeId == 5)
+        {
+            textBirdScores.text = correctAnswersCount.ToString();
+        }
+
 
         if (currentQuestion == questionAmount)
         {
@@ -1404,5 +1486,10 @@ public class ClassroomController : MonoBehaviour
         }
 
         usersInClassroomOSA.Data.InsertItemsAtStart(users);
+    }
+
+    public void BirdStopWallMove()
+    {
+        LeanTween.cancel(containerWalls.gameObject);
     }
 }

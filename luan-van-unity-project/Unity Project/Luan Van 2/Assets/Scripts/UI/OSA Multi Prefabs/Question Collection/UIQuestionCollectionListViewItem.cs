@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace LuanVan.OSA
@@ -29,7 +29,10 @@ namespace LuanVan.OSA
 
             if (int.TryParse(questionCollectionModel.GameType, out int type))
             {
-                imageGameIcon.sprite = spriteGameIcons[type - 1];
+                if (type <= spriteGameIcons.Count)
+                {
+                    imageGameIcon.sprite = spriteGameIcons[type - 1];
+                }
             }
         }
 
