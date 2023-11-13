@@ -48,10 +48,12 @@ Route::get('/home', [GameApiController::class, 'getHome']);
 Route::get('/login', [GameApiController::class, 'login']);
 Route::post('/register', [GameApiController::class, 'register']);
 
+
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/posts/old', [PostController::class, 'getOldPosts']);
 Route::post('/posts', [PostController::class, 'uploadAPost']);
 Route::post('/post/edit', [PostController::class, 'updatePost']);
+Route::get('/posts/private', [PostController::class, 'getPrivatePosts']);
 
 
 Route::post('/post/like', [PostLikeController::class, 'createOrUpdateLikeStatus']);
@@ -68,6 +70,7 @@ Route::post('post/comment/like', [CommentLikeController::class, 'createOrUpdateL
 
 Route::get('users/login', [GameApiController::class, 'getUserByLatestLogin']);
 Route::get('user/info', [ProfileController::class, 'getUserInfomationsApi']);
+Route::post('users/info/edit', [ProfileController::class, 'updateNameProfile']);
 
 Route::post('user/avatar/edit', [ProfileController::class, 'updateAvatar']);
 

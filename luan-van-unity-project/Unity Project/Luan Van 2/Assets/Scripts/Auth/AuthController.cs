@@ -138,6 +138,7 @@ public class AuthController : MonoBehaviour
 
     public void Logout()
     {
+        notLoginContainer.gameObject.SetActive(true);
         GlobalSetting.LoginUser.Username = "";
         GlobalSetting.LoginUser.Name = "";
         GlobalSetting.LoginUser.Id = "";

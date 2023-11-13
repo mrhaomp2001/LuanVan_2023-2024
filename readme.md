@@ -2309,19 +2309,43 @@ xử lý báo cáo bởi Admin
 
 - xử lý phần nhập của người dùng
 </details>
- 
-# 08:11:34 2023/11/07 ===== 
- 
-<details><summary> <h2>Kế hoạch:</h2> </summary> 
+
+# 08:11:34 2023/11/07 =====
+
+<details><summary> <h2>Kế hoạch:</h2> </summary>
 
 Game hứng đồ ăn
 
-### Kết quả: 
+### Kết quả:
 
 Game hứng đồ ăn
- 
+
 ### Công việc ngày mai: (và sắp tới)
+
 Game Flappy bird
 Game "Platform" trắc nghiệm
+
 </details> 
  
+ 
+# 20:15:06 2023/11/13 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+- Game Flappy bird (tôi làm hồi nào ấy nhỉ? có thể là thứ 7 hay chủ nhật vừa qua)
+- Game "Platform" trắc nghiệm
+- cập nhật tên người dùng 
+- Hiển thị bài viết riêng tư
+
+### Kết quả:
+
+- Game Flappy bird
+- Game "Platform" trắc nghiệm (cập nhật trò chơi chiến đấu với quái ID: 1)
+- cập nhật tên người dùng
+- Hiển thị bài viết riêng tư
+
+### Công việc ngày mai: (và sắp tới)
+
+Chuẩn bị viết báo cáo.
+Cập nhật thêm cho trang web quản lý.
+
+</details>

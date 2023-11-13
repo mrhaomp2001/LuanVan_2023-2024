@@ -97,9 +97,13 @@ public class ClassroomController : MonoBehaviour
     [Header("Fighting Monster UIs:")]
     [SerializeField] private RectTransform containerFightingMonster;
     [SerializeField] private RectTransform containerToturialsFightingMonster;
-    [SerializeField] private Animator animatorPlayer;
-    [SerializeField] private Animator animatorEnemy;
+    [SerializeField] private Animator animFightingMonsterBase;
+    [SerializeField] private Animator animFightingMonsterPlayer;
+    [SerializeField] private Animator animFightingMonsterEnemy;
+    [SerializeField] private SpriteRenderer fightingEnemySprite;
+    [SerializeField] private List<Sprite> fightingEnemySpriteList;
     [SerializeField] private Slider sliderPlayerHp;
+    [SerializeField] private TextMeshProUGUI textHpFightMonster;
 
     [Header("Car Racing UIs:")]
     [SerializeField] private GameRacingController gameRacingController;
@@ -240,6 +244,12 @@ public class ClassroomController : MonoBehaviour
             playerHpMax = 3;
             sliderPlayerHp.value = playerHpMax;
             sliderPlayerHp.maxValue = playerHpMax;
+            textHpFightMonster.text = playerHpMax.ToString();
+            fightingEnemySprite.sprite = fightingEnemySpriteList[UnityEngine.Random.Range(0, fightingEnemySpriteList.Count)];
+
+            animFightingMonsterEnemy.Play("start");
+            animFightingMonsterPlayer.Play("idle");
+
         }
         if (gameTypeId == 2)
         {
@@ -631,13 +641,15 @@ public class ClassroomController : MonoBehaviour
 
         double delayTimeShowAnswer = 2000;
 
-        if (gameTypeId == 1)
-        {
-            delayTimeShowAnswer = 1000;
-        }
+
 
         if (currentAnswerSelect.IsCorrect)
         {
+            if (gameTypeId == 1)
+            {
+                delayTimeShowAnswer = 3000;
+            }
+
             Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
             {
                 uiCorrectNotice.gameObject.SetActive(true);
@@ -647,13 +659,21 @@ public class ClassroomController : MonoBehaviour
 
             if (gameTypeId == 1)
             {
-                animatorPlayer.Play("attack");
-                animatorEnemy.Play("hurt");
+                //animatorPlayer.Play("attack");
+                //animatorEnemy.Play("hurt");
+                animFightingMonsterBase.Play("player_attack");
+                animFightingMonsterPlayer.Play("run");
+                animFightingMonsterEnemy.Play("dead");
             }
 
         }
         else
         {
+            if (gameTypeId == 1)
+            {
+                delayTimeShowAnswer = 1000;
+            }
+
             Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
             {
                 uiWrongNotice.gameObject.SetActive(true);
@@ -663,8 +683,10 @@ public class ClassroomController : MonoBehaviour
 
             if (gameTypeId == 1)
             {
-                animatorPlayer.Play("hurt");
-                animatorEnemy.Play("attack");
+                //animatorPlayer.Play("hurt");
+                //animatorEnemy.Play("attack");
+                animFightingMonsterBase.Play("enemy_attack");
+                animFightingMonsterPlayer.Play("hurt");
                 sliderPlayerHp.value = playerHp;
             }
         }
@@ -724,6 +746,8 @@ public class ClassroomController : MonoBehaviour
         textHpFruits.text = "Sức khỏe: <color=red>" + playerHp.ToString() + "</color>";
 
         textHpFoods.text = "<color=#ffaaaa>x " + playerHp.ToString() + "</color>";
+
+        textHpFightMonster.text = playerHp.ToString();
 
         sliderProgress.value = currentQuestion;
 
@@ -1491,5 +1515,22 @@ public class ClassroomController : MonoBehaviour
     public void BirdStopWallMove()
     {
         LeanTween.cancel(containerWalls.gameObject);
+    }
+
+    public void FightingAnimationEvents(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                if (currentQuestion < questionAmount)
+                {
+                    fightingEnemySprite.sprite = fightingEnemySpriteList[UnityEngine.Random.Range(0, fightingEnemySpriteList.Count)];
+                    animFightingMonsterEnemy.Play("start");
+                    animFightingMonsterPlayer.Play("idle");
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

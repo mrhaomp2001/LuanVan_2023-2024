@@ -120,6 +120,39 @@ class PostController extends Controller
         return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
+    public function getPrivatePosts(Request $request)
+    {
+        $input = $request->all();
+        $validator = Validator::make(
+            $input,
+            [
+                'user_id' => 'required|exists:users,id',
+                'per_page' => 'required',
+            ],
+            [
+                'user_id.required' => 'User Id không được rỗng',
+                'per_page.required' => 'Phải có số phần tử trên trang',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        $posts = Post::where('user_id', $request->user_id)->where('post_status_id', '2')->orderBy('created_at', 'DESC')->simplePaginate($request->per_page);
+
+        foreach ($posts as $post) {
+            $post->postTemplate;
+            $post->user;
+            $post->comment_count = Comment::where("post_id", $post->id)->where('comment_status_id', "1")->count();
+            $post->post_likes_up = PostLike::where("post_id", $post->id)->where("like_status", 1)->count();
+            $post->post_likes_down = PostLike::where("post_id", $post->id)->where("like_status", -1)->count();
+            $post->like_status = PostLike::where("post_id", $post->id)->where("user_id", $request->user_id)->first();
+        }
+
+        return response()->json(['data' => $posts], 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
     public function getOldPosts(Request $request)
     {
         $input = $request->all();
@@ -182,7 +215,7 @@ class PostController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'post_template_id' => 'required|exists:post_templates,id',
                 'post_status_id' => 'required',
-                'title' => 'sometimes|min:1|max:128',
+                'title' => 'sometimes|max:128',
                 'image' => [
                     'sometimes',
                     File::image()
@@ -236,7 +269,7 @@ class PostController extends Controller
                 'id' => 'required|exists:posts,id',
                 'content' => 'required|min:1|max:256',
                 'post_template_id' => 'required',
-                'title' => 'sometimes|min:1|max:128',
+                'title' => 'sometimes|max:128',
                 'post_status_id' => '',
                 'image' => [
                     'sometimes',

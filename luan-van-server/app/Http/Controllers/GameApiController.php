@@ -134,9 +134,9 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'name' => 'required',
+                'name' => 'required|min:3|max:32',
                 'username' => 'required|min:6|unique:users,username',
-                'password' => 'required'
+                'password' => 'required|min:6|max:64'
             ],
             [
                 'name.required' => 'phải nhập tên',

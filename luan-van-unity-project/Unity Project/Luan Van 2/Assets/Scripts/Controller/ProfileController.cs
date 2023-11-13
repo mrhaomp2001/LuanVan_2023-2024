@@ -3,6 +3,7 @@ using LuanVan.OSA;
 using SimpleFileBrowser;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -12,9 +13,13 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private int postGetCount;
     [SerializeField] private Image imageAvatar;
     [SerializeField] private FooterNoticeController footerNoticeController;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [SerializeField] private Redirector redirector;
     [SerializeField] private UIMultiPrefabsOSA profileOSA;
     [SerializeField] private UIProfileModel currentProfileModel;
+    [Header("UIs: ")]
+    [SerializeField] private TMP_InputField inputFieldNameChange;
+    [SerializeField] private TMP_InputField inputFieldPasswordChange;
 
     public void RefreshProfile()
     {
@@ -301,7 +306,7 @@ public class ProfileController : MonoBehaviour
         }
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/user/avatar/edit", body);
-
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -313,6 +318,19 @@ public class ProfileController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"]);
+            Debug.Log(resToValues["message"]);
+            redirector.Pop();
+
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        redirector.Pop();
     }
 
     Texture2D GetTextureCopy(Texture2D source)
@@ -343,5 +361,54 @@ public class ProfileController : MonoBehaviour
         RenderTexture.ReleaseTemporary(rt);
 
         return readableTexture;
+    }
+
+    public void ShowUIUpdateName()
+    {
+        redirector.Push("profile.name");
+    }
+
+    public void UpdateName()
+    {
+        StartCoroutine(UpdateNameCoroutine());
+    }
+
+    private IEnumerator UpdateNameCoroutine()
+    {
+        WWWForm body = new WWWForm();
+
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("name", inputFieldNameChange.text);
+        body.AddField("password", inputFieldPasswordChange.text);
+
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/users/info/edit", body);
+        responseErrorChecker.SendRequest();
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"]);
+            Debug.Log(resToValues["message"]);
+            redirector.Pop();
+            inputFieldPasswordChange.text = "";
+
+            inputFieldNameChange.text = "";
+
+            yield break;
+        }
+
+        responseErrorChecker.GetResponse("");
     }
 }

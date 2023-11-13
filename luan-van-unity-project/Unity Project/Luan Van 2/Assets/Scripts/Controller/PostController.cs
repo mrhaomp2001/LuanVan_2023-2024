@@ -22,6 +22,7 @@ public class PostController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA postFilterOSA;
     [SerializeField] private UIMultiPrefabsOSA postCommentOSA;
     [SerializeField] private UIMultiPrefabsOSA postTemplateOSA;
+    [SerializeField] private UIMultiPrefabsOSA privatePostsOSA;
     [Header("UIs: ")]
     [Header("New Post: ")]
     [SerializeField] private TMP_InputField inputFieldNewPostContent;
@@ -1062,31 +1063,7 @@ public class PostController : MonoBehaviour
             //StartCoroutine(SetImageCoroutine(FileBrowser.Result[0]));
         }
     }
-    private IEnumerator SetImageCoroutine(string path)
-    {
-        Texture2D texture;
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + path);
 
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            texture = DownloadHandlerTexture.GetContent(request);
-
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-
-            postImage.sprite = sprite;
-
-            postImage.color = new Color(1, 1, 1, 1);
-
-            textPostImageButtonUI.text = "Hủy ảnh";
-            textPostImageButtonUI.color = new Color(1, 0, 0);
-        }
-        else
-        {
-            Debug.LogError("Lỗi tải ảnh: " + request.error);
-        }
-    }
     Texture2D GetTextureCopy(Texture2D source)
     {
         //Create a RenderTexture
@@ -1186,5 +1163,71 @@ public class PostController : MonoBehaviour
         GetPosts();
 
         redirector.Pop();
+    }
+
+    public void GetPrivatePosts()
+    {
+        redirector.Push("posts.private");
+        privatePostsOSA.Data.ResetItems(new List<BaseModel>());
+
+        StartCoroutine(GetPrivatePostsCoroutine());
+    }
+
+    private IEnumerator GetPrivatePostsCoroutine()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/posts/private" +
+            "?user_id=" + GlobalSetting.LoginUser.Id +
+            "&per_page=100");
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        GetPrivatePostsResponse(res);
+    }
+
+    private void GetPrivatePostsResponse(string res)
+    {
+        var resToValue = JSONNode.Parse(res);
+
+        var posts = new List<BaseModel>();
+
+        for (int i = 0; i < resToValue["data"]["data"].Count; i++)
+        {
+            posts.Add(new PostItemModel()
+            {
+                PostModel = new UIPostModel()
+                {
+                    PostId = resToValue["data"]["data"][i]["id"],
+                    Content = resToValue["data"]["data"][i]["content"],
+                    CreateAt = resToValue["data"]["data"][i]["created_at"],
+                    PosTemplateContent = resToValue["data"]["data"][i]["post_template"]["content"],
+                    PosTemplateName = resToValue["data"]["data"][i]["post_template"]["name"],
+                    PostTemplateId = resToValue["data"]["data"][i]["post_template"]["id"],
+                    UserFullname = resToValue["data"]["data"][i]["user"]["name"],
+                    Username = resToValue["data"]["data"][i]["user"]["username"],
+                    AvatarPath = resToValue["data"]["data"][i]["user"]["avatar_path"],
+                    UserId = resToValue["data"]["data"][i]["user"]["id"],
+                    ThemeColor = resToValue["data"]["data"][i]["post_template"]["theme_color"],
+                    LikeCount = (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]),
+                    LikeStatus = (resToValue["data"]["data"][i]["like_status"] != null) ? resToValue["data"]["data"][i]["like_status"]["like_status"].ToString() : "0",
+                    CommentCount = resToValue["data"]["data"][i]["comment_count"],
+                    PostStatus = resToValue["data"]["data"][i]["post_status_id"],
+                    ImagePath = resToValue["data"]["data"][i]["image_path"],
+                    PostTitle = resToValue["data"]["data"][i]["title"],
+                    ContainerOSA = "post",
+                }
+            });
+            Debug.Log(resToValue["data"]["data"][i]["id"] + ": " + (resToValue["data"]["data"][i]["post_likes_up"] - resToValue["data"]["data"][i]["post_likes_down"]).ToString());
+        }
+        privatePostsOSA.Data.InsertItemsAtStart(posts);
     }
 }
