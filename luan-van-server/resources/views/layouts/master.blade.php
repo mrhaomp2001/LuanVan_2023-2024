@@ -19,6 +19,8 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
 
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
@@ -75,7 +77,8 @@
                             </div>
                             <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
                             <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
-                        @endif
+                            <a href="{{ route('admin.game.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-gamepad me-2"></i>Trò chơi</a>
+                            @endif
                         @if (auth()->user()->role->id >= 2)
                             <hr class="my-1" />
                             <div class="mx-2">

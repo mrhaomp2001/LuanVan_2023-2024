@@ -2349,3 +2349,27 @@ Chuẩn bị viết báo cáo.
 Cập nhật thêm cho trang web quản lý.
 
 </details>
+ 
+# 20:38:45 2023/11/14 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+Chuẩn bị viết báo cáo.
+Cập nhật thêm cho trang web quản lý.
+
+- chức năng Quản lý tất cả lớp của Admins
+- Quản lý trò chơi của admins
+
+### Kết quả:
+
+Cập nhật thêm cho trang web quản lý.
+
+- chức năng Quản lý tất cả lớp của Admins
+- Quản lý trò chơi của admins
+
+### Công việc ngày mai: (và sắp tới)
+
+Chuẩn bị viết báo cáo.
+Cập nhật thêm cho trang web quản lý.
+
+</details>

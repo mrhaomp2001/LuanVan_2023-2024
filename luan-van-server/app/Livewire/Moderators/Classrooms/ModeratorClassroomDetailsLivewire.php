@@ -3,6 +3,7 @@
 namespace App\Livewire\Moderators\Classrooms;
 
 use App\Models\Classroom;
+use App\Models\Report;
 use App\Models\StudyDocument;
 use Livewire\Component;
 
@@ -15,8 +16,8 @@ class ModeratorClassroomDetailsLivewire extends Component
     public $is_open;
     public $image_path;
     public $questionCollections;
-
     public $classroom;
+
 
     public function mount($id)
     {
@@ -34,12 +35,13 @@ class ModeratorClassroomDetailsLivewire extends Component
         $this->image_path = $this->classroom->image_path;
 
         $this->questionCollections = $this->classroom->questionCollections;
+
     }
 
     public function render()
     {
         return view('livewire.moderators.classrooms.moderator-classroom-details-livewire', [
-            'documents' => StudyDocument::where('classroom_id', $this->classroom->id)->orderBy('page')->paginate(7, pageName: 'documents-page')
+            'documents' => StudyDocument::where('classroom_id', $this->classroom->id)->orderBy('page')->paginate(7, pageName: 'documents-page'),
         ]);
     }
 }

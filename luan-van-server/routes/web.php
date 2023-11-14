@@ -7,6 +7,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudyDocumentController;
 
+use App\Livewire\Admins\Classrooms\AdminClassroomsIndex;
+use App\Livewire\Admins\Classrooms\AdminClassroomsShow;
+use App\Livewire\Admins\Games\AdminGameCreate;
+use App\Livewire\Admins\Games\AdminGameEdit;
+use App\Livewire\Admins\Games\AdminGameIndex;
 use App\Livewire\Admins\Moderators\AdminModeratorShow;
 use App\Livewire\Admins\Reports\AdminReportIndex;
 use App\Livewire\Admins\Reports\AdminReportShow;
@@ -50,8 +55,8 @@ Route::get('error', function () {
 Route::middleware(['auth', 'role:3'])->group(function () {
     Route::prefix('classrooms')->group(function () {
 
-        Route::get('/', [ClassroomController::class, 'index'])->name('classrooms.index');
-        Route::get('/{id}', [ClassroomController::class, 'show'])->name('classrooms.show');
+        Route::get('/', AdminClassroomsIndex::class)->name('classrooms.index.old');
+        Route::get('/{id}', [ClassroomController::class, 'show'])->name('classrooms.show.old');
         Route::post('/edit', [ClassroomController::class, 'update'])->name('classrooms.update');
 
         Route::get('/documents/{id}', [StudyDocumentController::class, 'index'])->name('classrooms.documents.show');
@@ -66,13 +71,28 @@ Route::middleware(['auth', 'role:3'])->group(function () {
 
 Route::middleware(['auth', 'role:3'])->group(function () {
     Route::prefix('admins')->group(function () {
+
+
         Route::prefix('moderators')->group(function () {
             Route::get('/', AdminModeratorShow::class)->name('admin.moderators.show');
         });
-        
+
+        Route::prefix('classrooms')->group(function () {
+
+            Route::get('/', AdminClassroomsIndex::class)->name('classrooms.index');
+            Route::get('/{id}', AdminClassroomsShow::class)->name('classrooms.show');
+
+        });
+
         Route::prefix('reports')->group(function () {
             Route::get('/', AdminReportIndex::class)->name('admin.report.index');
             Route::get('show/{report_id}', AdminReportShow::class)->name('admin.report.show');
+        });
+
+        Route::prefix('games')->group(function () {
+            Route::get('/', AdminGameIndex::class)->name('admin.game.index');
+            Route::get('create', AdminGameCreate::class)->name('admin.game.create');
+            Route::get('{game_id}/edit', AdminGameEdit::class)->name('admin.game.edit');
         });
     });
 });
@@ -80,10 +100,6 @@ Route::middleware(['auth', 'role:3'])->group(function () {
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::prefix('moderators')->group(function () {
         Route::prefix('classrooms')->group(function () {
-            // Route::get('/', [ModeratorClassroom::class, 'index'])->name('moderator.classrooms.index');
-            // Route::get('create', [ModeratorClassroom::class, 'create'])->name('moderator.classrooms.create');
-            // Route::post('store', [ModeratorClassroom::class, 'store'])->name('moderator.classrooms.store');
-
             Route::get('/', ModeratorClassroomLivewire::class)->name('moderator.classrooms.index');
             Route::get('create', ModeratorClassroomCreateLivewire::class)->name('moderator.classrooms.create');
             Route::get('show/{id}', ModeratorClassroomDetailsLivewire::class)->name('moderator.classrooms.show');

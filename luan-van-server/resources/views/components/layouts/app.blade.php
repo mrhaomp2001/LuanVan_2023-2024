@@ -77,6 +77,7 @@
                             </div>
                             <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
                             <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
+                            <a href="{{ route('admin.game.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-gamepad me-2"></i>Trò chơi</a>
                         @endif
                         @if (auth()->user()->role->id >= 2)
                             <hr class="my-1" />
