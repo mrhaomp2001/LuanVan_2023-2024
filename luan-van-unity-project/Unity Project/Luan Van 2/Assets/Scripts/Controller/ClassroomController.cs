@@ -120,22 +120,24 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private Transform containerFruits;
     [SerializeField] private RectTransform containerTutorialsFruitNinja;
     [SerializeField] private TextMeshProUGUI textHpFruits;
-    [SerializeField] private RectTransform timerBar;
+    [SerializeField] private RectTransform timerBarNinjaFruit;
     [SerializeField] private List<Transform> fruitSprites = new List<Transform>();
 
-    [Header("Ninja Fruit UIs: ")]
+    [Header("Drop Foods: ")]
     [SerializeField] private RectTransform containerDropFood;
     [SerializeField] private Transform playerBasket;
     [SerializeField] private TextMeshProUGUI textHpFoods;
     [SerializeField] private Transform containerFoods;
     [SerializeField] private List<Transform> foodSprites = new List<Transform>();
     [SerializeField] private RectTransform containerTutorialsDropFoods;
+
     [Header("Flappy Bird UIs: ")]
     [SerializeField] private RectTransform containerBird;
     [SerializeField] private Transform playerBird;
     [SerializeField] private Transform containerWalls;
     [SerializeField] private TextMeshProUGUI textBirdScores;
     [SerializeField] private RectTransform containerTutorialsFlappyBird;
+    [SerializeField] private RectTransform timerBarFlappyBird;
     [SerializeField] private List<Transform> wallSprites = new List<Transform>();
 
 
@@ -641,8 +643,6 @@ public class ClassroomController : MonoBehaviour
 
         double delayTimeShowAnswer = 2000;
 
-
-
         if (currentAnswerSelect.IsCorrect)
         {
             if (gameTypeId == 1)
@@ -702,7 +702,13 @@ public class ClassroomController : MonoBehaviour
         {
             LeanTween.cancel(containerFruits.gameObject);
             containerFruits.LeanSetLocalPosY(10);
-            LeanTween.moveLocalY(containerFruits.gameObject, -10f, 2f).setEase(LeanTweenType.linear);
+            LeanTween.moveLocalY(containerFruits.gameObject, -10f, 2f).setEase(LeanTweenType.linear).setOnComplete(() =>
+            {
+                if (!currentAnswerSelect.IsCorrect)
+                {
+                    animatorNinja.Play("hurt");
+                }
+            });
         }
         if (gameTypeId == 4)
         {
@@ -751,8 +757,11 @@ public class ClassroomController : MonoBehaviour
 
         sliderProgress.value = currentQuestion;
 
-        LeanTween.cancel(timerBar.gameObject);
-        LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f);
+        LeanTween.cancel(timerBarNinjaFruit.gameObject);
+        LeanTween.scaleX(timerBarNinjaFruit.gameObject, 1f, 0.5f);
+
+        LeanTween.cancel(timerBarFlappyBird.gameObject);
+        LeanTween.scaleX(timerBarFlappyBird.gameObject, 1f, 0.5f);
     }
 
     public void LoadNextQuestion()
@@ -774,10 +783,10 @@ public class ClassroomController : MonoBehaviour
 
         if (gameTypeId == 3)
         {
-            LeanTween.cancel(timerBar.gameObject);
-            LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f).setOnComplete(() =>
+            LeanTween.cancel(timerBarNinjaFruit.gameObject);
+            LeanTween.scaleX(timerBarNinjaFruit.gameObject, 1f, 0.5f).setOnComplete(() =>
             {
-                LeanTween.scaleX(timerBar.gameObject, 0.05f, 20f).setOnComplete(() =>
+                LeanTween.scaleX(timerBarNinjaFruit.gameObject, 0.05f, 20f).setOnComplete(() =>
                 {
                     SelectRandomAnswer();
                 });
@@ -787,6 +796,15 @@ public class ClassroomController : MonoBehaviour
         if (gameTypeId == 5)
         {
             textBirdScores.text = correctAnswersCount.ToString();
+
+            LeanTween.cancel(timerBarFlappyBird.gameObject);
+            LeanTween.scaleX(timerBarFlappyBird.gameObject, 1f, 0.5f).setOnComplete(() =>
+            {
+                LeanTween.scaleX(timerBarFlappyBird.gameObject, 0.05f, 20f).setOnComplete(() =>
+                {
+                    SelectRandomAnswer();
+                });
+            });
         }
 
 
@@ -848,10 +866,22 @@ public class ClassroomController : MonoBehaviour
 
         if (gameTypeId == 3)
         {
-            LeanTween.cancel(timerBar.gameObject);
-            LeanTween.scaleX(timerBar.gameObject, 1f, 0.5f).setOnComplete(() =>
+            LeanTween.cancel(timerBarNinjaFruit.gameObject);
+            LeanTween.scaleX(timerBarNinjaFruit.gameObject, 1f, 0.5f).setOnComplete(() =>
             {
-                LeanTween.scaleX(timerBar.gameObject, 0.05f, 20f).setOnComplete(() =>
+                LeanTween.scaleX(timerBarNinjaFruit.gameObject, 0.05f, 20f).setOnComplete(() =>
+                {
+                    SelectRandomAnswer();
+                });
+            });
+        }
+
+        if (gameTypeId == 5)
+        {
+            LeanTween.cancel(timerBarFlappyBird.gameObject);
+            LeanTween.scaleX(timerBarFlappyBird.gameObject, 1f, 0.5f).setOnComplete(() =>
+            {
+                LeanTween.scaleX(timerBarFlappyBird.gameObject, 0.05f, 20f).setOnComplete(() =>
                 {
                     SelectRandomAnswer();
                 });
@@ -862,6 +892,12 @@ public class ClassroomController : MonoBehaviour
     public void StopPlayerTimer()
     {
         isStartPlayTimer = false;
+
+        LeanTween.cancel(timerBarNinjaFruit.gameObject);
+        LeanTween.scaleX(timerBarNinjaFruit.gameObject, 1f, 0.5f);
+
+        LeanTween.cancel(timerBarFlappyBird.gameObject);
+        LeanTween.scaleX(timerBarFlappyBird.gameObject, 1f, 0.5f);
     }
 
     public void CheckAndGetOldClassrooms(UIClassroomModel classroomModel)

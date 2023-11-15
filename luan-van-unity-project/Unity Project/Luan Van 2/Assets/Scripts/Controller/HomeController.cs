@@ -112,7 +112,7 @@ public class HomeController : MonoBehaviour
 
         for (int i = 0; i < resToValue["notifications"].Count; i++)
         {
-            Debug.Log(resToValue["notifications"][i]["notification_type"]["description"]);
+            //Debug.Log(resToValue["notifications"][i]["notification_type"]["description"]);
 
             var notification = new UIMultiModel()
             {

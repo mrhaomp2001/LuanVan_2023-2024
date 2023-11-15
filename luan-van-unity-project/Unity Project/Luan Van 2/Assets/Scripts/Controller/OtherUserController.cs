@@ -2,6 +2,7 @@ using Library;
 using LuanVan.OSA;
 using System.Collections;
 using System.Collections.Generic;
+using Test;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -17,6 +18,8 @@ public class OtherUserController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA latestOnlineUserOSA;
     [SerializeField] private UIMultiPrefabsOSA friendOSA;
     [SerializeField] private UIMultiPrefabsOSA waitingFriensOSA;
+    [SerializeField] private List<RectTransform> imageNewFriendsNotice;
+
     public void GetLatestLoginUsers()
     {
         redirector.Push("latest_users");
@@ -116,6 +119,7 @@ public class OtherUserController : MonoBehaviour
                     ContainerOSA = "friend",
                 }
             });
+
         }
 
         friendOSA.Data.ResetItems(users);
@@ -123,7 +127,7 @@ public class OtherUserController : MonoBehaviour
 
     public void GetWaitingFriend()
     {
-        redirector.Push("other_users.friend.waiting");
+        //redirector.Push("other_users.friend.waiting");
         StartCoroutine(GetWaitingFriendCoroutine());
     }
 
@@ -152,6 +156,8 @@ public class OtherUserController : MonoBehaviour
 
         var users = new List<BaseModel>();
 
+        imageNewFriendsNotice.ForEach(friend => { friend.gameObject.SetActive(false); });
+
         for (int i = 0; i < resToValue["data"].Count; i++)
         {
             users.Add(new LatestOnlineUserItemModel()
@@ -167,8 +173,11 @@ public class OtherUserController : MonoBehaviour
                     ContainerOSA = "waitingFriend",
                 }
             });
+            imageNewFriendsNotice.ForEach(friend => { friend.gameObject.SetActive(true); });
+
         }
         waitingFriensOSA.Data.ResetItems(users);
+
     }
 
     public void UpdateFriendStatus(string otherId, string status)
@@ -213,7 +222,7 @@ public class OtherUserController : MonoBehaviour
 
     private void UpdateFriendStatusResponse(string res)
     {
-
+        GetWaitingFriend();
     }
 }
 

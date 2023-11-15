@@ -1,6 +1,7 @@
 ﻿using Library;
 using LuanVan.OSA;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -18,6 +19,9 @@ public class AuthController : MonoBehaviour
     [SerializeField] private TMP_InputField inputFieldPasswordLogin;
     [SerializeField] private Button btnQuitLogin, btnQuitRegister;
     [SerializeField] private RectTransform notLoginContainer;
+    [SerializeField] private RectTransform imageNewMessageNotice;
+    [SerializeField] private List<RectTransform> imageNewFriendsNotice;
+
     [Header(" --- ")]
     [SerializeField] private TMP_InputField inputFieldNameRegister;
     [SerializeField] private TMP_InputField inputFieldUsernameRegister;
@@ -132,6 +136,19 @@ public class AuthController : MonoBehaviour
         GlobalSetting.LoginUser.AvatarPath = resToValue["data"]["avatar_path"];
 
         homeController.GetInfomations();
+
+        if (resToValue["has_new_message"])
+        {
+            imageNewMessageNotice.gameObject.SetActive(true);
+        }
+
+        if (resToValue["has_new_friends"])
+        {
+            foreach (var item in imageNewFriendsNotice)
+            {
+                item.gameObject.SetActive(true);
+            }
+        }
 
         socketManager.Connect();
     }

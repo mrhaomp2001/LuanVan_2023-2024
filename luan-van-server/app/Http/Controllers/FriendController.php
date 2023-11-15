@@ -155,13 +155,13 @@ class FriendController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => $validator->errors()->first(), 'data' => $request->all()], 200, [], JSON_UNESCAPED_UNICODE);
         }
         // kiểm tra những người đã gửi request, có nghĩa mình là *người chờ* của người đang chờ (người khác đang chờ mình, nên là 3)
         $friends = Friend::where("user_id", $request->user_id)->where("friend_status_id", "3")->get();
 
         if (!isset($friends)) {
-            return response()->json(['data' => "Không có bạn bè nào"], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => "Không có bạn bè nào"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         $friendsWithConditions = [];
@@ -180,7 +180,7 @@ class FriendController extends Controller
         }
 
         if (empty($friendsWithConditions)) {
-            return response()->json(['data' => "Không có bạn bè nào"], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => "Không có bạn bè nào"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         foreach ($friendsWithConditions as $friendWithConditions) {

@@ -37,6 +37,10 @@ socketIO.on("connection", function (socket) {
         console.error("Error:", error);
       });
   });
+
+  socket.on("friend_request_send", async function (data) {
+    socketIO.to(users[data.receiver_id]).emit("friend_request_received", data);
+  });
 });
 
 app.get("/", (req, res) => {

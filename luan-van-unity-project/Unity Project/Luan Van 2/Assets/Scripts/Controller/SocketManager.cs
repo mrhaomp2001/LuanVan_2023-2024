@@ -13,7 +13,9 @@ using static SocketIOUnity;
 public class SocketManager : MonoBehaviour
 {
     [SerializeField] private string endpoint;
-    [SerializeField]private MessageController messageController;
+    [SerializeField] private MessageController messageController;
+
+    [SerializeField] private ProfileController profileController;
 
     private SocketIOUnity socket;
     public SocketIOUnity Socket { get => socket; set => socket = value; }
@@ -79,6 +81,13 @@ public class SocketManager : MonoBehaviour
             Debug.Log(res.GetValue().GetRawText());
 
             messageController.ReceiveMessage(res.GetValue().GetRawText());
+        });
+
+        socket.OnUnityThread("friend_request_received", (res) =>
+        {
+            Debug.Log(res.GetValue().GetRawText());
+
+            profileController.NoticeNewFriends();
         });
     }
 

@@ -12,6 +12,7 @@ public class MessageController : MonoBehaviour
     [SerializeField] private Redirector redirector;
     [SerializeField] private TextMeshProUGUI userFullnameHeader;
     [SerializeField] private TMP_InputField inputFieldChatMessage;
+    [SerializeField] private RectTransform imageNewMessageNotice;
 
     [SerializeField] private UIMultiPrefabsOSA chatUserOSA;
     [SerializeField] private UIMultiPrefabsOSA chatOSA;
@@ -193,8 +194,9 @@ public class MessageController : MonoBehaviour
             }
         }
 
-        GetChatUsers();
+        imageNewMessageNotice.gameObject.SetActive(true);
 
+        GetChatUsers();
     }
 
     public void SendChatMessage()

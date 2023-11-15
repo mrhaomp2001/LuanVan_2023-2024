@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\Comment;
+use App\Models\Friend;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\PostLike;
 use App\Models\QuestionCollection;
 use App\Models\SystemNotification;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -83,16 +87,20 @@ class GameApiController extends Controller
                 }
             }
         }
-        
+
         $system_notifications = SystemNotification::orderBy("created_at")->limit(3)->get();
 
         return response()->json(
             [
                 'posts' => $posts,
                 'notifications' => $notifications,
-                'system_notifications'=> $system_notifications,
+                'system_notifications' => $system_notifications,
             ]
-            , 200, [], JSON_UNESCAPED_UNICODE);
+            ,
+            200,
+            [],
+            JSON_UNESCAPED_UNICODE
+        );
     }
 
     public function getQuestions(Request $request)
@@ -187,6 +195,53 @@ class GameApiController extends Controller
             return response()->json(['message' => "không có tài khoản"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
+        // new messages
+        $user_id = $user->id;
+        $has_new_message = false;
+
+        $messages = DB::table('messages')
+            ->select(DB::raw('MAX(created_at) as latest_message_date'))
+            ->where('sender_id', $user_id)
+            ->orWhere('receiver_id', $user_id)
+            ->groupBy(DB::raw('IF(sender_id = ' . $user_id . ', receiver_id, sender_id)'))
+            ->get();
+
+        $messageIds = [];
+
+        foreach ($messages as $message) {
+            $messageIds[] = $message->latest_message_date;
+        }
+
+        $latestMessages = Message::whereIn('created_at', $messageIds)
+            ->orderByDesc("created_at")
+            ->get();
+
+        $userLoginDate = Carbon::parse($user->updated_at);
+
+        if (isset($latestMessages) && count($latestMessages) > 0) {
+
+            $latestMessageDate = Carbon::parse($latestMessages[0]->created_at);
+
+            if ($userLoginDate->greaterThan($latestMessageDate)) {
+                $has_new_message = false;
+            } else {
+                $has_new_message = true;
+            }
+        } else {
+            $has_new_message = false;
+        }
+
+        // friend
+
+        $friends = Friend::where("user_id", $user_id)->where("friend_status_id", "3")->get();
+        $has_new_friends = false;
+
+        if (isset($friends)) {
+            if (count($friends) > 0) {
+                $has_new_friends = true;
+            }
+        }
+
         $user->touch();
 
         if (Hash::check($request->password, $user->password)) {
@@ -194,6 +249,8 @@ class GameApiController extends Controller
             return response()->json(
                 [
                     'data' => $user,
+                    'has_new_message' => $has_new_message,
+                    'has_new_friends' => $has_new_friends,
                 ]
                 ,
                 200,

@@ -2373,3 +2373,20 @@ Chuẩn bị viết báo cáo.
 Cập nhật thêm cho trang web quản lý.
 
 </details>
+ 
+# 18:02:11 2023/11/15 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary> 
+Chuẩn bị viết báo cáo.
+Cập nhật thêm cho trang web quản lý.
+
+### Kết quả:
+
+Bắt đầu viết báo cáo.
+Thêm chức năng hiển thị chấm đỏ khi có tin nhắn mới hoặc lời mới kết bạn mới, thời gian thực.
+
+### Công việc ngày mai: (và sắp tới)
+
+viết báo cáo.
+
+</details>

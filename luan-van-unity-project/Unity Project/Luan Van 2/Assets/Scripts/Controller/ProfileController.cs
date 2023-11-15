@@ -3,6 +3,7 @@ using LuanVan.OSA;
 using SimpleFileBrowser;
 using System.Collections;
 using System.Collections.Generic;
+using Test;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -15,11 +16,14 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private FooterNoticeController footerNoticeController;
     [SerializeField] private ResponseErrorChecker responseErrorChecker;
     [SerializeField] private Redirector redirector;
+    [SerializeField] private SocketManager socketManager;
     [SerializeField] private UIMultiPrefabsOSA profileOSA;
     [SerializeField] private UIProfileModel currentProfileModel;
+
     [Header("UIs: ")]
     [SerializeField] private TMP_InputField inputFieldNameChange;
     [SerializeField] private TMP_InputField inputFieldPasswordChange;
+    [SerializeField] private List<RectTransform> imageNewFriendsNotice;
 
     public void RefreshProfile()
     {
@@ -410,5 +414,29 @@ public class ProfileController : MonoBehaviour
         }
 
         responseErrorChecker.GetResponse("");
+    }
+
+    public void SendFriendRequestSocket()
+    {
+        var data = new
+        {
+            sender_id = GlobalSetting.LoginUser.Id,
+            receiver_id = currentProfileModel.Id,
+        };
+
+        socketManager.Socket.Emit("friend_request_send", (res) =>
+        {
+            socketManager.Socket.ExecuteInUnityUpdateThread(() =>
+            {
+                
+            });
+        }, data);
+
+    }
+
+    public void NoticeNewFriends()
+    {
+        imageNewFriendsNotice.ForEach(friend => { friend.gameObject.SetActive(true); });
+
     }
 }

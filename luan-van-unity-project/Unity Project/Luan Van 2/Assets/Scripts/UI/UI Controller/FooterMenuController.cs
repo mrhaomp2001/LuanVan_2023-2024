@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FooterMenuController : MonoBehaviour
 {
+    [SerializeField] private RectTransform imageNewMessageNotice;
     [SerializeField] private Redirector redirector;
     [SerializeField] private List<Image> imageBtnFooterMenus = new List<Image>();
     [SerializeField] private ClassroomController classroomController;
@@ -119,20 +120,22 @@ public class FooterMenuController : MonoBehaviour
             return;
         }
 
-        //redirector.Pop();
+        imageNewMessageNotice.gameObject.SetActive(false);
+
+        redirector.Pop();
         redirector.Push("chat_user");
 
         messageController.GetChatUsers();
 
-        //foreach (var item in imageBtnFooterMenus)
-        //{
-        //    var currentColor = item.color;
-        //    currentColor.a = 0;
-        //    item.color = currentColor;
-        //}
-        //var afterColor = imageBtnFooterMenus[0].color;
-        //afterColor.a = 1;
-        //imageBtnFooterMenus[3].color = afterColor;
+        foreach (var item in imageBtnFooterMenus)
+        {
+            var currentColor = item.color;
+            currentColor.a = 0;
+            item.color = currentColor;
+        }
+        var afterColor = imageBtnFooterMenus[0].color;
+        afterColor.a = 1;
+        imageBtnFooterMenus[3].color = afterColor;
 
         //otherUserController.GetFriends();
     }    

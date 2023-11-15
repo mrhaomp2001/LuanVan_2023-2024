@@ -68,6 +68,10 @@ namespace LuanVan.OSA
                 profileModel.FriendStatusToOther = "2";
 
                 profileController.UpdateViewHolder();
+                profileController.SendFriendRequestSocket();
+
+                Debug.Log("Accept friend");
+
                 otherUserController.UpdateFriendStatus(profileModel.Id, status);
                 return;
             }
