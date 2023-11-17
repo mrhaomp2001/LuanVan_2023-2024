@@ -95,6 +95,12 @@
                     @endforeach
 
                 </select>
+                <div class="py-2">
+                    <input wire:model="is_ban" type="checkbox" class="form-check-input">
+                    Chặn người dùng vì hành vi sai phạm
+                </div>
+
+
             </div>
             <div class="text-danger my-3">
                 {{ $message }}

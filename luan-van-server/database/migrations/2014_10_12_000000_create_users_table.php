@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->integer("role_id");
             $table->integer("max_classroom_count");
             $table->string('name');
+            $table->boolean('is_ban');
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();

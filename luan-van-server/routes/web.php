@@ -15,6 +15,8 @@ use App\Livewire\Admins\Games\AdminGameIndex;
 use App\Livewire\Admins\Moderators\AdminModeratorShow;
 use App\Livewire\Admins\Reports\AdminReportIndex;
 use App\Livewire\Admins\Reports\AdminReportShow;
+use App\Livewire\Admins\Users\AdminUsersIndex;
+use App\Livewire\Admins\Users\AdminUsersShow;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentCreateLivewire;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentEditLivewire;
 use App\Livewire\Moderators\Classrooms\ModeratorClassroomCreateLivewire;
@@ -93,6 +95,12 @@ Route::middleware(['auth', 'role:3'])->group(function () {
             Route::get('/', AdminGameIndex::class)->name('admin.game.index');
             Route::get('create', AdminGameCreate::class)->name('admin.game.create');
             Route::get('{game_id}/edit', AdminGameEdit::class)->name('admin.game.edit');
+        });
+
+        Route::prefix('users')->group(function () {
+            Route::get('/', AdminUsersIndex::class)->name('admin.user.index');
+            Route::get('{user_id}/show', AdminUsersShow::class)->name('admin.user.show');
+
         });
     });
 });

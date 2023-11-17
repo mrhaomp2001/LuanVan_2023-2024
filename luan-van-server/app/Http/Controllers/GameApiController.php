@@ -29,7 +29,7 @@ class GameApiController extends Controller
         $validator = Validator::make(
             $input,
             [
-                'data' => "required",
+                'user_id' => "required",
             ],
             [
 
@@ -39,8 +39,8 @@ class GameApiController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
-
-        return response()->json(['data' => count($request->input('data'))], 200, [], JSON_UNESCAPED_UNICODE);
+        $user = User::find($request->user_id);
+        return response()->json(['data' => $user], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     public function getHome(Request $request)
@@ -193,6 +193,10 @@ class GameApiController extends Controller
 
         if (!isset($user->username)) {
             return response()->json(['message' => "không có tài khoản"], 200, [], JSON_UNESCAPED_UNICODE);
+        }
+
+        if ($user->is_ban) {
+            return response()->json(['message' => "Tài khoản này đã bị chặn"], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         // new messages

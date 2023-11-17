@@ -12,6 +12,7 @@ class AdminReportShow extends Component
     public $reponses;
     public $reponse_id;
     public $message;
+    public $is_ban;
     public function mount($report_id)
     {
         $this->report = Report::find($report_id);
@@ -53,6 +54,12 @@ class AdminReportShow extends Component
         $this->report->report_response_id = $this->reponse_id;
         $this->report->save();
         $this->report->model->save();
+
+        if ($this->is_ban) {
+            $this->report->model->user->is_ban = $this->is_ban;
+            $this->report->model->user->save();
+        }
+
         $this->redirect(route("admin.report.index"));
     }
 

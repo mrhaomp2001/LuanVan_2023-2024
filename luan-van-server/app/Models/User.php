@@ -46,6 +46,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'is_ban' => 'boolean'
     ];
 
     /**
@@ -56,6 +57,7 @@ class User extends Authenticatable
     protected $attributes = [
         'role_id' => "1",
         'max_classroom_count' => "0",
+        'is_ban' => false,
     ];
 
     /**

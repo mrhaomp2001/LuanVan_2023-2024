@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DarkPan - Bootstrap 5 Admin Template</title>
+    <title>Hội Học Thuật</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -78,6 +78,7 @@
                             <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
                             <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
                             <a href="{{ route('admin.game.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-gamepad me-2"></i>Trò chơi</a>
+                            <a href="{{ route('admin.user.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-user me-2"></i>Người dùng</a>
                             @endif
                         @if (auth()->user()->role->id >= 2)
                             <hr class="my-1" />
@@ -89,7 +90,7 @@
                     @else
                         <a href="{{ route('login') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng nhập</a>
 
-                        <a href="{{ route('register') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng ký</a>
+                        {{-- <a href="{{ route('register') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng ký</a> --}}
 
                     @endif
 
@@ -111,10 +112,10 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="mx-4 d-flex">
+                {{-- <form class="mx-4 d-flex">
                     <input class="form-control bg-dark border-0 " type="search" placeholder="Tìm kiếm">
                     <button class="btn btn-primary mx-1">Tìm</button>
-                </form>
+                </form> --}}
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         @if (Auth::check())
