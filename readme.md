@@ -2390,3 +2390,23 @@ Thêm chức năng hiển thị chấm đỏ khi có tin nhắn mới hoặc l�
 viết báo cáo.
 
 </details>
+ 
+# 18:11:10 2023/11/17 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+Chức năng chặn người dùng.
+Giao diện web chặng người dùng và quản lý người dùng cho Admins
+viết báo cáo.
+
+### Kết quả:
+
+Chức năng chặn người dùng.
+Giao diện web chặng người dùng và quản lý người dùng cho Admins
+viết báo cáo.
+
+### Công việc ngày mai: (và sắp tới)
+
+viết báo cáo.
+
+</details>
