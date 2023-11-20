@@ -17,16 +17,19 @@ class SystemNotificationSeeder extends Seeder
         SystemNotification::create([
             'user_id' => "1",
             "content" => "Đây là thông báo thử nghiệm 1",
+            "can_use" => true,
         ]);
 
         SystemNotification::create([
             'user_id' => "1",
             "content" => "Thông báo: đã hoàn thành tất cả các chức năng chính của ứng dụng",
+            "can_use" => true,
         ]);
 
         SystemNotification::create([
             'user_id' => "1",
             "content" => "Thông báo: đang cập nhật thêm trò chơi mới",
+            "can_use" => true,
         ]);
     }
 }

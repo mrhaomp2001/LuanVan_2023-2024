@@ -16,8 +16,15 @@ use App\Livewire\Admins\Moderators\AdminModeratorShow;
 use App\Livewire\Admins\PostTemplates\AdminTemplatesCreate;
 use App\Livewire\Admins\PostTemplates\AdminTemplatesIndex;
 use App\Livewire\Admins\PostTemplates\AdminTemplatesShow;
+use App\Livewire\Admins\Reports\AdminReportHistory;
 use App\Livewire\Admins\Reports\AdminReportIndex;
 use App\Livewire\Admins\Reports\AdminReportShow;
+use App\Livewire\Admins\ReportTypes\AdminReportTypeCreate;
+use App\Livewire\Admins\ReportTypes\AdminReportTypeIndex;
+use App\Livewire\Admins\ReportTypes\AdminReportTypeShow;
+use App\Livewire\Admins\SystemNotice\AdminSystemNoticeCreate;
+use App\Livewire\Admins\SystemNotice\AdminSystemNoticeIndex;
+use App\Livewire\Admins\SystemNotice\AdminSystemNoticeShow;
 use App\Livewire\Admins\Users\AdminUsersIndex;
 use App\Livewire\Admins\Users\AdminUsersShow;
 use App\Livewire\Moderators\Classrooms\Documents\ModeratorDocumentCreateLivewire;
@@ -92,6 +99,7 @@ Route::middleware(['auth', 'role:3'])->group(function () {
         Route::prefix('reports')->group(function () {
             Route::get('/', AdminReportIndex::class)->name('admin.report.index');
             Route::get('show/{report_id}', AdminReportShow::class)->name('admin.report.show');
+            Route::get('history', AdminReportHistory::class)->name('admin.report.history');
         });
 
         Route::prefix('games')->group(function () {
@@ -105,11 +113,25 @@ Route::middleware(['auth', 'role:3'])->group(function () {
             Route::get('{user_id}/show', AdminUsersShow::class)->name('admin.user.show');
 
         });
-        
+
         Route::prefix('post_templates')->group(function () {
             Route::get('/', AdminTemplatesIndex::class)->name('admin.template.index');
             Route::get('{template_id}/show', AdminTemplatesShow::class)->name('admin.template.show');
             Route::get('create', AdminTemplatesCreate::class)->name('admin.template.create');
+
+        });
+
+        Route::prefix('report_types')->group(function () {
+            Route::get('/', AdminReportTypeIndex::class)->name('admin.report-type.index');
+            Route::get('{report_type_id}/show', AdminReportTypeShow::class)->name('admin.report-type.show');
+            Route::get('{model_type}/create', AdminReportTypeCreate::class)->name('admin.report-type.create');
+
+        });
+
+        Route::prefix('system_notifications')->group(function () {
+            Route::get('/', AdminSystemNoticeIndex::class)->name('admin.system-notification.index');
+            Route::get('create', AdminSystemNoticeCreate::class)->name('admin.system-notification.create');
+            Route::get('{notification_id}/show', AdminSystemNoticeShow::class)->name('admin.system-notification.show');
 
         });
     });

@@ -1,5 +1,12 @@
 <div>
     <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary text-center rounded p-2 mb-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <h3 class="mb-0">
+                    Quản lý báo cáo (có tất cả {{ count($posts) + count($comments) + count($topics) + count($topic_comments) }} báo cáo mới)</h3>
+                <a class="btn btn-outline-info" href="{{ route("admin.report.history") }}"> Lịch sử xử lý</a>
+            </div>
+        </div>
         <div class="row bg-secondary rounded justify-content-center mx-0 my-3">
             <div class="row text-center">
                 <div class="col-12">
@@ -32,7 +39,7 @@
                                                     </button>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id,]) }}" class="btn btn-info">Duyệt qua</a>
+                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id]) }}" class="btn btn-info">Duyệt qua</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -117,7 +124,7 @@
                                                     </button>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id,]) }}" class="btn btn-info">Duyệt qua</a>
+                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id]) }}" class="btn btn-info">Duyệt qua</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -202,7 +209,7 @@
                                                     </button>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id,]) }}" class="btn btn-info">Duyệt qua</a>
+                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id]) }}" class="btn btn-info">Duyệt qua</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -286,7 +293,7 @@
                                                     </button>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id,]) }}" class="btn btn-info">Duyệt qua</a>
+                                                    <a href="{{ route('admin.report.show', ['report_id' => $report->id]) }}" class="btn btn-info">Duyệt qua</a>
                                                 </td>
                                             </tr>
                                         </tbody>

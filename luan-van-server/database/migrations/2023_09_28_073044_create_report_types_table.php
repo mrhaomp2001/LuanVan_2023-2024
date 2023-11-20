@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("model_type");
             $table->string("description");
+            $table->boolean("can_use");
             $table->timestamps();
         });
     }

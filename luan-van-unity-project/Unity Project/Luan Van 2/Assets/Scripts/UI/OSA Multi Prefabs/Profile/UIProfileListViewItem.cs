@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ namespace LuanVan.OSA
     public class UIProfileListViewItem : MonoBehaviour
     {
         [SerializeField] private Image imageAvatar;
+        [SerializeField] private TextMeshProUGUI textUsername;
         [SerializeField] private RectTransform messageAndFriendLayout;
         [SerializeField] private OtherUserController otherUserController;
         [SerializeField] private MessageController messageController;
@@ -92,6 +94,8 @@ namespace LuanVan.OSA
             {
                 messageAndFriendLayout.gameObject.SetActive(true);
             }
+
+            textUsername.text = profileModel.Username + " #" + profileModel.Id;
         }
 
         public void StartChat()

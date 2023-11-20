@@ -53,6 +53,16 @@ class Report extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public function user_responder()
+    {
+        return $this->belongsTo(User::class, "responder");
+    }
+
+    public function report_response()
+    {
+        return $this->belongsTo(ReportRespone::class, "report_response_id");
+    }
+
     public function model()
     {
         if ($this->model_type == "post") {

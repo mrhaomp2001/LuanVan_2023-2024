@@ -17,5 +17,15 @@ class ReportType extends Model
         'name',
         'model_type',
         'description',
+        'can_use'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'can_use' => 'boolean'
     ];
 }

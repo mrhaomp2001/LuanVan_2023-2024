@@ -88,7 +88,7 @@ class GameApiController extends Controller
             }
         }
 
-        $system_notifications = SystemNotification::orderBy("created_at")->limit(3)->get();
+        $system_notifications = SystemNotification::orderBy("id","desc")->where("can_use", true)->get();
 
         return response()->json(
             [

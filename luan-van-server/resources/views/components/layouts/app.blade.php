@@ -46,8 +46,8 @@
 
 
         <!-- Sidebar Start -->
-        <div class="sidebar pb-3">
-            <nav class="navbar bg-secondary navbar-dark">
+        <div class="sidebar pb-3" >
+            <nav class="navbar bg-secondary navbar-dark " >
                 <a href="{{ route('dashboard') }}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Hội học thuật</h3>
                 </a>
@@ -79,8 +79,11 @@
                             <a href="{{ route('classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Tất cả lớp học</a>
                             <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
                             <a href="{{ route('admin.game.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-gamepad me-2"></i>Trò chơi</a>
+                            <a href="{{ route('admin.moderators.show') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-user-tie me-2"></i>Quản trị viên</a>
                             <a href="{{ route('admin.user.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-user me-2"></i>Người dùng</a>
                             <a href="{{ route('admin.template.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-table-list me-2"></i>Mẫu bài viết</a>
+                            <a href="{{ route('admin.report-type.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-flag-checkered me-2"></i>Lý do báo cáo</a>
+                            <a href="{{ route('admin.system-notification.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-bullhorn me-2"></i>Thông báo</a>
                         @endif
                         @if (auth()->user()->role->id >= 2)
                             <hr class="my-1" />
@@ -89,6 +92,16 @@
                             </div>
                             <a href="{{ route('moderator.classrooms.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Lớp học của bạn</a>
                         @endif
+                        <hr class="my-1" />
+                        <div class="mx-2">
+                            Đăng xuất
+                        </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-item nav-link btn w-100 text-start ">
+                                <i class="fa-solid fa-arrow-right-from-bracket me-2 ms-2"></i>Đăng xuất
+                            </button>
+                        </form>
                     @else
                         <a href="{{ route('login') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng nhập</a>
                         {{-- <a href="{{ route('register') }}" class="nav-item nav-link mx-2"><i class="fa fa-home me-2 "></i>Đăng ký</a> --}}
