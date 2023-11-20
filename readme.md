@@ -2314,16 +2314,16 @@ xử lý báo cáo bởi Admin
 
 <details><summary> <h2>Kế hoạch:</h2> </summary>
 
-Game hứng đồ ăn
+- Game hứng đồ ăn
 
 ### Kết quả:
 
-Game hứng đồ ăn
+- Game hứng đồ ăn
 
 ### Công việc ngày mai: (và sắp tới)
 
-Game Flappy bird
-Game "Platform" trắc nghiệm
+- Game Flappy bird
+- Game "Platform" trắc nghiệm
 
 </details> 
  
@@ -2345,8 +2345,8 @@ Game "Platform" trắc nghiệm
 
 ### Công việc ngày mai: (và sắp tới)
 
-Chuẩn bị viết báo cáo.
-Cập nhật thêm cho trang web quản lý.
+- Chuẩn bị viết báo cáo.
+- Cập nhật thêm cho trang web quản lý.
 
 </details>
  
@@ -2369,25 +2369,25 @@ Cập nhật thêm cho trang web quản lý.
 
 ### Công việc ngày mai: (và sắp tới)
 
-Chuẩn bị viết báo cáo.
-Cập nhật thêm cho trang web quản lý.
+- Chuẩn bị viết báo cáo.
+- Cập nhật thêm cho trang web quản lý.
 
 </details>
  
 # 18:02:11 2023/11/15 ===== 
  
 <details><summary> <h2>Kế hoạch:</h2> </summary> 
-Chuẩn bị viết báo cáo.
-Cập nhật thêm cho trang web quản lý.
+-Chuẩn bị viết báo cáo.
+-Cập nhật thêm cho trang web quản lý.
 
 ### Kết quả:
 
-Bắt đầu viết báo cáo.
-Thêm chức năng hiển thị chấm đỏ khi có tin nhắn mới hoặc lời mới kết bạn mới, thời gian thực.
+- Bắt đầu viết báo cáo.
+- Thêm chức năng hiển thị chấm đỏ khi có tin nhắn mới hoặc lời mới kết bạn mới, thời gian thực.
 
 ### Công việc ngày mai: (và sắp tới)
 
-viết báo cáo.
+- viết báo cáo.
 
 </details>
  
@@ -2395,18 +2395,38 @@ viết báo cáo.
  
 <details><summary> <h2>Kế hoạch:</h2> </summary>
 
-Chức năng chặn người dùng.
-Giao diện web chặng người dùng và quản lý người dùng cho Admins
-viết báo cáo.
+- Chức năng chặn người dùng.
+- Giao diện web chặng người dùng và quản lý người dùng cho Admins
+- viết báo cáo.
 
 ### Kết quả:
 
-Chức năng chặn người dùng.
-Giao diện web chặng người dùng và quản lý người dùng cho Admins
-viết báo cáo.
+- Chức năng chặn người dùng.
+- Giao diện web chặng người dùng và quản lý người dùng cho Admins
+- Viết báo cáo.
 
 ### Công việc ngày mai: (và sắp tới)
 
-viết báo cáo.
+- viết báo cáo.
 
+</details>
+ 
+# 19:15:06 2023/11/20 ===== 
+ 
+<details><summary> <h2>Kế hoạch:</h2> </summary>
+
+- Quản lý lý do báo cáo
+- Quản lý mẫu bài đăng
+- Lịch sử xử lý báo cáo
+- quản lý thông báo hệ thống
+- viết báo cáo
+
+### Kết quả:
+- Quản lý lý do báo cáo
+- Quản lý mẫu bài đăng
+- Lịch sử xử lý báo cáo
+- quản lý thông báo hệ thống
+- viết báo cáo
+### Công việc ngày mai: (và sắp tới)
+- viết báo cáo
 </details>
