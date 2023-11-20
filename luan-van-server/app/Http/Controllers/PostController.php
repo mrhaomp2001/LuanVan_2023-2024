@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\PostLike;
+use App\Models\PostTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -227,7 +228,6 @@ class PostController extends Controller
                 'content.required' => 'Nội dung không được rỗng',
                 'content.min' => 'Nội dung tối thiểu 1 ký tự',
                 'content.max' => 'Nội dung tối đa 256 ký tự',
-                'title.min' => 'Tiêu đề tối thiểu 1 ký tự',
                 'title.max' => 'Tiêu đề tối đa 128 ký tự',
                 'user_id.required' => 'User Id không được rỗng',
                 'post_template_id.required' => 'Id mẫu bài viết không được rỗng',
@@ -236,8 +236,23 @@ class PostController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => $validator->errors()->first()], 200, [], JSON_UNESCAPED_UNICODE);
         }
+
+        $template = PostTemplate::find($request->post_template_id);
+        
+        if ($template->is_require_title) {
+            if (empty($request->title)) {
+                return response()->json(['message' => "Cần phải có tiêu đề của bài viết"], 200, [], JSON_UNESCAPED_UNICODE);
+            }
+        }
+
+        if ($template->is_require_image) {
+            if (!isset($request->image)) {
+                return response()->json(['message' => "Cần phải có hình ảnh của bài viết"], 200, [], JSON_UNESCAPED_UNICODE);
+            }
+        }
+
 
         $post = Post::create(
             [
@@ -294,7 +309,20 @@ class PostController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
+        $template = PostTemplate::find($request->post_template_id);
+        
+        if ($template->is_require_title) {
+            if (empty($request->title)) {
+                return response()->json(['message' => "Cần phải có tiêu đề của bài viết"], 200, [], JSON_UNESCAPED_UNICODE);
+            }
+        }
 
+        if ($template->is_require_image) {
+            if (!isset($request->image)) {
+                return response()->json(['message' => "Cần phải có hình ảnh của bài viết"], 200, [], JSON_UNESCAPED_UNICODE);
+            }
+        }
+        
         $post = Post::find($request->id);
         $post->content = $request->content;
         $post->post_template_id = $request->post_template_id;

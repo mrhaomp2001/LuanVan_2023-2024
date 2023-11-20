@@ -134,28 +134,28 @@ public class PostController : MonoBehaviour
             return;
         }
 
-        if (templateId.Equals("2"))
-        {
-            if (inputFieldNewPostTitle.text.Equals(""))
-            {
-                footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
-                return;
-            }
-        }
+        //if (templateId.Equals("2"))
+        //{
+        //    if (inputFieldNewPostTitle.text.Equals(""))
+        //    {
+        //        footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
+        //        return;
+        //    }
+        //}
 
-        if (templateId.Equals("3"))
-        {
-            if (inputFieldNewPostTitle.text.Equals(""))
-            {
-                footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
-                return;
-            }
-            if (postImage.sprite == null)
-            {
-                footerNoticeController.SendAFooterMessage("Hãy đăng một bức ảnh minh họa\nĐọc lại quy định viết bài để rõ hơn");
-                return;
-            }
-        }
+        //if (templateId.Equals("3"))
+        //{
+        //    if (inputFieldNewPostTitle.text.Equals(""))
+        //    {
+        //        footerNoticeController.SendAFooterMessage("Hãy nhập tiêu đề của bài đăng\nĐọc lại quy định viết bài để rõ hơn");
+        //        return;
+        //    }
+        //    if (postImage.sprite == null)
+        //    {
+        //        footerNoticeController.SendAFooterMessage("Hãy đăng một bức ảnh minh họa\nĐọc lại quy định viết bài để rõ hơn");
+        //        return;
+        //    }
+        //}
 
         responseErrorChecker.SendRequest();
 
@@ -192,8 +192,7 @@ public class PostController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/posts", body);
 
-        inputFieldNewPostContent.text = "";
-        inputFieldNewPostTitle.text = "";
+
 
         yield return request.SendWebRequest();
 
@@ -211,11 +210,14 @@ public class PostController : MonoBehaviour
         JSONNode resToValues = JSONNode.Parse(res);
         if (resToValues["message"] != null)
         {
-            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
-            Debug.Log(resToValues["message"][0][0]);
+            responseErrorChecker.GetResponse(resToValues["message"]);
+            Debug.Log(resToValues["message"]);
             yield break;
         }
         responseErrorChecker.GetResponse("");
+
+        inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
 
         redirector.Pop();
         footerNoticeController.SendAFooterMessage("Bạn đã đăng bài thành công!");
@@ -257,9 +259,6 @@ public class PostController : MonoBehaviour
 
         postOSA.ForceUpdateViewsHolderIfVisible(currentPostSelect.ItemIndexOSA);
 
-        inputFieldNewPostContent.text = "";
-        inputFieldNewPostTitle.text = "";
-
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -275,11 +274,14 @@ public class PostController : MonoBehaviour
         JSONNode resToValues = JSONNode.Parse(res);
         if (resToValues["message"] != null)
         {
-            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
-            Debug.Log(resToValues["message"][0][0]);
+            responseErrorChecker.GetResponse(resToValues["message"]);
+            Debug.Log(resToValues["message"]);
             yield break;
         }
         responseErrorChecker.GetResponse("");
+
+        inputFieldNewPostContent.text = "";
+        inputFieldNewPostTitle.text = "";
 
         redirector.Pop();
         footerNoticeController.SendAFooterMessage("Bạn đã sửa bài đăng thành công!");
@@ -1025,6 +1027,8 @@ public class PostController : MonoBehaviour
             FileBrowser.SetDefaultFilter(".jpg");
             FileBrowser.SetExcludedExtensions(".lnk", ".tmp", ".zip", ".rar", ".exe");
 
+            
+
             StartCoroutine(ShowLoadDialogCoroutine());
         }
         else
@@ -1058,6 +1062,10 @@ public class PostController : MonoBehaviour
                 Debug.Log(FileBrowser.Result[i]);
 
                 Davinci.get().load("file://" + FileBrowser.Result[i]).into(postImage).setFadeTime(0).start();
+                postImage.color = new Color(1f, 1f, 1f, 1f);
+
+                textPostImageButtonUI.text = "Xóa ảnh";
+                textPostImageButtonUI.color = new Color(1, 0, 0);
             }
 
             //StartCoroutine(SetImageCoroutine(FileBrowser.Result[0]));

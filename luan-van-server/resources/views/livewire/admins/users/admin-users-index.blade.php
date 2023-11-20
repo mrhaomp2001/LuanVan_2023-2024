@@ -9,12 +9,7 @@
                 <div class="text-start text-white my-2">
                     Tìm kiếm dựa trên tên hoặc tài khoản
                 </div>
-                <input wire:model.live.debounce.250ms="query" type="text" class="form-control"value="">
-                @error('answers.0')
-                    <p class="text-start text-danger">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <input wire:model.live.debounce.250ms="query" type="text" class="form-control">
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">

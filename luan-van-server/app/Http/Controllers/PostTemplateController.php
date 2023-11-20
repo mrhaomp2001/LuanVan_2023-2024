@@ -83,7 +83,7 @@ class PostTemplateController extends Controller
             return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
-        $postTemplates = PostTemplate::all();
+        $postTemplates = PostTemplate::where("can_use", true)->get();
 
         return response()->json(['data' => $postTemplates], 200, [], JSON_UNESCAPED_UNICODE);
     }

@@ -4,11 +4,11 @@
             <div class="row text-center">
                 <div class="col-12">
                     <div class="bg-secondary rounded p-4 ">
-                        <h2>Sửa thông tin lớp học</h2>
+                        <h2>Thêm trò chơi</h2>
                         <div class="bg-secondary rounded p-4">
                             <form wire:submit="save">
                                 <div>
-                                    <h5 class="my-2">
+                                    <h5 class="my-2 text-start">
                                         Tên trò chơi
                                     </h5>
                                     <div class="form-floating mb-3">
@@ -23,7 +23,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <h5>
+                                    <h5 class="text-start">
                                         Miêu tả trò chơi
                                     </h5>
                                     <div class="form-floating mb-3">
@@ -36,7 +36,8 @@
                                         </p>
                                     @enderror
                                 </div>
-                                <button class="form-floating btn btn-success" type="submit"><i class="fa-regular fa-pen-to-square"></i> Sửa</button>
+                                <button class="form-floating btn btn-success" type="submit">
+                                    <i class="fa-regular fa-add"></i> Thêm</button>
                             </form>
                         </div>
                     </div>

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string("name");
             $table->string("content");
             $table->string("theme_color");
+            $table->boolean("is_require_title");
+            $table->boolean("is_require_image");
+            $table->boolean("can_use");
             $table->timestamps();
         });
     }

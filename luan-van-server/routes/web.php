@@ -13,6 +13,9 @@ use App\Livewire\Admins\Games\AdminGameCreate;
 use App\Livewire\Admins\Games\AdminGameEdit;
 use App\Livewire\Admins\Games\AdminGameIndex;
 use App\Livewire\Admins\Moderators\AdminModeratorShow;
+use App\Livewire\Admins\PostTemplates\AdminTemplatesCreate;
+use App\Livewire\Admins\PostTemplates\AdminTemplatesIndex;
+use App\Livewire\Admins\PostTemplates\AdminTemplatesShow;
 use App\Livewire\Admins\Reports\AdminReportIndex;
 use App\Livewire\Admins\Reports\AdminReportShow;
 use App\Livewire\Admins\Users\AdminUsersIndex;
@@ -100,6 +103,13 @@ Route::middleware(['auth', 'role:3'])->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('/', AdminUsersIndex::class)->name('admin.user.index');
             Route::get('{user_id}/show', AdminUsersShow::class)->name('admin.user.show');
+
+        });
+        
+        Route::prefix('post_templates')->group(function () {
+            Route::get('/', AdminTemplatesIndex::class)->name('admin.template.index');
+            Route::get('{template_id}/show', AdminTemplatesShow::class)->name('admin.template.show');
+            Route::get('create', AdminTemplatesCreate::class)->name('admin.template.create');
 
         });
     });

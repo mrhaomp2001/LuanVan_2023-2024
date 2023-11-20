@@ -38,6 +38,15 @@ class AdminClassroomsShow extends Component
 
     public function save()
     {
+        $this->validate(
+            [
+
+            ],
+            [
+                
+            ]
+        );
+
         $classroom = Classroom::findOrFail($this->id);
 
         $classroom->name = $this->name;

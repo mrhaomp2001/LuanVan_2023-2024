@@ -18,6 +18,7 @@
                                 <a href="{{ route('admin.report.index') }}" class="nav-item nav-link mx-2"><i class="fa fa-book me-2 "></i>Các báo cáo</a>
                                 <a href="{{ route('admin.game.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-gamepad me-2"></i>Trò chơi</a>
                                 <a href="{{ route('admin.user.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-user me-2"></i>Người dùng</a>
+                                <a href="{{ route('admin.template.index') }}" class="nav-item nav-link mx-2"><i class="fa-solid fa-table-list me-2"></i>Mẫu bài viết</a>
                             @endif
                             @if (auth()->user()->role->id >= 2)
                                 <hr class="my-1" />

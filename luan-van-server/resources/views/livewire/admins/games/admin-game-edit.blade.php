@@ -12,8 +12,8 @@
                                         Tên trò chơi
                                     </h5>
                                     <div class="form-floating mb-3">
-                                        <input wire:model.blur="name" type="text" class="form-control" id="name" name="name" placeholder="Tên bộ câu hỏi" value="">
-                                        <label for="name">Miêu tả trò chơi</label>
+                                        <input wire:model="name" type="text" class="form-control" id="name" name="name" placeholder="Tên bộ câu hỏi" value="">
+                                        <label for="name">Tên trò chơi</label>
                                     </div>
 
                                     @error('name')
