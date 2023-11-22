@@ -214,6 +214,7 @@ public class AuthController : MonoBehaviour
         inputFieldPasswordRegister.text = "";
         inputFieldPasswordConfirmRegister.text = "";
 
+        responseErrorChecker.SendRequest();
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -229,6 +230,16 @@ public class AuthController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+        var resToValue = JSONNode.Parse(res);
+
+        if (resToValue["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValue["message"]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        redirector.Pop();
 
         LoginResponse(res);
 

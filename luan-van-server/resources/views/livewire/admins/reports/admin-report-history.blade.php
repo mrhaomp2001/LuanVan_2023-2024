@@ -78,7 +78,7 @@
                                                                 <img src="{{ $report->model->image_path }}"class="img-fluid" style="max-height: 250px;">
                                                             @endif
                                                         </div>
-                                                        <hr class=" pt-2" />
+                                                        <hr class="pt-2" />
                                                         <div>
                                                             <div class="text-start">
                                                                 Cách xử lý: 
