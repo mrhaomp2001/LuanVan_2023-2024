@@ -27,7 +27,8 @@
                                     Được sử dụng
                                 </div>
                                 <hr />
-                                <button class="form-floating btn btn-success" type="submit"><i class="fa-regular fa-pen-to-square"></i> Sửa</button>
+                                <button class="form-floating btn btn-success" type="submit">
+                                <i class="fa-regular fa-add"></i> Thêm</button>
                             </form>
                         </div>
                     </div>

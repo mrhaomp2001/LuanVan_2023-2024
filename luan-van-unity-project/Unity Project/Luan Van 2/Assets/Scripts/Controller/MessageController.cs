@@ -1,4 +1,4 @@
-using Library;
+﻿using Library;
 using LuanVan.OSA;
 using System;
 using System.Collections;
@@ -17,6 +17,9 @@ public class MessageController : MonoBehaviour
     [SerializeField] private UIMultiPrefabsOSA chatUserOSA;
     [SerializeField] private UIMultiPrefabsOSA chatOSA;
     [SerializeField] private bool isEndOfMessages;
+    [SerializeField] private ResponseErrorChecker responseErrorChecker;
+    [SerializeField] private FooterNoticeController footerNoticeController;
+
     [SerializeField] private SocketManager socketManager;
     [SerializeField] private UIChatUserModel currentChatUserModel;
 
@@ -30,7 +33,6 @@ public class MessageController : MonoBehaviour
     {
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/messages/latest" +
             "?user_id=" + GlobalSetting.LoginUser.Id);
-
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
@@ -42,6 +44,7 @@ public class MessageController : MonoBehaviour
         string res = request.downloadHandler.text;
 
         Debug.Log(res);
+
         GetChatUsersRespose(res);
     }
 
@@ -201,6 +204,18 @@ public class MessageController : MonoBehaviour
 
     public void SendChatMessage()
     {
+        if (string.IsNullOrWhiteSpace(inputFieldChatMessage.text))
+        {
+            footerNoticeController.SendAFooterMessage("Tin nhắn không được rỗng");
+            return;
+        }
+
+        if (inputFieldChatMessage.text.Length > 128)
+        {
+            footerNoticeController.SendAFooterMessage("Tin nhắn không được dàu hơn 128");
+            return;
+        }
+
         var chatReq = new
         {
             sender_id = GlobalSetting.LoginUser.Id,
@@ -226,6 +241,30 @@ public class MessageController : MonoBehaviour
             }
         };
 
+        inputFieldChatMessage.text = "";
+
+        //responseErrorChecker.SendRequest();
+
+        socketManager.Socket.Emit("sendEvent", (res) =>
+        {
+            JSONNode resToValues = JSONNode.Parse(res.GetValue().GetRawText());
+            Debug.Log(resToValues["message"]);
+            socketManager.Socket.ExecuteInUnityUpdateThread(() =>
+            {
+
+                //if (resToValues["message"] != null)
+                //{
+                //    responseErrorChecker.GetResponse(resToValues["message"]);
+                //    Debug.Log(resToValues["message"]);
+                //    return;
+                //}
+                //responseErrorChecker.GetResponse("");
+
+                GetChatUsers();
+            });
+        }, chatReq);
+
+
         chatOSA.Data.InsertOneAtEnd(message);
 
         if (isScrollToEnd)
@@ -235,15 +274,5 @@ public class MessageController : MonoBehaviour
                 chatOSA.ScrollTo(chatOSA.Data.Count - 1);
             }
         }
-
-        inputFieldChatMessage.text = "";
-
-        socketManager.Socket.Emit("sendEvent", (res) =>
-        {
-            socketManager.Socket.ExecuteInUnityUpdateThread(() =>
-            {
-                GetChatUsers();
-            });
-        }, chatReq);
     }
 }

@@ -159,7 +159,7 @@ class MessageController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => $validator->errors()->first()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         $message = Message::create([

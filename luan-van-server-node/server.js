@@ -24,11 +24,11 @@ socketIO.on("connection", function (socket) {
   });
 
   socket.on("sendEvent", async function (data, ack) {
-    ack(data);
     axios
-      .post(process.env.ENDPOINT + "messages", data)
+    .post(process.env.ENDPOINT + "messages", data)
       .then((response) => {
         console.log("Response:", response.data);
+        ack("response.data");
         socketIO
           .to(users[data.receiver_id])
           .emit("messageReceived", response.data);
