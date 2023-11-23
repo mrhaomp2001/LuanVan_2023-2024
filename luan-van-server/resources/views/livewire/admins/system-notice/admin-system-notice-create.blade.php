@@ -13,7 +13,7 @@
                                     </h5>
                                     <div class="form-floating mb-3">
                                         <textarea wire:model="content" class="form-control" style="height: 150px;"></textarea>
-                                        <label>Miêu tả trò chơi</label>
+                                        <label>Thông báo</label>
                                     </div>
                                     @error('content')
                                         <p class="text-start text-danger">

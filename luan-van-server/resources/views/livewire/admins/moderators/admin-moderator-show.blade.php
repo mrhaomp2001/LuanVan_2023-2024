@@ -25,12 +25,13 @@
                                                 <td style="max-width: 20px;">{{ $moderator->name }}</td>
                                                 <td class="text-truncate" style="max-width: 400px;">{{ $moderator->username }}</td>
 
-                                                <td><button wire:click="deletePermissions({{ $moderator->id }})"  wire:confirm="Are you sure?"  class="btn btn-sm btn-danger" href="">Xóa quyền</button ></td>
+                                                <td><button wire:click="deletePermissions({{ $moderator->id }})" wire:confirm="Are you sure?" class="btn btn-sm btn-danger" href="">Xóa quyền</button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            {{ $moderators->links() }}
                         </div>
 
                         <hr />
@@ -64,11 +65,13 @@
                                                 <td style="max-width: 20px;">{{ $user->name }}</td>
                                                 <td class="text-truncate" style="max-width: 400px;">{{ $user->username }}</td>
 
-                                                <td><button wire:click="grantPermissions({{ $user->id }})"  wire:confirm="Are you sure?" class="btn btn-sm btn-outline-success">Cấp quyền</button></td>
+                                                <td><button wire:click="grantPermissions({{ $user->id }})" wire:confirm="Are you sure?" class="btn btn-sm btn-outline-success">Cấp quyền</button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{ $users->links() }}
+
                             </div>
                         </div>
                     </div>
