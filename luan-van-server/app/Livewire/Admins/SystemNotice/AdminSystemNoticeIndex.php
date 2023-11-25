@@ -14,7 +14,7 @@ class AdminSystemNoticeIndex extends Component
         return view(
             'livewire.admins.system-notice.admin-system-notice-index',
             [
-                'notifications' => SystemNotification::orderBy("can_use", "DESC")->paginate(10),
+                'notifications' => SystemNotification::orderBy("can_use", "DESC")->orderBy("updated_at", "DESC")->paginate(10),
             ]
         );
     }

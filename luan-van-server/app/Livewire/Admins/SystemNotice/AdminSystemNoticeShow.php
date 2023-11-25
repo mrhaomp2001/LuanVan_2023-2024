@@ -23,7 +23,7 @@ class AdminSystemNoticeShow extends Component
     {
         $this->notification->content = $this->content;
         $this->notification->can_use = $this->can_use;
-
+        $this->notification->touch();
         $this->notification->save();
 
         $this->redirect(route("admin.system-notification.index"));
