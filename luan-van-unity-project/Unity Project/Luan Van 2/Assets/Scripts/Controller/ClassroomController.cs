@@ -109,6 +109,7 @@ public class ClassroomController : MonoBehaviour
     [SerializeField] private GameRacingController gameRacingController;
     [SerializeField] private RectTransform containerCarRacing;
     [SerializeField] private RectTransform containerTutorialsCarRacing;
+    [SerializeField] private TextMeshProUGUI textRacingScores;
     [SerializeField] private Transform playerCar;
     [SerializeField] private Transform containerObstacles;
     [SerializeField] private List<Transform> obstaclesSprite = new List<Transform>();
@@ -303,6 +304,7 @@ public class ClassroomController : MonoBehaviour
         correctAnswersCount = 0;
 
         textBirdScores.text = correctAnswersCount.ToString();
+        textRacingScores.text = correctAnswersCount.ToString();
 
         StartCoroutine(GetQuestionsAndAnswersCoroutine(collectionId));
     }
@@ -769,6 +771,8 @@ public class ClassroomController : MonoBehaviour
         uiWrongNotice.gameObject.SetActive(false);
         uiCorrectNotice.gameObject.SetActive(false);
 
+     
+
         foreach (var baseModel in playOSA.Data)
         {
             if (!(baseModel is AnswerItemModel answer))
@@ -779,6 +783,11 @@ public class ClassroomController : MonoBehaviour
             {
                 answer.AnswerModel.ViewsHolder.imageAnswerOutline.color = colorNonSelectAnswer;
             }
+        }
+
+        if (gameTypeId == 2)
+        {
+            textRacingScores.text = correctAnswersCount.ToString();
         }
 
         if (gameTypeId == 3)
