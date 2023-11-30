@@ -20,9 +20,10 @@ public class GlobalSetting : MonoBehaviour
         endpoint = endpointInit;
         loginUser = loginUserInit;
 
-        if (!GlobalSetting.loginUser.Username.Equals(""))
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("username")))
         {
-            authController.AutoLogin(GlobalSetting.loginUser.Username, "password");
+            endpoint = PlayerPrefs.GetString("endpoint");
+            authController.AutoLogin(PlayerPrefs.GetString("username"), PlayerPrefs.GetString("password"));
         }
         else
         {

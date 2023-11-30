@@ -27,6 +27,7 @@ public class AuthController : MonoBehaviour
     [SerializeField] private TMP_InputField inputFieldUsernameRegister;
     [SerializeField] private TMP_InputField inputFieldPasswordRegister;
     [SerializeField] private TMP_InputField inputFieldPasswordConfirmRegister;
+    [SerializeField] private TMP_InputField inputFieldEndpoint;
 
     public void Login()
     {
@@ -47,6 +48,7 @@ public class AuthController : MonoBehaviour
 
     private IEnumerator LoginCoroutine()
     {
+        GlobalSetting.Endpoint = inputFieldEndpoint.text;
         btnQuitLogin.interactable = false;
         btnQuitRegister.interactable = false;
 
@@ -56,6 +58,9 @@ public class AuthController : MonoBehaviour
             "?username=" + inputFieldUsernameLogin.text +
             "&password=" + inputFieldPasswordLogin.text);
 
+        PlayerPrefs.SetString("password", inputFieldPasswordLogin.text);
+        PlayerPrefs.Save();
+
         inputFieldPasswordLogin.text = "";
 
         yield return request.SendWebRequest();
@@ -63,6 +68,7 @@ public class AuthController : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(request.error);
+            responseErrorChecker.GetResponse("Đã xảy ra lỗi!\nHãy kiểm tra kết nối mạng của bạn");
             yield break;
         }
 
@@ -94,6 +100,7 @@ public class AuthController : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(GlobalSetting.Endpoint + "api/login" +
             "?username=" + username +
             "&password=" + password);
+        
 
         inputFieldPasswordLogin.text = "";
 
@@ -104,6 +111,7 @@ public class AuthController : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(request.error);
+            responseErrorChecker.GetResponse("Hãy kiểm tra kết nối mạng của bạn");
             yield break;
         }
 
@@ -151,11 +159,19 @@ public class AuthController : MonoBehaviour
         }
 
         socketManager.Connect();
+
+        PlayerPrefs.SetString("username", GlobalSetting.LoginUser.Username);
+        PlayerPrefs.SetString("endpoint", GlobalSetting.Endpoint);
+        PlayerPrefs.Save();
     }
 
     public void Logout()
     {
         notLoginContainer.gameObject.SetActive(true);
+
+        PlayerPrefs.DeleteKey("username");
+        PlayerPrefs.Save();
+
         GlobalSetting.LoginUser.Username = "";
         GlobalSetting.LoginUser.Name = "";
         GlobalSetting.LoginUser.Id = "";
