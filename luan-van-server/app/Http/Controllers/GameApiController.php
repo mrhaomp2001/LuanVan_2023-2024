@@ -142,17 +142,22 @@ class GameApiController extends Controller
             $input,
             [
                 'name' => 'required|min:3|max:32',
-                'username' => 'required|min:6|unique:users,username',
+                'username' => 'required|min:6|max:32|unique:users,username',
                 'password' => 'required|min:6|max:64'
             ],
             [
                 'name.required' => 'phải nhập tên',
+                'name.min' => 'Nhập tên với ít nhất :min ký tự',
+                'name.max' => 'Nhập tên với nhiều nhất :max ký tự',
 
-                'username.required' => 'phải nhập tài khoản',
-                'username.unique' => 'tài khoản đã có người dùng',
-                'username.min' => 'ít nhất 6 ký tự',
+                'username.required' => 'Phải nhập tài khoản',
+                'username.unique' => 'Tài khoản đã có người dùng',
+                'username.min' => 'Nhập tài khoản với ít nhất :min ký tự',
+                'username.max' => 'Nhập tài khoản với nhiều nhất :max ký tự',
 
-                'password.required' => 'phải nhập mật khẩu'
+                'password.required' => 'phải nhập mật khẩu',
+                'password.min' => 'Nhập mật khẩu với ít nhất :min ký tự',
+                'password.max' => 'Nhập mật khẩu với nhiều nhất :max ký tự',
             ]
         );
 
@@ -185,7 +190,7 @@ class GameApiController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 200, [], JSON_UNESCAPED_UNICODE);
+            return response()->json(['message' => $validator->errors()->first()], 200, [], JSON_UNESCAPED_UNICODE);
         }
 
         $user = User::where('username', $request->username)->first();

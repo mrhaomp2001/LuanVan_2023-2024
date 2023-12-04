@@ -18,6 +18,16 @@ class AdminSystemNoticeCreate extends Component
     
     public function save()
     {
+        $this->validate(
+            [
+                'content' => ["required", "min:3", 'max:512'],
+            ],
+            [
+                'content.required' => "Cần nhập nội dung",
+                'content.min' => "Cần nhập nội dung với tối thiểu :min ký tự",
+                'content.max' => "Cần nhập nội dung với tối đa :max ký tự",
+            ]
+        );
         $this->notification = new SystemNotification();
         $this->notification->content = $this->content;
         $this->notification->can_use = $this->can_use;

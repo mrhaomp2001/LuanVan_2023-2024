@@ -298,7 +298,6 @@ class PostController extends Controller
                 'content.required' => 'Nội dung không được rỗng',
                 'content.min' => 'Nội dung tối thiểu 1 ký tự',
                 'content.max' => 'Nội dung tối đa 256 ký tự',
-                'title.min' => 'Tiêu đề tối thiểu 1 ký tự',
                 'title.max' => 'Tiêu đề tối đa 128 ký tự',
                 'post_template_id.required' => 'Id của mẫu bài viết không được rỗng',
                 'post_status_id' => '',

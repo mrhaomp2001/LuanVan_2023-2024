@@ -57,7 +57,7 @@
                                 <div class="text-start">
                                     @if ($can_use)
                                         Trạng thái: <span class="text-success">Được dùng</span>
-                                        @else
+                                    @else
                                         Trạng thái: <span class="text-danger">Không được dùng</span>
                                     @endif
                                 </div>
@@ -70,6 +70,13 @@
                                 </button>
                             </form>
                         </div>
+                        @if ($errors->any())
+                            <div>
+                                @foreach ($errors->all() as $error)
+                                    <div class="text-start text-danger fs-5">- {{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -39,11 +39,16 @@ class ModeratorDocumentEditLivewire extends Component
 
     public function save()
     {
-        $validated = $this->validate(
+        $this->validate(
             [
-                'content' => 'required|min:3',
+                'content' => ["required", "min:3", 'max:512'],
+                'image' => ['sometimes', 'nullable' ,'image']
             ],
             [
+                'content.required' => "Cần nhập nội dung",
+                'content.min' => "Cần nhập nội dung với tối thiểu :min ký tự",
+                'content.max' => "Cần nhập nội dung với tối đa :max ký tự",
+                'image.image' => "Cần nhập hình ảnh",
 
             ]
         );

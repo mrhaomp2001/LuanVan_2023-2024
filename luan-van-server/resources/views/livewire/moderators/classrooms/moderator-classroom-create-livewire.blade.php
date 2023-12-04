@@ -23,25 +23,38 @@
                                     <textarea wire:model="description" class="form-control" placeholder="Miêu tả lớp học" name="description" id="description" style="height: 150px;"></textarea>
                                     <label for="description">Miêu tả lớp học</label>
                                     @error('description')
-                                    <p class="text-start text-danger">
-                                        {{ $message }}
-                                    </p>
-                                @enderror
+                                        <p class="text-start text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input wire:model="theme_color" type="color" class="form-control bg-dark" id="theme_color" name="theme_color" placeholder="Màu chủ đề" value="#ffffff">
                                     <label for="theme_color">Màu chủ đề của lớp học</label>
                                 </div>
+                                <hr />
                                 <div class="form-floating mb-3">
-                                    <label for="description">Ảnh đại diện của lớp</label>
-                                    <input wire:model="image" type="file" accept=".png, .jpg" id="image" name="image">
+                                    <div class="text-start">
+                                        <label for="description">Ảnh đại diện của lớp</label>
+                                    </div>
+                                    <div>
+                                        <input wire:model="image" type="file" accept=".png, .jpg" id="image" name="image">
+                                    </div>
                                     @isset($image)
                                         <img id="output" class="img-thumbnail" style="max-height: 150px" src="{{ $image->temporaryUrl() }}" />
                                     @endisset
                                 </div>
+                                <hr />
                                 <button class="form-floating btn btn-success" type="submit">+ Thêm</button>
                             </form>
                         </div>
+                        @if ($errors->any())
+                            <div>
+                                @foreach ($errors->all() as $error)
+                                    <div class="text-start text-danger fs-5">- {{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

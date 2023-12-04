@@ -42,11 +42,6 @@
                     <div class="form-floating mb-3">
                         <input wire:model="answers.0" type="text" class="form-control" id="answers.0" name="answers.0" placeholder="nội dung câu trả lời" value="">
                         <label for="answers.0">Nội dung câu trả lời <b>đúng</b></label>
-                        @error('answers.0')
-                            <p class="text-start text-danger">
-                                {{ $message }}
-                            </p>
-                        @enderror
                     </div>
                 </div>
 
@@ -60,16 +55,19 @@
                     <div class="form-floating mb-3">
                         <input wire:model="answers.{{ $i }}" type="text" class="form-control" id="answers.{{ $i }}" name="answers.{{ $i }}" placeholder="nội dung câu trả lời" value="">
                         <label for="answers.{{ $i }}">Nội dung câu trả lời <b>không đúng</b></label>
-                        @error('answers.{{ $i }}')
-                            <p class="text-start text-danger">
-                                {{ $message }}
-                            </p>
-                        @enderror
                     </div>
                 @endfor
                 <button class="form-floating btn btn-success" type="submit">+ Thêm</button>
 
             </form>
+            @if ($errors->any())
+                <div class="mt-3">
+                    @foreach ($errors->all() as $error)
+                        <div class="text-start text-danger fs-5">- {{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
         </div>
+
     </div>
 </div>

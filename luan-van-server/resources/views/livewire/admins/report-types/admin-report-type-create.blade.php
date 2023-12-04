@@ -63,6 +63,13 @@
                                 <button class="form-floating btn btn-success" type="submit"><i class="fa-regular fa-add"></i> Tạo mới</button>
                             </form>
                         </div>
+                        @if ($errors->any())
+                            <div>
+                                @foreach ($errors->all() as $error)
+                                    <div class="text-start text-danger fs-5">- {{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

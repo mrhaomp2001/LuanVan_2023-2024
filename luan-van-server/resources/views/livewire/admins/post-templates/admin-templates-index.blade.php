@@ -3,7 +3,7 @@
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h3 class="mb-0">Quản lý mẫu bài viết</h3>
-                <a class="btn btn-outline-primary" href="{{ route("admin.template.create") }}" wire:navigate>+ Thêm mới</a>
+                <a class="btn btn-outline-primary" href="{{ route('admin.template.create') }}" wire:navigate>+ Thêm mới</a>
             </div>
 
             <div class="table-responsive">
@@ -35,7 +35,7 @@
 
 
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-primary" href="{{ route("admin.template.show", ["template_id" => $template->id]) }}">
+                                    <a class="btn btn-sm btn-primary" href="{{ route('admin.template.show', ['template_id' => $template->id]) }}">
                                         sửa
                                     </a>
                                 </td>
@@ -47,6 +47,11 @@
             <div class="mt-3">
                 {{ $post_templates->links() }}
             </div>
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            @endif
         </div>
     </div>
 

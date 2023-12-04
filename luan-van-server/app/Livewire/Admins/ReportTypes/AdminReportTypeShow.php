@@ -23,6 +23,22 @@ class AdminReportTypeShow extends Component
 
     public function save()
     {
+        $this->validate(
+            [
+                'name' => ["required", "min:1", 'max:64'],
+                'description' => ["required", "min:3", 'max:512'],
+            ],
+            [
+                'name.required' => "Cần nhập tên",
+                'name.min' => "Cần nhập tên với tối thiểu :min ký tự",
+                'name.max' => "Cần nhập tên với tối đa :max ký tự",
+
+                'description.required' => "Cần nhập miêu tả",
+                'description.min' => "Cần nhập miêu tả với tối thiểu :min ký tự",
+                'description.max' => "Cần nhập miêu tả với tối đa :max ký tự",
+
+            ]
+        );
         $this->report_type->name = $this->name;
         $this->report_type->description = $this->description;
         $this->report_type->can_use = $this->can_use;

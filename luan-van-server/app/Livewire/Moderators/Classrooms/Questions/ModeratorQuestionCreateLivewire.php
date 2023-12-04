@@ -19,6 +19,7 @@ class ModeratorQuestionCreateLivewire extends Component
 
     public function mount($classroom_id, $question_collection_id)
     {
+        
         $this->classroom = Classroom::findOrFail($classroom_id);
 
         if ($this->classroom->user_id != auth()->user()->id) {
@@ -32,13 +33,29 @@ class ModeratorQuestionCreateLivewire extends Component
         }
         $this->questionContent = "";
 
-        for ($i = 0; $i <= 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $this->answers[] = "";
         }
     }
 
     public function save()
     {
+        $this->validate(
+            [
+                'questionContent' => 'required|min:3|max:64',
+                'answers.*' => 'required|min:3|max:128',
+            ],
+            [
+                'questionContent.required' => "Cần nhập câu hỏi",
+                'questionContent.min' => "Cần nhập câu hỏi với tối thiểu :min ký tự",
+                'questionContent.max' => "Cần nhập câu hỏi với tối đa :max ký tự",
+
+                'answers.*.required' => "Cần nhập câu trả lời",
+                'answers.*.min' => "Cần nhập câu trả lời với tối thiểu :min ký tự",
+                'answers.*.max' => "Cần nhập câu trả lời với tối đa :max ký tự",
+            ]
+        );
+
         $question = Question::create([
             'content' => $this->questionContent,
             'question_collection_id' => $this->questionCollection->id,

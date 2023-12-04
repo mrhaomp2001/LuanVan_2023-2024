@@ -48,16 +48,29 @@ class ModeratorQuestionCollectionEditLivewire extends Component
     public function save()
     {
         //
-        $validated = $this->validate(
+        $this->validate(
             [
-                'name' => 'required|min:3',
-                'difficulty' => 'required|min:3',
+                'name' => 'required|min:3|max:64',
+                'difficulty' => 'required|min:3|max:128',
                 'questions_per_time' => 'required|numeric|min:4|max:16',
                 'game_id' => "required|exists:games,id",
-                'is_open' => ['required', 'boolean'],
             ],
             [
+                'name.required' => "Cần nhập tên",
+                'name.min' => "Cần nhập tên với tối thiểu :min ký tự",
+                'name.max' => "Cần nhập tên với tối đa :max ký tự",
 
+                'difficulty.required' => "Cần nhập độ khó",
+                'difficulty.min' => "Cần nhập độ khó với tối thiểu :min ký tự",
+                'difficulty.max' => "Cần nhập độ khó với tối đa :max ký tự",
+
+                'questions_per_time.required' => "Nhập số câu hỏi cần làm",
+                'questions_per_time.numeric' => "Nhập số câu hỏi cần làm",
+                'questions_per_time.min' => "Cần nhập số câu hỏi với tối thiểu :min câu",
+                'questions_per_time.max' => "Cần nhập số câu hỏi với tối đa :max câu",
+
+                'game_id.required' => "Cần chọn trò chơi",
+                'game_id.exists' => "Trò chơi không tồn tại",
             ]
         );
         if ($this->questionCollection->classroom_id != $this->classroom->id) {

@@ -23,13 +23,20 @@ class ModeratorClassroomCreateLivewire extends Component
 
     public function save()
     {
-        $validated = $this->validate(
+        $this->validate(
             [
-                'name' => 'required|min:3',
-                'description' => 'required|min:3',
+                'name' => ["required", "min:3", 'max:64'],
+                'description' => ["required", "min:3", 'max:512'],
             ],
             [
+                'name.required' => "Cần nhập tên",
+                'name.min' => "Cần nhập tên với tối thiểu :min ký tự",
+                'name.max' => "Cần nhập tên với tối đa :max ký tự",
 
+                'description.required' => "Cần nhập miêu tả",
+                'description.min' => "Cần nhập miêu tả với tối thiểu :min ký tự",
+                'description.max' => "Cần nhập miêu tả với tối đa :max ký tự",
+                'image.image' => "Cần nhập hình ảnh",
             ]
         );
 

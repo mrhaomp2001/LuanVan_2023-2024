@@ -25,6 +25,23 @@ class AdminTemplatesCreate extends Component
     }
     public function save()
     {
+        $this->validate(
+            [
+                'name' => ["required", "min:3", 'max:64'],
+                'content' => ["required", "min:3", 'max:512'],
+            ],
+            [
+                'name.required' => "Cần nhập tên",
+                'name.min' => "Cần nhập tên với tối thiểu :min ký tự",
+                'name.max' => "Cần nhập tên với tối đa :max ký tự",
+
+                'content.required' => "Cần nhập miêu  tả",
+                'content.min' => "Cần nhập miêu tả với tối thiểu :min ký tự",
+                'content.max' => "Cần nhập miêu tả với tối đa :max ký tự",
+
+            ]
+        );
+
         $this->template = new PostTemplate();
 
         $this->template->name = $this->name;

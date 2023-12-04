@@ -31,6 +31,13 @@
                                 <i class="fa-regular fa-add"></i> Thêm</button>
                             </form>
                         </div>
+                        @if ($errors->any())
+                            <div>
+                                @foreach ($errors->all() as $error)
+                                    <div class="text-start text-danger fs-5">- {{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
