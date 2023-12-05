@@ -1223,6 +1223,48 @@ public class ClassroomController : MonoBehaviour
         StartCoroutine(UpdateStudyClassroomStatusCoroutine(status, classroomInfo));
     }
 
+    public void ExitStudyClassroom()
+    {
+        StartCoroutine(ExitStudyClassroomCoroutine("0", currentClassroomModel));
+    }
+
+    private IEnumerator ExitStudyClassroomCoroutine(string status, UIClassroomModel classroomInfo)
+    {
+        WWWForm body = new WWWForm();
+        body.AddField("user_id", GlobalSetting.LoginUser.Id);
+        body.AddField("classroom_id", classroomInfo.Id);
+        body.AddField("status", status);
+
+        UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/users/classrooms/edit", body);
+
+        responseErrorChecker.SendRequest();
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(request.error);
+            responseErrorChecker.GetResponse("Lỗi: " + request.error + "\n" + "Hãy kiểm tra kết nối mạng của bạn");
+            yield break;
+        }
+
+        string res = request.downloadHandler.text;
+
+        Debug.Log(res);
+
+        JSONNode resToValues = JSONNode.Parse(res);
+        if (resToValues["message"] != null)
+        {
+            responseErrorChecker.GetResponse(resToValues["message"][0][0]);
+            Debug.Log(resToValues["message"][0][0]);
+            yield break;
+        }
+        responseErrorChecker.GetResponse("");
+
+        redirector.Pop();
+        GetUserClassrooms();
+    }
+
     private IEnumerator UpdateStudyClassroomStatusCoroutine(string status, UIClassroomInfoModel classroomInfo)
     {
         WWWForm body = new WWWForm();

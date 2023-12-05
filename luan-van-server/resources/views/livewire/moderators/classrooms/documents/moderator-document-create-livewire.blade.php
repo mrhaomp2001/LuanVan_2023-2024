@@ -19,7 +19,7 @@
                     </h5>
                     <div class="form-floating mb-3">
                         <textarea wire:model="content" class="form-control" placeholder="Nội dung của tài liệu học tập" name="content" id="content" style="height: 150px;"></textarea>
-                        <label for="content">Nội dung của tài liệu</label>
+                        {{-- <label for="content">Nội dung của tài liệu</label> --}}
                     </div>
                     @error('content')
                         <p class="text-start text-danger">
