@@ -42,8 +42,8 @@ class ModeratorQuestionCreateLivewire extends Component
     {
         $this->validate(
             [
-                'questionContent' => 'required|min:3|max:64',
-                'answers.*' => 'required|min:3|max:128',
+                'questionContent' => 'required|min:1|max:512',
+                'answers.*' => 'required|min:1|max:512',
             ],
             [
                 'questionContent.required' => "Cần nhập câu hỏi",

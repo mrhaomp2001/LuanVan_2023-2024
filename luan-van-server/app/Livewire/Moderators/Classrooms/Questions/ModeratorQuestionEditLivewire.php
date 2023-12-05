@@ -44,6 +44,22 @@ class ModeratorQuestionEditLivewire extends Component
 
     public function save()
     {
+        $this->validate(
+            [
+                'questionContent' => 'required|min:1|max:512',
+                'answers.*' => 'required|min:1|max:512',
+            ],
+            [
+                'questionContent.required' => "Cần nhập câu hỏi",
+                'questionContent.min' => "Cần nhập câu hỏi với tối thiểu :min ký tự",
+                'questionContent.max' => "Cần nhập câu hỏi với tối đa :max ký tự",
+
+                'answers.*.required' => "Cần nhập câu trả lời",
+                'answers.*.min' => "Cần nhập câu trả lời với tối thiểu :min ký tự",
+                'answers.*.max' => "Cần nhập câu trả lời với tối đa :max ký tự",
+            ]
+        );
+
         $this->question->content = $this->questionContent;
         $this->question->save();
 
