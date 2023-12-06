@@ -655,6 +655,8 @@ public class ClassroomController : MonoBehaviour
             Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
             {
                 uiCorrectNotice.gameObject.SetActive(true);
+                AudioController.Instance.Play("correct");
+
             });
 
             correctAnswersCount++;
@@ -667,7 +669,6 @@ public class ClassroomController : MonoBehaviour
                 animFightingMonsterPlayer.Play("run");
                 animFightingMonsterEnemy.Play("dead");
             }
-
         }
         else
         {
@@ -679,6 +680,8 @@ public class ClassroomController : MonoBehaviour
             Timer.PerformWithDelay(delayTimeShowAnswer, (e) =>
             {
                 uiWrongNotice.gameObject.SetActive(true);
+                AudioController.Instance.Play("incorrect");
+
             });
 
             playerHp--;
@@ -691,6 +694,7 @@ public class ClassroomController : MonoBehaviour
                 animFightingMonsterPlayer.Play("hurt");
                 sliderPlayerHp.value = playerHp;
             }
+
         }
 
         if (gameTypeId == 2)
