@@ -23,6 +23,8 @@ namespace LuanVan.OSA
 
         [SerializeField] private ClassroomController classroomController;
         [SerializeField] private ClassroomTopicController classroomTopicController;
+        [SerializeField] private ProfileController profileController;
+        [SerializeField] private Redirector redirector;
         [SerializeField] private UITopicModel topicModel;
 
         public UITopicModel TopicModel { get => topicModel; set => topicModel = value; }
@@ -30,6 +32,13 @@ namespace LuanVan.OSA
         public void ShowTopicComments()
         {
             classroomController.ShowTopicComments(topicModel);
+        }
+
+        public void ShowProfile()
+
+        {
+            redirector.Push("profile");
+            profileController.GetUserProfile(topicModel.UserId);
         }
 
         public void UpdateLikeButtonColor()

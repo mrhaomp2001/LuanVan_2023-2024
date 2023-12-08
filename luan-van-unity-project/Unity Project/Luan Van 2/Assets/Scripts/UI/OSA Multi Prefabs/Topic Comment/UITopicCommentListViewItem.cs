@@ -17,6 +17,8 @@ namespace LuanVan.OSA
 
         [SerializeField] private ClassroomController classroomController;
         [SerializeField] private ClassroomTopicController classroomTopicController;
+        [SerializeField] private ProfileController profileController;
+        [SerializeField] private Redirector redirector;
         [SerializeField] private UITopicCommentModel topicCommentModel;
 
         public UITopicCommentModel TopicCommentModel { get => topicCommentModel; set => topicCommentModel = value; }
@@ -35,6 +37,13 @@ namespace LuanVan.OSA
             {
                 imageLikeDown.color = colorLikeChoice;
             }
+        }
+
+        public void ShowProfile()
+        {
+            redirector.Push("profile");
+
+            profileController.GetUserProfile(topicCommentModel.UserId);
         }
 
         public void UpdateTopicCommentLikeStatus(string status)

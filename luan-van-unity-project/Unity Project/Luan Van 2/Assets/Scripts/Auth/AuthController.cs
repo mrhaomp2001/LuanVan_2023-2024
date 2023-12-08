@@ -227,6 +227,9 @@ public class AuthController : MonoBehaviour
 
         UnityWebRequest request = UnityWebRequest.Post(GlobalSetting.Endpoint + "api/register", body);
 
+        PlayerPrefs.SetString("password", inputFieldPasswordRegister.text);
+        PlayerPrefs.Save();
+
         inputFieldPasswordRegister.text = "";
         inputFieldPasswordConfirmRegister.text = "";
 
